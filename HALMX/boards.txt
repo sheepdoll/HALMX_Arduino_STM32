@@ -1,0 +1,73 @@
+# STM32 Boards
+
+
+menu.device_variant=Variant
+menu.bootloader_version=Bootloader version
+menu.upload_method=Upload method
+
+##############################################################
+MXNucleoF401.name=STM Nucleo F401RE (HALMX)
+
+MXNucleoF401.upload.tool=stlink_upload
+MXNucleoF401.upload.protocol=maple_dfu
+MXNucleoF401.upload.maximum_size=500000
+
+MXNucleoF401.upload.file_type=bin
+MXNucleoF401.upload.ram.maximum_size=97000
+MXNucleoF401.upload.flash.maximum_size=500000
+MXNucleoF401.upload.params.quiet=no
+
+MXNucleoF401.build.mcu=cortex-m4
+MXNucleoF401.build.f_cpu=84000000L
+MXNucleoF401.build.board=STM_NUCLEO_F401RE
+MXNucleoF401.build.core=mapleMX
+MXNucleoF401.build.common_flags=-mthumb  -D__STM32F4__ 
+
+MXNucleoF401.build.extra_flags=-DSTM32F401xE -DSTM32_MEDIUM_DENSITY -DSTM32F2 -DBOARD_NUCLEO_F401RE
+
+MXNucleoF401.build.ldscript=SW4STM32/MxNucleoF401 Configuration/STM32F401RETx_FLASH.ld
+MXNucleoF401.build.variant=MXNucleoF401
+MXNucleoF401.build.variant_system_lib=lib_f401.a
+
+MXNucleoF401.build.CMSISInc=STM32F4xx/Include
+MXNucleoF401.build.DRIVERS=STM32F4xx_HAL_Driver/Inc
+
+
+#MXNucleoF401.build.vect=VECT_TAB_BASE
+#MXNucleoF401.build.density=STM32_MEDIUM_DENSITY
+#MXNucleoF401.build.error_led_port=GPIOA
+#MXNucleoF401.build.error_led_pin=5
+
+##############################################################
+MXNucleoF103.name=STM Nucleo F103RB (HALMX)
+
+MXNucleoF103.upload.tool=stlink_upload
+MXNucleoF103.upload.protocol=maple_dfu
+MXNucleoF103.upload.maximum_size=108000
+
+MXNucleoF103.upload.file_type=bin
+MXNucleoF103.upload.ram.maximum_size=17000
+MXNucleoF103.upload.flash.maximum_size=108000
+MXNucleoF103.upload.params.quiet=no
+
+MXNucleoF103.build.mcu=cortex-m3
+MXNucleoF103.build.f_cpu=72000000L
+MXNucleoF103.build.board=STM_NUCLEO_F401RE
+MXNucleoF103.build.core=mapleMX
+MXNucleoF103.build.common_flags=-mthumb  -D__STM32F1__ 
+
+MXNucleoF103.build.extra_flags=-DSTM32F103xB -DSTM32_MEDIUM_DENSITY -DSTM32F2 -DBOARD_NUCLEO_F103RB
+
+MXNucleoF103.build.ldscript=SW4STM32/MXNucleoF103 Configuration/STM32F103RBTx_FLASH.ld
+MXNucleoF103.build.variant=MXNucleoF103
+MXNucleoF103.build.variant_system_lib=lib_f103.a
+
+MXNucleoF103.build.CMSISInc=STM32F1xx/Include
+MXNucleoF103.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
+
+
+#MXNucleoF103.build.vect=VECT_TAB_BASE
+#MXNucleoF103.build.density=STM32_MEDIUM_DENSITY
+#MXNucleoF103.build.error_led_port=GPIOA
+#MXNucleoF103.build.error_led_pin=5
+
