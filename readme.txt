@@ -17,6 +17,7 @@
 
 Revision History:
 19 Jume 2015 
+	Added support so MXSTM32F103CB compiles
 	Merged into fork of HALMX_Arduino_STM32
 
 15 June 2015
