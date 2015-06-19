@@ -41,30 +41,47 @@
 
 /* USER CODE END 0 */
 
-USART_HandleTypeDef husart1;
+UART_HandleTypeDef huart1;
+UART_HandleTypeDef huart3;
 
 /* USART1 init function */
-void MX_USART1_Init(void)
+
+void MX_USART1_UART_Init(void)
 {
 
-  husart1.Instance = USART1;
-  husart1.Init.BaudRate = 115200;
-  husart1.Init.WordLength = USART_WORDLENGTH_8B;
-  husart1.Init.StopBits = USART_STOPBITS_1;
-  husart1.Init.Parity = USART_PARITY_NONE;
-  husart1.Init.Mode = USART_MODE_TX_RX;
-  husart1.Init.CLKPolarity = USART_POLARITY_LOW;
-  husart1.Init.CLKPhase = USART_PHASE_1EDGE;
-  husart1.Init.CLKLastBit = USART_LASTBIT_DISABLE;
-  HAL_USART_Init(&husart1);
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  HAL_UART_Init(&huart1);
+
+}
+/* USART3 init function */
+
+void MX_USART3_UART_Init(void)
+{
+
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 9600;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  HAL_UART_Init(&huart3);
 
 }
 
-void HAL_USART_MspInit(USART_HandleTypeDef* husart)
+void HAL_UART_MspInit(UART_HandleTypeDef* huart)
 {
 
   GPIO_InitTypeDef GPIO_InitStruct;
-  if(husart->Instance==USART1)
+  if(huart->Instance==USART1)
   {
   /* USER CODE BEGIN USART1_MspInit 0 */
 
@@ -73,11 +90,10 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
     __USART1_CLK_ENABLE();
   
     /**USART1 GPIO Configuration    
-    PA8     ------> USART1_CK
     PA9     ------> USART1_TX
     PA10     ------> USART1_RX 
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
+    GPIO_InitStruct.Pin = GPIO_PIN_9;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
     GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
@@ -91,12 +107,38 @@ void HAL_USART_MspInit(USART_HandleTypeDef* husart)
 
   /* USER CODE END USART1_MspInit 1 */
   }
+  else if(huart->Instance==USART3)
+  {
+  /* USER CODE BEGIN USART3_MspInit 0 */
+
+  /* USER CODE END USART3_MspInit 0 */
+    /* Peripheral clock enable */
+    __USART3_CLK_ENABLE();
+  
+    /**USART3 GPIO Configuration    
+    PB10     ------> USART3_TX
+    PB11     ------> USART3_RX 
+    */
+    GPIO_InitStruct.Pin = GPIO_PIN_10;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_11;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* USER CODE BEGIN USART3_MspInit 1 */
+
+  /* USER CODE END USART3_MspInit 1 */
+  }
 }
 
-void HAL_USART_MspDeInit(USART_HandleTypeDef* husart)
+void HAL_UART_MspDeInit(UART_HandleTypeDef* huart)
 {
 
-  if(husart->Instance==USART1)
+  if(huart->Instance==USART1)
   {
   /* USER CODE BEGIN USART1_MspDeInit 0 */
 
@@ -105,15 +147,32 @@ void HAL_USART_MspDeInit(USART_HandleTypeDef* husart)
     __USART1_CLK_DISABLE();
   
     /**USART1 GPIO Configuration    
-    PA8     ------> USART1_CK
     PA9     ------> USART1_TX
     PA10     ------> USART1_RX 
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10);
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
 
   /* USER CODE BEGIN USART1_MspDeInit 1 */
 
   /* USER CODE END USART1_MspDeInit 1 */
+  }
+  else if(huart->Instance==USART3)
+  {
+  /* USER CODE BEGIN USART3_MspDeInit 0 */
+
+  /* USER CODE END USART3_MspDeInit 0 */
+    /* Peripheral clock disable */
+    __USART3_CLK_DISABLE();
+  
+    /**USART3 GPIO Configuration    
+    PB10     ------> USART3_TX
+    PB11     ------> USART3_RX 
+    */
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_10|GPIO_PIN_11);
+
+  /* USER CODE BEGIN USART3_MspDeInit 1 */
+
+  /* USER CODE END USART3_MspDeInit 1 */
   }
 } 
 

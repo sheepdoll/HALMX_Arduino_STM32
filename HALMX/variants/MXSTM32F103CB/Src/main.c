@@ -54,6 +54,27 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 
+/*
+ Sheepdoll from Arduino main()
+*/
+
+void init() __attribute__((weak));
+void init() { } 
+
+/*
+ Weak empty variant initialization function.
+ May be redefined by variant files.
+*/
+void initVariant() __attribute__((weak));
+void initVariant() { }
+	
+/*
+	these are the defines for the hooks
+	into the arduino system.
+*/
+void setup(void);
+void loop(void);
+
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -80,9 +101,33 @@ int main(void)
   MX_CAN_Init();
   MX_I2C1_Init();
   MX_SPI1_Init();
-  MX_USART1_Init();
+  MX_USART1_UART_Init();
+  MX_USART3_UART_Init();
 
   /* USER CODE BEGIN 2 */
+  /* these calls are from arduino main */
+
+	init();
+
+	initVariant();
+	
+	HAL_Delay(3000); 	/* Wait 3 seconds to enable a serial coms channel */
+	
+	/* 
+		Usart6 is linked to printf for diagnostic use It is also mapped to
+		alternate function pins 12 and 14.  This code is adapted from
+		the prinf demo in the STM32F401 Nucleo examples folder
+	*/
+	
+	//printf("Serial backchannel enabled.\r\n");
+  
+  	/* Arduino optionally sets up USB callback stream here 
+#if defined(USBCON)
+	USBDevice.attach();
+#endif
+	*/
+	
+	setup();
 
   /* USER CODE END 2 */
 
@@ -93,6 +138,8 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
+	loop();
+	/* Arduino callback	if (serialEventRun) serialEventRun(); */
 
   }
   /* USER CODE END 3 */

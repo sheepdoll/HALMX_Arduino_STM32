@@ -46,17 +46,17 @@ MXNucleoF103.upload.protocol=maple_dfu
 MXNucleoF103.upload.maximum_size=108000
 
 MXNucleoF103.upload.file_type=bin
-MXNucleoF103.upload.ram.maximum_size=17000
-MXNucleoF103.upload.flash.maximum_size=108000
+MXNucleoF103.upload.ram.maximum_size=20000
+MXNucleoF103.upload.flash.maximum_size=128000
 MXNucleoF103.upload.params.quiet=no
 
 MXNucleoF103.build.mcu=cortex-m3
 MXNucleoF103.build.f_cpu=72000000L
-MXNucleoF103.build.board=STM_NUCLEO_F401RE
+MXNucleoF103.build.board=STM_NUCLEO_F103RB
 MXNucleoF103.build.core=mapleMX
 MXNucleoF103.build.common_flags=-mthumb  -D__STM32F1__ 
 
-MXNucleoF103.build.extra_flags=-DSTM32F103xB -DSTM32_MEDIUM_DENSITY -DSTM32F2 -DBOARD_NUCLEO_F103RB
+MXNucleoF103.build.extra_flags=-DSTM32F103xB -DSTM32_MEDIUM_DENSITY -DSTM32F1 -DBOARD_NUCLEO_F103RB
 
 MXNucleoF103.build.ldscript=SW4STM32/MXNucleoF103 Configuration/STM32F103RBTx_FLASH.ld
 MXNucleoF103.build.variant=MXNucleoF103
@@ -70,4 +70,37 @@ MXNucleoF103.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
 #MXNucleoF103.build.density=STM32_MEDIUM_DENSITY
 #MXNucleoF103.build.error_led_port=GPIOA
 #MXNucleoF103.build.error_led_pin=5
+
+##############################################################
+MXGenericF103CB.name=Generic F103CB (HALMX)
+
+MXGenericF103CB.upload.tool=stlink_upload
+MXGenericF103CB.upload.protocol=maple_dfu
+MXGenericF103CB.upload.maximum_size=108000
+
+MXGenericF103CB.upload.file_type=bin
+MXGenericF103CB.upload.ram.maximum_size=20000
+MXGenericF103CB.upload.flash.maximum_size=128000
+MXGenericF103CB.upload.params.quiet=no
+
+MXGenericF103CB.build.mcu=cortex-m3
+MXGenericF103CB.build.f_cpu=72000000L
+MXGenericF103CB.build.board=STM_MAPLEMINI_F103CB
+MXGenericF103CB.build.core=mapleMX
+MXGenericF103CB.build.common_flags=-mthumb  -D__STM32F1__ 
+
+MXGenericF103CB.build.extra_flags=-DSTM32F103xB -DSTM32_MEDIUM_DENSITY -DSTM32F1 -DBOARD_MAPLEMINI_F103CB
+
+MXGenericF103CB.build.ldscript=SW4STM32/STM32F103CB Configuration/STM32F103CBTx_FLASH.ld
+MXGenericF103CB.build.variant=MXSTM32F103CB
+MXGenericF103CB.build.variant_system_lib=lib_f103.a
+
+MXGenericF103CB.build.CMSISInc=STM32F1xx/Include
+MXGenericF103CB.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
+
+
+#MXGenericF103CB.build.vect=VECT_TAB_BASE
+#MXGenericF103CB.build.density=STM32_MEDIUM_DENSITY
+#MXGenericF103CB.build.error_led_port=GPIOB
+#MXGenericF103CB.build.error_led_pin=1
 
