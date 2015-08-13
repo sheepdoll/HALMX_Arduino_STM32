@@ -1,0 +1,3 @@
+#!/bin/bash
+# run the STM32CubeMX
+/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java -jar /Applications/STMicroelectronics/STM32Cube/STM32CubeMX/STM32CubeMX.exe
