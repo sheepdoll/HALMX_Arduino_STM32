@@ -1,0 +1,35 @@
+This distribution is intended to support STM32CubeMX under mac OS X.
+
+As of CubeMX versions 4.9.0  The installer SetupSTM32CubeMX-4.9.0.exe can be run from the java dev kit using the -jar option.
+
+First install a recent copy of java.  At the time of this installation tutorial it is jdk-8u45-macosx-x64.dmg.  
+
+from the ST website locate and download SetupSTM32CubeMX-4.9.0.zip which should produce SetupSTM32CubeMX-4.9.0.exe.  If installing a version newer than 4.9.0 note the revision number and change the examples in the text below. 
+
+I like to install from the downloads path through drag and drop into a terminal window. If using a different download path or installer version change the appropriate sections below.  Replace /Users<<$HOME>> with the user directory of the account in use. This should be the same as the '~' shortcut.  As the example paths in this tutorial were created by drag and drop from the finder, onto the terminal window, the full path is included in the following command examples.
+
+ 
+$ sudo /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java -jar /Users/<<$HOME>>/Downloads/SetupSTM32CubeMX-4.9.0.exe
+
+[sudo is required as this will install into the application directory.
+
+Note that the java jdk was run direct through drag and drop onto the terminal rather than from a PATH$  OS X tends to default to older java versions.]
+
+if all goes well the app can be run from the following script STM32CubeMX included in this distribution.  
+
+#!/bin/bash
+# run the STM32CubeMX
+/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin/java -jar /Applications/STMicroelectronics/STM32Cube/STM32CubeMX/STM32CubeMX.exe
+
+This should launch terminal and run the CubeMX app.  As CubeMX is still betaware, there is a diagnostic log written into the terminal window.   There are bugs.  (notably one can not change the pin settings. from the Configuration menu. due to a null exception.) 
+
+On first launch the CubeMX app creates a directory in the /Users<<$HOME>> folder called STM32Cube/Repository  this is where the SDK downloads and documentation are stored.   It will be necessary to download the needed SDK Libraries from the CubeMX help menu. CubeMX can also download documentation, which is stored in this folder. 
+
+STM32CubeMX is a powerful complex app.  It is recommended to visit the documentation pages on the ST website and watch the tutorial videos.  
+
+The Readme_setup.txt in the variants folder gives instruction on adding new CubeMX platforms to this distribution. 
+
+
+Disclaimer.  I have no affiliation with ST other than as a consumer.  These instructions are for educational use only and not warranted to work or be of general use.  Installing apps through direct download, can and may damage ones computing devices and should only be done with full understanding of the recommended software installers. 
+
+

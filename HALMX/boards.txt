@@ -10,7 +10,7 @@ MXNucleoF401.name=STM Nucleo F401RE (HALMX)
 
 MXNucleoF401.upload.tool=stlink_upload
 MXNucleoF401.upload.protocol=maple_dfu
-MXNucleoF401.upload.maximum_size=500000
+MXNucleoF401.upload.maximum_size=480000
 
 MXNucleoF401.upload.file_type=bin
 MXNucleoF401.upload.ram.maximum_size=97000
@@ -70,6 +70,72 @@ MXNucleoF103.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
 #MXNucleoF103.build.density=STM32_MEDIUM_DENSITY
 #MXNucleoF103.build.error_led_port=GPIOA
 #MXNucleoF103.build.error_led_pin=5
+
+##############################################################
+MXDiscoF429I.name=STM Discovery F429I (HALMX)
+
+MXDiscoF429I.upload.tool=stlink_upload
+MXDiscoF429I.upload.protocol=maple_dfu
+MXDiscoF429I.upload.maximum_size=2028000
+
+MXDiscoF429I.upload.file_type=bin
+MXDiscoF429I.upload.ram.maximum_size=192000
+MXDiscoF429I.upload.flash.maximum_size=2048000
+MXDiscoF429I.upload.params.quiet=no
+
+MXDiscoF429I.build.mcu=cortex-m4
+MXDiscoF429I.build.f_cpu=168000000L
+MXDiscoF429I.build.board=STM_NUCLEO_F401RE
+MXDiscoF429I.build.core=mapleMX
+MXDiscoF429I.build.common_flags=-mthumb  -D__STM32F4__ 
+
+MXDiscoF429I.build.extra_flags=-DSTM32F429xx -DSTM32_MEDIUM_DENSITY -DSTM32F4 -DBOARD_DISCO_F429I
+
+MXDiscoF429I.build.ldscript=SW4STM32/MXDiscoF429I Configuration/STM32F429ZITx_FLASH.ld
+MXDiscoF429I.build.variant=MXDiscoF429I
+MXDiscoF429I.build.variant_system_lib=lib_f429.a
+
+MXDiscoF429I.build.CMSISInc=STM32F4xx/Include
+MXDiscoF429I.build.DRIVERS=STM32F4xx_HAL_Driver/Inc
+
+
+#MXDiscoF429I.build.vect=VECT_TAB_BASE
+#MXDiscoF429I.build.density=STM32_MEDIUM_DENSITY
+#MXDiscoF429I.build.error_led_port=GPIOG
+#MXDiscoF429I.build.error_led_pin=14
+
+##############################################################
+MXDiscoF051R8.name=STM Discovery F0 (HALMX)
+
+MXDiscoF051R8.upload.tool=stlink_upload
+MXDiscoF051R8.upload.protocol=maple_dfu
+MXDiscoF051R8.upload.maximum_size=44000
+
+MXDiscoF051R8.upload.file_type=bin
+MXDiscoF051R8.upload.ram.maximum_size=8000
+MXDiscoF051R8.upload.flash.maximum_size=64000
+MXDiscoF051R8.upload.params.quiet=no
+
+MXDiscoF051R8.build.mcu=cortex-m0
+MXDiscoF051R8.build.f_cpu=48000000L
+MXDiscoF051R8.build.board=STM_DISCO_F0
+MXDiscoF051R8.build.core=mapleMX
+MXDiscoF051R8.build.common_flags=-mthumb  -D__STM32F0__ 
+
+MXDiscoF051R8.build.extra_flags=-DSTM32F051x8 -DSTM32_MEDIUM_DENSITY -DSTM32F0 -DBOARD_DISCO_F0
+
+MXDiscoF051R8.build.ldscript=SW4STM32/MXDiscoF051R8 Configuration/STM32F051R8Tx_FLASH.ld
+MXDiscoF051R8.build.variant=MXDiscoF051R8
+MXDiscoF051R8.build.variant_system_lib=lib_f0.a
+
+MXDiscoF051R8.build.CMSISInc=STM32F0xx/Include
+MXDiscoF051R8.build.DRIVERS=STM32F0xx_HAL_Driver/Inc
+
+
+#MXDiscoF051R8.build.vect=VECT_TAB_BASE
+#MXDiscoF051R8.build.density=STM32_MEDIUM_DENSITY
+#MXDiscoF051R8.build.error_led_port=GPIOC
+#MXDiscoF051R8.build.error_led_pin=8
 
 ##############################################################
 MXGenericF103CB.name=Generic F103CB (HALMX)
