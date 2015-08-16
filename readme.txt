@@ -16,30 +16,33 @@
 /*
 	Background philosophy.
 
-	HALMX is a variation of Arduino_STM32.  The focus is to allow for the STM32CubeMX
-	tool to automatically configure IO on STM32 devices.  This is a fork of the Maple
- 	library project maintained under Arduino_STM32.  It differs in that all low level
- 	calls are handled by HAL rather than the maple Libs.
+	HALMX is a variation of Arduino_STM32.  The focus is to allow for the 
+	STM32CubeMX tool to automatically configure IO on STM32 devices.  This is a
+	fork of the Maple library project maintained under Arduino_STM32.  It differs
+	in that all low level calls are handled by HAL rather than the maple Libs.
 
-	The Arduino Core is kept closer to the public distribution currently on Arduino.cc
+	The Arduino Core is kept closer to the public distribution currently on
+	Arduino.cc
+	
 	This way any STM core can be quickly evaluated with only changes to the
 	variant.cpp file and pin mapping tables.
 
-	For more information setting up STM32CubeMx and creating new ST platform variants
- 	see Readme_setup.txt and CubeMX_installation.txt.
+	For more information setting up STM32CubeMx and creating new ST platform
+	variants see Readme_setup.txt and CubeMX_installation.txt.
 
 	The philosophy of this distribution is to float the Arduino libraries on top of
 	The Hardware Abstraction Layer (HAL)  Configuration is done through the CubeMX
 	Tool.  
 
-	It is possible to bypass the Arduino Core directly and call the HAL abstractions
-	From inside the sketch. See the HAL_Direct exampled for how this is done.
+	It is possible to bypass the Arduino Core directly and call the HAL 
+	abstractions from inside the sketch. See the HAL_Direct examples for how this
+	is done.
 
 	One major difference is that configuration normally done in setup() are handled
-	inside of main.c These are set by the CubeMX tool.  This way serial baud rates are
-	not directly settable in the sketch. The call to the serialx.begin constructor is
-	still required to connect the HAL structures to the Arduino Core stream 
-	structures. This is done before setup() is called. 
+	inside of main.c These are set by the CubeMX tool.  This way serial baud rates 
+	are not directly settable in the sketch. The call to the serialx.begin 
+	constructor is still required to connect the HAL structures to the Arduino Core
+	stream structures. This is done before setup() is called. 
 
 	See the section /* USER CODE BEGIN 2 */ inside main.c to see how initVariant() 
 	and setup() are called. Each platform has it's own main.c inside the 
@@ -53,8 +56,8 @@
 	the need to write additional code that would normally appear inside
 	the setup() callback.   
 
-	This is a work in progress with only serial stream through the STlink backchannel
-	and digital write partly tested.  
+	This is a work in progress with only serial stream through the STlink 
+	backchannel and digital write partly tested.  
 
 	Areas that currently need work are:
 	Timer interrups for microsecond delays.
