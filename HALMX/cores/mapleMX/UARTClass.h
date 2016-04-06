@@ -68,6 +68,8 @@ class UARTClass : public HardwareSerial
     uint32_t getInterruptPriority();
 
     void IrqHandler(void);
+    void RxHandler(void); /* Vassilis Serasidis */
+    void TxHandler(void); /* Vassilis Serasidis */
 
     operator bool() { return true; }; // UART always active
 
@@ -79,7 +81,7 @@ class UARTClass : public HardwareSerial
 
     UART_HandleTypeDef* _pUart;
     IRQn_Type _dwIrq;
-	uint32_t _dwId;
+    uint32_t _dwId;
 
 };
 
