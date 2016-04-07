@@ -75,11 +75,13 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
   _pUart->Init.Mode = UART_MODE_TX_RX;
   _pUart->Init.HwFlowCtl = UART_HWCONTROL_NONE;
   _pUart->Init.OverSampling = UART_OVERSAMPLING_16;
+
+#ifdef STM32F0
   _pUart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE;
   _pUart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT|UART_ADVFEATURE_DMADISABLEONERROR_INIT;
   _pUart->AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
   _pUart->AdvancedInit.DMADisableonRxError = UART_ADVFEATURE_DMA_DISABLEONRXERROR;  
-
+#endif
   // Configure interrupts
 
 
