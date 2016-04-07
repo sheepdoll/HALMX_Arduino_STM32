@@ -21,7 +21,12 @@
 #include <string.h>
 #include "UARTClass.h"
 
-
+//extern UART_HandleTypeDef huart1;
+//extern UART_HandleTypeDef _pUart;
+//
+uint8_t r_byte;
+uint8_t temp;
+//int8_t r_byte3;
 // Constructors ////////////////////////////////////////////////////////////////
 
 UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer )
@@ -43,8 +48,9 @@ void UARTClass::begin(const uint32_t dwBaudRate)
 
 void UARTClass::begin(const uint32_t dwBaudRate, const UARTModes config)
 {
-//  init(dwBaudRate, modeReg | UART_MR_CHMODE_NORMAL);
-}
+  uint32_t modeReg = 0;//static_cast<uint32_t>(config) & 0x00000E00;
+  init(dwBaudRate, modeReg);  
+} 
 
 void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
 {
@@ -58,21 +64,38 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
 
   // Configure mode
 
-
-  // Configure baudrate (asynchronous, no oversampling)
+  /** Configure baudrate (asynchronous, no oversampling)
+   *  02 March 2016 by Vassilis Serasidis
+   */
+  _pUart->Instance = USART1;
+  _pUart->Init.BaudRate = dwBaudRate;
+  _pUart->Init.WordLength = UART_WORDLENGTH_8B;
+  _pUart->Init.StopBits = UART_STOPBITS_1;
+  _pUart->Init.Parity = UART_PARITY_NONE;
+  _pUart->Init.Mode = UART_MODE_TX_RX;
+  _pUart->Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  _pUart->Init.OverSampling = UART_OVERSAMPLING_16;
+  _pUart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE;
+  _pUart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT|UART_ADVFEATURE_DMADISABLEONERROR_INIT;
+  _pUart->AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
+  _pUart->AdvancedInit.DMADisableonRxError = UART_ADVFEATURE_DMA_DISABLEONRXERROR;  
 
   // Configure interrupts
 
 
   // Enable UART interrupt in NVIC  when we have enough info for bridge
-//  NVIC_EnableIRQ(_dwIrq);
+  NVIC_EnableIRQ(_dwIrq);
 
   // Make sure both ring buffers are initialized back to empty.
   _rx_buffer->_iHead = _rx_buffer->_iTail = 0;
   _tx_buffer->_iHead = _tx_buffer->_iTail = 0;
 
-  // Enable receiver and transmitter
-
+  /** Enable receiver and transmitter
+   *  02 March 2016 by Vassilis Serasidis
+   */
+  HAL_UART_Init(_pUart);
+  
+  HAL_UART_Receive_IT(_pUart, (uint8_t *)&r_byte, 1);
 }
 
 void UARTClass::end( void )
@@ -84,19 +107,18 @@ void UARTClass::end( void )
   flush();
 
   // Disable UART interrupt in NVIC
-//  NVIC_DisableIRQ( _dwIrq );
+  NVIC_DisableIRQ( _dwIrq );
 
- }
+}
 
-void UARTClass::setInterruptPriority(uint32_t priority)
+/* void UARTClass::setInterruptPriority(uint32_t priority)
 {
 //  NVIC_SetPriority(_dwIrq, priority & 0x0F);
-}
+} */
 
 uint32_t UARTClass::getInterruptPriority()
 {
-//  return NVIC_GetPriority(_dwIrq);
-	return 0; 
+  return NVIC_GetPriority(_dwIrq);
 }
 
 int UARTClass::available( void )
@@ -134,9 +156,7 @@ int UARTClass::read( void )
 void UARTClass::flush( void )
 {
   while (_tx_buffer->_iHead != _tx_buffer->_iTail); //wait for transmit data to be sent
-
   // Wait for transmission to complete
-
 
 }
 
@@ -163,39 +183,31 @@ size_t UARTClass::write( const uint8_t uc_data )
 
   }
 #endif
-  HAL_UART_Transmit(_pUart, (uint8_t *)&uc_data, 1, 0xFFFF); 
+  while (HAL_UART_Transmit_IT(_pUart, (uint8_t *)&uc_data, 1) == HAL_BUSY); //Wait here if serial bus is busy.
+  HAL_UART_Transmit_IT(_pUart, (uint8_t *)&uc_data, 1);
+  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1); //Toggle the state of pin PA1. Just for debuging purpose.
   return 1;
+}
+
+/************************************************
+ * 02 March 2016 by Vassilis Serasidis
+ */
+void UARTClass::RxHandler (void){
+  if(availableForWrite() > 0){ //If there is empty space in rx_buffer, read a byte from the Serial port and save it to the buffer.
+    _rx_buffer->store_char(r_byte);
+    HAL_UART_Receive_IT(_pUart, (uint8_t *)&r_byte, 1);
+  }
+}
+
+/************************************************
+ * 02 March 2016 by Vassilis Serasidis
+ */
+void UARTClass::TxHandler(void){
+  
 }
 
 void UARTClass::IrqHandler( void )
 {
-#if 0
-  uint32_t status = _pUart->UART_SR;
 
-  // Did we receive data?
-  if ((status & UART_SR_RXRDY) == UART_SR_RXRDY)
-    _rx_buffer->store_char(_pUart->UART_RHR);
-
-  // Do we need to keep sending data?
-  if ((status & UART_SR_TXRDY) == UART_SR_TXRDY) 
-  {
-    if (_tx_buffer->_iTail != _tx_buffer->_iHead) {
-      _pUart->UART_THR = _tx_buffer->_aucBuffer[_tx_buffer->_iTail];
-      _tx_buffer->_iTail = (unsigned int)(_tx_buffer->_iTail + 1) % SERIAL_BUFFER_SIZE;
-    }
-    else
-    {
-      // Mask off transmit interrupt so we don't get it anymore
-      _pUart->UART_IDR = UART_IDR_TXRDY;
-    }
-  }
-
-  // Acknowledge errors
-  if ((status & UART_SR_OVRE) == UART_SR_OVRE || (status & UART_SR_FRAME) == UART_SR_FRAME)
-  {
-    // TODO: error reporting outside ISR
-    _pUart->UART_CR |= UART_CR_RSTSTA;
-  }
-#endif
 }
 
