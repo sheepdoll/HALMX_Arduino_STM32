@@ -1,0 +1,167 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"RingBuffer.cpp"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text._ZN10RingBufferC2Ev,"ax",%progbits
+  19              		.align	1
+  20              		.global	_ZN10RingBufferC2Ev
+  21              		.thumb
+  22              		.thumb_func
+  24              	_ZN10RingBufferC2Ev:
+  25              	.LFB1:
+  26              		.file 1 "../../cores/mapleMX/RingBuffer.cpp"
+   1:../../cores/mapleMX/RingBuffer.cpp **** /*
+   2:../../cores/mapleMX/RingBuffer.cpp ****   Copyright (c) 2011 Arduino.  All right reserved.
+   3:../../cores/mapleMX/RingBuffer.cpp **** 
+   4:../../cores/mapleMX/RingBuffer.cpp ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/RingBuffer.cpp ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/RingBuffer.cpp ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/RingBuffer.cpp ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/RingBuffer.cpp **** 
+   9:../../cores/mapleMX/RingBuffer.cpp ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/RingBuffer.cpp ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/RingBuffer.cpp ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  12:../../cores/mapleMX/RingBuffer.cpp ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/RingBuffer.cpp **** 
+  14:../../cores/mapleMX/RingBuffer.cpp ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/RingBuffer.cpp ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/RingBuffer.cpp ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/RingBuffer.cpp **** */
+  18:../../cores/mapleMX/RingBuffer.cpp **** 
+  19:../../cores/mapleMX/RingBuffer.cpp **** #include "RingBuffer.h"
+  20:../../cores/mapleMX/RingBuffer.cpp **** #include <string.h>
+  21:../../cores/mapleMX/RingBuffer.cpp **** 
+  22:../../cores/mapleMX/RingBuffer.cpp **** RingBuffer::RingBuffer( void )
+  27              		.loc 1 22 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  36              	.LBB2:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s 			page 2
+
+
+  23:../../cores/mapleMX/RingBuffer.cpp **** {
+  24:../../cores/mapleMX/RingBuffer.cpp ****     memset( (void *)_aucBuffer, 0, SERIAL_BUFFER_SIZE ) ;
+  37              		.loc 1 24 0
+  38 0002 0021     		movs	r1, #0
+  39              	.LBE2:
+  22:../../cores/mapleMX/RingBuffer.cpp **** RingBuffer::RingBuffer( void )
+  40              		.loc 1 22 0
+  41 0004 0446     		mov	r4, r0
+  42              	.LBB3:
+  43              		.loc 1 24 0
+  44 0006 8022     		movs	r2, #128
+  45 0008 FFF7FEFF 		bl	memset
+  46              	.LVL1:
+  25:../../cores/mapleMX/RingBuffer.cpp ****     _iHead=0 ;
+  47              		.loc 1 25 0
+  48 000c 0023     		movs	r3, #0
+  49 000e C4F88030 		str	r3, [r4, #128]
+  50              	.LBE3:
+  26:../../cores/mapleMX/RingBuffer.cpp ****     _iTail=0 ;
+  27:../../cores/mapleMX/RingBuffer.cpp **** }
+  51              		.loc 1 27 0
+  52 0012 2046     		mov	r0, r4
+  53              	.LBB4:
+  26:../../cores/mapleMX/RingBuffer.cpp ****     _iTail=0 ;
+  54              		.loc 1 26 0
+  55 0014 C4F88430 		str	r3, [r4, #132]
+  56              	.LBE4:
+  57              		.loc 1 27 0
+  58 0018 10BD     		pop	{r4, pc}
+  59              		.cfi_endproc
+  60              	.LFE1:
+  62              		.global	_ZN10RingBufferC1Ev
+  63              		.thumb_set _ZN10RingBufferC1Ev,_ZN10RingBufferC2Ev
+  64              		.section	.text._ZN10RingBuffer10store_charEh,"ax",%progbits
+  65              		.align	1
+  66              		.global	_ZN10RingBuffer10store_charEh
+  67              		.thumb
+  68              		.thumb_func
+  70              	_ZN10RingBuffer10store_charEh:
+  71              	.LFB3:
+  28:../../cores/mapleMX/RingBuffer.cpp **** 
+  29:../../cores/mapleMX/RingBuffer.cpp **** void RingBuffer::store_char( uint8_t c )
+  30:../../cores/mapleMX/RingBuffer.cpp **** {
+  72              		.loc 1 30 0
+  73              		.cfi_startproc
+  74              		@ args = 0, pretend = 0, frame = 0
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76              		@ link register save eliminated.
+  77              	.LVL2:
+  78              	.LBB5:
+  31:../../cores/mapleMX/RingBuffer.cpp ****   int i = (uint32_t)(_iHead + 1) % SERIAL_BUFFER_SIZE ;
+  79              		.loc 1 31 0
+  80 0000 D0F88030 		ldr	r3, [r0, #128]
+  32:../../cores/mapleMX/RingBuffer.cpp **** 
+  33:../../cores/mapleMX/RingBuffer.cpp ****   // if we should be storing the received character into the location
+  34:../../cores/mapleMX/RingBuffer.cpp ****   // just before the tail (meaning that the head would advance to the
+  35:../../cores/mapleMX/RingBuffer.cpp ****   // current location of the tail), we're about to overflow the buffer
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s 			page 3
+
+
+  36:../../cores/mapleMX/RingBuffer.cpp ****   // and so we don't write the character or advance the head.
+  37:../../cores/mapleMX/RingBuffer.cpp ****   if ( i != _iTail )
+  81              		.loc 1 37 0
+  82 0004 D0F88420 		ldr	r2, [r0, #132]
+  31:../../cores/mapleMX/RingBuffer.cpp ****   int i = (uint32_t)(_iHead + 1) % SERIAL_BUFFER_SIZE ;
+  83              		.loc 1 31 0
+  84 0008 0133     		adds	r3, r3, #1
+  85 000a 03F07F03 		and	r3, r3, #127
+  86              	.LVL3:
+  87              		.loc 1 37 0
+  88 000e 9342     		cmp	r3, r2
+  89 0010 04D0     		beq	.L2
+  38:../../cores/mapleMX/RingBuffer.cpp ****   {
+  39:../../cores/mapleMX/RingBuffer.cpp ****     _aucBuffer[_iHead] = c ;
+  90              		.loc 1 39 0
+  91 0012 D0F88020 		ldr	r2, [r0, #128]
+  92 0016 8154     		strb	r1, [r0, r2]
+  40:../../cores/mapleMX/RingBuffer.cpp ****     _iHead = i ;
+  93              		.loc 1 40 0
+  94 0018 C0F88030 		str	r3, [r0, #128]
+  95              	.L2:
+  96 001c 7047     		bx	lr
+  97              	.LBE5:
+  98              		.cfi_endproc
+  99              	.LFE3:
+ 101              		.text
+ 102              	.Letext0:
+ 103              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 104              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 105              		.file 4 "../../cores/mapleMX/RingBuffer.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 RingBuffer.cpp
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s:19     .text._ZN10RingBufferC2Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s:24     .text._ZN10RingBufferC2Ev:0000000000000000 _ZN10RingBufferC2Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s:24     .text._ZN10RingBufferC2Ev:0000000000000000 _ZN10RingBufferC1Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s:65     .text._ZN10RingBuffer10store_charEh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccIAzl0O.s:70     .text._ZN10RingBuffer10store_charEh:0000000000000000 _ZN10RingBuffer10store_charEh
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+memset

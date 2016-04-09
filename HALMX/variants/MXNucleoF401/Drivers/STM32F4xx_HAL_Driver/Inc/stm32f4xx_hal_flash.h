@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_hal_flash.h
   * @author  MCD Application Team
-  * @version V1.3.0
-  * @date    09-March-2015
+  * @version V1.4.3
+  * @date    11-December-2015
   * @brief   Header file of FLASH HAL module.
   ******************************************************************************
   * @attention
@@ -187,11 +187,18 @@ typedef struct
   */
 /**
   * @brief  Set the FLASH Latency.
-  * @param  __LATENCY__: FLASH Latency                   
+  * @param  __LATENCY__: FLASH Latency
   *         The value of this parameter depend on device used within the same series
   * @retval none
   */ 
 #define __HAL_FLASH_SET_LATENCY(__LATENCY__) (*(__IO uint8_t *)ACR_BYTE0_ADDRESS = (uint8_t)(__LATENCY__))
+
+/**
+  * @brief  Get the FLASH Latency.
+  * @retval FLASH Latency
+  *          The value of this parameter depend on device used within the same series
+  */ 
+#define __HAL_FLASH_GET_LATENCY()     (READ_BIT((FLASH->ACR), FLASH_ACR_LATENCY))
 
 /**
   * @brief  Enable the FLASH prefetch buffer.
@@ -280,7 +287,7 @@ typedef struct
   *            @arg FLASH_FLAG_BSY   : FLASH Busy flag
   * @retval The new state of __FLAG__ (SET or RESET).
   */
-#define __HAL_FLASH_GET_FLAG(__FLAG__)   ((FLASH->SR & (__FLAG__)))
+#define __HAL_FLASH_GET_FLAG(__FLAG__)   ((FLASH->SR & (__FLAG__))==(__FLAG__))
 
 /**
   * @brief  Clear the specified FLASH flag.

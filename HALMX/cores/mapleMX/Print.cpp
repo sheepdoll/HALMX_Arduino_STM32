@@ -255,3 +255,5 @@ size_t Print::printFloat(double number, uint8_t digits)
   
   return n;
 }
+
+Print::~Print() {};

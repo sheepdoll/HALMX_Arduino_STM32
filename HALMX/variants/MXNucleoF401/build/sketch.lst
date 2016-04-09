@@ -1,0 +1,126 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"sketch.cpp"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.setup,"ax",%progbits
+  19              		.align	1
+  20              		.global	setup
+  21              		.thumb
+  22              		.thumb_func
+  24              	setup:
+  25              	.LFB211:
+  26              		.file 1 "sketch.cpp"
+   1:sketch.cpp    **** #include "Arduino.h"
+   2:sketch.cpp    **** 
+   3:sketch.cpp    **** /*
+   4:sketch.cpp    ****  Blink: Turns on the built-in LED on for one second, then off for one second, repeatedly.
+   5:sketch.cpp    ****  Arduino 1.6.0rc1
+   6:sketch.cpp    ****    Sketch uses 11,900 bytes (11%) of program storage space. Maximum is 108,000 bytes.
+   7:sketch.cpp    ****    Global variables use 2,592 bytes of dynamic memory.
+   8:sketch.cpp    ****  Ported to Maple from the Arduino example 27 May 2011 By Marti Bolivar
+   9:sketch.cpp    **** */
+  10:sketch.cpp    **** 
+  11:sketch.cpp    **** void setup() {
+  27              		.loc 1 11 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  12:sketch.cpp    ****     // Set up the built-in LED pin as an output:
+  13:sketch.cpp    ****     pinMode(PA5, OUTPUT);
+  32              		.loc 1 13 0
+  33 0000 0D20     		movs	r0, #13
+  34 0002 0121     		movs	r1, #1
+  35 0004 FFF7FEBF 		b	pinMode
+  36              	.LVL0:
+  37              		.cfi_endproc
+  38              	.LFE211:
+  40              		.section	.text.loop,"ax",%progbits
+  41              		.align	1
+  42              		.global	loop
+  43              		.thumb
+  44              		.thumb_func
+  46              	loop:
+  47              	.LFB212:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 2
+
+
+  14:sketch.cpp    **** }
+  15:sketch.cpp    **** 
+  16:sketch.cpp    **** void loop() {
+  48              		.loc 1 16 0
+  49              		.cfi_startproc
+  50              		@ args = 0, pretend = 0, frame = 0
+  51              		@ frame_needed = 0, uses_anonymous_args = 0
+  52 0000 08B5     		push	{r3, lr}
+  53              		.cfi_def_cfa_offset 8
+  54              		.cfi_offset 3, -8
+  55              		.cfi_offset 14, -4
+  17:sketch.cpp    ****  digitalWrite(PA5, HIGH);   // turn the LED on (HIGH is the voltage level)
+  56              		.loc 1 17 0
+  57 0002 0121     		movs	r1, #1
+  58 0004 0D20     		movs	r0, #13
+  59 0006 FFF7FEFF 		bl	digitalWrite
+  60              	.LVL1:
+  18:sketch.cpp    ****   delay(380);              // wait for a second
+  61              		.loc 1 18 0
+  62 000a 4FF4BE70 		mov	r0, #380
+  63 000e FFF7FEFF 		bl	HAL_Delay
+  64              	.LVL2:
+  19:sketch.cpp    ****   digitalWrite(PA5, LOW);    // turn the LED off by making the voltage LOW
+  65              		.loc 1 19 0
+  66 0012 0D20     		movs	r0, #13
+  67 0014 0021     		movs	r1, #0
+  68 0016 FFF7FEFF 		bl	digitalWrite
+  69              	.LVL3:
+  20:sketch.cpp    ****   delay(768);              // wait for a second
+  70              		.loc 1 20 0
+  71 001a 4FF44070 		mov	r0, #768
+  21:sketch.cpp    **** }
+  72              		.loc 1 21 0
+  73 001e BDE80840 		pop	{r3, lr}
+  20:sketch.cpp    ****   delay(768);              // wait for a second
+  74              		.loc 1 20 0
+  75 0022 FFF7FEBF 		b	HAL_Delay
+  76              	.LVL4:
+  77              		.cfi_endproc
+  78              	.LFE212:
+  80              		.text
+  81              	.Letext0:
+  82              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+  83              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+  84              		.file 4 "../../cores/mapleMX/wiring_digital.h"
+  85              		.file 5 "./variant.h"
+  86              		.file 6 "Drivers/CMSIS/Include/core_cm4.h"
+  87              		.file 7 "../../cores/mapleMX/wiring.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sketch.cpp
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:19     .text.setup:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:24     .text.setup:0000000000000000 setup
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:41     .text.loop:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:46     .text.loop:0000000000000000 loop
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+pinMode
+digitalWrite
+HAL_Delay

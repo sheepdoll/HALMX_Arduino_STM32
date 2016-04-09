@@ -1,0 +1,266 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"wiring_shift.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.shiftIn,"ax",%progbits
+  19              		.align	1
+  20              		.global	shiftIn
+  21              		.thumb
+  22              		.thumb_func
+  24              	shiftIn:
+  25              	.LFB126:
+  26              		.file 1 "../../cores/mapleMX/wiring_shift.c"
+   1:../../cores/mapleMX/wiring_shift.c **** /*
+   2:../../cores/mapleMX/wiring_shift.c ****   Copyright (c) 2011 Arduino.  All right reserved.
+   3:../../cores/mapleMX/wiring_shift.c **** 
+   4:../../cores/mapleMX/wiring_shift.c ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/wiring_shift.c ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/wiring_shift.c ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/wiring_shift.c ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/wiring_shift.c **** 
+   9:../../cores/mapleMX/wiring_shift.c ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/wiring_shift.c ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/wiring_shift.c ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  12:../../cores/mapleMX/wiring_shift.c ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/wiring_shift.c **** 
+  14:../../cores/mapleMX/wiring_shift.c ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/wiring_shift.c ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/wiring_shift.c ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/wiring_shift.c **** */
+  18:../../cores/mapleMX/wiring_shift.c **** 
+  19:../../cores/mapleMX/wiring_shift.c **** #include "Arduino.h"
+  20:../../cores/mapleMX/wiring_shift.c **** 
+  21:../../cores/mapleMX/wiring_shift.c **** #ifdef __cplusplus
+  22:../../cores/mapleMX/wiring_shift.c **** extern "C"{
+  23:../../cores/mapleMX/wiring_shift.c **** #endif
+  24:../../cores/mapleMX/wiring_shift.c **** 
+  25:../../cores/mapleMX/wiring_shift.c **** uint32_t shiftIn( uint32_t ulDataPin, uint32_t ulClockPin, uint32_t ulBitOrder )
+  26:../../cores/mapleMX/wiring_shift.c **** {
+  27              		.loc 1 26 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s 			page 2
+
+
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 24
+  35              		.cfi_offset 4, -24
+  36              		.cfi_offset 5, -20
+  37              		.cfi_offset 6, -16
+  38              		.cfi_offset 7, -12
+  39              		.cfi_offset 8, -8
+  40              		.cfi_offset 14, -4
+  41              		.loc 1 26 0
+  42 0004 0746     		mov	r7, r0
+  43 0006 0E46     		mov	r6, r1
+  44 0008 9046     		mov	r8, r2
+  45 000a 0725     		movs	r5, #7
+  27:../../cores/mapleMX/wiring_shift.c **** 	uint8_t value = 0 ;
+  46              		.loc 1 27 0
+  47 000c 0024     		movs	r4, #0
+  48              	.LVL1:
+  49              	.L5:
+  28:../../cores/mapleMX/wiring_shift.c **** 	uint8_t i ;
+  29:../../cores/mapleMX/wiring_shift.c **** 
+  30:../../cores/mapleMX/wiring_shift.c **** 	for ( i=0 ; i < 8 ; ++i )
+  31:../../cores/mapleMX/wiring_shift.c ****     {
+  32:../../cores/mapleMX/wiring_shift.c **** 		digitalWrite( ulClockPin, HIGH ) ;
+  50              		.loc 1 32 0
+  51 000e 3046     		mov	r0, r6
+  52 0010 0121     		movs	r1, #1
+  53 0012 FFF7FEFF 		bl	digitalWrite
+  54              	.LVL2:
+  33:../../cores/mapleMX/wiring_shift.c **** 
+  34:../../cores/mapleMX/wiring_shift.c **** 		if ( ulBitOrder == LSBFIRST )
+  35:../../cores/mapleMX/wiring_shift.c ****         {
+  36:../../cores/mapleMX/wiring_shift.c **** 			value |= digitalRead( ulDataPin ) << i ;
+  55              		.loc 1 36 0
+  56 0016 3846     		mov	r0, r7
+  34:../../cores/mapleMX/wiring_shift.c **** 		if ( ulBitOrder == LSBFIRST )
+  57              		.loc 1 34 0
+  58 0018 B8F1000F 		cmp	r8, #0
+  59 001c 05D1     		bne	.L2
+  60              	.LVL3:
+  61              		.loc 1 36 0
+  62 001e FFF7FEFF 		bl	digitalRead
+  63              	.LVL4:
+  64 0022 C5F10703 		rsb	r3, r5, #7
+  65 0026 9840     		lsls	r0, r0, r3
+  66 0028 02E0     		b	.L6
+  67              	.LVL5:
+  68              	.L2:
+  37:../../cores/mapleMX/wiring_shift.c ****         }
+  38:../../cores/mapleMX/wiring_shift.c **** 		else
+  39:../../cores/mapleMX/wiring_shift.c ****         {
+  40:../../cores/mapleMX/wiring_shift.c **** 			value |= digitalRead( ulDataPin ) << (7 - i) ;
+  69              		.loc 1 40 0
+  70 002a FFF7FEFF 		bl	digitalRead
+  71              	.LVL6:
+  72 002e A840     		lsls	r0, r0, r5
+  73              	.L6:
+  74 0030 0443     		orrs	r4, r4, r0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s 			page 3
+
+
+  75              	.LVL7:
+  41:../../cores/mapleMX/wiring_shift.c ****         }
+  42:../../cores/mapleMX/wiring_shift.c **** 
+  43:../../cores/mapleMX/wiring_shift.c **** 		digitalWrite( ulClockPin, LOW ) ;
+  76              		.loc 1 43 0
+  77 0032 0021     		movs	r1, #0
+  78 0034 3046     		mov	r0, r6
+  79 0036 FFF7FEFF 		bl	digitalWrite
+  80              	.LVL8:
+  30:../../cores/mapleMX/wiring_shift.c **** 	for ( i=0 ; i < 8 ; ++i )
+  81              		.loc 1 30 0
+  82 003a 15F1FF35 		adds	r5, r5, #-1
+  83              	.LVL9:
+  40:../../cores/mapleMX/wiring_shift.c **** 			value |= digitalRead( ulDataPin ) << (7 - i) ;
+  84              		.loc 1 40 0
+  85 003e E4B2     		uxtb	r4, r4
+  86              	.LVL10:
+  30:../../cores/mapleMX/wiring_shift.c **** 	for ( i=0 ; i < 8 ; ++i )
+  87              		.loc 1 30 0
+  88 0040 E5D2     		bcs	.L5
+  44:../../cores/mapleMX/wiring_shift.c **** 	}
+  45:../../cores/mapleMX/wiring_shift.c **** 
+  46:../../cores/mapleMX/wiring_shift.c **** 	return value ;
+  47:../../cores/mapleMX/wiring_shift.c **** }
+  89              		.loc 1 47 0
+  90 0042 2046     		mov	r0, r4
+  91 0044 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+  92              		.cfi_endproc
+  93              	.LFE126:
+  95              		.section	.text.shiftOut,"ax",%progbits
+  96              		.align	1
+  97              		.global	shiftOut
+  98              		.thumb
+  99              		.thumb_func
+ 101              	shiftOut:
+ 102              	.LFB127:
+  48:../../cores/mapleMX/wiring_shift.c **** 
+  49:../../cores/mapleMX/wiring_shift.c **** void shiftOut( uint32_t ulDataPin, uint32_t ulClockPin, uint32_t ulBitOrder, uint32_t ulVal )
+  50:../../cores/mapleMX/wiring_shift.c **** {
+ 103              		.loc 1 50 0
+ 104              		.cfi_startproc
+ 105              		@ args = 0, pretend = 0, frame = 0
+ 106              		@ frame_needed = 0, uses_anonymous_args = 0
+ 107              	.LVL11:
+ 108 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 109              	.LCFI1:
+ 110              		.cfi_def_cfa_offset 24
+ 111              		.cfi_offset 4, -24
+ 112              		.cfi_offset 5, -20
+ 113              		.cfi_offset 6, -16
+ 114              		.cfi_offset 7, -12
+ 115              		.cfi_offset 8, -8
+ 116              		.cfi_offset 14, -4
+ 117              		.loc 1 50 0
+ 118 0004 0646     		mov	r6, r0
+ 119 0006 0D46     		mov	r5, r1
+ 120 0008 9046     		mov	r8, r2
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s 			page 4
+
+
+ 121 000a 1F46     		mov	r7, r3
+ 122 000c 0724     		movs	r4, #7
+ 123              	.LVL12:
+ 124              	.L12:
+ 125 000e 0123     		movs	r3, #1
+  51:../../cores/mapleMX/wiring_shift.c **** 	uint8_t i ;
+  52:../../cores/mapleMX/wiring_shift.c **** 
+  53:../../cores/mapleMX/wiring_shift.c **** 	for ( i=0 ; i < 8 ; i++ )
+  54:../../cores/mapleMX/wiring_shift.c ****     {
+  55:../../cores/mapleMX/wiring_shift.c **** 		if ( ulBitOrder == LSBFIRST )
+ 126              		.loc 1 55 0
+ 127 0010 B8F1000F 		cmp	r8, #0
+ 128 0014 03D1     		bne	.L9
+ 129 0016 C4F10702 		rsb	r2, r4, #7
+  56:../../cores/mapleMX/wiring_shift.c ****         {
+  57:../../cores/mapleMX/wiring_shift.c **** 			digitalWrite( ulDataPin, !!(ulVal & (1 << i)) ) ;
+ 130              		.loc 1 57 0
+ 131 001a 9340     		lsls	r3, r3, r2
+ 132 001c 00E0     		b	.L13
+ 133              	.L9:
+  58:../../cores/mapleMX/wiring_shift.c ****         }
+  59:../../cores/mapleMX/wiring_shift.c **** 		else	
+  60:../../cores/mapleMX/wiring_shift.c ****         {
+  61:../../cores/mapleMX/wiring_shift.c **** 			digitalWrite( ulDataPin, !!(ulVal & (1 << (7 - i))) ) ;
+ 134              		.loc 1 61 0
+ 135 001e A340     		lsls	r3, r3, r4
+ 136              	.L13:
+ 137 0020 3B42     		tst	r3, r7
+ 138 0022 0CBF     		ite	eq
+ 139 0024 0021     		moveq	r1, #0
+ 140 0026 0121     		movne	r1, #1
+ 141 0028 3046     		mov	r0, r6
+ 142 002a FFF7FEFF 		bl	digitalWrite
+ 143              	.LVL13:
+  62:../../cores/mapleMX/wiring_shift.c ****         }
+  63:../../cores/mapleMX/wiring_shift.c **** 
+  64:../../cores/mapleMX/wiring_shift.c **** 		digitalWrite( ulClockPin, HIGH ) ;
+ 144              		.loc 1 64 0
+ 145 002e 2846     		mov	r0, r5
+ 146 0030 0121     		movs	r1, #1
+ 147 0032 FFF7FEFF 		bl	digitalWrite
+ 148              	.LVL14:
+  65:../../cores/mapleMX/wiring_shift.c **** 		digitalWrite( ulClockPin, LOW ) ;		
+ 149              		.loc 1 65 0
+ 150 0036 2846     		mov	r0, r5
+ 151 0038 0021     		movs	r1, #0
+ 152 003a FFF7FEFF 		bl	digitalWrite
+ 153              	.LVL15:
+  53:../../cores/mapleMX/wiring_shift.c **** 	for ( i=0 ; i < 8 ; i++ )
+ 154              		.loc 1 53 0
+ 155 003e 14F1FF34 		adds	r4, r4, #-1
+ 156              	.LVL16:
+ 157 0042 E4D2     		bcs	.L12
+  66:../../cores/mapleMX/wiring_shift.c **** 	}
+  67:../../cores/mapleMX/wiring_shift.c **** }
+ 158              		.loc 1 67 0
+ 159 0044 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s 			page 5
+
+
+ 160              		.cfi_endproc
+ 161              	.LFE127:
+ 163              		.text
+ 164              	.Letext0:
+ 165              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 166              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 167              		.file 4 "../../cores/mapleMX/wiring_digital.h"
+ 168              		.file 5 "../../cores/mapleMX/wiring_constants.h"
+ 169              		.file 6 "Drivers/CMSIS/Include/core_cm4.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 wiring_shift.c
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s:19     .text.shiftIn:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s:24     .text.shiftIn:0000000000000000 shiftIn
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s:96     .text.shiftOut:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccLX9YRz.s:101    .text.shiftOut:0000000000000000 shiftOut
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+digitalWrite
+digitalRead

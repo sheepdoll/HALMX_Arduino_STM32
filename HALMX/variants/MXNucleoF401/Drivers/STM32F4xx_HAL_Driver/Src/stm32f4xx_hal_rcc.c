@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f4xx_hal_rcc.c
   * @author  MCD Application Team
-  * @version V1.3.0
-  * @date    09-March-2015
+  * @version V1.4.3
+  * @date    11-December-2015
   * @brief   RCC HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Reset and Clock Control (RCC) peripheral:
@@ -48,11 +48,9 @@
           after the clock enable bit is set on the hardware register
 
     [..]  
-      Possible Workarounds:
-      (#) Enable the peripheral clock sometimes before the peripheral read/write 
-          register is required.
-      (#) For AHB peripheral, insert two dummy read to the peripheral register.
-      (#) For APB peripheral, insert a dummy read to the peripheral register.
+      Implemented Workaround:
+      (+) For AHB & APB peripherals, a dummy read to the peripheral register has been
+          inserted in each __HAL_RCC_PPP_CLK_ENABLE() macro.
 
   @endverbatim
   ******************************************************************************
@@ -185,28 +183,13 @@ const uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 
              the peripherals mapped on these busses. You can use 
              "HAL_RCC_GetSysClockFreq()" function to retrieve the frequencies of these clocks.  
 
-         -@- All the peripheral clocks are derived from the System clock (SYSCLK) except:
-           (+@) I2S: the I2S clock can be derived either from a specific PLL (PLLI2S) or
-                from an external clock mapped on the I2S_CKIN pin. 
-                You have to use __HAL_RCC_PLLI2S_CONFIG() macro to configure this clock.
-          (+@) SAI: the SAI clock can be derived either from a specific PLL (PLLI2S) or (PLLSAI) or
-                from an external clock mapped on the I2S_CKIN pin. 
-                You have to use __HAL_RCC_PLLI2S_CONFIG() macro to configure this clock. 
-           (+@) RTC: the RTC clock can be derived either from the LSI, LSE or HSE clock
-                divided by 2 to 31. You have to use __HAL_RCC_RTC_CONFIG() and __HAL_RCC_RTC_ENABLE()
-                macros to configure this clock. 
-           (+@) USB OTG FS, SDIO and RTC: USB OTG FS require a frequency equal to 48 MHz
-                to work correctly, while the SDIO require a frequency equal or lower than
-                to 48. This clock is derived of the main PLL through PLLQ divider.
-           (+@) IWDG clock which is always the LSI clock.
-       
          (#) For the STM32F405xx/07xx and STM32F415xx/17xx devices, the maximum
              frequency of the SYSCLK and HCLK is 168 MHz, PCLK2 84 MHz and PCLK1 42 MHz. 
              Depending on the device voltage range, the maximum frequency should
              be adapted accordingly (refer to the product datasheets for more details).
-             
-         (#) For the STM32F42xxx and STM32F43xxx devices, the maximum frequency
-             of the SYSCLK and HCLK is 180 MHz, PCLK2 90 MHz and PCLK1 45 MHz. 
+
+         (#) For the STM32F42xxx, STM32F43xxx, STM32F446xx, STM32F469xx and STM32F479xx devices,
+             the maximum frequency of the SYSCLK and HCLK is 180 MHz, PCLK2 90 MHz and PCLK1 45 MHz. 
              Depending on the device voltage range, the maximum frequency should
              be adapted accordingly (refer to the product datasheets for more details).
              
@@ -214,6 +197,12 @@ const uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 
              PCLK2 84 MHz and PCLK1 42 MHz. 
              Depending on the device voltage range, the maximum frequency should
              be adapted accordingly (refer to the product datasheets for more details).
+             
+         (#) For the STM32F41xxx, the maximum frequency of the SYSCLK and HCLK is 100 MHz,
+             PCLK2 100 MHz and PCLK1 50 MHz. 
+             Depending on the device voltage range, the maximum frequency should
+             be adapted accordingly (refer to the product datasheets for more details).
+             
 @endverbatim
   * @{
   */
@@ -222,7 +211,7 @@ const uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 
   * @brief  Resets the RCC clock configuration to the default reset state.
   * @note   The default reset state of the clock configuration is given below:
   *            - HSI ON and used as system clock source
-  *            - HSE, PLL and PLLI2S OFF
+  *            - HSE and PLL OFF
   *            - AHB, APB1 and APB2 prescaler set to 1.
   *            - CSS, MCO1 and MCO2 OFF
   *            - All interrupts disabled
@@ -231,31 +220,8 @@ const uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 
   *            - LSI, LSE and RTC clocks 
   * @retval None
   */
-void HAL_RCC_DeInit(void)
-{
-  /* Set HSION bit */
-  SET_BIT(RCC->CR, RCC_CR_HSION | RCC_CR_HSITRIM_4); 
-  
-  /* Reset CFGR register */
-  CLEAR_REG(RCC->CFGR);
-  
-  /* Reset HSEON, CSSON, PLLON, PLLI2S */
-  CLEAR_BIT(RCC->CR, RCC_CR_HSEON | RCC_CR_CSSON | RCC_CR_PLLON| RCC_CR_PLLI2SON); 
-  
-  /* Reset PLLCFGR register */
-  CLEAR_REG(RCC->PLLCFGR);
-  SET_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLM_4 | RCC_PLLCFGR_PLLN_6 | RCC_PLLCFGR_PLLN_7 | RCC_PLLCFGR_PLLQ_2); 
-  
-  /* Reset PLLI2SCFGR register */
-  CLEAR_REG(RCC->PLLI2SCFGR);
-  SET_BIT(RCC->PLLI2SCFGR,  RCC_PLLI2SCFGR_PLLI2SN_6 | RCC_PLLI2SCFGR_PLLI2SN_7 | RCC_PLLI2SCFGR_PLLI2SR_1);
-  
-  /* Reset HSEBYP bit */
-  CLEAR_BIT(RCC->CR, RCC_CR_HSEBYP);
-  
-  /* Disable all interrupts */
-  CLEAR_REG(RCC->CIR); 
-}
+__weak void HAL_RCC_DeInit(void)
+{}
 
 /**
   * @brief  Initializes the RCC Oscillators according to the specified parameters in the
@@ -882,7 +848,8 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   *            @arg RCC_MCO1SOURCE_HSE: HSE clock selected as MCO1 source
   *            @arg RCC_MCO1SOURCE_PLLCLK: main PLL clock selected as MCO1 source
   *            @arg RCC_MCO2SOURCE_SYSCLK: System clock (SYSCLK) selected as MCO2 source
-  *            @arg RCC_MCO2SOURCE_PLLI2SCLK: PLLI2S clock selected as MCO2 source
+  *            @arg RCC_MCO2SOURCE_PLLI2SCLK: PLLI2S clock selected as MCO2 source, available for all STM32F4 devices except STM32F410xx 
+  *            @arg RCC_MCO2SOURCE_I2SCLK: I2SCLK clock selected as MCO2 source, available only for STM32F410Rx devices   
   *            @arg RCC_MCO2SOURCE_HSE: HSE clock selected as MCO2 source
   *            @arg RCC_MCO2SOURCE_PLLCLK: main PLL clock selected as MCO2 source
   * @param  RCC_MCODiv: specifies the MCOx prescaler.
@@ -892,6 +859,8 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   *            @arg RCC_MCODIV_3: division by 3 applied to MCOx clock
   *            @arg RCC_MCODIV_4: division by 4 applied to MCOx clock
   *            @arg RCC_MCODIV_5: division by 5 applied to MCOx clock
+  * @note  For STM32F410Rx devices to output I2SCLK clock on MCO2 you should have
+  *        at last one of the SPI clocks enabled (SPI1, SPI2 or SPI5).
   * @retval None
   */
 void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv)
@@ -911,13 +880,18 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
     /* Configure the MCO1 pin in alternate function mode */    
     GPIO_InitStruct.Pin = MCO1_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
     HAL_GPIO_Init(MCO1_GPIO_PORT, &GPIO_InitStruct);
     
     /* Mask MCO1 and MCO1PRE[2:0] bits then Select MCO1 clock source and prescaler */
     MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCO1 | RCC_CFGR_MCO1PRE), (RCC_MCOSource | RCC_MCODiv));
+    
+   /* This RCC MCO1 enable feature is available only on STM32F410xx devices */
+#if defined(RCC_CFGR_MCO1EN)
+    __HAL_RCC_MCO1_ENABLE();
+#endif /* RCC_CFGR_MCO1EN */    
   }
   else
   {
@@ -929,13 +903,18 @@ void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_M
     /* Configure the MCO2 pin in alternate function mode */
     GPIO_InitStruct.Pin = MCO2_PIN;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
     HAL_GPIO_Init(MCO2_GPIO_PORT, &GPIO_InitStruct);
     
     /* Mask MCO2 and MCO2PRE[2:0] bits then Select MCO2 clock source and prescaler */
     MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCO2 | RCC_CFGR_MCO2PRE), (RCC_MCOSource | (RCC_MCODiv << 3)));
+
+   /* This RCC MCO2 enable feature is available only on STM32F410Rx devices */
+#if defined(RCC_CFGR_MCO2EN)
+    __HAL_RCC_MCO2_ENABLE();
+#endif /* RCC_CFGR_MCO2EN */
   }
 }
 

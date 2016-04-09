@@ -22,6 +22,12 @@
 #include "UARTClass.h"
 
 
+/* HardwareSerial  does not have a vtable */
+//HardwareSerial::HardwareSerial(void){}
+//void HardwareSerial::begin(unsigned long){}
+extern "C" void __cxa_pure_virtual() { while (1); }
+
+
 // Constructors ////////////////////////////////////////////////////////////////
 
 UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer )

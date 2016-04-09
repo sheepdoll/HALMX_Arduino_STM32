@@ -1,0 +1,512 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"itoa.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.ltoa,"ax",%progbits
+  19              		.align	1
+  20              		.global	ltoa
+  21              		.thumb
+  22              		.thumb_func
+  24              	ltoa:
+  25              	.LFB1:
+  26              		.file 1 "../../cores/mapleMX/itoa.c"
+   1:../../cores/mapleMX/itoa.c **** /*
+   2:../../cores/mapleMX/itoa.c ****   Copyright (c) 2011 Arduino.  All right reserved.
+   3:../../cores/mapleMX/itoa.c **** 
+   4:../../cores/mapleMX/itoa.c ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/itoa.c ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/itoa.c ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/itoa.c ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/itoa.c **** 
+   9:../../cores/mapleMX/itoa.c ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/itoa.c ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/itoa.c ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  12:../../cores/mapleMX/itoa.c ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/itoa.c **** 
+  14:../../cores/mapleMX/itoa.c ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/itoa.c ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/itoa.c ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/itoa.c **** */
+  18:../../cores/mapleMX/itoa.c **** 
+  19:../../cores/mapleMX/itoa.c **** #include "itoa.h"
+  20:../../cores/mapleMX/itoa.c **** #include <string.h>
+  21:../../cores/mapleMX/itoa.c **** 
+  22:../../cores/mapleMX/itoa.c **** #ifdef __cplusplus
+  23:../../cores/mapleMX/itoa.c **** extern "C"{
+  24:../../cores/mapleMX/itoa.c **** #endif // __cplusplus
+  25:../../cores/mapleMX/itoa.c **** 
+  26:../../cores/mapleMX/itoa.c **** #if 0
+  27:../../cores/mapleMX/itoa.c **** /* reverse:  reverse string s in place */
+  28:../../cores/mapleMX/itoa.c **** static void reverse( char s[] )
+  29:../../cores/mapleMX/itoa.c **** {
+  30:../../cores/mapleMX/itoa.c ****   int i, j ;
+  31:../../cores/mapleMX/itoa.c ****   char c ;
+  32:../../cores/mapleMX/itoa.c **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 2
+
+
+  33:../../cores/mapleMX/itoa.c ****   for ( i = 0, j = strlen(s)-1 ; i < j ; i++, j-- )
+  34:../../cores/mapleMX/itoa.c ****   {
+  35:../../cores/mapleMX/itoa.c ****     c = s[i] ;
+  36:../../cores/mapleMX/itoa.c ****     s[i] = s[j] ;
+  37:../../cores/mapleMX/itoa.c ****     s[j] = c ;
+  38:../../cores/mapleMX/itoa.c ****   }
+  39:../../cores/mapleMX/itoa.c **** }
+  40:../../cores/mapleMX/itoa.c **** 
+  41:../../cores/mapleMX/itoa.c **** /* itoa:  convert n to characters in s */
+  42:../../cores/mapleMX/itoa.c **** extern void itoa( int n, char s[] )
+  43:../../cores/mapleMX/itoa.c **** {
+  44:../../cores/mapleMX/itoa.c ****   int i, sign ;
+  45:../../cores/mapleMX/itoa.c **** 
+  46:../../cores/mapleMX/itoa.c ****   if ( (sign = n) < 0 )  /* record sign */
+  47:../../cores/mapleMX/itoa.c ****   {
+  48:../../cores/mapleMX/itoa.c ****     n = -n;          /* make n positive */
+  49:../../cores/mapleMX/itoa.c ****   }
+  50:../../cores/mapleMX/itoa.c **** 
+  51:../../cores/mapleMX/itoa.c ****   i = 0;
+  52:../../cores/mapleMX/itoa.c ****   do
+  53:../../cores/mapleMX/itoa.c ****   {       /* generate digits in reverse order */
+  54:../../cores/mapleMX/itoa.c ****     s[i++] = n % 10 + '0';   /* get next digit */
+  55:../../cores/mapleMX/itoa.c ****   } while ((n /= 10) > 0) ;     /* delete it */
+  56:../../cores/mapleMX/itoa.c **** 
+  57:../../cores/mapleMX/itoa.c ****   if (sign < 0 )
+  58:../../cores/mapleMX/itoa.c ****   {
+  59:../../cores/mapleMX/itoa.c ****     s[i++] = '-';
+  60:../../cores/mapleMX/itoa.c ****   }
+  61:../../cores/mapleMX/itoa.c **** 
+  62:../../cores/mapleMX/itoa.c ****   s[i] = '\0';
+  63:../../cores/mapleMX/itoa.c **** 
+  64:../../cores/mapleMX/itoa.c ****   reverse( s ) ;
+  65:../../cores/mapleMX/itoa.c **** }
+  66:../../cores/mapleMX/itoa.c **** 
+  67:../../cores/mapleMX/itoa.c **** #else
+  68:../../cores/mapleMX/itoa.c **** 
+  69:../../cores/mapleMX/itoa.c **** extern char* itoa( int value, char *string, int radix )
+  70:../../cores/mapleMX/itoa.c **** {
+  71:../../cores/mapleMX/itoa.c ****   return ltoa( value, string, radix ) ;
+  72:../../cores/mapleMX/itoa.c **** }
+  73:../../cores/mapleMX/itoa.c **** 
+  74:../../cores/mapleMX/itoa.c **** extern char* ltoa( long value, char *string, int radix )
+  75:../../cores/mapleMX/itoa.c **** {
+  27              		.loc 1 75 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 40
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 20
+  35              		.cfi_offset 4, -20
+  36              		.cfi_offset 5, -16
+  37              		.cfi_offset 6, -12
+  38              		.cfi_offset 7, -8
+  39              		.cfi_offset 14, -4
+  40 0002 8BB0     		sub	sp, sp, #44
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 3
+
+
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 64
+  43              	.LVL1:
+  76:../../cores/mapleMX/itoa.c ****   char tmp[33];
+  77:../../cores/mapleMX/itoa.c ****   char *tp = tmp;
+  78:../../cores/mapleMX/itoa.c ****   long i;
+  79:../../cores/mapleMX/itoa.c ****   unsigned long v;
+  80:../../cores/mapleMX/itoa.c ****   int sign;
+  81:../../cores/mapleMX/itoa.c ****   char *sp;
+  82:../../cores/mapleMX/itoa.c **** 
+  83:../../cores/mapleMX/itoa.c ****   if ( string == NULL )
+  44              		.loc 1 83 0
+  45 0004 59B3     		cbz	r1, .L13
+  84:../../cores/mapleMX/itoa.c ****   {
+  85:../../cores/mapleMX/itoa.c ****     return 0 ;
+  86:../../cores/mapleMX/itoa.c ****   }
+  87:../../cores/mapleMX/itoa.c **** 
+  88:../../cores/mapleMX/itoa.c ****   if (radix > 36 || radix <= 1)
+  46              		.loc 1 88 0
+  47 0006 931E     		subs	r3, r2, #2
+  48 0008 222B     		cmp	r3, #34
+  49 000a 2AD8     		bhi	.L14
+  89:../../cores/mapleMX/itoa.c ****   {
+  90:../../cores/mapleMX/itoa.c ****     return 0 ;
+  91:../../cores/mapleMX/itoa.c ****   }
+  92:../../cores/mapleMX/itoa.c **** 
+  93:../../cores/mapleMX/itoa.c ****   sign = (radix == 10 && value < 0);
+  50              		.loc 1 93 0
+  51 000c 0A2A     		cmp	r2, #10
+  52 000e 2AD1     		bne	.L3
+  53              		.loc 1 93 0 is_stmt 0 discriminator 1
+  54 0010 0028     		cmp	r0, #0
+  55 0012 28DA     		bge	.L3
+  56              	.LVL2:
+  94:../../cores/mapleMX/itoa.c ****   if (sign)
+  95:../../cores/mapleMX/itoa.c ****   {
+  96:../../cores/mapleMX/itoa.c ****     v = -value;
+  57              		.loc 1 96 0 is_stmt 1
+  58 0014 4042     		negs	r0, r0
+  59              	.LVL3:
+  93:../../cores/mapleMX/itoa.c ****   sign = (radix == 10 && value < 0);
+  60              		.loc 1 93 0
+  61 0016 0125     		movs	r5, #1
+  62              	.LVL4:
+  63              	.L12:
+  97:../../cores/mapleMX/itoa.c ****   }
+  98:../../cores/mapleMX/itoa.c ****   else
+  99:../../cores/mapleMX/itoa.c ****   {
+ 100:../../cores/mapleMX/itoa.c ****     v = (unsigned long)value;
+ 101:../../cores/mapleMX/itoa.c ****   }
+ 102:../../cores/mapleMX/itoa.c **** 
+ 103:../../cores/mapleMX/itoa.c ****   while (v || tp == tmp)
+ 104:../../cores/mapleMX/itoa.c ****   {
+ 105:../../cores/mapleMX/itoa.c ****     i = v % radix;
+ 106:../../cores/mapleMX/itoa.c ****     v = v / radix;
+ 107:../../cores/mapleMX/itoa.c ****     if (i < 10)
+ 108:../../cores/mapleMX/itoa.c ****       *tp++ = i+'0';
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 4
+
+
+  64              		.loc 1 108 0 discriminator 1
+  65 0018 01AB     		add	r3, sp, #4
+  66              	.LVL5:
+  67 001a 1E46     		mov	r6, r3
+  68              	.L5:
+  69              	.LVL6:
+ 103:../../cores/mapleMX/itoa.c ****   while (v || tp == tmp)
+  70              		.loc 1 103 0 discriminator 1
+  71 001c 70B1     		cbz	r0, .L19
+  72              	.L8:
+ 105:../../cores/mapleMX/itoa.c ****     i = v % radix;
+  73              		.loc 1 105 0
+  74 001e B0FBF2F7 		udiv	r7, r0, r2
+  75 0022 02FB1704 		mls	r4, r2, r7, r0
+  76              	.LVL7:
+ 107:../../cores/mapleMX/itoa.c ****     if (i < 10)
+  77              		.loc 1 107 0
+  78 0026 092C     		cmp	r4, #9
+ 106:../../cores/mapleMX/itoa.c ****     v = v / radix;
+  79              		.loc 1 106 0
+  80 0028 3846     		mov	r0, r7
+  81              	.LVL8:
+  82              		.loc 1 108 0
+  83 002a D8BF     		it	le
+  84 002c 3034     		addle	r4, r4, #48
+  85              	.LVL9:
+  86 002e 03F10107 		add	r7, r3, #1
+  87              	.LVL10:
+ 109:../../cores/mapleMX/itoa.c ****     else
+ 110:../../cores/mapleMX/itoa.c ****       *tp++ = i + 'a' - 10;
+  88              		.loc 1 110 0
+  89 0032 C8BF     		it	gt
+  90 0034 5734     		addgt	r4, r4, #87
+  91 0036 1C70     		strb	r4, [r3]
+  92 0038 3B46     		mov	r3, r7
+  93 003a EFE7     		b	.L5
+  94              	.LVL11:
+  95              	.L19:
+ 103:../../cores/mapleMX/itoa.c ****   while (v || tp == tmp)
+  96              		.loc 1 103 0 discriminator 2
+  97 003c B342     		cmp	r3, r6
+  98 003e EED0     		beq	.L8
+  99              	.LVL12:
+ 111:../../cores/mapleMX/itoa.c ****   }
+ 112:../../cores/mapleMX/itoa.c **** 
+ 113:../../cores/mapleMX/itoa.c ****   sp = string;
+ 114:../../cores/mapleMX/itoa.c **** 
+ 115:../../cores/mapleMX/itoa.c ****   if (sign)
+ 100              		.loc 1 115 0
+ 101 0040 1DB1     		cbz	r5, .L15
+ 116:../../cores/mapleMX/itoa.c ****     *sp++ = '-';
+ 102              		.loc 1 116 0
+ 103 0042 2D20     		movs	r0, #45
+ 104              	.LVL13:
+ 105 0044 4A1C     		adds	r2, r1, #1
+ 106              	.LVL14:
+ 107 0046 0870     		strb	r0, [r1]
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 5
+
+
+ 108 0048 00E0     		b	.L10
+ 109              	.LVL15:
+ 110              	.L15:
+ 111 004a 0A46     		mov	r2, r1
+ 112              	.LVL16:
+ 113              	.L10:
+ 117:../../cores/mapleMX/itoa.c ****   while (tp > tmp)
+ 114              		.loc 1 117 0 discriminator 1
+ 115 004c B342     		cmp	r3, r6
+ 116 004e 04D9     		bls	.L20
+ 117              	.LVL17:
+ 118:../../cores/mapleMX/itoa.c ****     *sp++ = *--tp;
+ 118              		.loc 1 118 0
+ 119 0050 13F8010D 		ldrb	r0, [r3, #-1]!	@ zero_extendqisi2
+ 120              	.LVL18:
+ 121 0054 02F8010B 		strb	r0, [r2], #1
+ 122              	.LVL19:
+ 123 0058 F8E7     		b	.L10
+ 124              	.LVL20:
+ 125              	.L20:
+ 119:../../cores/mapleMX/itoa.c ****   *sp = 0;
+ 126              		.loc 1 119 0
+ 127 005a 0023     		movs	r3, #0
+ 128              	.LVL21:
+ 129 005c 1370     		strb	r3, [r2]
+ 130              	.LVL22:
+ 131              	.L13:
+  85:../../cores/mapleMX/itoa.c ****     return 0 ;
+ 132              		.loc 1 85 0
+ 133 005e 0846     		mov	r0, r1
+ 134 0060 03E0     		b	.L16
+ 135              	.LVL23:
+ 136              	.L14:
+ 137 0062 0020     		movs	r0, #0
+ 138              	.LVL24:
+ 139 0064 01E0     		b	.L16
+ 140              	.LVL25:
+ 141              	.L3:
+ 100:../../cores/mapleMX/itoa.c ****     v = (unsigned long)value;
+ 142              		.loc 1 100 0
+ 143 0066 0025     		movs	r5, #0
+ 144 0068 D6E7     		b	.L12
+ 145              	.LVL26:
+ 146              	.L16:
+ 120:../../cores/mapleMX/itoa.c **** 
+ 121:../../cores/mapleMX/itoa.c ****   return string;
+ 122:../../cores/mapleMX/itoa.c **** }
+ 147              		.loc 1 122 0
+ 148 006a 0BB0     		add	sp, sp, #44
+ 149              		@ sp needed
+ 150 006c F0BD     		pop	{r4, r5, r6, r7, pc}
+ 151              		.cfi_endproc
+ 152              	.LFE1:
+ 154              		.section	.text.itoa,"ax",%progbits
+ 155              		.align	1
+ 156              		.global	itoa
+ 157              		.thumb
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 6
+
+
+ 158              		.thumb_func
+ 160              	itoa:
+ 161              	.LFB0:
+  70:../../cores/mapleMX/itoa.c **** {
+ 162              		.loc 1 70 0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166              		@ link register save eliminated.
+ 167              	.LVL27:
+  71:../../cores/mapleMX/itoa.c ****   return ltoa( value, string, radix ) ;
+ 168              		.loc 1 71 0
+ 169 0000 FFF7FEBF 		b	ltoa
+ 170              	.LVL28:
+ 171              		.cfi_endproc
+ 172              	.LFE0:
+ 174              		.section	.text.ultoa,"ax",%progbits
+ 175              		.align	1
+ 176              		.global	ultoa
+ 177              		.thumb
+ 178              		.thumb_func
+ 180              	ultoa:
+ 181              	.LFB3:
+ 123:../../cores/mapleMX/itoa.c **** 
+ 124:../../cores/mapleMX/itoa.c **** extern char* utoa( unsigned long value, char *string, int radix )
+ 125:../../cores/mapleMX/itoa.c **** {
+ 126:../../cores/mapleMX/itoa.c ****   return ultoa( value, string, radix ) ;
+ 127:../../cores/mapleMX/itoa.c **** }
+ 128:../../cores/mapleMX/itoa.c **** 
+ 129:../../cores/mapleMX/itoa.c **** extern char* ultoa( unsigned long value, char *string, int radix )
+ 130:../../cores/mapleMX/itoa.c **** {
+ 182              		.loc 1 130 0
+ 183              		.cfi_startproc
+ 184              		@ args = 0, pretend = 0, frame = 40
+ 185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 186              	.LVL29:
+ 187 0000 70B5     		push	{r4, r5, r6, lr}
+ 188              	.LCFI2:
+ 189              		.cfi_def_cfa_offset 16
+ 190              		.cfi_offset 4, -16
+ 191              		.cfi_offset 5, -12
+ 192              		.cfi_offset 6, -8
+ 193              		.cfi_offset 14, -4
+ 194 0002 8AB0     		sub	sp, sp, #40
+ 195              	.LCFI3:
+ 196              		.cfi_def_cfa_offset 56
+ 197              	.LVL30:
+ 131:../../cores/mapleMX/itoa.c ****   char tmp[33];
+ 132:../../cores/mapleMX/itoa.c ****   char *tp = tmp;
+ 133:../../cores/mapleMX/itoa.c ****   long i;
+ 134:../../cores/mapleMX/itoa.c ****   unsigned long v = value;
+ 135:../../cores/mapleMX/itoa.c ****   char *sp;
+ 136:../../cores/mapleMX/itoa.c **** 
+ 137:../../cores/mapleMX/itoa.c ****   if ( string == NULL )
+ 198              		.loc 1 137 0
+ 199 0004 01B3     		cbz	r1, .L30
+ 138:../../cores/mapleMX/itoa.c ****   {
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 7
+
+
+ 139:../../cores/mapleMX/itoa.c ****     return 0;
+ 140:../../cores/mapleMX/itoa.c ****   }
+ 141:../../cores/mapleMX/itoa.c **** 
+ 142:../../cores/mapleMX/itoa.c ****   if (radix > 36 || radix <= 1)
+ 200              		.loc 1 142 0
+ 201 0006 931E     		subs	r3, r2, #2
+ 202 0008 222B     		cmp	r3, #34
+ 203 000a 1FD8     		bhi	.L31
+ 204 000c 01AB     		add	r3, sp, #4
+ 205              	.LVL31:
+ 206 000e 1D46     		mov	r5, r3
+ 207              	.LVL32:
+ 208              	.L24:
+ 143:../../cores/mapleMX/itoa.c ****   {
+ 144:../../cores/mapleMX/itoa.c ****     return 0;
+ 145:../../cores/mapleMX/itoa.c ****   }
+ 146:../../cores/mapleMX/itoa.c ****  
+ 147:../../cores/mapleMX/itoa.c ****   while (v || tp == tmp)
+ 209              		.loc 1 147 0 discriminator 1
+ 210 0010 70B1     		cbz	r0, .L33
+ 211              	.L27:
+ 148:../../cores/mapleMX/itoa.c ****   {
+ 149:../../cores/mapleMX/itoa.c ****     i = v % radix;
+ 212              		.loc 1 149 0
+ 213 0012 B0FBF2F6 		udiv	r6, r0, r2
+ 214 0016 02FB1604 		mls	r4, r2, r6, r0
+ 215              	.LVL33:
+ 150:../../cores/mapleMX/itoa.c ****     v = v / radix;
+ 151:../../cores/mapleMX/itoa.c ****     if (i < 10)
+ 216              		.loc 1 151 0
+ 217 001a 092C     		cmp	r4, #9
+ 150:../../cores/mapleMX/itoa.c ****     v = v / radix;
+ 218              		.loc 1 150 0
+ 219 001c 3046     		mov	r0, r6
+ 220              	.LVL34:
+ 152:../../cores/mapleMX/itoa.c ****       *tp++ = i+'0';
+ 221              		.loc 1 152 0
+ 222 001e D8BF     		it	le
+ 223 0020 3034     		addle	r4, r4, #48
+ 224              	.LVL35:
+ 225 0022 03F10106 		add	r6, r3, #1
+ 226              	.LVL36:
+ 153:../../cores/mapleMX/itoa.c ****     else
+ 154:../../cores/mapleMX/itoa.c ****       *tp++ = i + 'a' - 10;
+ 227              		.loc 1 154 0
+ 228 0026 C8BF     		it	gt
+ 229 0028 5734     		addgt	r4, r4, #87
+ 230 002a 1C70     		strb	r4, [r3]
+ 231 002c 3346     		mov	r3, r6
+ 232 002e EFE7     		b	.L24
+ 233              	.LVL37:
+ 234              	.L33:
+ 147:../../cores/mapleMX/itoa.c ****   while (v || tp == tmp)
+ 235              		.loc 1 147 0 discriminator 2
+ 236 0030 AB42     		cmp	r3, r5
+ 237 0032 EED0     		beq	.L27
+ 147:../../cores/mapleMX/itoa.c ****   while (v || tp == tmp)
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 8
+
+
+ 238              		.loc 1 147 0 is_stmt 0
+ 239 0034 0A46     		mov	r2, r1
+ 240              	.LVL38:
+ 241              	.L28:
+ 155:../../cores/mapleMX/itoa.c ****   }
+ 156:../../cores/mapleMX/itoa.c **** 
+ 157:../../cores/mapleMX/itoa.c ****   sp = string;
+ 158:../../cores/mapleMX/itoa.c **** 
+ 159:../../cores/mapleMX/itoa.c ****  
+ 160:../../cores/mapleMX/itoa.c ****   while (tp > tmp)
+ 242              		.loc 1 160 0 is_stmt 1 discriminator 1
+ 243 0036 AB42     		cmp	r3, r5
+ 244 0038 04D9     		bls	.L34
+ 245              	.LVL39:
+ 161:../../cores/mapleMX/itoa.c ****     *sp++ = *--tp;
+ 246              		.loc 1 161 0
+ 247 003a 13F8010D 		ldrb	r0, [r3, #-1]!	@ zero_extendqisi2
+ 248              	.LVL40:
+ 249 003e 02F8010B 		strb	r0, [r2], #1
+ 250              	.LVL41:
+ 251 0042 F8E7     		b	.L28
+ 252              	.LVL42:
+ 253              	.L34:
+ 162:../../cores/mapleMX/itoa.c ****   *sp = 0;
+ 254              		.loc 1 162 0
+ 255 0044 0023     		movs	r3, #0
+ 256              	.LVL43:
+ 257 0046 1370     		strb	r3, [r2]
+ 258              	.LVL44:
+ 259              	.L30:
+ 139:../../cores/mapleMX/itoa.c ****     return 0;
+ 260              		.loc 1 139 0
+ 261 0048 0846     		mov	r0, r1
+ 262 004a 00E0     		b	.L23
+ 263              	.LVL45:
+ 264              	.L31:
+ 265 004c 0020     		movs	r0, #0
+ 266              	.LVL46:
+ 267              	.L23:
+ 163:../../cores/mapleMX/itoa.c **** 
+ 164:../../cores/mapleMX/itoa.c ****   return string;
+ 165:../../cores/mapleMX/itoa.c **** }
+ 268              		.loc 1 165 0
+ 269 004e 0AB0     		add	sp, sp, #40
+ 270              		@ sp needed
+ 271 0050 70BD     		pop	{r4, r5, r6, pc}
+ 272              		.cfi_endproc
+ 273              	.LFE3:
+ 275              		.section	.text.utoa,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	utoa
+ 278              		.thumb
+ 279              		.thumb_func
+ 281              	utoa:
+ 282              	.LFB2:
+ 125:../../cores/mapleMX/itoa.c **** {
+ 283              		.loc 1 125 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 9
+
+
+ 284              		.cfi_startproc
+ 285              		@ args = 0, pretend = 0, frame = 0
+ 286              		@ frame_needed = 0, uses_anonymous_args = 0
+ 287              		@ link register save eliminated.
+ 288              	.LVL47:
+ 126:../../cores/mapleMX/itoa.c ****   return ultoa( value, string, radix ) ;
+ 289              		.loc 1 126 0
+ 290 0000 FFF7FEBF 		b	ultoa
+ 291              	.LVL48:
+ 292              		.cfi_endproc
+ 293              	.LFE2:
+ 295              		.text
+ 296              	.Letext0:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 itoa.c
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:19     .text.ltoa:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:24     .text.ltoa:0000000000000000 ltoa
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:155    .text.itoa:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:160    .text.itoa:0000000000000000 itoa
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:175    .text.ultoa:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:180    .text.ultoa:0000000000000000 ultoa
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:276    .text.utoa:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cckv8gwb.s:281    .text.utoa:0000000000000000 utoa
+                     .debug_frame:0000000000000010 $d
+
+NO UNDEFINED SYMBOLS

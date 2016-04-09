@@ -23,6 +23,8 @@
 
 #include "Stream.h"
 
+/* does not have a vtable when compiled standalone */
+
 class HardwareSerial : public Stream
 {
   public:
@@ -36,6 +38,7 @@ class HardwareSerial : public Stream
     using Print::write; // pull in write(str) and write(buf, size) from Print
     virtual operator bool() = 0;
 };
+
 
 extern void serialEventRun(void) __attribute__((weak));
 

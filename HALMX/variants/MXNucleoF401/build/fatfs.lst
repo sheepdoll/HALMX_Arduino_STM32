@@ -1,0 +1,167 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"fatfs.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.MX_FATFS_Init,"ax",%progbits
+  19              		.align	1
+  20              		.global	MX_FATFS_Init
+  21              		.thumb
+  22              		.thumb_func
+  24              	MX_FATFS_Init:
+  25              	.LFB125:
+  26              		.file 1 "Src/fatfs.c"
+   1:Src/fatfs.c   **** /**
+   2:Src/fatfs.c   ****   ******************************************************************************
+   3:Src/fatfs.c   ****   * @file   fatfs.c
+   4:Src/fatfs.c   ****   * @brief  Code for fatfs applications
+   5:Src/fatfs.c   ****   ******************************************************************************
+   6:Src/fatfs.c   ****   *
+   7:Src/fatfs.c   ****   * COPYRIGHT(c) 2016 STMicroelectronics
+   8:Src/fatfs.c   ****   *
+   9:Src/fatfs.c   ****   * Redistribution and use in source and binary forms, with or without modification,
+  10:Src/fatfs.c   ****   * are permitted provided that the following conditions are met:
+  11:Src/fatfs.c   ****   *   1. Redistributions of source code must retain the above copyright notice,
+  12:Src/fatfs.c   ****   *      this list of conditions and the following disclaimer.
+  13:Src/fatfs.c   ****   *   2. Redistributions in binary form must reproduce the above copyright notice,
+  14:Src/fatfs.c   ****   *      this list of conditions and the following disclaimer in the documentation
+  15:Src/fatfs.c   ****   *      and/or other materials provided with the distribution.
+  16:Src/fatfs.c   ****   *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  17:Src/fatfs.c   ****   *      may be used to endorse or promote products derived from this software
+  18:Src/fatfs.c   ****   *      without specific prior written permission.
+  19:Src/fatfs.c   ****   *
+  20:Src/fatfs.c   ****   * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  21:Src/fatfs.c   ****   * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  22:Src/fatfs.c   ****   * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  23:Src/fatfs.c   ****   * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  24:Src/fatfs.c   ****   * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  25:Src/fatfs.c   ****   * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  26:Src/fatfs.c   ****   * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  27:Src/fatfs.c   ****   * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  28:Src/fatfs.c   ****   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  29:Src/fatfs.c   ****   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  30:Src/fatfs.c   ****   *
+  31:Src/fatfs.c   ****   ******************************************************************************
+  32:Src/fatfs.c   ****   */
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s 			page 2
+
+
+  33:Src/fatfs.c   **** 
+  34:Src/fatfs.c   **** #include "fatfs.h"
+  35:Src/fatfs.c   **** 
+  36:Src/fatfs.c   **** uint8_t retSD;    /* Return value for SD */
+  37:Src/fatfs.c   **** char SD_Path[4];  /* SD logical drive path */
+  38:Src/fatfs.c   **** 
+  39:Src/fatfs.c   **** /* USER CODE BEGIN Variables */
+  40:Src/fatfs.c   **** 
+  41:Src/fatfs.c   **** /* USER CODE END Variables */    
+  42:Src/fatfs.c   **** 
+  43:Src/fatfs.c   **** void MX_FATFS_Init(void) 
+  44:Src/fatfs.c   **** {
+  27              		.loc 1 44 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 08B5     		push	{r3, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 3, -8
+  35              		.cfi_offset 14, -4
+  45:Src/fatfs.c   ****   /*## FatFS: Link the SD driver ###########################*/
+  46:Src/fatfs.c   ****   retSD = FATFS_LinkDriver(&SD_Driver, SD_Path);
+  36              		.loc 1 46 0
+  37 0002 0348     		ldr	r0, .L2
+  38 0004 0349     		ldr	r1, .L2+4
+  39 0006 FFF7FEFF 		bl	FATFS_LinkDriver
+  40              	.LVL0:
+  41 000a 034B     		ldr	r3, .L2+8
+  42 000c 1870     		strb	r0, [r3]
+  43 000e 08BD     		pop	{r3, pc}
+  44              	.L3:
+  45              		.align	2
+  46              	.L2:
+  47 0010 00000000 		.word	SD_Driver
+  48 0014 00000000 		.word	SD_Path
+  49 0018 00000000 		.word	retSD
+  50              		.cfi_endproc
+  51              	.LFE125:
+  53              		.section	.text.get_fattime,"ax",%progbits
+  54              		.align	1
+  55              		.global	get_fattime
+  56              		.thumb
+  57              		.thumb_func
+  59              	get_fattime:
+  60              	.LFB126:
+  47:Src/fatfs.c   **** 
+  48:Src/fatfs.c   ****   /* USER CODE BEGIN Init */
+  49:Src/fatfs.c   ****   /* additional user code for init */     
+  50:Src/fatfs.c   ****   /* USER CODE END Init */
+  51:Src/fatfs.c   **** }
+  52:Src/fatfs.c   **** 
+  53:Src/fatfs.c   **** /**
+  54:Src/fatfs.c   ****   * @brief  Gets Time from RTC 
+  55:Src/fatfs.c   ****   * @param  None
+  56:Src/fatfs.c   ****   * @retval Time in DWORD
+  57:Src/fatfs.c   ****   */
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s 			page 3
+
+
+  58:Src/fatfs.c   **** DWORD get_fattime(void)
+  59:Src/fatfs.c   **** {
+  61              		.loc 1 59 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  60:Src/fatfs.c   ****   /* USER CODE BEGIN get_fattime */
+  61:Src/fatfs.c   ****   return 0;
+  62:Src/fatfs.c   ****   /* USER CODE END get_fattime */  
+  63:Src/fatfs.c   **** }
+  66              		.loc 1 63 0
+  67 0000 0020     		movs	r0, #0
+  68 0002 7047     		bx	lr
+  69              		.cfi_endproc
+  70              	.LFE126:
+  72              		.comm	SD_Path,4,1
+  73              		.comm	retSD,1,1
+  74              		.text
+  75              	.Letext0:
+  76              		.file 2 "Inc/integer.h"
+  77              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+  78              		.file 4 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+  79              		.file 5 "Inc/diskio.h"
+  80              		.file 6 "Inc/ff_gen_drv.h"
+  81              		.file 7 "Drivers/CMSIS/Include/core_cm4.h"
+  82              		.file 8 "Inc/sd_diskio.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fatfs.c
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s:19     .text.MX_FATFS_Init:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s:24     .text.MX_FATFS_Init:0000000000000000 MX_FATFS_Init
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s:47     .text.MX_FATFS_Init:0000000000000010 $d
+                            *COM*:0000000000000004 SD_Path
+                            *COM*:0000000000000001 retSD
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s:54     .text.get_fattime:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccrB8EEd.s:59     .text.get_fattime:0000000000000000 get_fattime
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+FATFS_LinkDriver
+SD_Driver

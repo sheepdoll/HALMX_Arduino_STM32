@@ -1,0 +1,1234 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"UARTClass.cpp"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text._ZN9UARTClasscvbEv,"axG",%progbits,_ZN9UARTClasscvbEv,comdat
+  19              		.align	1
+  20              		.weak	_ZN9UARTClasscvbEv
+  21              		.thumb
+  22              		.thumb_func
+  24              	_ZN9UARTClasscvbEv:
+  25              	.LFB193:
+  26              		.file 1 "../../cores/mapleMX/UARTClass.h"
+   1:../../cores/mapleMX/UARTClass.h **** /*
+   2:../../cores/mapleMX/UARTClass.h ****   Copyright (c) 2011 Arduino.  All right reserved.
+   3:../../cores/mapleMX/UARTClass.h **** 
+   4:../../cores/mapleMX/UARTClass.h ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/UARTClass.h ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/UARTClass.h ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/UARTClass.h ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/UARTClass.h **** 
+   9:../../cores/mapleMX/UARTClass.h ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/UARTClass.h ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/UARTClass.h ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  12:../../cores/mapleMX/UARTClass.h ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/UARTClass.h **** 
+  14:../../cores/mapleMX/UARTClass.h ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/UARTClass.h ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/UARTClass.h ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/UARTClass.h **** */
+  18:../../cores/mapleMX/UARTClass.h **** 
+  19:../../cores/mapleMX/UARTClass.h **** #ifndef _UART_CLASS_
+  20:../../cores/mapleMX/UARTClass.h **** #define _UART_CLASS_
+  21:../../cores/mapleMX/UARTClass.h **** 
+  22:../../cores/mapleMX/UARTClass.h **** #include "HardwareSerial.h"
+  23:../../cores/mapleMX/UARTClass.h **** #include "RingBuffer.h"
+  24:../../cores/mapleMX/UARTClass.h **** 
+  25:../../cores/mapleMX/UARTClass.h **** // Includes [S]Atmel[/S] STM CMSIS
+  26:../../cores/mapleMX/UARTClass.h **** #include <chip.h>
+  27:../../cores/mapleMX/UARTClass.h **** /* #include "stm32f4xx_hal.h"  breaks the upper level abstraction model */
+  28:../../cores/mapleMX/UARTClass.h **** 
+  29:../../cores/mapleMX/UARTClass.h **** //#include "variant.h"
+  30:../../cores/mapleMX/UARTClass.h **** 
+  31:../../cores/mapleMX/UARTClass.h **** /* stub for Uart 
+  32:../../cores/mapleMX/UARTClass.h **** typedef struct {
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 2
+
+
+  33:../../cores/mapleMX/UARTClass.h ****   int Reserved1[55];
+  34:../../cores/mapleMX/UARTClass.h ****  } Uart;
+  35:../../cores/mapleMX/UARTClass.h **** */
+  36:../../cores/mapleMX/UARTClass.h **** 
+  37:../../cores/mapleMX/UARTClass.h **** #define SERIAL_8N1 UARTClass::Mode_8N1
+  38:../../cores/mapleMX/UARTClass.h **** #define SERIAL_8E1 UARTClass::Mode_8E1
+  39:../../cores/mapleMX/UARTClass.h **** #define SERIAL_8O1 UARTClass::Mode_8O1
+  40:../../cores/mapleMX/UARTClass.h **** #define SERIAL_8M1 UARTClass::Mode_8M1
+  41:../../cores/mapleMX/UARTClass.h **** #define SERIAL_8S1 UARTClass::Mode_8S1
+  42:../../cores/mapleMX/UARTClass.h **** 
+  43:../../cores/mapleMX/UARTClass.h **** 
+  44:../../cores/mapleMX/UARTClass.h **** class UARTClass : public HardwareSerial
+  45:../../cores/mapleMX/UARTClass.h **** {
+  46:../../cores/mapleMX/UARTClass.h ****   public:
+  47:../../cores/mapleMX/UARTClass.h ****     enum UARTModes {
+  48:../../cores/mapleMX/UARTClass.h ****       Mode_8N1 = 0, //US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_NO,
+  49:../../cores/mapleMX/UARTClass.h ****       Mode_8E1, // = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_EVEN,
+  50:../../cores/mapleMX/UARTClass.h ****       Mode_8O1, // = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_ODD,
+  51:../../cores/mapleMX/UARTClass.h ****       Mode_8M1, // = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_MARK,
+  52:../../cores/mapleMX/UARTClass.h ****       Mode_8S1 // = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_SPACE,
+  53:../../cores/mapleMX/UARTClass.h ****     };
+  54:../../cores/mapleMX/UARTClass.h ****     UARTClass(UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer* pRx_buffer, Ri
+  55:../../cores/mapleMX/UARTClass.h **** 
+  56:../../cores/mapleMX/UARTClass.h ****     void begin(const uint32_t dwBaudRate);
+  57:../../cores/mapleMX/UARTClass.h ****     void begin(const uint32_t dwBaudRate, const UARTModes config);
+  58:../../cores/mapleMX/UARTClass.h ****     void end(void);
+  59:../../cores/mapleMX/UARTClass.h ****     int available(void);
+  60:../../cores/mapleMX/UARTClass.h ****     int availableForWrite(void);
+  61:../../cores/mapleMX/UARTClass.h ****     int peek(void);
+  62:../../cores/mapleMX/UARTClass.h ****     int read(void);
+  63:../../cores/mapleMX/UARTClass.h ****     void flush(void);
+  64:../../cores/mapleMX/UARTClass.h ****     size_t write(const uint8_t c);
+  65:../../cores/mapleMX/UARTClass.h ****     using Print::write; // pull in write(str) and write(buf, size) from Print
+  66:../../cores/mapleMX/UARTClass.h **** 
+  67:../../cores/mapleMX/UARTClass.h ****     void setInterruptPriority(uint32_t priority);
+  68:../../cores/mapleMX/UARTClass.h ****     uint32_t getInterruptPriority();
+  69:../../cores/mapleMX/UARTClass.h **** 
+  70:../../cores/mapleMX/UARTClass.h ****     void IrqHandler(void);
+  71:../../cores/mapleMX/UARTClass.h **** 
+  72:../../cores/mapleMX/UARTClass.h ****     operator bool() { return true; }; // UART always active
+  27              		.loc 1 72 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  33              		.loc 1 72 0
+  34 0000 0120     		movs	r0, #1
+  35              	.LVL1:
+  36 0002 7047     		bx	lr
+  37              		.cfi_endproc
+  38              	.LFE193:
+  40              		.section	.text._ZN9UARTClass5beginEm,"ax",%progbits
+  41              		.align	1
+  42              		.global	_ZN9UARTClass5beginEm
+  43              		.thumb
+  44              		.thumb_func
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 3
+
+
+  46              	_ZN9UARTClass5beginEm:
+  47              	.LFB209:
+  48              		.file 2 "../../cores/mapleMX/UARTClass.cpp"
+   1:../../cores/mapleMX/UARTClass.cpp **** /*
+   2:../../cores/mapleMX/UARTClass.cpp ****   Copyright (c) 2011 Arduino.  All right reserved.
+   3:../../cores/mapleMX/UARTClass.cpp **** 
+   4:../../cores/mapleMX/UARTClass.cpp ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/UARTClass.cpp ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/UARTClass.cpp ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/UARTClass.cpp ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/UARTClass.cpp **** 
+   9:../../cores/mapleMX/UARTClass.cpp ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/UARTClass.cpp ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/UARTClass.cpp ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  12:../../cores/mapleMX/UARTClass.cpp ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/UARTClass.cpp **** 
+  14:../../cores/mapleMX/UARTClass.cpp ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/UARTClass.cpp ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/UARTClass.cpp ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/UARTClass.cpp **** */
+  18:../../cores/mapleMX/UARTClass.cpp **** 
+  19:../../cores/mapleMX/UARTClass.cpp **** #include <stdlib.h>
+  20:../../cores/mapleMX/UARTClass.cpp **** #include <stdio.h>
+  21:../../cores/mapleMX/UARTClass.cpp **** #include <string.h>
+  22:../../cores/mapleMX/UARTClass.cpp **** #include "UARTClass.h"
+  23:../../cores/mapleMX/UARTClass.cpp **** 
+  24:../../cores/mapleMX/UARTClass.cpp **** 
+  25:../../cores/mapleMX/UARTClass.cpp **** /* HardwareSerial  does not have a vtable */
+  26:../../cores/mapleMX/UARTClass.cpp **** //HardwareSerial::HardwareSerial(void){}
+  27:../../cores/mapleMX/UARTClass.cpp **** //void HardwareSerial::begin(unsigned long){}
+  28:../../cores/mapleMX/UARTClass.cpp **** extern "C" void __cxa_pure_virtual() { while (1); }
+  29:../../cores/mapleMX/UARTClass.cpp **** 
+  30:../../cores/mapleMX/UARTClass.cpp **** 
+  31:../../cores/mapleMX/UARTClass.cpp **** // Constructors ////////////////////////////////////////////////////////////////
+  32:../../cores/mapleMX/UARTClass.cpp **** 
+  33:../../cores/mapleMX/UARTClass.cpp **** UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_bu
+  34:../../cores/mapleMX/UARTClass.cpp **** {
+  35:../../cores/mapleMX/UARTClass.cpp ****   _rx_buffer = pRx_buffer;
+  36:../../cores/mapleMX/UARTClass.cpp ****   _tx_buffer = pTx_buffer;
+  37:../../cores/mapleMX/UARTClass.cpp **** 
+  38:../../cores/mapleMX/UARTClass.cpp ****   _pUart=pUart;
+  39:../../cores/mapleMX/UARTClass.cpp ****   _dwIrq=dwIrq;
+  40:../../cores/mapleMX/UARTClass.cpp ****   _dwId=dwId;
+  41:../../cores/mapleMX/UARTClass.cpp **** }
+  42:../../cores/mapleMX/UARTClass.cpp **** 
+  43:../../cores/mapleMX/UARTClass.cpp **** // Public Methods //////////////////////////////////////////////////////////////
+  44:../../cores/mapleMX/UARTClass.cpp **** 
+  45:../../cores/mapleMX/UARTClass.cpp **** void UARTClass::begin(const uint32_t dwBaudRate)
+  46:../../cores/mapleMX/UARTClass.cpp **** {
+  49              		.loc 2 46 0
+  50              		.cfi_startproc
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53              		@ link register save eliminated.
+  54              	.LVL2:
+  55 0000 7047     		bx	lr
+  56              		.cfi_endproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 4
+
+
+  57              	.LFE209:
+  59              		.section	.text._ZN9UARTClass3endEv,"ax",%progbits
+  60              		.align	1
+  61              		.global	_ZN9UARTClass3endEv
+  62              		.thumb
+  63              		.thumb_func
+  65              	_ZN9UARTClass3endEv:
+  66              	.LFB212:
+  47:../../cores/mapleMX/UARTClass.cpp ****   begin(dwBaudRate, Mode_8N1);
+  48:../../cores/mapleMX/UARTClass.cpp **** }
+  49:../../cores/mapleMX/UARTClass.cpp **** 
+  50:../../cores/mapleMX/UARTClass.cpp **** void UARTClass::begin(const uint32_t dwBaudRate, const UARTModes config)
+  51:../../cores/mapleMX/UARTClass.cpp **** {
+  52:../../cores/mapleMX/UARTClass.cpp **** //  init(dwBaudRate, modeReg | UART_MR_CHMODE_NORMAL);
+  53:../../cores/mapleMX/UARTClass.cpp **** }
+  54:../../cores/mapleMX/UARTClass.cpp **** 
+  55:../../cores/mapleMX/UARTClass.cpp **** void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
+  56:../../cores/mapleMX/UARTClass.cpp **** {
+  57:../../cores/mapleMX/UARTClass.cpp ****   // Configure PMC
+  58:../../cores/mapleMX/UARTClass.cpp **** 
+  59:../../cores/mapleMX/UARTClass.cpp **** 
+  60:../../cores/mapleMX/UARTClass.cpp ****   // Disable PDC channel
+  61:../../cores/mapleMX/UARTClass.cpp **** 
+  62:../../cores/mapleMX/UARTClass.cpp ****   // Reset and disable receiver and transmitter
+  63:../../cores/mapleMX/UARTClass.cpp **** 
+  64:../../cores/mapleMX/UARTClass.cpp **** 
+  65:../../cores/mapleMX/UARTClass.cpp ****   // Configure mode
+  66:../../cores/mapleMX/UARTClass.cpp **** 
+  67:../../cores/mapleMX/UARTClass.cpp **** 
+  68:../../cores/mapleMX/UARTClass.cpp ****   // Configure baudrate (asynchronous, no oversampling)
+  69:../../cores/mapleMX/UARTClass.cpp **** 
+  70:../../cores/mapleMX/UARTClass.cpp ****   // Configure interrupts
+  71:../../cores/mapleMX/UARTClass.cpp **** 
+  72:../../cores/mapleMX/UARTClass.cpp **** 
+  73:../../cores/mapleMX/UARTClass.cpp ****   // Enable UART interrupt in NVIC  when we have enough info for bridge
+  74:../../cores/mapleMX/UARTClass.cpp **** //  NVIC_EnableIRQ(_dwIrq);
+  75:../../cores/mapleMX/UARTClass.cpp **** 
+  76:../../cores/mapleMX/UARTClass.cpp ****   // Make sure both ring buffers are initialized back to empty.
+  77:../../cores/mapleMX/UARTClass.cpp ****   _rx_buffer->_iHead = _rx_buffer->_iTail = 0;
+  78:../../cores/mapleMX/UARTClass.cpp ****   _tx_buffer->_iHead = _tx_buffer->_iTail = 0;
+  79:../../cores/mapleMX/UARTClass.cpp **** 
+  80:../../cores/mapleMX/UARTClass.cpp ****   // Enable receiver and transmitter
+  81:../../cores/mapleMX/UARTClass.cpp **** 
+  82:../../cores/mapleMX/UARTClass.cpp **** }
+  83:../../cores/mapleMX/UARTClass.cpp **** 
+  84:../../cores/mapleMX/UARTClass.cpp **** void UARTClass::end( void )
+  85:../../cores/mapleMX/UARTClass.cpp **** {
+  67              		.loc 2 85 0
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71              	.LVL3:
+  72              		.loc 2 85 0
+  73 0000 08B5     		push	{r3, lr}
+  74              		.cfi_def_cfa_offset 8
+  75              		.cfi_offset 3, -8
+  76              		.cfi_offset 14, -4
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 5
+
+
+  86:../../cores/mapleMX/UARTClass.cpp ****   // Clear any received data
+  87:../../cores/mapleMX/UARTClass.cpp ****   _rx_buffer->_iHead = _rx_buffer->_iTail;
+  77              		.loc 2 87 0
+  78 0002 0269     		ldr	r2, [r0, #16]
+  88:../../cores/mapleMX/UARTClass.cpp **** 
+  89:../../cores/mapleMX/UARTClass.cpp ****   // Wait for any outstanding data to be sent
+  90:../../cores/mapleMX/UARTClass.cpp ****   flush();
+  79              		.loc 2 90 0
+  80 0004 0368     		ldr	r3, [r0]
+  87:../../cores/mapleMX/UARTClass.cpp ****   _rx_buffer->_iHead = _rx_buffer->_iTail;
+  81              		.loc 2 87 0
+  82 0006 D2F88410 		ldr	r1, [r2, #132]
+  83 000a C2F88010 		str	r1, [r2, #128]
+  84              		.loc 2 90 0
+  85 000e DB69     		ldr	r3, [r3, #28]
+  86 0010 9847     		blx	r3
+  87              	.LVL4:
+  88 0012 08BD     		pop	{r3, pc}
+  89              		.cfi_endproc
+  90              	.LFE212:
+  92              		.section	.text._ZN9UARTClass9availableEv,"ax",%progbits
+  93              		.align	1
+  94              		.global	_ZN9UARTClass9availableEv
+  95              		.thumb
+  96              		.thumb_func
+  98              	_ZN9UARTClass9availableEv:
+  99              	.LFB215:
+  91:../../cores/mapleMX/UARTClass.cpp **** 
+  92:../../cores/mapleMX/UARTClass.cpp ****   // Disable UART interrupt in NVIC
+  93:../../cores/mapleMX/UARTClass.cpp **** //  NVIC_DisableIRQ( _dwIrq );
+  94:../../cores/mapleMX/UARTClass.cpp **** 
+  95:../../cores/mapleMX/UARTClass.cpp ****  }
+  96:../../cores/mapleMX/UARTClass.cpp **** 
+  97:../../cores/mapleMX/UARTClass.cpp **** void UARTClass::setInterruptPriority(uint32_t priority)
+  98:../../cores/mapleMX/UARTClass.cpp **** {
+  99:../../cores/mapleMX/UARTClass.cpp **** //  NVIC_SetPriority(_dwIrq, priority & 0x0F);
+ 100:../../cores/mapleMX/UARTClass.cpp **** }
+ 101:../../cores/mapleMX/UARTClass.cpp **** 
+ 102:../../cores/mapleMX/UARTClass.cpp **** uint32_t UARTClass::getInterruptPriority()
+ 103:../../cores/mapleMX/UARTClass.cpp **** {
+ 104:../../cores/mapleMX/UARTClass.cpp **** //  return NVIC_GetPriority(_dwIrq);
+ 105:../../cores/mapleMX/UARTClass.cpp **** 	return 0; 
+ 106:../../cores/mapleMX/UARTClass.cpp **** }
+ 107:../../cores/mapleMX/UARTClass.cpp **** 
+ 108:../../cores/mapleMX/UARTClass.cpp **** int UARTClass::available( void )
+ 109:../../cores/mapleMX/UARTClass.cpp **** {
+ 100              		.loc 2 109 0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 0
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105              	.LVL5:
+ 110:../../cores/mapleMX/UARTClass.cpp ****   return (uint32_t)(SERIAL_BUFFER_SIZE + _rx_buffer->_iHead - _rx_buffer->_iTail) % SERIAL_BUFFER_S
+ 106              		.loc 2 110 0
+ 107 0000 0369     		ldr	r3, [r0, #16]
+ 108 0002 D3F88000 		ldr	r0, [r3, #128]
+ 109              	.LVL6:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 6
+
+
+ 110 0006 D3F88430 		ldr	r3, [r3, #132]
+ 111 000a C01A     		subs	r0, r0, r3
+ 111:../../cores/mapleMX/UARTClass.cpp **** }
+ 112              		.loc 2 111 0
+ 113 000c 00F07F00 		and	r0, r0, #127
+ 114 0010 7047     		bx	lr
+ 115              		.cfi_endproc
+ 116              	.LFE215:
+ 118              		.section	.text._ZN9UARTClass4peekEv,"ax",%progbits
+ 119              		.align	1
+ 120              		.global	_ZN9UARTClass4peekEv
+ 121              		.thumb
+ 122              		.thumb_func
+ 124              	_ZN9UARTClass4peekEv:
+ 125              	.LFB217:
+ 112:../../cores/mapleMX/UARTClass.cpp **** 
+ 113:../../cores/mapleMX/UARTClass.cpp **** int UARTClass::availableForWrite(void)
+ 114:../../cores/mapleMX/UARTClass.cpp **** {
+ 115:../../cores/mapleMX/UARTClass.cpp ****   int head = _tx_buffer->_iHead;
+ 116:../../cores/mapleMX/UARTClass.cpp ****   int tail = _tx_buffer->_iTail;
+ 117:../../cores/mapleMX/UARTClass.cpp ****   if (head >= tail) return SERIAL_BUFFER_SIZE - 1 - head + tail;
+ 118:../../cores/mapleMX/UARTClass.cpp ****   return tail - head - 1;
+ 119:../../cores/mapleMX/UARTClass.cpp **** }
+ 120:../../cores/mapleMX/UARTClass.cpp **** 
+ 121:../../cores/mapleMX/UARTClass.cpp **** int UARTClass::peek( void )
+ 122:../../cores/mapleMX/UARTClass.cpp **** {
+ 126              		.loc 2 122 0
+ 127              		.cfi_startproc
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 0, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 131              	.LVL7:
+ 123:../../cores/mapleMX/UARTClass.cpp ****   if ( _rx_buffer->_iHead == _rx_buffer->_iTail )
+ 132              		.loc 2 123 0
+ 133 0000 0369     		ldr	r3, [r0, #16]
+ 134 0002 D3F88010 		ldr	r1, [r3, #128]
+ 135 0006 D3F88420 		ldr	r2, [r3, #132]
+ 136 000a 9142     		cmp	r1, r2
+ 124:../../cores/mapleMX/UARTClass.cpp ****     return -1;
+ 125:../../cores/mapleMX/UARTClass.cpp **** 
+ 126:../../cores/mapleMX/UARTClass.cpp ****   return _rx_buffer->_aucBuffer[_rx_buffer->_iTail];
+ 137              		.loc 2 126 0
+ 138 000c 1DBF     		ittte	ne
+ 139 000e D3F88420 		ldrne	r2, [r3, #132]
+ 140 0012 985C     		ldrbne	r0, [r3, r2]	@ zero_extendqisi2
+ 141              	.LVL8:
+ 142 0014 C0B2     		uxtbne	r0, r0
+ 124:../../cores/mapleMX/UARTClass.cpp ****     return -1;
+ 143              		.loc 2 124 0
+ 144 0016 4FF0FF30 		moveq	r0, #-1
+ 127:../../cores/mapleMX/UARTClass.cpp **** }
+ 145              		.loc 2 127 0
+ 146 001a 7047     		bx	lr
+ 147              		.cfi_endproc
+ 148              	.LFE217:
+ 150              		.section	.text._ZN9UARTClass4readEv,"ax",%progbits
+ 151              		.align	1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 7
+
+
+ 152              		.global	_ZN9UARTClass4readEv
+ 153              		.thumb
+ 154              		.thumb_func
+ 156              	_ZN9UARTClass4readEv:
+ 157              	.LFB218:
+ 128:../../cores/mapleMX/UARTClass.cpp **** 
+ 129:../../cores/mapleMX/UARTClass.cpp **** int UARTClass::read( void )
+ 130:../../cores/mapleMX/UARTClass.cpp **** {
+ 158              		.loc 2 130 0
+ 159              		.cfi_startproc
+ 160              		@ args = 0, pretend = 0, frame = 0
+ 161              		@ frame_needed = 0, uses_anonymous_args = 0
+ 162              		@ link register save eliminated.
+ 163              	.LVL9:
+ 164              	.LBB14:
+ 131:../../cores/mapleMX/UARTClass.cpp ****   // if the head isn't ahead of the tail, we don't have any characters
+ 132:../../cores/mapleMX/UARTClass.cpp ****   if ( _rx_buffer->_iHead == _rx_buffer->_iTail )
+ 165              		.loc 2 132 0
+ 166 0000 0369     		ldr	r3, [r0, #16]
+ 167 0002 D3F88010 		ldr	r1, [r3, #128]
+ 168 0006 D3F88420 		ldr	r2, [r3, #132]
+ 169 000a 9142     		cmp	r1, r2
+ 170 000c 0AD0     		beq	.L10
+ 133:../../cores/mapleMX/UARTClass.cpp ****     return -1;
+ 134:../../cores/mapleMX/UARTClass.cpp **** 
+ 135:../../cores/mapleMX/UARTClass.cpp ****   uint8_t uc = _rx_buffer->_aucBuffer[_rx_buffer->_iTail];
+ 171              		.loc 2 135 0
+ 172 000e D3F88420 		ldr	r2, [r3, #132]
+ 173 0012 985C     		ldrb	r0, [r3, r2]	@ zero_extendqisi2
+ 174              	.LVL10:
+ 136:../../cores/mapleMX/UARTClass.cpp ****   _rx_buffer->_iTail = (unsigned int)(_rx_buffer->_iTail + 1) % SERIAL_BUFFER_SIZE;
+ 175              		.loc 2 136 0
+ 176 0014 D3F88420 		ldr	r2, [r3, #132]
+ 177 0018 0132     		adds	r2, r2, #1
+ 178 001a 02F07F02 		and	r2, r2, #127
+ 179 001e C3F88420 		str	r2, [r3, #132]
+ 137:../../cores/mapleMX/UARTClass.cpp ****   return uc;
+ 180              		.loc 2 137 0
+ 181 0022 7047     		bx	lr
+ 182              	.LVL11:
+ 183              	.L10:
+ 133:../../cores/mapleMX/UARTClass.cpp ****     return -1;
+ 184              		.loc 2 133 0
+ 185 0024 4FF0FF30 		mov	r0, #-1
+ 186              	.LVL12:
+ 187              	.LBE14:
+ 138:../../cores/mapleMX/UARTClass.cpp **** }
+ 188              		.loc 2 138 0
+ 189 0028 7047     		bx	lr
+ 190              		.cfi_endproc
+ 191              	.LFE218:
+ 193              		.section	.text._ZN9UARTClass5flushEv,"ax",%progbits
+ 194              		.align	1
+ 195              		.global	_ZN9UARTClass5flushEv
+ 196              		.thumb
+ 197              		.thumb_func
+ 199              	_ZN9UARTClass5flushEv:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 8
+
+
+ 200              	.LFB219:
+ 139:../../cores/mapleMX/UARTClass.cpp **** 
+ 140:../../cores/mapleMX/UARTClass.cpp **** void UARTClass::flush( void )
+ 141:../../cores/mapleMX/UARTClass.cpp **** {
+ 201              		.loc 2 141 0
+ 202              		.cfi_startproc
+ 203              		@ args = 0, pretend = 0, frame = 0
+ 204              		@ frame_needed = 0, uses_anonymous_args = 0
+ 205              		@ link register save eliminated.
+ 206              	.LVL13:
+ 142:../../cores/mapleMX/UARTClass.cpp ****   while (_tx_buffer->_iHead != _tx_buffer->_iTail); //wait for transmit data to be sent
+ 207              		.loc 2 142 0
+ 208 0000 4369     		ldr	r3, [r0, #20]
+ 209              	.L14:
+ 210              		.loc 2 142 0 is_stmt 0 discriminator 1
+ 211 0002 D3F88010 		ldr	r1, [r3, #128]
+ 212 0006 D3F88420 		ldr	r2, [r3, #132]
+ 213 000a 9142     		cmp	r1, r2
+ 214 000c F9D1     		bne	.L14
+ 143:../../cores/mapleMX/UARTClass.cpp **** 
+ 144:../../cores/mapleMX/UARTClass.cpp ****   // Wait for transmission to complete
+ 145:../../cores/mapleMX/UARTClass.cpp **** 
+ 146:../../cores/mapleMX/UARTClass.cpp **** 
+ 147:../../cores/mapleMX/UARTClass.cpp **** }
+ 215              		.loc 2 147 0 is_stmt 1
+ 216 000e 7047     		bx	lr
+ 217              		.cfi_endproc
+ 218              	.LFE219:
+ 220              		.section	.text._ZN6StreamD2Ev,"axG",%progbits,_ZN6StreamD5Ev,comdat
+ 221              		.align	1
+ 222              		.weak	_ZN6StreamD2Ev
+ 223              		.thumb
+ 224              		.thumb_func
+ 226              	_ZN6StreamD2Ev:
+ 227              	.LFB198:
+ 228              		.file 3 "../../cores/mapleMX/Stream.h"
+   1:../../cores/mapleMX/Stream.h **** /*
+   2:../../cores/mapleMX/Stream.h ****   Stream.h - base class for character-based streams.
+   3:../../cores/mapleMX/Stream.h ****   Copyright (c) 2010 David A. Mellis.  All right reserved.
+   4:../../cores/mapleMX/Stream.h **** 
+   5:../../cores/mapleMX/Stream.h ****   This library is free software; you can redistribute it and/or
+   6:../../cores/mapleMX/Stream.h ****   modify it under the terms of the GNU Lesser General Public
+   7:../../cores/mapleMX/Stream.h ****   License as published by the Free Software Foundation; either
+   8:../../cores/mapleMX/Stream.h ****   version 2.1 of the License, or (at your option) any later version.
+   9:../../cores/mapleMX/Stream.h **** 
+  10:../../cores/mapleMX/Stream.h ****   This library is distributed in the hope that it will be useful,
+  11:../../cores/mapleMX/Stream.h ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  12:../../cores/mapleMX/Stream.h ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  13:../../cores/mapleMX/Stream.h ****   Lesser General Public License for more details.
+  14:../../cores/mapleMX/Stream.h **** 
+  15:../../cores/mapleMX/Stream.h ****   You should have received a copy of the GNU Lesser General Public
+  16:../../cores/mapleMX/Stream.h ****   License along with this library; if not, write to the Free Software
+  17:../../cores/mapleMX/Stream.h ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  18:../../cores/mapleMX/Stream.h **** 
+  19:../../cores/mapleMX/Stream.h ****   parsing functions based on TextFinder library by Michael Margolis
+  20:../../cores/mapleMX/Stream.h **** */
+  21:../../cores/mapleMX/Stream.h **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 9
+
+
+  22:../../cores/mapleMX/Stream.h **** #ifndef Stream_h
+  23:../../cores/mapleMX/Stream.h **** #define Stream_h
+  24:../../cores/mapleMX/Stream.h **** 
+  25:../../cores/mapleMX/Stream.h **** #include <inttypes.h>
+  26:../../cores/mapleMX/Stream.h **** #include "Print.h"
+  27:../../cores/mapleMX/Stream.h **** 
+  28:../../cores/mapleMX/Stream.h **** // compatability macros for testing
+  29:../../cores/mapleMX/Stream.h **** /*
+  30:../../cores/mapleMX/Stream.h **** #define   getInt()            parseInt()
+  31:../../cores/mapleMX/Stream.h **** #define   getInt(skipChar)    parseInt(skipchar)
+  32:../../cores/mapleMX/Stream.h **** #define   getFloat()          parseFloat()
+  33:../../cores/mapleMX/Stream.h **** #define   getFloat(skipChar)  parseFloat(skipChar)
+  34:../../cores/mapleMX/Stream.h **** #define   getString( pre_string, post_string, buffer, length)
+  35:../../cores/mapleMX/Stream.h **** readBytesBetween( pre_string, terminator, buffer, length)
+  36:../../cores/mapleMX/Stream.h **** */
+  37:../../cores/mapleMX/Stream.h **** 
+  38:../../cores/mapleMX/Stream.h **** class Stream : public Print
+ 229              		.loc 3 38 0
+ 230              		.cfi_startproc
+ 231              		@ args = 0, pretend = 0, frame = 0
+ 232              		@ frame_needed = 0, uses_anonymous_args = 0
+ 233              	.LVL14:
+ 234 0000 10B5     		push	{r4, lr}
+ 235              		.cfi_def_cfa_offset 8
+ 236              		.cfi_offset 4, -8
+ 237              		.cfi_offset 14, -4
+ 238              	.LBB15:
+ 239              		.loc 3 38 0
+ 240 0002 034B     		ldr	r3, .L16
+ 241 0004 0360     		str	r3, [r0]
+ 242              	.LBE15:
+ 243 0006 0446     		mov	r4, r0
+ 244              	.LBB16:
+ 245 0008 FFF7FEFF 		bl	_ZN5PrintD2Ev
+ 246              	.LVL15:
+ 247              	.LBE16:
+ 248 000c 2046     		mov	r0, r4
+ 249 000e 10BD     		pop	{r4, pc}
+ 250              	.LVL16:
+ 251              	.L17:
+ 252              		.align	2
+ 253              	.L16:
+ 254 0010 08000000 		.word	_ZTV6Stream+8
+ 255              		.cfi_endproc
+ 256              	.LFE198:
+ 258              		.weak	_ZN6StreamD1Ev
+ 259              		.thumb_set _ZN6StreamD1Ev,_ZN6StreamD2Ev
+ 260              		.section	.text._ZN14HardwareSerialD2Ev,"axG",%progbits,_ZN14HardwareSerialD5Ev,comdat
+ 261              		.align	1
+ 262              		.weak	_ZN14HardwareSerialD2Ev
+ 263              		.thumb
+ 264              		.thumb_func
+ 266              	_ZN14HardwareSerialD2Ev:
+ 267              	.LFB204:
+ 268              		.file 4 "../../cores/mapleMX/HardwareSerial.h"
+   1:../../cores/mapleMX/HardwareSerial.h **** /*
+   2:../../cores/mapleMX/HardwareSerial.h ****   Copyright (c) 2011 Arduino.  All right reserved.
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 10
+
+
+   3:../../cores/mapleMX/HardwareSerial.h **** 
+   4:../../cores/mapleMX/HardwareSerial.h ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/HardwareSerial.h ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/HardwareSerial.h ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/HardwareSerial.h ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/HardwareSerial.h **** 
+   9:../../cores/mapleMX/HardwareSerial.h ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/HardwareSerial.h ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/HardwareSerial.h ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  12:../../cores/mapleMX/HardwareSerial.h ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/HardwareSerial.h **** 
+  14:../../cores/mapleMX/HardwareSerial.h ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/HardwareSerial.h ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/HardwareSerial.h ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/HardwareSerial.h **** */
+  18:../../cores/mapleMX/HardwareSerial.h **** 
+  19:../../cores/mapleMX/HardwareSerial.h **** #ifndef HardwareSerial_h
+  20:../../cores/mapleMX/HardwareSerial.h **** #define HardwareSerial_h
+  21:../../cores/mapleMX/HardwareSerial.h **** 
+  22:../../cores/mapleMX/HardwareSerial.h **** #include <inttypes.h>
+  23:../../cores/mapleMX/HardwareSerial.h **** 
+  24:../../cores/mapleMX/HardwareSerial.h **** #include "Stream.h"
+  25:../../cores/mapleMX/HardwareSerial.h **** 
+  26:../../cores/mapleMX/HardwareSerial.h **** /* does not have a vtable when compiled standalone */
+  27:../../cores/mapleMX/HardwareSerial.h **** 
+  28:../../cores/mapleMX/HardwareSerial.h **** class HardwareSerial : public Stream
+ 269              		.loc 4 28 0
+ 270              		.cfi_startproc
+ 271              		@ args = 0, pretend = 0, frame = 0
+ 272              		@ frame_needed = 0, uses_anonymous_args = 0
+ 273              	.LVL17:
+ 274 0000 10B5     		push	{r4, lr}
+ 275              		.cfi_def_cfa_offset 8
+ 276              		.cfi_offset 4, -8
+ 277              		.cfi_offset 14, -4
+ 278              	.LBB17:
+ 279              		.loc 4 28 0
+ 280 0002 034B     		ldr	r3, .L19
+ 281 0004 0360     		str	r3, [r0]
+ 282              	.LBE17:
+ 283 0006 0446     		mov	r4, r0
+ 284              	.LBB18:
+ 285 0008 FFF7FEFF 		bl	_ZN6StreamD2Ev
+ 286              	.LVL18:
+ 287              	.LBE18:
+ 288 000c 2046     		mov	r0, r4
+ 289 000e 10BD     		pop	{r4, pc}
+ 290              	.LVL19:
+ 291              	.L20:
+ 292              		.align	2
+ 293              	.L19:
+ 294 0010 08000000 		.word	_ZTV14HardwareSerial+8
+ 295              		.cfi_endproc
+ 296              	.LFE204:
+ 298              		.weak	_ZN14HardwareSerialD1Ev
+ 299              		.thumb_set _ZN14HardwareSerialD1Ev,_ZN14HardwareSerialD2Ev
+ 300              		.section	.text._ZN9UARTClassD2Ev,"axG",%progbits,_ZN9UARTClassD5Ev,comdat
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 11
+
+
+ 301              		.align	1
+ 302              		.weak	_ZN9UARTClassD2Ev
+ 303              		.thumb
+ 304              		.thumb_func
+ 306              	_ZN9UARTClassD2Ev:
+ 307              	.LFB223:
+  44:../../cores/mapleMX/UARTClass.h **** class UARTClass : public HardwareSerial
+ 308              		.loc 1 44 0
+ 309              		.cfi_startproc
+ 310              		@ args = 0, pretend = 0, frame = 0
+ 311              		@ frame_needed = 0, uses_anonymous_args = 0
+ 312              	.LVL20:
+ 313 0000 10B5     		push	{r4, lr}
+ 314              		.cfi_def_cfa_offset 8
+ 315              		.cfi_offset 4, -8
+ 316              		.cfi_offset 14, -4
+ 317              	.LBB19:
+  44:../../cores/mapleMX/UARTClass.h **** class UARTClass : public HardwareSerial
+ 318              		.loc 1 44 0
+ 319 0002 034B     		ldr	r3, .L22
+ 320 0004 0360     		str	r3, [r0]
+ 321              	.LBE19:
+ 322 0006 0446     		mov	r4, r0
+ 323              	.LBB20:
+ 324 0008 FFF7FEFF 		bl	_ZN14HardwareSerialD2Ev
+ 325              	.LVL21:
+ 326              	.LBE20:
+ 327 000c 2046     		mov	r0, r4
+ 328 000e 10BD     		pop	{r4, pc}
+ 329              	.LVL22:
+ 330              	.L23:
+ 331              		.align	2
+ 332              	.L22:
+ 333 0010 08000000 		.word	.LANCHOR0+8
+ 334              		.cfi_endproc
+ 335              	.LFE223:
+ 337              		.weak	_ZN9UARTClassD1Ev
+ 338              		.thumb_set _ZN9UARTClassD1Ev,_ZN9UARTClassD2Ev
+ 339              		.section	.text._ZN6StreamD0Ev,"axG",%progbits,_ZN6StreamD0Ev,comdat
+ 340              		.align	1
+ 341              		.weak	_ZN6StreamD0Ev
+ 342              		.thumb
+ 343              		.thumb_func
+ 345              	_ZN6StreamD0Ev:
+ 346              	.LFB200:
+ 347              		.loc 3 38 0
+ 348              		.cfi_startproc
+ 349              		@ args = 0, pretend = 0, frame = 0
+ 350              		@ frame_needed = 0, uses_anonymous_args = 0
+ 351              	.LVL23:
+ 352 0000 10B5     		push	{r4, lr}
+ 353              		.cfi_def_cfa_offset 8
+ 354              		.cfi_offset 4, -8
+ 355              		.cfi_offset 14, -4
+ 356              		.loc 3 38 0
+ 357 0002 0446     		mov	r4, r0
+ 358 0004 FFF7FEFF 		bl	_ZN6StreamD1Ev
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 12
+
+
+ 359              	.LVL24:
+ 360 0008 2046     		mov	r0, r4
+ 361 000a FFF7FEFF 		bl	_ZdlPv
+ 362              	.LVL25:
+ 363 000e 2046     		mov	r0, r4
+ 364 0010 10BD     		pop	{r4, pc}
+ 365              		.cfi_endproc
+ 366              	.LFE200:
+ 368              		.section	.text._ZN14HardwareSerialD0Ev,"axG",%progbits,_ZN14HardwareSerialD0Ev,comdat
+ 369              		.align	1
+ 370              		.weak	_ZN14HardwareSerialD0Ev
+ 371              		.thumb
+ 372              		.thumb_func
+ 374              	_ZN14HardwareSerialD0Ev:
+ 375              	.LFB206:
+ 376              		.loc 4 28 0
+ 377              		.cfi_startproc
+ 378              		@ args = 0, pretend = 0, frame = 0
+ 379              		@ frame_needed = 0, uses_anonymous_args = 0
+ 380              	.LVL26:
+ 381 0000 10B5     		push	{r4, lr}
+ 382              		.cfi_def_cfa_offset 8
+ 383              		.cfi_offset 4, -8
+ 384              		.cfi_offset 14, -4
+ 385              		.loc 4 28 0
+ 386 0002 0446     		mov	r4, r0
+ 387 0004 FFF7FEFF 		bl	_ZN14HardwareSerialD1Ev
+ 388              	.LVL27:
+ 389 0008 2046     		mov	r0, r4
+ 390 000a FFF7FEFF 		bl	_ZdlPv
+ 391              	.LVL28:
+ 392 000e 2046     		mov	r0, r4
+ 393 0010 10BD     		pop	{r4, pc}
+ 394              		.cfi_endproc
+ 395              	.LFE206:
+ 397              		.section	.text._ZN9UARTClassD0Ev,"axG",%progbits,_ZN9UARTClassD0Ev,comdat
+ 398              		.align	1
+ 399              		.weak	_ZN9UARTClassD0Ev
+ 400              		.thumb
+ 401              		.thumb_func
+ 403              	_ZN9UARTClassD0Ev:
+ 404              	.LFB225:
+  44:../../cores/mapleMX/UARTClass.h **** class UARTClass : public HardwareSerial
+ 405              		.loc 1 44 0
+ 406              		.cfi_startproc
+ 407              		@ args = 0, pretend = 0, frame = 0
+ 408              		@ frame_needed = 0, uses_anonymous_args = 0
+ 409              	.LVL29:
+ 410 0000 10B5     		push	{r4, lr}
+ 411              		.cfi_def_cfa_offset 8
+ 412              		.cfi_offset 4, -8
+ 413              		.cfi_offset 14, -4
+  44:../../cores/mapleMX/UARTClass.h **** class UARTClass : public HardwareSerial
+ 414              		.loc 1 44 0
+ 415 0002 0446     		mov	r4, r0
+ 416 0004 FFF7FEFF 		bl	_ZN9UARTClassD1Ev
+ 417              	.LVL30:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 13
+
+
+ 418 0008 2046     		mov	r0, r4
+ 419 000a FFF7FEFF 		bl	_ZdlPv
+ 420              	.LVL31:
+ 421 000e 2046     		mov	r0, r4
+ 422 0010 10BD     		pop	{r4, pc}
+ 423              		.cfi_endproc
+ 424              	.LFE225:
+ 426              		.section	.text._ZN9UARTClass5writeEh,"ax",%progbits
+ 427              		.align	1
+ 428              		.global	_ZN9UARTClass5writeEh
+ 429              		.thumb
+ 430              		.thumb_func
+ 432              	_ZN9UARTClass5writeEh:
+ 433              	.LFB220:
+ 148:../../cores/mapleMX/UARTClass.cpp **** 
+ 149:../../cores/mapleMX/UARTClass.cpp **** size_t UARTClass::write( const uint8_t uc_data )
+ 150:../../cores/mapleMX/UARTClass.cpp **** {
+ 434              		.loc 2 150 0
+ 435              		.cfi_startproc
+ 436              		@ args = 0, pretend = 0, frame = 8
+ 437              		@ frame_needed = 0, uses_anonymous_args = 0
+ 438              	.LVL32:
+ 439 0000 07B5     		push	{r0, r1, r2, lr}
+ 440              		.cfi_def_cfa_offset 16
+ 441              		.cfi_offset 0, -16
+ 442              		.cfi_offset 1, -12
+ 443              		.cfi_offset 2, -8
+ 444              		.cfi_offset 14, -4
+ 445              		.loc 2 150 0
+ 446 0002 02AB     		add	r3, sp, #8
+ 151:../../cores/mapleMX/UARTClass.cpp **** #if 0
+ 152:../../cores/mapleMX/UARTClass.cpp ****   // Is the hardware currently busy?
+ 153:../../cores/mapleMX/UARTClass.cpp ****   if (((_pUart->UART_SR & UART_SR_TXRDY) != UART_SR_TXRDY) |
+ 154:../../cores/mapleMX/UARTClass.cpp ****       (_tx_buffer->_iTail != _tx_buffer->_iHead))
+ 155:../../cores/mapleMX/UARTClass.cpp ****   {
+ 156:../../cores/mapleMX/UARTClass.cpp ****     // If busy we buffer
+ 157:../../cores/mapleMX/UARTClass.cpp ****     unsigned int l = (_tx_buffer->_iHead + 1) % SERIAL_BUFFER_SIZE;
+ 158:../../cores/mapleMX/UARTClass.cpp ****     while (_tx_buffer->_iTail == l)
+ 159:../../cores/mapleMX/UARTClass.cpp ****       ; // Spin locks if we're about to overwrite the buffer. This continues once the data is sent
+ 160:../../cores/mapleMX/UARTClass.cpp **** 
+ 161:../../cores/mapleMX/UARTClass.cpp ****     _tx_buffer->_aucBuffer[_tx_buffer->_iHead] = uc_data;
+ 162:../../cores/mapleMX/UARTClass.cpp ****     _tx_buffer->_iHead = l;
+ 163:../../cores/mapleMX/UARTClass.cpp ****     // Make sure TX interrupt is enabled
+ 164:../../cores/mapleMX/UARTClass.cpp ****     _pUart->UART_IER = UART_IER_TXRDY;
+ 165:../../cores/mapleMX/UARTClass.cpp ****   }
+ 166:../../cores/mapleMX/UARTClass.cpp ****   else 
+ 167:../../cores/mapleMX/UARTClass.cpp ****   {
+ 168:../../cores/mapleMX/UARTClass.cpp ****      // Bypass buffering and send character directly
+ 169:../../cores/mapleMX/UARTClass.cpp **** 
+ 170:../../cores/mapleMX/UARTClass.cpp ****   }
+ 171:../../cores/mapleMX/UARTClass.cpp **** #endif
+ 172:../../cores/mapleMX/UARTClass.cpp ****   HAL_UART_Transmit(_pUart, (uint8_t *)&uc_data, 1, 0xFFFF); 
+ 447              		.loc 2 172 0
+ 448 0004 0122     		movs	r2, #1
+ 150:../../cores/mapleMX/UARTClass.cpp **** {
+ 449              		.loc 2 150 0
+ 450 0006 03F8011D 		strb	r1, [r3, #-1]!
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 14
+
+
+ 451              		.loc 2 172 0
+ 452 000a 8069     		ldr	r0, [r0, #24]
+ 453              	.LVL33:
+ 454 000c 1946     		mov	r1, r3
+ 455              	.LVL34:
+ 456 000e 4FF6FF73 		movw	r3, #65535
+ 457 0012 FFF7FEFF 		bl	HAL_UART_Transmit
+ 458              	.LVL35:
+ 173:../../cores/mapleMX/UARTClass.cpp ****   return 1;
+ 174:../../cores/mapleMX/UARTClass.cpp **** }
+ 459              		.loc 2 174 0
+ 460 0016 0120     		movs	r0, #1
+ 461 0018 03B0     		add	sp, sp, #12
+ 462              	.LVL36:
+ 463              		@ sp needed
+ 464 001a 5DF804FB 		ldr	pc, [sp], #4
+ 465              		.cfi_endproc
+ 466              	.LFE220:
+ 468              		.section	.text.__cxa_pure_virtual,"ax",%progbits
+ 469              		.align	1
+ 470              		.global	__cxa_pure_virtual
+ 471              		.thumb
+ 472              		.thumb_func
+ 474              	__cxa_pure_virtual:
+ 475              	.LFB194:
+  28:../../cores/mapleMX/UARTClass.cpp **** extern "C" void __cxa_pure_virtual() { while (1); }
+ 476              		.loc 2 28 0
+ 477              		.cfi_startproc
+ 478              		@ Volatile: function does not return.
+ 479              		@ args = 0, pretend = 0, frame = 0
+ 480              		@ frame_needed = 0, uses_anonymous_args = 0
+ 481              		@ link register save eliminated.
+ 482              	.L29:
+ 483 0000 FEE7     		b	.L29
+ 484              		.cfi_endproc
+ 485              	.LFE194:
+ 487              		.section	.text._ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_,"ax",%progbits
+ 488              		.align	1
+ 489              		.global	_ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_
+ 490              		.thumb
+ 491              		.thumb_func
+ 493              	_ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_:
+ 494              	.LFB207:
+  33:../../cores/mapleMX/UARTClass.cpp **** UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_bu
+ 495              		.loc 2 33 0
+ 496              		.cfi_startproc
+ 497              		@ args = 8, pretend = 0, frame = 0
+ 498              		@ frame_needed = 0, uses_anonymous_args = 0
+ 499              	.LVL37:
+  33:../../cores/mapleMX/UARTClass.cpp **** UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_bu
+ 500              		.loc 2 33 0
+ 501 0000 30B5     		push	{r4, r5, lr}
+ 502              		.cfi_def_cfa_offset 12
+ 503              		.cfi_offset 4, -12
+ 504              		.cfi_offset 5, -8
+ 505              		.cfi_offset 14, -4
+ 506              	.LBB29:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 15
+
+
+ 507              	.LBB30:
+ 508              	.LBB31:
+ 509              	.LBB32:
+ 510              	.LBB33:
+ 511              	.LBB34:
+ 512              	.LBB35:
+ 513              		.file 5 "../../cores/mapleMX/Print.h"
+   1:../../cores/mapleMX/Print.h **** /*
+   2:../../cores/mapleMX/Print.h ****   Print.h - Base class that provides print() and println()
+   3:../../cores/mapleMX/Print.h ****   Copyright (c) 2008 David A. Mellis.  All right reserved.
+   4:../../cores/mapleMX/Print.h **** 
+   5:../../cores/mapleMX/Print.h ****   This library is free software; you can redistribute it and/or
+   6:../../cores/mapleMX/Print.h ****   modify it under the terms of the GNU Lesser General Public
+   7:../../cores/mapleMX/Print.h ****   License as published by the Free Software Foundation; either
+   8:../../cores/mapleMX/Print.h ****   version 2.1 of the License, or (at your option) any later version.
+   9:../../cores/mapleMX/Print.h **** 
+  10:../../cores/mapleMX/Print.h ****   This library is distributed in the hope that it will be useful,
+  11:../../cores/mapleMX/Print.h ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  12:../../cores/mapleMX/Print.h ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  13:../../cores/mapleMX/Print.h ****   Lesser General Public License for more details.
+  14:../../cores/mapleMX/Print.h **** 
+  15:../../cores/mapleMX/Print.h ****   You should have received a copy of the GNU Lesser General Public
+  16:../../cores/mapleMX/Print.h ****   License along with this library; if not, write to the Free Software
+  17:../../cores/mapleMX/Print.h ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  18:../../cores/mapleMX/Print.h **** */
+  19:../../cores/mapleMX/Print.h **** 
+  20:../../cores/mapleMX/Print.h **** #ifndef Print_h
+  21:../../cores/mapleMX/Print.h **** #define Print_h
+  22:../../cores/mapleMX/Print.h **** 
+  23:../../cores/mapleMX/Print.h **** #include <inttypes.h>
+  24:../../cores/mapleMX/Print.h **** #include <stdio.h> // for size_t
+  25:../../cores/mapleMX/Print.h **** 
+  26:../../cores/mapleMX/Print.h **** #include "WString.h"
+  27:../../cores/mapleMX/Print.h **** #include "Printable.h"
+  28:../../cores/mapleMX/Print.h **** 
+  29:../../cores/mapleMX/Print.h **** #define DEC 10
+  30:../../cores/mapleMX/Print.h **** #define HEX 16
+  31:../../cores/mapleMX/Print.h **** #define OCT 8
+  32:../../cores/mapleMX/Print.h **** #define BIN 2
+  33:../../cores/mapleMX/Print.h **** 
+  34:../../cores/mapleMX/Print.h **** class Print
+  35:../../cores/mapleMX/Print.h **** {
+  36:../../cores/mapleMX/Print.h ****   private:
+  37:../../cores/mapleMX/Print.h ****     int write_error;
+  38:../../cores/mapleMX/Print.h ****     size_t printNumber(unsigned long, uint8_t);
+  39:../../cores/mapleMX/Print.h ****     size_t printFloat(double, uint8_t);
+  40:../../cores/mapleMX/Print.h ****   protected:
+  41:../../cores/mapleMX/Print.h ****     void setWriteError(int err = 1) { write_error = err; }
+  42:../../cores/mapleMX/Print.h ****   public:
+  43:../../cores/mapleMX/Print.h ****     Print() : write_error(0) {}
+ 514              		.loc 5 43 0
+ 515 0002 0025     		movs	r5, #0
+ 516 0004 4560     		str	r5, [r0, #4]
+ 517              	.LBE35:
+ 518              	.LBE34:
+  39:../../cores/mapleMX/Stream.h **** {
+  40:../../cores/mapleMX/Stream.h ****   protected:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 16
+
+
+  41:../../cores/mapleMX/Stream.h ****     unsigned long _timeout;      // number of milliseconds to wait for the next char before abortin
+  42:../../cores/mapleMX/Stream.h ****     unsigned long _startMillis;  // used for timeout measurement
+  43:../../cores/mapleMX/Stream.h ****     int timedRead();    // private method to read stream with timeout
+  44:../../cores/mapleMX/Stream.h ****     int timedPeek();    // private method to peek stream with timeout
+  45:../../cores/mapleMX/Stream.h ****     int peekNextDigit(); // returns the next numeric digit in the stream or -1 if timeout
+  46:../../cores/mapleMX/Stream.h **** 
+  47:../../cores/mapleMX/Stream.h ****   public:
+  48:../../cores/mapleMX/Stream.h ****     virtual int available() = 0;
+  49:../../cores/mapleMX/Stream.h ****     virtual int read() = 0;
+  50:../../cores/mapleMX/Stream.h ****     virtual int peek() = 0;
+  51:../../cores/mapleMX/Stream.h ****     virtual void flush() = 0;
+  52:../../cores/mapleMX/Stream.h **** 
+  53:../../cores/mapleMX/Stream.h ****     Stream() {_timeout=1000;}
+ 519              		.loc 3 53 0
+ 520 0006 4FF47A75 		mov	r5, #1000
+ 521 000a 8560     		str	r5, [r0, #8]
+ 522              	.LBE33:
+ 523              	.LBE32:
+ 524              	.LBE31:
+ 525              	.LBE30:
+  33:../../cores/mapleMX/UARTClass.cpp **** UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_bu
+ 526              		.loc 2 33 0
+ 527 000c 044D     		ldr	r5, .L31
+ 528 000e 0560     		str	r5, [r0]
+  35:../../cores/mapleMX/UARTClass.cpp ****   _rx_buffer = pRx_buffer;
+ 529              		.loc 2 35 0
+ 530 0010 039D     		ldr	r5, [sp, #12]
+ 531 0012 0561     		str	r5, [r0, #16]
+  36:../../cores/mapleMX/UARTClass.cpp ****   _tx_buffer = pTx_buffer;
+ 532              		.loc 2 36 0
+ 533 0014 049D     		ldr	r5, [sp, #16]
+ 534 0016 4561     		str	r5, [r0, #20]
+  38:../../cores/mapleMX/UARTClass.cpp ****   _pUart=pUart;
+ 535              		.loc 2 38 0
+ 536 0018 8161     		str	r1, [r0, #24]
+  39:../../cores/mapleMX/UARTClass.cpp ****   _dwIrq=dwIrq;
+ 537              		.loc 2 39 0
+ 538 001a 0277     		strb	r2, [r0, #28]
+  40:../../cores/mapleMX/UARTClass.cpp ****   _dwId=dwId;
+ 539              		.loc 2 40 0
+ 540 001c 0362     		str	r3, [r0, #32]
+ 541              	.LBE29:
+  41:../../cores/mapleMX/UARTClass.cpp **** }
+ 542              		.loc 2 41 0
+ 543 001e 30BD     		pop	{r4, r5, pc}
+ 544              	.LVL38:
+ 545              	.L32:
+ 546              		.align	2
+ 547              	.L31:
+ 548 0020 08000000 		.word	.LANCHOR0+8
+ 549              		.cfi_endproc
+ 550              	.LFE207:
+ 552              		.global	_ZN9UARTClassC1EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_
+ 553              		.thumb_set _ZN9UARTClassC1EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_,_ZN9UARTClassC2EP18UAR
+ 554              		.section	.text._ZN9UARTClass5beginEmNS_9UARTModesE,"ax",%progbits
+ 555              		.align	1
+ 556              		.global	_ZN9UARTClass5beginEmNS_9UARTModesE
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 17
+
+
+ 557              		.thumb
+ 558              		.thumb_func
+ 560              	_ZN9UARTClass5beginEmNS_9UARTModesE:
+ 561              	.LFB210:
+  51:../../cores/mapleMX/UARTClass.cpp **** {
+ 562              		.loc 2 51 0
+ 563              		.cfi_startproc
+ 564              		@ args = 0, pretend = 0, frame = 0
+ 565              		@ frame_needed = 0, uses_anonymous_args = 0
+ 566              		@ link register save eliminated.
+ 567              	.LVL39:
+ 568 0000 7047     		bx	lr
+ 569              		.cfi_endproc
+ 570              	.LFE210:
+ 572              		.section	.text._ZN9UARTClass4initEmm,"ax",%progbits
+ 573              		.align	1
+ 574              		.global	_ZN9UARTClass4initEmm
+ 575              		.thumb
+ 576              		.thumb_func
+ 578              	_ZN9UARTClass4initEmm:
+ 579              	.LFB211:
+  56:../../cores/mapleMX/UARTClass.cpp **** {
+ 580              		.loc 2 56 0
+ 581              		.cfi_startproc
+ 582              		@ args = 0, pretend = 0, frame = 0
+ 583              		@ frame_needed = 0, uses_anonymous_args = 0
+ 584              		@ link register save eliminated.
+ 585              	.LVL40:
+  77:../../cores/mapleMX/UARTClass.cpp ****   _rx_buffer->_iHead = _rx_buffer->_iTail = 0;
+ 586              		.loc 2 77 0
+ 587 0000 0269     		ldr	r2, [r0, #16]
+ 588              	.LVL41:
+ 589 0002 0023     		movs	r3, #0
+ 590 0004 C2F88430 		str	r3, [r2, #132]
+ 591 0008 C2F88030 		str	r3, [r2, #128]
+  78:../../cores/mapleMX/UARTClass.cpp ****   _tx_buffer->_iHead = _tx_buffer->_iTail = 0;
+ 592              		.loc 2 78 0
+ 593 000c 4269     		ldr	r2, [r0, #20]
+ 594 000e C2F88430 		str	r3, [r2, #132]
+ 595 0012 C2F88030 		str	r3, [r2, #128]
+ 596 0016 7047     		bx	lr
+ 597              		.cfi_endproc
+ 598              	.LFE211:
+ 600              		.section	.text._ZN9UARTClass20setInterruptPriorityEm,"ax",%progbits
+ 601              		.align	1
+ 602              		.global	_ZN9UARTClass20setInterruptPriorityEm
+ 603              		.thumb
+ 604              		.thumb_func
+ 606              	_ZN9UARTClass20setInterruptPriorityEm:
+ 607              	.LFB213:
+  98:../../cores/mapleMX/UARTClass.cpp **** {
+ 608              		.loc 2 98 0
+ 609              		.cfi_startproc
+ 610              		@ args = 0, pretend = 0, frame = 0
+ 611              		@ frame_needed = 0, uses_anonymous_args = 0
+ 612              		@ link register save eliminated.
+ 613              	.LVL42:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 18
+
+
+ 614 0000 7047     		bx	lr
+ 615              		.cfi_endproc
+ 616              	.LFE213:
+ 618              		.section	.text._ZN9UARTClass20getInterruptPriorityEv,"ax",%progbits
+ 619              		.align	1
+ 620              		.global	_ZN9UARTClass20getInterruptPriorityEv
+ 621              		.thumb
+ 622              		.thumb_func
+ 624              	_ZN9UARTClass20getInterruptPriorityEv:
+ 625              	.LFB214:
+ 103:../../cores/mapleMX/UARTClass.cpp **** {
+ 626              		.loc 2 103 0
+ 627              		.cfi_startproc
+ 628              		@ args = 0, pretend = 0, frame = 0
+ 629              		@ frame_needed = 0, uses_anonymous_args = 0
+ 630              		@ link register save eliminated.
+ 631              	.LVL43:
+ 106:../../cores/mapleMX/UARTClass.cpp **** }
+ 632              		.loc 2 106 0
+ 633 0000 0020     		movs	r0, #0
+ 634              	.LVL44:
+ 635 0002 7047     		bx	lr
+ 636              		.cfi_endproc
+ 637              	.LFE214:
+ 639              		.section	.text._ZN9UARTClass17availableForWriteEv,"ax",%progbits
+ 640              		.align	1
+ 641              		.global	_ZN9UARTClass17availableForWriteEv
+ 642              		.thumb
+ 643              		.thumb_func
+ 645              	_ZN9UARTClass17availableForWriteEv:
+ 646              	.LFB216:
+ 114:../../cores/mapleMX/UARTClass.cpp **** {
+ 647              		.loc 2 114 0
+ 648              		.cfi_startproc
+ 649              		@ args = 0, pretend = 0, frame = 0
+ 650              		@ frame_needed = 0, uses_anonymous_args = 0
+ 651              		@ link register save eliminated.
+ 652              	.LVL45:
+ 653              	.LBB36:
+ 115:../../cores/mapleMX/UARTClass.cpp ****   int head = _tx_buffer->_iHead;
+ 654              		.loc 2 115 0
+ 655 0000 4269     		ldr	r2, [r0, #20]
+ 656 0002 D2F88030 		ldr	r3, [r2, #128]
+ 657              	.LVL46:
+ 116:../../cores/mapleMX/UARTClass.cpp ****   int tail = _tx_buffer->_iTail;
+ 658              		.loc 2 116 0
+ 659 0006 D2F88400 		ldr	r0, [r2, #132]
+ 660              	.LVL47:
+ 117:../../cores/mapleMX/UARTClass.cpp ****   if (head >= tail) return SERIAL_BUFFER_SIZE - 1 - head + tail;
+ 661              		.loc 2 117 0
+ 662 000a 8342     		cmp	r3, r0
+ 663 000c A7BF     		ittee	ge
+ 664 000e C3F17F03 		rsbge	r3, r3, #127
+ 665              	.LVL48:
+ 666 0012 C018     		addge	r0, r0, r3
+ 667              	.LVL49:
+ 118:../../cores/mapleMX/UARTClass.cpp ****   return tail - head - 1;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 19
+
+
+ 668              		.loc 2 118 0
+ 669 0014 C3EB0000 		rsblt	r0, r3, r0
+ 670 0018 00F1FF30 		addlt	r0, r0, #-1
+ 671              	.LBE36:
+ 119:../../cores/mapleMX/UARTClass.cpp **** }
+ 672              		.loc 2 119 0
+ 673 001c 7047     		bx	lr
+ 674              		.cfi_endproc
+ 675              	.LFE216:
+ 677              		.section	.text._ZN9UARTClass10IrqHandlerEv,"ax",%progbits
+ 678              		.align	1
+ 679              		.global	_ZN9UARTClass10IrqHandlerEv
+ 680              		.thumb
+ 681              		.thumb_func
+ 683              	_ZN9UARTClass10IrqHandlerEv:
+ 684              	.LFB221:
+ 175:../../cores/mapleMX/UARTClass.cpp **** 
+ 176:../../cores/mapleMX/UARTClass.cpp **** void UARTClass::IrqHandler( void )
+ 177:../../cores/mapleMX/UARTClass.cpp **** {
+ 685              		.loc 2 177 0
+ 686              		.cfi_startproc
+ 687              		@ args = 0, pretend = 0, frame = 0
+ 688              		@ frame_needed = 0, uses_anonymous_args = 0
+ 689              		@ link register save eliminated.
+ 690              	.LVL50:
+ 691 0000 7047     		bx	lr
+ 692              		.cfi_endproc
+ 693              	.LFE221:
+ 695              		.weak	_ZTV6Stream
+ 696              		.section	.rodata._ZTV6Stream,"aG",%progbits,_ZTV6Stream,comdat
+ 697              		.align	3
+ 700              	_ZTV6Stream:
+ 701 0000 00000000 		.word	0
+ 702 0004 00000000 		.word	0
+ 703 0008 00000000 		.word	__cxa_pure_virtual
+ 704 000c 00000000 		.word	_ZN5Print5writeEPKhj
+ 705 0010 00000000 		.word	_ZN6StreamD1Ev
+ 706 0014 00000000 		.word	_ZN6StreamD0Ev
+ 707 0018 00000000 		.word	__cxa_pure_virtual
+ 708 001c 00000000 		.word	__cxa_pure_virtual
+ 709 0020 00000000 		.word	__cxa_pure_virtual
+ 710 0024 00000000 		.word	__cxa_pure_virtual
+ 711              		.global	_ZTV9UARTClass
+ 712              		.section	.rodata._ZTV9UARTClass,"a",%progbits
+ 713              		.align	3
+ 714              		.set	.LANCHOR0,. + 0
+ 717              	_ZTV9UARTClass:
+ 718 0000 00000000 		.word	0
+ 719 0004 00000000 		.word	0
+ 720 0008 00000000 		.word	_ZN9UARTClass5writeEh
+ 721 000c 00000000 		.word	_ZN5Print5writeEPKhj
+ 722 0010 00000000 		.word	_ZN9UARTClassD1Ev
+ 723 0014 00000000 		.word	_ZN9UARTClassD0Ev
+ 724 0018 00000000 		.word	_ZN9UARTClass9availableEv
+ 725 001c 00000000 		.word	_ZN9UARTClass4readEv
+ 726 0020 00000000 		.word	_ZN9UARTClass4peekEv
+ 727 0024 00000000 		.word	_ZN9UARTClass5flushEv
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 20
+
+
+ 728 0028 00000000 		.word	_ZN9UARTClass5beginEm
+ 729 002c 00000000 		.word	_ZN9UARTClass3endEv
+ 730 0030 00000000 		.word	_ZN9UARTClasscvbEv
+ 731 0034 00000000 		.text
+ 732              	.Letext0:
+ 733              		.file 6 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/l
+ 734              		.file 7 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 735              		.file 8 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 736              		.file 9 "../../cores/mapleMX/WString.h"
+ 737              		.file 10 "../../cores/mapleMX/RingBuffer.h"
+ 738              		.file 11 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 739              		.file 12 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h"
+ 740              		.file 13 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h"
+ 741              		.file 14 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h"
+ 742              		.file 15 "<built-in>"
+ 743              		.file 16 "Drivers/CMSIS/Include/core_cm4.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 21
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 UARTClass.cpp
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:19     .text._ZN9UARTClasscvbEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:24     .text._ZN9UARTClasscvbEv:0000000000000000 _ZN9UARTClasscvbEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:41     .text._ZN9UARTClass5beginEm:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:46     .text._ZN9UARTClass5beginEm:0000000000000000 _ZN9UARTClass5beginEm
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:60     .text._ZN9UARTClass3endEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:65     .text._ZN9UARTClass3endEv:0000000000000000 _ZN9UARTClass3endEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:93     .text._ZN9UARTClass9availableEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:98     .text._ZN9UARTClass9availableEv:0000000000000000 _ZN9UARTClass9availableEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:119    .text._ZN9UARTClass4peekEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:124    .text._ZN9UARTClass4peekEv:0000000000000000 _ZN9UARTClass4peekEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:151    .text._ZN9UARTClass4readEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:156    .text._ZN9UARTClass4readEv:0000000000000000 _ZN9UARTClass4readEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:194    .text._ZN9UARTClass5flushEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:199    .text._ZN9UARTClass5flushEv:0000000000000000 _ZN9UARTClass5flushEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:221    .text._ZN6StreamD2Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:226    .text._ZN6StreamD2Ev:0000000000000000 _ZN6StreamD2Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:254    .text._ZN6StreamD2Ev:0000000000000010 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:700    .rodata._ZTV6Stream:0000000000000000 _ZTV6Stream
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:226    .text._ZN6StreamD2Ev:0000000000000000 _ZN6StreamD1Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:261    .text._ZN14HardwareSerialD2Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:266    .text._ZN14HardwareSerialD2Ev:0000000000000000 _ZN14HardwareSerialD2Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:294    .text._ZN14HardwareSerialD2Ev:0000000000000010 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:266    .text._ZN14HardwareSerialD2Ev:0000000000000000 _ZN14HardwareSerialD1Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:301    .text._ZN9UARTClassD2Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:306    .text._ZN9UARTClassD2Ev:0000000000000000 _ZN9UARTClassD2Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:333    .text._ZN9UARTClassD2Ev:0000000000000010 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:306    .text._ZN9UARTClassD2Ev:0000000000000000 _ZN9UARTClassD1Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:340    .text._ZN6StreamD0Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:345    .text._ZN6StreamD0Ev:0000000000000000 _ZN6StreamD0Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:369    .text._ZN14HardwareSerialD0Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:374    .text._ZN14HardwareSerialD0Ev:0000000000000000 _ZN14HardwareSerialD0Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:398    .text._ZN9UARTClassD0Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:403    .text._ZN9UARTClassD0Ev:0000000000000000 _ZN9UARTClassD0Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:427    .text._ZN9UARTClass5writeEh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:432    .text._ZN9UARTClass5writeEh:0000000000000000 _ZN9UARTClass5writeEh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:469    .text.__cxa_pure_virtual:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:474    .text.__cxa_pure_virtual:0000000000000000 __cxa_pure_virtual
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:488    .text._ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:493    .text._ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_:0000000000000000 _ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:548    .text._ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_:0000000000000020 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:493    .text._ZN9UARTClassC2EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_:0000000000000000 _ZN9UARTClassC1EP18UART_HandleTypeDef9IRQn_TypemP10RingBufferS4_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:555    .text._ZN9UARTClass5beginEmNS_9UARTModesE:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:560    .text._ZN9UARTClass5beginEmNS_9UARTModesE:0000000000000000 _ZN9UARTClass5beginEmNS_9UARTModesE
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:573    .text._ZN9UARTClass4initEmm:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:578    .text._ZN9UARTClass4initEmm:0000000000000000 _ZN9UARTClass4initEmm
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:601    .text._ZN9UARTClass20setInterruptPriorityEm:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:606    .text._ZN9UARTClass20setInterruptPriorityEm:0000000000000000 _ZN9UARTClass20setInterruptPriorityEm
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:619    .text._ZN9UARTClass20getInterruptPriorityEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:624    .text._ZN9UARTClass20getInterruptPriorityEv:0000000000000000 _ZN9UARTClass20getInterruptPriorityEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:640    .text._ZN9UARTClass17availableForWriteEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:645    .text._ZN9UARTClass17availableForWriteEv:0000000000000000 _ZN9UARTClass17availableForWriteEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:678    .text._ZN9UARTClass10IrqHandlerEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:683    .text._ZN9UARTClass10IrqHandlerEv:0000000000000000 _ZN9UARTClass10IrqHandlerEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:697    .rodata._ZTV6Stream:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:717    .rodata._ZTV9UARTClass:0000000000000000 _ZTV9UARTClass
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s 			page 22
+
+
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccObJx4w.s:713    .rodata._ZTV9UARTClass:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+                           .group:0000000000000000 _ZN6StreamD5Ev
+                           .group:0000000000000000 _ZN14HardwareSerialD5Ev
+                           .group:0000000000000000 _ZN9UARTClassD5Ev
+
+UNDEFINED SYMBOLS
+_ZN5PrintD2Ev
+_ZTV14HardwareSerial
+_ZdlPv
+HAL_UART_Transmit
+_ZN5Print5writeEPKhj
