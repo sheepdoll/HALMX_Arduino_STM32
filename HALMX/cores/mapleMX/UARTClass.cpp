@@ -21,15 +21,26 @@
 #include <string.h>
 #include "UARTClass.h"
 
-//extern UART_HandleTypeDef huart1;
-//extern UART_HandleTypeDef _pUart;
-//
 uint8_t r_byte;
 uint8_t temp;
-//int8_t r_byte3;
+
 // Constructors ////////////////////////////////////////////////////////////////
 
 UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer )
+{
+  _usartNumber = USART1; //In this case create by default the USART1 serial port.
+  _rx_buffer = pRx_buffer;
+  _tx_buffer = pTx_buffer;
+  _pUart=pUart;
+  _dwIrq=dwIrq;
+  _dwId=dwId;
+}
+
+ /**
+  * Additional constructor by Vassilis Serasidis
+  * 
+  */
+UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer, USART_TypeDef* usartNumber )
 {
   _rx_buffer = pRx_buffer;
   _tx_buffer = pTx_buffer;
@@ -37,8 +48,8 @@ UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId,
   _pUart=pUart;
   _dwIrq=dwIrq;
   _dwId=dwId;
+  _usartNumber = usartNumber;
 }
-
 // Public Methods //////////////////////////////////////////////////////////////
 
 void UARTClass::begin(const uint32_t dwBaudRate)
@@ -54,20 +65,10 @@ void UARTClass::begin(const uint32_t dwBaudRate, const UARTModes config)
 
 void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
 {
-  // Configure PMC
-
-
-  // Disable PDC channel
-
-  // Reset and disable receiver and transmitter
-
-
-  // Configure mode
-
   /** Configure baudrate (asynchronous, no oversampling)
    *  02 March 2016 by Vassilis Serasidis
    */
-  _pUart->Instance = USART1;
+  _pUart->Instance = _usartNumber;
   _pUart->Init.BaudRate = dwBaudRate;
   _pUart->Init.WordLength = UART_WORDLENGTH_8B;
   _pUart->Init.StopBits = UART_STOPBITS_1;
@@ -76,15 +77,8 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
   _pUart->Init.HwFlowCtl = UART_HWCONTROL_NONE;
   _pUart->Init.OverSampling = UART_OVERSAMPLING_16;
 
-#ifdef STM32F0
-  _pUart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_ENABLE;
-  _pUart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_RXOVERRUNDISABLE_INIT|UART_ADVFEATURE_DMADISABLEONERROR_INIT;
-  _pUart->AdvancedInit.OverrunDisable = UART_ADVFEATURE_OVERRUN_DISABLE;
-  _pUart->AdvancedInit.DMADisableonRxError = UART_ADVFEATURE_DMA_DISABLEONRXERROR;  
-#endif
+
   // Configure interrupts
-
-
   // Enable UART interrupt in NVIC  when we have enough info for bridge
   NVIC_EnableIRQ(_dwIrq);
 
@@ -207,9 +201,3 @@ void UARTClass::RxHandler (void){
 void UARTClass::TxHandler(void){
   
 }
-
-void UARTClass::IrqHandler( void )
-{
-
-}
-
