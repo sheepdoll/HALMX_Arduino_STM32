@@ -104,6 +104,61 @@ MXDiscoF429I.build.DRIVERS=STM32F4xx_HAL_Driver/Inc
 #MXDiscoF429I.build.error_led_port=GPIOG
 #MXDiscoF429I.build.error_led_pin=14
 
+
+##############################################################
+MXSTM32F030F4Px.name=Generic STM32F030F (4kB RAM, 16kB Flash)
+
+MXSTM32F030F4Px.upload.tool=stlink_upload
+MXSTM32F030F4Px.upload.protocol=maple_dfu
+MXSTM32F030F4Px.upload.maximum_size=16384
+
+MXSTM32F030F4Px.upload.file_type=bin
+MXSTM32F030F4Px.upload.ram.maximum_size=4096
+MXSTM32F030F4Px.upload.flash.maximum_size=16384
+MXSTM32F030F4Px.upload.params.quiet=no
+
+MXSTM32F030F4Px.build.mcu=cortex-m0
+MXSTM32F030F4Px.build.f_cpu=48000000L
+MXSTM32F030F4Px.build.board=STM_DISCO_F0
+MXSTM32F030F4Px.build.core=mapleMX
+MXSTM32F030F4Px.build.common_flags=-mthumb  -D__STM32F0__ 
+
+MXSTM32F030F4Px.build.extra_flags=-DSTM32F030x6 -DSTM32_MEDIUM_DENSITY -DSTM32F0 -DBOARD_DISCO_F0
+
+MXSTM32F030F4Px.build.ldscript=SW4STM32/MXSTM32F030F4Px/STM32F030F4Px_FLASH.ld
+MXSTM32F030F4Px.build.variant=MXSTM32F030F4Px
+MXSTM32F030F4Px.build.variant_system_lib=lib_f0.a
+
+MXSTM32F030F4Px.build.CMSISInc=STM32F0xx/Include
+MXSTM32F030F4Px.build.DRIVERS=STM32F0xx_HAL_Driver/Inc
+
+##############################################################
+MXBluePillF103C8.name=Generic STM32F103C8 (20kB RAM, 64kB Flash)
+
+MXBluePillF103C8.upload.tool=stlink_upload
+MXBluePillF103C8.upload.protocol=maple_dfu
+MXBluePillF103C8.upload.maximum_size=65536
+
+MXBluePillF103C8.upload.file_type=bin
+MXBluePillF103C8.upload.ram.maximum_size=20480
+MXBluePillF103C8.upload.flash.maximum_size=65536
+MXBluePillF103C8.upload.params.quiet=no
+
+MXBluePillF103C8.build.mcu=cortex-m3
+MXBluePillF103C8.build.f_cpu=72000000L
+MXBluePillF103C8.build.board=STM_NUCLEO_F103RB
+MXBluePillF103C8.build.core=mapleMX
+MXBluePillF103C8.build.common_flags=-mthumb  -D__STM32F1__ 
+
+MXBluePillF103C8.build.extra_flags=-DSTM32F103xB -DSTM32_MEDIUM_DENSITY -DSTM32F1 -DBOARD_NUCLEO_F103RB
+
+MXBluePillF103C8.build.ldscript=SW4STM32/MXBluePillF103C8/STM32F103C8Tx_FLASH.ld
+MXBluePillF103C8.build.variant=MXBluePillF103C8
+MXBluePillF103C8.build.variant_system_lib=lib_f103.a
+
+MXBluePillF103C8.build.CMSISInc=STM32F1xx/Include
+MXBluePillF103C8.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
+
 ##############################################################
 MXDiscoF051R8.name=STM Discovery F0 (HALMX)
 
@@ -140,15 +195,6 @@ MXDiscoF051R8.build.DRIVERS=STM32F0xx_HAL_Driver/Inc
 ##############################################################
 MXGenericF103CB.name=Generic F103CB (HALMX)
 
-MXGenericF103CB.upload.tool=stlink_upload
-MXGenericF103CB.upload.protocol=maple_dfu
-MXGenericF103CB.upload.maximum_size=108000
-
-MXGenericF103CB.upload.file_type=bin
-MXGenericF103CB.upload.ram.maximum_size=20000
-MXGenericF103CB.upload.flash.maximum_size=128000
-MXGenericF103CB.upload.params.quiet=no
-
 MXGenericF103CB.build.mcu=cortex-m3
 MXGenericF103CB.build.f_cpu=72000000L
 MXGenericF103CB.build.board=STM_MAPLEMINI_F103CB
@@ -164,9 +210,54 @@ MXGenericF103CB.build.variant_system_lib=lib_f103.a
 MXGenericF103CB.build.CMSISInc=STM32F1xx/Include
 MXGenericF103CB.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
 
+MXGenericF103CB.upload.tool=maple_upload
+MXGenericF103CB.upload.protocol=maple_dfu
+MXGenericF103CB.upload.maximum_size=122880
+#MXGenericF103CB.upload.maximum_size=120000
 
-#MXGenericF103CB.build.vect=VECT_TAB_BASE
-#MXGenericF103CB.build.density=STM32_MEDIUM_DENSITY
-#MXGenericF103CB.build.error_led_port=GPIOB
-#MXGenericF103CB.build.error_led_pin=1
+MXGenericF103CB.upload.file_type=bin
+MXGenericF103CB.upload.ram.maximum_size=20480
+MXGenericF103CB.upload.flash.maximum_size=122880
+#MXGenericF103CB.upload.ram.maximum_size=20000
+#MXGenericF103CB.upload.flash.maximum_size=120000
+MXGenericF103CB.upload.params.quiet=no
 
+MXGenericF103CB.upload.use_1200bps_touch=false
+MXGenericF103CB.upload.usbID=1EAF:0003
+MXGenericF103CB.upload.auto_reset=true
+MXGenericF103CB.upload.altID=2
+
+##############################################################
+MXGenericF103CB2.name=my Maple mini (HALMX)
+
+MXGenericF103CB2.build.mcu=cortex-m3
+MXGenericF103CB2.build.f_cpu=72000000L
+MXGenericF103CB2.build.board=STM_MAPLEMINI_F103CB
+MXGenericF103CB2.build.core=mapleMX
+MXGenericF103CB2.build.common_flags=-mthumb  -D__STM32F1__ 
+
+MXGenericF103CB2.build.extra_flags=-DSTM32F103xB -DSTM32_MEDIUM_DENSITY -DSTM32F1 -DBOARD_MAPLEMINI_F103CB
+
+MXGenericF103CB2.build.ldscript=SW4STM32/myMaple_mini/STM32F103CBTx_FLASH.ld
+MXGenericF103CB2.build.variant=myMaple_mini
+MXGenericF103CB2.build.variant_system_lib=lib_f103.a
+
+MXGenericF103CB2.build.CMSISInc=STM32F1xx/Include
+MXGenericF103CB2.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
+
+MXGenericF103CB2.upload.tool=maple_upload
+MXGenericF103CB2.upload.protocol=maple_dfu
+MXGenericF103CB2.upload.maximum_size=122880
+#MXGenericF103CB2.upload.maximum_size=120000
+
+MXGenericF103CB2.upload.file_type=bin
+MXGenericF103CB2.upload.ram.maximum_size=20480
+MXGenericF103CB2.upload.flash.maximum_size=122880
+#MXGenericF103CB2.upload.ram.maximum_size=20000
+#MXGenericF103CB2.upload.flash.maximum_size=120000
+MXGenericF103CB2.upload.params.quiet=no
+
+MXGenericF103CB2.upload.use_1200bps_touch=false
+MXGenericF103CB2.upload.usbID=1EAF:0003
+MXGenericF103CB2.upload.auto_reset=true
+MXGenericF103CB2.upload.altID=2
