@@ -1,10 +1,10 @@
 /* stub for hardware types */
-#ifndef _CHIP_DISCO_F0xx_
-#define _CHIP_DISCO_F0xx_
+#ifndef _CHIP_NUCLEO_F1xx_
+#define _CHIP_NUCLEO_F1xx_
 
 #include <stdbool.h>  /* for wiring constants */
 
-#include "stm32f0xx_hal.h"  /* Ideally this is defined in variant */
+#include "stm32f1xx_hal.h"  /* Ideally this is defined in variant */
 //#include "usart.h"
 
 /* define some abstractions that are identical to Arduino */
@@ -28,6 +28,9 @@
 /* delay in micoseconds  Uses HAL system clock */
 #define delay(a2) HAL_Delay(a2)
 
-#define USE_USART1 //Comment out this line if you don't want to use the Serial 1 port.
+//Comment out the Serial port you need to use.
+#define USE_USART1
+#define USE_USART2
+//#define USE_USART3
 
 #endif

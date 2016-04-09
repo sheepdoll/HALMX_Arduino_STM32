@@ -3,15 +3,14 @@
 
 */
 
-#ifndef _VARIANT_DISCO_F0xx_
-#define _VARIANT_DISCO_F0xx_
+#ifndef _VARIANT_NUCLEO_F1xx_
+#define _VARIANT_NUCLEO_F1xx_
 
 #include <chip.h>
  /* #include "stm32f4xx_hal.h"  include this here so we do not have to use #ifdefs */
 
 /** Master clock frequency */
 #define VARIANT_MCK			F_CPU
-
 
 #if 1
 /*----------------------------------------------------------------------------
@@ -22,11 +21,12 @@
 #ifdef __cplusplus
 #include "UARTClass.h"
 #include "USARTClass.h"
-
 #endif
 #endif
 
-//extern uint8_t r_byte;
+
+
+
 
 #ifdef __cplusplus
 extern "C"{
@@ -42,6 +42,12 @@ extern "C"{
 #ifdef USE_USART1
 extern UART_HandleTypeDef huart1;
 #endif
+#ifdef USE_USART2
+extern UART_HandleTypeDef huart2;
+#endif
+#ifdef USE_USART3
+extern UART_HandleTypeDef huart3;
+#endif
 
 /*
 	From Roger Clark's maple port.  Convenance alias to
@@ -56,11 +62,13 @@ extern UART_HandleTypeDef huart1;
  * write code using low-level GPIO functionality. 
  
 */
-/* This mapping is for Discovery Board */
+/* This mapping is for from Blue pill Schematic */
 enum {
-  PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PA9, PA10, PA13,	PA14,
-  PF0, PF1
+  PA0, PA1, PA2, PA3, PA4, PA5, PA6, PA7, PA8, PA9, PA10, PA11, PA12, PA13,	PA14, PA15,
+	PB0, PB1, PB2, PB3, PB4, PB5,	PB6, PB7, PB8, PB9, PB10, PB11, PB12, PB13, PB14, PB15,
+  PC13, PC14, PC15
 };
+
 
 
 /* Definitions and types for pins */
@@ -95,17 +103,18 @@ typedef struct _Pin2PortMapArray
 
 /* Pins table to be instanciated into variant.cpp */
 extern const Pin2PortMapArray g_Pin2PortMapArray[] ;
-
+//void UART_Handler(void);
 void Rx1_Handler(void); /* Vassilis Serasidis */
 void Tx1_Handler(void); /* Vassilis Serasidis */
+void Rx2_Handler(void); /* Vassilis Serasidis */
+void Tx2_Handler(void); /* Vassilis Serasidis */
+void Rx3_Handler(void); /* Vassilis Serasidis */
+void Tx3_Handler(void); /* Vassilis Serasidis */
 
 #ifdef __cplusplus
 }
 #endif
 
-
-
-#if 1
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
@@ -113,25 +122,11 @@ void Tx1_Handler(void); /* Vassilis Serasidis */
 #ifdef __cplusplus
 
 extern UARTClass Serial1;
+extern UARTClass Serial2;
+extern UARTClass Serial3;
 
 #endif
 
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define Serial Serial1
 #define SERIAL_PORT_MONITOR         Serial
 #define SERIAL_PORT_USBVIRTUAL      SerialUSB
 #define SERIAL_PORT_HARDWARE_OPEN   Serial1
@@ -144,8 +139,5 @@ extern UARTClass Serial1;
 
 #define SDA PA10
 #define SCL PA9
-
-
-#endif
 
 #endif

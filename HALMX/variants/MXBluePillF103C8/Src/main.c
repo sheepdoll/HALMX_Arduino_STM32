@@ -31,11 +31,12 @@
   ******************************************************************************
   */
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f0xx_hal.h"
+#include "stm32f1xx_hal.h"
 #include "i2c.h"
 #include "spi.h"
 #include "usart.h"
 #include "gpio.h"
+#include <chip.h>
 
 /* USER CODE BEGIN Includes */
 
@@ -45,7 +46,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-uint8_t buff[] = {0x30, 0x31, 0x32, 0x33};
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -77,9 +78,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  //MX_USART1_UART_Init();
-  MX_SPI1_Init();
   MX_I2C1_Init();
+  MX_SPI1_Init();
+  MX_SPI2_Init();
+  //MX_USART1_UART_Init();
+  //MX_USART2_UART_Init();
 
   /* USER CODE BEGIN 2 */
   setup();
@@ -93,7 +96,6 @@ int main(void)
 
   /* USER CODE BEGIN 3 */
     loop();
-
   }
   /* USER CODE END 3 */
 
@@ -106,27 +108,22 @@ void SystemClock_Config(void)
 
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
-  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
   HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1;
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1);
-
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1;
-  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
-  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_SYSCLK;
-  HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit);
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2);
 
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
@@ -139,10 +136,28 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
   //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0); //Toggle the state of pin PA0
-  Rx1_Handler();
+#ifdef USE_USART1
+  if(huart->Instance == USART1){
+    Rx1_Handler();
+  }
+#endif
+#ifdef USE_USART2
+  if(huart->Instance == USART2){
+    Rx2_Handler();
+  }
+#endif
+#ifdef USE_USART3
+  if(huart->Instance == USART3){
+    Rx3_Handler();
+  }
+#endif
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
+  if(huart->Instance == USART1)
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+  if(huart->Instance == USART2)
+    HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_14);
   //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1); //Toggle the state of pin PA1
 }
 /* USER CODE END 4 */
