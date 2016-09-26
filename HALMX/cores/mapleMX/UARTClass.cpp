@@ -21,22 +21,15 @@
 #include <string.h>
 #include "UARTClass.h"
 
-uint8_t r_byte;
-uint8_t temp;
-
-/* HardwareSerial  does not have a vtable */
-//HardwareSerial::HardwareSerial(void){}
-//void HardwareSerial::begin(unsigned long){}
-extern "C" void __cxa_pure_virtual() { while (1); }
-
 
 // Constructors ////////////////////////////////////////////////////////////////
+UARTClass::UARTClass(void){
 
-UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer )
+}
+
+UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId )
 {
   _usartNumber = USART1; //In this case create by default the USART1 serial port.
-  _rx_buffer = pRx_buffer;
-  _tx_buffer = pTx_buffer;
   _pUart=pUart;
   _dwIrq=dwIrq;
   _dwId=dwId;
@@ -46,11 +39,8 @@ UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId,
   * Additional constructor by Vassilis Serasidis
   * 
   */
-UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer, USART_TypeDef* usartNumber )
+UARTClass::UARTClass( UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, USART_TypeDef* usartNumber )
 {
-  _rx_buffer = pRx_buffer;
-  _tx_buffer = pTx_buffer;
-
   _pUart=pUart;
   _dwIrq=dwIrq;
   _dwId=dwId;
@@ -89,8 +79,8 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
   NVIC_EnableIRQ(_dwIrq);
 
   // Make sure both ring buffers are initialized back to empty.
-  _rx_buffer->_iHead = _rx_buffer->_iTail = 0;
-  _tx_buffer->_iHead = _tx_buffer->_iTail = 0;
+  rx_buffer.iHead = rx_buffer.iTail = 0;
+  tx_buffer.iHead = tx_buffer.iTail = 0;
 
   /** Enable receiver and transmitter
    *  02 March 2016 by Vassilis Serasidis
@@ -103,7 +93,7 @@ void UARTClass::init(const uint32_t dwBaudRate, const uint32_t modeReg)
 void UARTClass::end( void )
 {
   // Clear any received data
-  _rx_buffer->_iHead = _rx_buffer->_iTail;
+  rx_buffer.iHead = rx_buffer.iTail;
 
   // Wait for any outstanding data to be sent
   flush();
@@ -125,69 +115,49 @@ uint32_t UARTClass::getInterruptPriority()
 
 int UARTClass::available( void )
 {
-  return (uint32_t)(SERIAL_BUFFER_SIZE + _rx_buffer->_iHead - _rx_buffer->_iTail) % SERIAL_BUFFER_SIZE;
+  return (uint32_t)(SERIAL_BUFFER_SIZE + rx_buffer.iHead - rx_buffer.iTail) % SERIAL_BUFFER_SIZE;
 }
 
 int UARTClass::availableForWrite(void)
 {
-  int head = _tx_buffer->_iHead;
-  int tail = _tx_buffer->_iTail;
+/*   int head = tx_buffer.iHead;
+  int tail = tx_buffer.iTail;
   if (head >= tail) return SERIAL_BUFFER_SIZE - 1 - head + tail;
-  return tail - head - 1;
+  return tail - head - 1; */
 }
 
 int UARTClass::peek( void )
 {
-  if ( _rx_buffer->_iHead == _rx_buffer->_iTail )
+  if ( rx_buffer.iHead == rx_buffer.iTail )
     return -1;
 
-  return _rx_buffer->_aucBuffer[_rx_buffer->_iTail];
+  return rx_buffer.buffer[rx_buffer.iTail];
 }
 
 int UARTClass::read( void )
 {
   // if the head isn't ahead of the tail, we don't have any characters
-  if ( _rx_buffer->_iHead == _rx_buffer->_iTail )
+  if ( rx_buffer.iHead == rx_buffer.iTail )
     return -1;
 
-  uint8_t uc = _rx_buffer->_aucBuffer[_rx_buffer->_iTail];
-  _rx_buffer->_iTail = (unsigned int)(_rx_buffer->_iTail + 1) % SERIAL_BUFFER_SIZE;
+  uint8_t uc = rx_buffer.buffer[rx_buffer.iTail];
+  rx_buffer.iTail = (unsigned int)(rx_buffer.iTail + 1) % SERIAL_BUFFER_SIZE;
   return uc;
 }
 
 void UARTClass::flush( void )
 {
-  while (_tx_buffer->_iHead != _tx_buffer->_iTail); //wait for transmit data to be sent
+  while (tx_buffer.iHead != tx_buffer.iTail); //wait for transmit data to be sent
   // Wait for transmission to complete
 
 }
 
 size_t UARTClass::write( const uint8_t uc_data )
 {
-#if 0
-  // Is the hardware currently busy?
-  if (((_pUart->UART_SR & UART_SR_TXRDY) != UART_SR_TXRDY) |
-      (_tx_buffer->_iTail != _tx_buffer->_iHead))
-  {
-    // If busy we buffer
-    unsigned int l = (_tx_buffer->_iHead + 1) % SERIAL_BUFFER_SIZE;
-    while (_tx_buffer->_iTail == l)
-      ; // Spin locks if we're about to overwrite the buffer. This continues once the data is sent
-
-    _tx_buffer->_aucBuffer[_tx_buffer->_iHead] = uc_data;
-    _tx_buffer->_iHead = l;
-    // Make sure TX interrupt is enabled
-    _pUart->UART_IER = UART_IER_TXRDY;
+  if(HAL_UART_Transmit_IT(_pUart, (uint8_t *)&uc_data, 1) == HAL_BUSY){
+    tx_buffer.buffer[tx_buffer.iHead] = uc_data;
+    tx_buffer.iHead = (uint32_t)(tx_buffer.iHead + 1) % SERIAL_BUFFER_SIZE;
   }
-  else 
-  {
-     // Bypass buffering and send character directly
-
-  }
-#endif
-  while (HAL_UART_Transmit_IT(_pUart, (uint8_t *)&uc_data, 1) == HAL_BUSY); //Wait here if serial bus is busy.
-  HAL_UART_Transmit_IT(_pUart, (uint8_t *)&uc_data, 1);
-  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_1); //Toggle the state of pin PA1. Just for debuging purpose.
   return 1;
 }
 
@@ -195,15 +165,22 @@ size_t UARTClass::write( const uint8_t uc_data )
  * 02 March 2016 by Vassilis Serasidis
  */
 void UARTClass::RxHandler (void){
-  if(availableForWrite() > 0){ //If there is empty space in rx_buffer, read a byte from the Serial port and save it to the buffer.
-    _rx_buffer->store_char(r_byte);
-    HAL_UART_Receive_IT(_pUart, (uint8_t *)&r_byte, 1);
+  
+    if(available() < (SERIAL_BUFFER_SIZE - 1)){ //If there is empty space in rx_buffer, read a byte from the Serial port and save it to the buffer.  
+    rx_buffer.buffer[rx_buffer.iHead] = r_byte; 
+		rx_buffer.iHead = (uint16_t)(rx_buffer.iHead + 1) % SERIAL_BUFFER_SIZE;
   }
+  HAL_UART_Receive_IT(_pUart, (uint8_t *)&r_byte, 1); //Get prepared for the next incoming byte.
 }
 
 /************************************************
- * 02 March 2016 by Vassilis Serasidis
+ * 09 May 2016 by Vassilis Serasidis
  */
 void UARTClass::TxHandler(void){
   
+  if (tx_buffer.iHead != tx_buffer.iTail)	{
+		unsigned char c = tx_buffer.buffer[tx_buffer.iTail];
+		tx_buffer.iTail = (uint16_t)(tx_buffer.iTail + 1) % SERIAL_BUFFER_SIZE;
+		HAL_UART_Transmit_IT(_pUart, (uint8_t *)&c, 1);
+  }
 }

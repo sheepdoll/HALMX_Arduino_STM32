@@ -3,8 +3,7 @@ build/USARTClass.o: ../../cores/mapleMX/USARTClass.cpp \
  ../../cores/mapleMX/HardwareSerial.h ../../cores/mapleMX/Stream.h \
  ../../cores/mapleMX/Print.h ../../cores/mapleMX/WString.h \
  ../../cores/mapleMX/avr/pgmspace.h ../../cores/mapleMX/Printable.h \
- ../../cores/mapleMX/RingBuffer.h chip.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+ chip.h Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Inc/stm32f4xx_hal_conf.h Inc/mxconstants.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -28,10 +27,5 @@ build/USARTClass.o: ../../cores/mapleMX/USARTClass.cpp \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Inc/usart.h
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h Inc/usart.h \
+ ../../cores/mapleMX/RingBuffer.h

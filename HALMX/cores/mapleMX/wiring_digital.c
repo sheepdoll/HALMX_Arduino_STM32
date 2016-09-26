@@ -219,10 +219,10 @@ extern int digitalRead( uint32_t ulPin )
 	
 	if(HAL_GPIO_ReadPin(g_Pin2PortMapArray[ulPin].GPIOx_Port,g_Pin2PortMapArray[ulPin].Pin_abstraction) == GPIO_PIN_RESET)
 	{
-		return HIGH;
+		return LOW; // Set from HIGH to LOW by Vassilis Serasidis
 	}
 
-	return LOW ;
+	return HIGH ; // Set from LOW to HIGH by Vassilis Serasidis
 }
 
 #ifdef __cplusplus

@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc3TvFbr.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,19 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"wiring.c"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text.micros,"ax",%progbits
-  19              		.align	1
-  20              		.global	micros
-  21              		.thumb
-  22              		.thumb_func
-  24              	micros:
-  25              	.LFB126:
-  26              		.file 1 "../../cores/mapleMX/wiring.c"
+  14              		.syntax unified
+  15              		.file	"wiring.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.micros,"ax",%progbits
+  20              		.align	1
+  21              		.global	micros
+  22              		.thumb
+  23              		.thumb_func
+  25              	micros:
+  26              	.LFB126:
+  27              		.file 1 "../../cores/mapleMX/wiring.c"
    1:../../cores/mapleMX/wiring.c **** /*
    2:../../cores/mapleMX/wiring.c ****   Copyright (c) 2011 Arduino.  All right reserved.
    3:../../cores/mapleMX/wiring.c **** 
@@ -57,10 +58,10 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s 			page 1
   29:../../cores/mapleMX/wiring.c **** 
   30:../../cores/mapleMX/wiring.c **** 		#define millis HAL_GetTick
   31:../../cores/mapleMX/wiring.c **** 		#define delay HAL_Delay
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc3TvFbr.s 			page 2
+
+
   32:../../cores/mapleMX/wiring.c **** 	*/
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s 			page 2
-
-
   33:../../cores/mapleMX/wiring.c **** 
   34:../../cores/mapleMX/wiring.c **** 
   35:../../cores/mapleMX/wiring.c **** /* 
@@ -70,31 +71,31 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s 			page 1
   39:../../cores/mapleMX/wiring.c **** */ 
   40:../../cores/mapleMX/wiring.c **** uint32_t micros( void )
   41:../../cores/mapleMX/wiring.c **** {
-  27              		.loc 1 41 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 0
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              		@ link register save eliminated.
+  28              		.loc 1 41 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
   42:../../cores/mapleMX/wiring.c **** 	/* dead function implementation Return maximum time as error */
   43:../../cores/mapleMX/wiring.c **** 	return -1;
   44:../../cores/mapleMX/wiring.c **** }
-  32              		.loc 1 44 0
-  33 0000 4FF0FF30 		mov	r0, #-1
-  34 0004 7047     		bx	lr
-  35              		.cfi_endproc
-  36              	.LFE126:
-  38              		.text
-  39              	.Letext0:
-  40              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
-  41              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
-  42              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s 			page 3
+  33              		.loc 1 44 0
+  34 0000 4FF0FF30 		mov	r0, #-1
+  35 0004 7047     		bx	lr
+  36              		.cfi_endproc
+  37              	.LFE126:
+  39              		.text
+  40              	.Letext0:
+  41              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+  42              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+  43              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc3TvFbr.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 wiring.c
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s:19     .text.micros:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cch7Utfr.s:24     .text.micros:0000000000000000 micros
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc3TvFbr.s:20     .text.micros:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc3TvFbr.s:25     .text.micros:0000000000000000 micros
                      .debug_frame:0000000000000010 $d
 
 NO UNDEFINED SYMBOLS

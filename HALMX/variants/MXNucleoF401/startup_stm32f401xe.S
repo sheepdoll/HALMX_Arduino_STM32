@@ -126,7 +126,7 @@ LoopFillZerobss:
     .section  .text.Default_Handler,"ax",%progbits
 Default_Handler:
 Infinite_Loop:
-  b  Infinite_Loop
+  bl Infinite_Loop
   .size  Default_Handler, .-Default_Handler
 /******************************************************************************
 *
@@ -279,7 +279,7 @@ g_pfnVectors:
    .thumb_set SysTick_Handler,Default_Handler              
   
    .weak      WWDG_IRQHandler                   
-   .thumb_set WWDG_IRQHandler,Default_Handler      
+   .thumb_set WWDG_IRQHandler,Default_Handler
                   
    .weak      PVD_IRQHandler      
    .thumb_set PVD_IRQHandler,Default_Handler

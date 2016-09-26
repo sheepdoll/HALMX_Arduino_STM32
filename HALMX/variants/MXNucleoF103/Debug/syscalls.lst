@@ -1,0 +1,885 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"syscalls.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text._sbrk,"ax",%progbits
+  19              		.align	1
+  20              		.global	_sbrk
+  21              		.thumb
+  22              		.thumb_func
+  24              	_sbrk:
+  25              	.LFB0:
+  26              		.file 1 "../../cores/mapleMX/syscalls.c"
+   1:../../cores/mapleMX/syscalls.c **** /* Support files for GNU libc.  Files in the system namespace go here.
+   2:../../cores/mapleMX/syscalls.c ****    Files in the C namespace (ie those that do not start with an
+   3:../../cores/mapleMX/syscalls.c ****    underscore) go in .c.  */
+   4:../../cores/mapleMX/syscalls.c **** 
+   5:../../cores/mapleMX/syscalls.c **** #include <_ansi.h>
+   6:../../cores/mapleMX/syscalls.c **** #include <sys/types.h>
+   7:../../cores/mapleMX/syscalls.c **** #include <sys/stat.h>
+   8:../../cores/mapleMX/syscalls.c **** #include <sys/fcntl.h>
+   9:../../cores/mapleMX/syscalls.c **** #include <stdio.h>
+  10:../../cores/mapleMX/syscalls.c **** #include <string.h>
+  11:../../cores/mapleMX/syscalls.c **** #include <time.h>
+  12:../../cores/mapleMX/syscalls.c **** #include <sys/time.h>
+  13:../../cores/mapleMX/syscalls.c **** #include <sys/times.h>
+  14:../../cores/mapleMX/syscalls.c **** #include <sys/errno.h>
+  15:../../cores/mapleMX/syscalls.c **** #include <reent.h>
+  16:../../cores/mapleMX/syscalls.c **** #include <unistd.h>
+  17:../../cores/mapleMX/syscalls.c **** #include <sys/wait.h>
+  18:../../cores/mapleMX/syscalls.c **** 
+  19:../../cores/mapleMX/syscalls.c **** 
+  20:../../cores/mapleMX/syscalls.c **** #define FreeRTOS
+  21:../../cores/mapleMX/syscalls.c **** #define MAX_STACK_SIZE 0x200
+  22:../../cores/mapleMX/syscalls.c **** 
+  23:../../cores/mapleMX/syscalls.c **** extern int __io_putchar(int ch) __attribute__((weak));
+  24:../../cores/mapleMX/syscalls.c **** extern int __io_getchar(void) __attribute__((weak));
+  25:../../cores/mapleMX/syscalls.c **** 
+  26:../../cores/mapleMX/syscalls.c **** #ifndef FreeRTOS
+  27:../../cores/mapleMX/syscalls.c ****   register char * stack_ptr asm("sp");
+  28:../../cores/mapleMX/syscalls.c **** #endif
+  29:../../cores/mapleMX/syscalls.c **** 
+  30:../../cores/mapleMX/syscalls.c **** 
+  31:../../cores/mapleMX/syscalls.c **** 
+  32:../../cores/mapleMX/syscalls.c **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 2
+
+
+  33:../../cores/mapleMX/syscalls.c **** caddr_t _sbrk(int incr)
+  34:../../cores/mapleMX/syscalls.c **** {
+  27              		.loc 1 34 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 08B5     		push	{r3, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 8
+  35              		.cfi_offset 3, -8
+  36              		.cfi_offset 14, -4
+  35:../../cores/mapleMX/syscalls.c **** 	extern char end asm("end");
+  36:../../cores/mapleMX/syscalls.c **** 	static char *heap_end;
+  37:../../cores/mapleMX/syscalls.c **** 	char *prev_heap_end,*min_stack_ptr;
+  38:../../cores/mapleMX/syscalls.c **** 
+  39:../../cores/mapleMX/syscalls.c **** 	if (heap_end == 0)
+  37              		.loc 1 39 0
+  38 0002 0C4B     		ldr	r3, .L6
+  39 0004 1A68     		ldr	r2, [r3]
+  40 0006 0AB9     		cbnz	r2, .L2
+  40:../../cores/mapleMX/syscalls.c **** 		heap_end = &end;
+  41              		.loc 1 40 0
+  42 0008 0B4A     		ldr	r2, .L6+4
+  43 000a 1A60     		str	r2, [r3]
+  44              	.L2:
+  41:../../cores/mapleMX/syscalls.c **** 
+  42:../../cores/mapleMX/syscalls.c **** 	prev_heap_end = heap_end;
+  43:../../cores/mapleMX/syscalls.c **** 
+  44:../../cores/mapleMX/syscalls.c **** #ifdef FreeRTOS
+  45:../../cores/mapleMX/syscalls.c **** 	/* Use the NVIC offset register to locate the main stack pointer. */
+  46:../../cores/mapleMX/syscalls.c **** 	min_stack_ptr = (char*)(*(unsigned int *)*(unsigned int *)0xE000ED08);
+  45              		.loc 1 46 0
+  46 000c 0B4A     		ldr	r2, .L6+8
+  42:../../cores/mapleMX/syscalls.c **** 	prev_heap_end = heap_end;
+  47              		.loc 1 42 0
+  48 000e 1B68     		ldr	r3, [r3]
+  49              	.LVL1:
+  50              		.loc 1 46 0
+  51 0010 1268     		ldr	r2, [r2]
+  52 0012 1268     		ldr	r2, [r2]
+  53              	.LVL2:
+  47:../../cores/mapleMX/syscalls.c **** 	/* Locate the STACK bottom address */
+  48:../../cores/mapleMX/syscalls.c **** 	min_stack_ptr -= MAX_STACK_SIZE;
+  49:../../cores/mapleMX/syscalls.c **** 
+  50:../../cores/mapleMX/syscalls.c **** 	if (heap_end + incr > min_stack_ptr)
+  54              		.loc 1 50 0
+  55 0014 1844     		add	r0, r0, r3
+  56              	.LVL3:
+  48:../../cores/mapleMX/syscalls.c **** 	min_stack_ptr -= MAX_STACK_SIZE;
+  57              		.loc 1 48 0
+  58 0016 A2F50072 		sub	r2, r2, #512
+  59              	.LVL4:
+  60              		.loc 1 50 0
+  61 001a 9042     		cmp	r0, r2
+  62 001c 06D9     		bls	.L3
+  51:../../cores/mapleMX/syscalls.c **** #else
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 3
+
+
+  52:../../cores/mapleMX/syscalls.c **** 	if (heap_end + incr > stack_ptr)
+  53:../../cores/mapleMX/syscalls.c **** #endif
+  54:../../cores/mapleMX/syscalls.c **** 	{
+  55:../../cores/mapleMX/syscalls.c **** //		write(1, "Heap and stack collision\n", 25);
+  56:../../cores/mapleMX/syscalls.c **** //		abort();
+  57:../../cores/mapleMX/syscalls.c **** 		errno = ENOMEM;
+  63              		.loc 1 57 0
+  64 001e FFF7FEFF 		bl	__errno
+  65              	.LVL5:
+  66 0022 0C23     		movs	r3, #12
+  67 0024 0360     		str	r3, [r0]
+  58:../../cores/mapleMX/syscalls.c **** 		return (caddr_t) -1;
+  68              		.loc 1 58 0
+  69 0026 4FF0FF30 		mov	r0, #-1
+  70 002a 08BD     		pop	{r3, pc}
+  71              	.LVL6:
+  72              	.L3:
+  59:../../cores/mapleMX/syscalls.c **** 	}
+  60:../../cores/mapleMX/syscalls.c **** 
+  61:../../cores/mapleMX/syscalls.c **** 	heap_end += incr;
+  73              		.loc 1 61 0
+  74 002c 014A     		ldr	r2, .L6
+  75              	.LVL7:
+  76 002e 1060     		str	r0, [r2]
+  77              	.LVL8:
+  62:../../cores/mapleMX/syscalls.c **** 
+  63:../../cores/mapleMX/syscalls.c **** 	return (caddr_t) prev_heap_end;
+  78              		.loc 1 63 0
+  79 0030 1846     		mov	r0, r3
+  64:../../cores/mapleMX/syscalls.c **** }
+  80              		.loc 1 64 0
+  81 0032 08BD     		pop	{r3, pc}
+  82              	.LVL9:
+  83              	.L7:
+  84              		.align	2
+  85              	.L6:
+  86 0034 00000000 		.word	.LANCHOR0
+  87 0038 00000000 		.word	end
+  88 003c 08ED00E0 		.word	-536810232
+  89              		.cfi_endproc
+  90              	.LFE0:
+  92              		.section	.text._gettimeofday,"ax",%progbits
+  93              		.align	1
+  94              		.global	_gettimeofday
+  95              		.thumb
+  96              		.thumb_func
+  98              	_gettimeofday:
+  99              	.LFB1:
+  65:../../cores/mapleMX/syscalls.c **** 
+  66:../../cores/mapleMX/syscalls.c **** /*
+  67:../../cores/mapleMX/syscalls.c ****  * _gettimeofday primitive (Stub function)
+  68:../../cores/mapleMX/syscalls.c ****  * */
+  69:../../cores/mapleMX/syscalls.c **** int _gettimeofday (struct timeval * tp, struct timezone * tzp)
+  70:../../cores/mapleMX/syscalls.c **** {
+ 100              		.loc 1 70 0
+ 101              		.cfi_startproc
+ 102              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 4
+
+
+ 103              		@ frame_needed = 0, uses_anonymous_args = 0
+ 104              		@ link register save eliminated.
+ 105              	.LVL10:
+  71:../../cores/mapleMX/syscalls.c ****   /* Return fixed data for the timezone.  */
+  72:../../cores/mapleMX/syscalls.c ****   if (tzp)
+ 106              		.loc 1 72 0
+ 107 0000 11B1     		cbz	r1, .L9
+  73:../../cores/mapleMX/syscalls.c ****     {
+  74:../../cores/mapleMX/syscalls.c ****       tzp->tz_minuteswest = 0;
+ 108              		.loc 1 74 0
+ 109 0002 0023     		movs	r3, #0
+ 110 0004 0B60     		str	r3, [r1]
+  75:../../cores/mapleMX/syscalls.c ****       tzp->tz_dsttime = 0;
+ 111              		.loc 1 75 0
+ 112 0006 4B60     		str	r3, [r1, #4]
+ 113              	.L9:
+  76:../../cores/mapleMX/syscalls.c ****     }
+  77:../../cores/mapleMX/syscalls.c **** 
+  78:../../cores/mapleMX/syscalls.c ****   return 0;
+  79:../../cores/mapleMX/syscalls.c **** }
+ 114              		.loc 1 79 0
+ 115 0008 0020     		movs	r0, #0
+ 116              	.LVL11:
+ 117 000a 7047     		bx	lr
+ 118              		.cfi_endproc
+ 119              	.LFE1:
+ 121              		.section	.text.initialise_monitor_handles,"ax",%progbits
+ 122              		.align	1
+ 123              		.global	initialise_monitor_handles
+ 124              		.thumb
+ 125              		.thumb_func
+ 127              	initialise_monitor_handles:
+ 128              	.LFB2:
+  80:../../cores/mapleMX/syscalls.c **** void initialise_monitor_handles()
+  81:../../cores/mapleMX/syscalls.c **** {
+ 129              		.loc 1 81 0
+ 130              		.cfi_startproc
+ 131              		@ args = 0, pretend = 0, frame = 0
+ 132              		@ frame_needed = 0, uses_anonymous_args = 0
+ 133              		@ link register save eliminated.
+ 134 0000 7047     		bx	lr
+ 135              		.cfi_endproc
+ 136              	.LFE2:
+ 138              		.section	.text._getpid,"ax",%progbits
+ 139              		.align	1
+ 140              		.global	_getpid
+ 141              		.thumb
+ 142              		.thumb_func
+ 144              	_getpid:
+ 145              	.LFB3:
+  82:../../cores/mapleMX/syscalls.c **** }
+  83:../../cores/mapleMX/syscalls.c **** 
+  84:../../cores/mapleMX/syscalls.c **** int _getpid(void)
+  85:../../cores/mapleMX/syscalls.c **** {
+ 146              		.loc 1 85 0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 5
+
+
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150              		@ link register save eliminated.
+  86:../../cores/mapleMX/syscalls.c **** 	return 1;
+  87:../../cores/mapleMX/syscalls.c **** }
+ 151              		.loc 1 87 0
+ 152 0000 0120     		movs	r0, #1
+ 153 0002 7047     		bx	lr
+ 154              		.cfi_endproc
+ 155              	.LFE3:
+ 157              		.section	.text._kill,"ax",%progbits
+ 158              		.align	1
+ 159              		.global	_kill
+ 160              		.thumb
+ 161              		.thumb_func
+ 163              	_kill:
+ 164              	.LFB4:
+  88:../../cores/mapleMX/syscalls.c **** 
+  89:../../cores/mapleMX/syscalls.c **** int _kill(int pid, int sig)
+  90:../../cores/mapleMX/syscalls.c **** {
+ 165              		.loc 1 90 0
+ 166              		.cfi_startproc
+ 167              		@ args = 0, pretend = 0, frame = 0
+ 168              		@ frame_needed = 0, uses_anonymous_args = 0
+ 169              	.LVL12:
+ 170 0000 08B5     		push	{r3, lr}
+ 171              	.LCFI1:
+ 172              		.cfi_def_cfa_offset 8
+ 173              		.cfi_offset 3, -8
+ 174              		.cfi_offset 14, -4
+  91:../../cores/mapleMX/syscalls.c **** 	errno = EINVAL;
+ 175              		.loc 1 91 0
+ 176 0002 FFF7FEFF 		bl	__errno
+ 177              	.LVL13:
+ 178 0006 1623     		movs	r3, #22
+ 179 0008 0360     		str	r3, [r0]
+  92:../../cores/mapleMX/syscalls.c **** 	return -1;
+  93:../../cores/mapleMX/syscalls.c **** }
+ 180              		.loc 1 93 0
+ 181 000a 4FF0FF30 		mov	r0, #-1
+ 182 000e 08BD     		pop	{r3, pc}
+ 183              		.cfi_endproc
+ 184              	.LFE4:
+ 186              		.section	.text._exit,"ax",%progbits
+ 187              		.align	1
+ 188              		.global	_exit
+ 189              		.thumb
+ 190              		.thumb_func
+ 192              	_exit:
+ 193              	.LFB5:
+  94:../../cores/mapleMX/syscalls.c **** 
+  95:../../cores/mapleMX/syscalls.c **** void _exit (int status)
+  96:../../cores/mapleMX/syscalls.c **** {
+ 194              		.loc 1 96 0
+ 195              		.cfi_startproc
+ 196              		@ Volatile: function does not return.
+ 197              		@ args = 0, pretend = 0, frame = 0
+ 198              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 6
+
+
+ 199              	.LVL14:
+ 200 0000 08B5     		push	{r3, lr}
+ 201              	.LCFI2:
+ 202              		.cfi_def_cfa_offset 8
+ 203              		.cfi_offset 3, -8
+ 204              		.cfi_offset 14, -4
+ 205              	.LBB4:
+ 206              	.LBB5:
+  91:../../cores/mapleMX/syscalls.c **** 	errno = EINVAL;
+ 207              		.loc 1 91 0
+ 208 0002 FFF7FEFF 		bl	__errno
+ 209              	.LVL15:
+ 210 0006 1623     		movs	r3, #22
+ 211 0008 0360     		str	r3, [r0]
+ 212              	.L17:
+ 213 000a FEE7     		b	.L17
+ 214              	.LBE5:
+ 215              	.LBE4:
+ 216              		.cfi_endproc
+ 217              	.LFE5:
+ 219              		.section	.text._write,"ax",%progbits
+ 220              		.align	1
+ 221              		.global	_write
+ 222              		.thumb
+ 223              		.thumb_func
+ 225              	_write:
+ 226              	.LFB6:
+  97:../../cores/mapleMX/syscalls.c **** 	_kill(status, -1);
+  98:../../cores/mapleMX/syscalls.c **** 	while (1) {}
+  99:../../cores/mapleMX/syscalls.c **** }
+ 100:../../cores/mapleMX/syscalls.c **** 
+ 101:../../cores/mapleMX/syscalls.c **** int _write(int file, char *ptr, int len)
+ 102:../../cores/mapleMX/syscalls.c **** {
+ 227              		.loc 1 102 0
+ 228              		.cfi_startproc
+ 229              		@ args = 0, pretend = 0, frame = 0
+ 230              		@ frame_needed = 0, uses_anonymous_args = 0
+ 231              	.LVL16:
+ 232 0000 70B5     		push	{r4, r5, r6, lr}
+ 233              	.LCFI3:
+ 234              		.cfi_def_cfa_offset 16
+ 235              		.cfi_offset 4, -16
+ 236              		.cfi_offset 5, -12
+ 237              		.cfi_offset 6, -8
+ 238              		.cfi_offset 14, -4
+ 239              		.loc 1 102 0
+ 240 0002 0E46     		mov	r6, r1
+ 241 0004 1546     		mov	r5, r2
+ 103:../../cores/mapleMX/syscalls.c **** 	int DataIdx;
+ 104:../../cores/mapleMX/syscalls.c **** 
+ 105:../../cores/mapleMX/syscalls.c **** 		for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 242              		.loc 1 105 0
+ 243 0006 0024     		movs	r4, #0
+ 244              	.LVL17:
+ 245              	.L19:
+ 246              		.loc 1 105 0 is_stmt 0 discriminator 1
+ 247 0008 AC42     		cmp	r4, r5
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 7
+
+
+ 248 000a 04DA     		bge	.L21
+ 249              	.LVL18:
+ 106:../../cores/mapleMX/syscalls.c **** 		{
+ 107:../../cores/mapleMX/syscalls.c **** 		   __io_putchar( *ptr++ );
+ 250              		.loc 1 107 0 is_stmt 1 discriminator 2
+ 251 000c 305D     		ldrb	r0, [r6, r4]	@ zero_extendqisi2
+ 252 000e FFF7FEFF 		bl	__io_putchar
+ 253              	.LVL19:
+ 105:../../cores/mapleMX/syscalls.c **** 		for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 254              		.loc 1 105 0 discriminator 2
+ 255 0012 0134     		adds	r4, r4, #1
+ 256              	.LVL20:
+ 257 0014 F8E7     		b	.L19
+ 258              	.LVL21:
+ 259              	.L21:
+ 108:../../cores/mapleMX/syscalls.c **** 		}
+ 109:../../cores/mapleMX/syscalls.c **** 	return len;
+ 110:../../cores/mapleMX/syscalls.c **** }
+ 260              		.loc 1 110 0
+ 261 0016 2846     		mov	r0, r5
+ 262 0018 70BD     		pop	{r4, r5, r6, pc}
+ 263              		.cfi_endproc
+ 264              	.LFE6:
+ 266              		.section	.text._close,"ax",%progbits
+ 267              		.align	1
+ 268              		.global	_close
+ 269              		.thumb
+ 270              		.thumb_func
+ 272              	_close:
+ 273              	.LFB7:
+ 111:../../cores/mapleMX/syscalls.c **** 
+ 112:../../cores/mapleMX/syscalls.c **** int _close(int file)
+ 113:../../cores/mapleMX/syscalls.c **** {
+ 274              		.loc 1 113 0
+ 275              		.cfi_startproc
+ 276              		@ args = 0, pretend = 0, frame = 0
+ 277              		@ frame_needed = 0, uses_anonymous_args = 0
+ 278              		@ link register save eliminated.
+ 279              	.LVL22:
+ 114:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 115:../../cores/mapleMX/syscalls.c **** }
+ 280              		.loc 1 115 0
+ 281 0000 4FF0FF30 		mov	r0, #-1
+ 282              	.LVL23:
+ 283 0004 7047     		bx	lr
+ 284              		.cfi_endproc
+ 285              	.LFE7:
+ 287              		.section	.text._fstat,"ax",%progbits
+ 288              		.align	1
+ 289              		.global	_fstat
+ 290              		.thumb
+ 291              		.thumb_func
+ 293              	_fstat:
+ 294              	.LFB8:
+ 116:../../cores/mapleMX/syscalls.c **** 
+ 117:../../cores/mapleMX/syscalls.c **** int _fstat(int file, struct stat *st)
+ 118:../../cores/mapleMX/syscalls.c **** {
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 8
+
+
+ 295              		.loc 1 118 0
+ 296              		.cfi_startproc
+ 297              		@ args = 0, pretend = 0, frame = 0
+ 298              		@ frame_needed = 0, uses_anonymous_args = 0
+ 299              		@ link register save eliminated.
+ 300              	.LVL24:
+ 119:../../cores/mapleMX/syscalls.c **** 	st->st_mode = S_IFCHR;
+ 301              		.loc 1 119 0
+ 302 0000 4FF40053 		mov	r3, #8192
+ 303 0004 4B60     		str	r3, [r1, #4]
+ 120:../../cores/mapleMX/syscalls.c **** 	return 0;
+ 121:../../cores/mapleMX/syscalls.c **** }
+ 304              		.loc 1 121 0
+ 305 0006 0020     		movs	r0, #0
+ 306              	.LVL25:
+ 307 0008 7047     		bx	lr
+ 308              		.cfi_endproc
+ 309              	.LFE8:
+ 311              		.section	.text._isatty,"ax",%progbits
+ 312              		.align	1
+ 313              		.global	_isatty
+ 314              		.thumb
+ 315              		.thumb_func
+ 317              	_isatty:
+ 318              	.LFB9:
+ 122:../../cores/mapleMX/syscalls.c **** 
+ 123:../../cores/mapleMX/syscalls.c **** int _isatty(int file)
+ 124:../../cores/mapleMX/syscalls.c **** {
+ 319              		.loc 1 124 0
+ 320              		.cfi_startproc
+ 321              		@ args = 0, pretend = 0, frame = 0
+ 322              		@ frame_needed = 0, uses_anonymous_args = 0
+ 323              		@ link register save eliminated.
+ 324              	.LVL26:
+ 125:../../cores/mapleMX/syscalls.c **** 	return 1;
+ 126:../../cores/mapleMX/syscalls.c **** }
+ 325              		.loc 1 126 0
+ 326 0000 0120     		movs	r0, #1
+ 327              	.LVL27:
+ 328 0002 7047     		bx	lr
+ 329              		.cfi_endproc
+ 330              	.LFE9:
+ 332              		.section	.text._lseek,"ax",%progbits
+ 333              		.align	1
+ 334              		.global	_lseek
+ 335              		.thumb
+ 336              		.thumb_func
+ 338              	_lseek:
+ 339              	.LFB10:
+ 127:../../cores/mapleMX/syscalls.c **** 
+ 128:../../cores/mapleMX/syscalls.c **** int _lseek(int file, int ptr, int dir)
+ 129:../../cores/mapleMX/syscalls.c **** {
+ 340              		.loc 1 129 0
+ 341              		.cfi_startproc
+ 342              		@ args = 0, pretend = 0, frame = 0
+ 343              		@ frame_needed = 0, uses_anonymous_args = 0
+ 344              		@ link register save eliminated.
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 9
+
+
+ 345              	.LVL28:
+ 130:../../cores/mapleMX/syscalls.c **** 	return 0;
+ 131:../../cores/mapleMX/syscalls.c **** }
+ 346              		.loc 1 131 0
+ 347 0000 0020     		movs	r0, #0
+ 348              	.LVL29:
+ 349 0002 7047     		bx	lr
+ 350              		.cfi_endproc
+ 351              	.LFE10:
+ 353              		.section	.text._read,"ax",%progbits
+ 354              		.align	1
+ 355              		.global	_read
+ 356              		.thumb
+ 357              		.thumb_func
+ 359              	_read:
+ 360              	.LFB11:
+ 132:../../cores/mapleMX/syscalls.c **** 
+ 133:../../cores/mapleMX/syscalls.c **** int _read(int file, char *ptr, int len)
+ 134:../../cores/mapleMX/syscalls.c **** {
+ 361              		.loc 1 134 0
+ 362              		.cfi_startproc
+ 363              		@ args = 0, pretend = 0, frame = 0
+ 364              		@ frame_needed = 0, uses_anonymous_args = 0
+ 365              	.LVL30:
+ 366 0000 70B5     		push	{r4, r5, r6, lr}
+ 367              	.LCFI4:
+ 368              		.cfi_def_cfa_offset 16
+ 369              		.cfi_offset 4, -16
+ 370              		.cfi_offset 5, -12
+ 371              		.cfi_offset 6, -8
+ 372              		.cfi_offset 14, -4
+ 373              		.loc 1 134 0
+ 374 0002 0E46     		mov	r6, r1
+ 375 0004 1546     		mov	r5, r2
+ 135:../../cores/mapleMX/syscalls.c **** 	int DataIdx;
+ 136:../../cores/mapleMX/syscalls.c **** 
+ 137:../../cores/mapleMX/syscalls.c **** 	for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 376              		.loc 1 137 0
+ 377 0006 0024     		movs	r4, #0
+ 378              	.LVL31:
+ 379              	.L27:
+ 380              		.loc 1 137 0 is_stmt 0 discriminator 1
+ 381 0008 AC42     		cmp	r4, r5
+ 382 000a 04DA     		bge	.L29
+ 383              	.LVL32:
+ 138:../../cores/mapleMX/syscalls.c **** 	{
+ 139:../../cores/mapleMX/syscalls.c **** 	  *ptr++ = __io_getchar();
+ 384              		.loc 1 139 0 is_stmt 1 discriminator 2
+ 385 000c FFF7FEFF 		bl	__io_getchar
+ 386              	.LVL33:
+ 387 0010 3055     		strb	r0, [r6, r4]
+ 137:../../cores/mapleMX/syscalls.c **** 	for (DataIdx = 0; DataIdx < len; DataIdx++)
+ 388              		.loc 1 137 0 discriminator 2
+ 389 0012 0134     		adds	r4, r4, #1
+ 390              	.LVL34:
+ 391 0014 F8E7     		b	.L27
+ 392              	.LVL35:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 10
+
+
+ 393              	.L29:
+ 140:../../cores/mapleMX/syscalls.c **** 	}
+ 141:../../cores/mapleMX/syscalls.c **** 
+ 142:../../cores/mapleMX/syscalls.c ****    return len;
+ 143:../../cores/mapleMX/syscalls.c **** }
+ 394              		.loc 1 143 0
+ 395 0016 2846     		mov	r0, r5
+ 396 0018 70BD     		pop	{r4, r5, r6, pc}
+ 397              		.cfi_endproc
+ 398              	.LFE11:
+ 400              		.section	.text._open,"ax",%progbits
+ 401              		.align	1
+ 402              		.global	_open
+ 403              		.thumb
+ 404              		.thumb_func
+ 406              	_open:
+ 407              	.LFB12:
+ 144:../../cores/mapleMX/syscalls.c **** 
+ 145:../../cores/mapleMX/syscalls.c **** int _open(char *path, int flags, ...)
+ 146:../../cores/mapleMX/syscalls.c **** {
+ 408              		.loc 1 146 0
+ 409              		.cfi_startproc
+ 410              		@ args = 4, pretend = 12, frame = 0
+ 411              		@ frame_needed = 0, uses_anonymous_args = 1
+ 412              		@ link register save eliminated.
+ 413              	.LVL36:
+ 414 0000 0EB4     		push	{r1, r2, r3}
+ 415              	.LCFI5:
+ 416              		.cfi_def_cfa_offset 12
+ 417              		.cfi_offset 1, -12
+ 418              		.cfi_offset 2, -8
+ 419              		.cfi_offset 3, -4
+ 147:../../cores/mapleMX/syscalls.c **** 	/* Pretend like we always fail */
+ 148:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 149:../../cores/mapleMX/syscalls.c **** }
+ 420              		.loc 1 149 0
+ 421 0002 4FF0FF30 		mov	r0, #-1
+ 422              	.LVL37:
+ 423 0006 03B0     		add	sp, sp, #12
+ 424 0008 7047     		bx	lr
+ 425              		.cfi_endproc
+ 426              	.LFE12:
+ 428              		.section	.text._wait,"ax",%progbits
+ 429              		.align	1
+ 430              		.global	_wait
+ 431              		.thumb
+ 432              		.thumb_func
+ 434              	_wait:
+ 435              	.LFB13:
+ 150:../../cores/mapleMX/syscalls.c **** 
+ 151:../../cores/mapleMX/syscalls.c **** int _wait(int *status)
+ 152:../../cores/mapleMX/syscalls.c **** {
+ 436              		.loc 1 152 0
+ 437              		.cfi_startproc
+ 438              		@ args = 0, pretend = 0, frame = 0
+ 439              		@ frame_needed = 0, uses_anonymous_args = 0
+ 440              	.LVL38:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 11
+
+
+ 441 0000 08B5     		push	{r3, lr}
+ 442              	.LCFI6:
+ 443              		.cfi_def_cfa_offset 8
+ 444              		.cfi_offset 3, -8
+ 445              		.cfi_offset 14, -4
+ 153:../../cores/mapleMX/syscalls.c **** 	errno = ECHILD;
+ 446              		.loc 1 153 0
+ 447 0002 FFF7FEFF 		bl	__errno
+ 448              	.LVL39:
+ 449 0006 0A23     		movs	r3, #10
+ 450 0008 0360     		str	r3, [r0]
+ 154:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 155:../../cores/mapleMX/syscalls.c **** }
+ 451              		.loc 1 155 0
+ 452 000a 4FF0FF30 		mov	r0, #-1
+ 453 000e 08BD     		pop	{r3, pc}
+ 454              		.cfi_endproc
+ 455              	.LFE13:
+ 457              		.section	.text._unlink,"ax",%progbits
+ 458              		.align	1
+ 459              		.global	_unlink
+ 460              		.thumb
+ 461              		.thumb_func
+ 463              	_unlink:
+ 464              	.LFB14:
+ 156:../../cores/mapleMX/syscalls.c **** 
+ 157:../../cores/mapleMX/syscalls.c **** int _unlink(char *name)
+ 158:../../cores/mapleMX/syscalls.c **** {
+ 465              		.loc 1 158 0
+ 466              		.cfi_startproc
+ 467              		@ args = 0, pretend = 0, frame = 0
+ 468              		@ frame_needed = 0, uses_anonymous_args = 0
+ 469              	.LVL40:
+ 470 0000 08B5     		push	{r3, lr}
+ 471              	.LCFI7:
+ 472              		.cfi_def_cfa_offset 8
+ 473              		.cfi_offset 3, -8
+ 474              		.cfi_offset 14, -4
+ 159:../../cores/mapleMX/syscalls.c **** 	errno = ENOENT;
+ 475              		.loc 1 159 0
+ 476 0002 FFF7FEFF 		bl	__errno
+ 477              	.LVL41:
+ 478 0006 0223     		movs	r3, #2
+ 479 0008 0360     		str	r3, [r0]
+ 160:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 161:../../cores/mapleMX/syscalls.c **** }
+ 480              		.loc 1 161 0
+ 481 000a 4FF0FF30 		mov	r0, #-1
+ 482 000e 08BD     		pop	{r3, pc}
+ 483              		.cfi_endproc
+ 484              	.LFE14:
+ 486              		.section	.text._times,"ax",%progbits
+ 487              		.align	1
+ 488              		.global	_times
+ 489              		.thumb
+ 490              		.thumb_func
+ 492              	_times:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 12
+
+
+ 493              	.LFB15:
+ 162:../../cores/mapleMX/syscalls.c **** 
+ 163:../../cores/mapleMX/syscalls.c **** int _times(struct tms *buf)
+ 164:../../cores/mapleMX/syscalls.c **** {
+ 494              		.loc 1 164 0
+ 495              		.cfi_startproc
+ 496              		@ args = 0, pretend = 0, frame = 0
+ 497              		@ frame_needed = 0, uses_anonymous_args = 0
+ 498              		@ link register save eliminated.
+ 499              	.LVL42:
+ 165:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 166:../../cores/mapleMX/syscalls.c **** }
+ 500              		.loc 1 166 0
+ 501 0000 4FF0FF30 		mov	r0, #-1
+ 502              	.LVL43:
+ 503 0004 7047     		bx	lr
+ 504              		.cfi_endproc
+ 505              	.LFE15:
+ 507              		.section	.text._stat,"ax",%progbits
+ 508              		.align	1
+ 509              		.global	_stat
+ 510              		.thumb
+ 511              		.thumb_func
+ 513              	_stat:
+ 514              	.LFB16:
+ 167:../../cores/mapleMX/syscalls.c **** 
+ 168:../../cores/mapleMX/syscalls.c **** int _stat(char *file, struct stat *st)
+ 169:../../cores/mapleMX/syscalls.c **** {
+ 515              		.loc 1 169 0
+ 516              		.cfi_startproc
+ 517              		@ args = 0, pretend = 0, frame = 0
+ 518              		@ frame_needed = 0, uses_anonymous_args = 0
+ 519              		@ link register save eliminated.
+ 520              	.LVL44:
+ 170:../../cores/mapleMX/syscalls.c **** 	st->st_mode = S_IFCHR;
+ 521              		.loc 1 170 0
+ 522 0000 4FF40053 		mov	r3, #8192
+ 523 0004 4B60     		str	r3, [r1, #4]
+ 171:../../cores/mapleMX/syscalls.c **** 	return 0;
+ 172:../../cores/mapleMX/syscalls.c **** }
+ 524              		.loc 1 172 0
+ 525 0006 0020     		movs	r0, #0
+ 526              	.LVL45:
+ 527 0008 7047     		bx	lr
+ 528              		.cfi_endproc
+ 529              	.LFE16:
+ 531              		.section	.text._link,"ax",%progbits
+ 532              		.align	1
+ 533              		.global	_link
+ 534              		.thumb
+ 535              		.thumb_func
+ 537              	_link:
+ 538              	.LFB17:
+ 173:../../cores/mapleMX/syscalls.c **** 
+ 174:../../cores/mapleMX/syscalls.c **** int _link(char *old, char *new)
+ 175:../../cores/mapleMX/syscalls.c **** {
+ 539              		.loc 1 175 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 13
+
+
+ 540              		.cfi_startproc
+ 541              		@ args = 0, pretend = 0, frame = 0
+ 542              		@ frame_needed = 0, uses_anonymous_args = 0
+ 543              	.LVL46:
+ 544 0000 08B5     		push	{r3, lr}
+ 545              	.LCFI8:
+ 546              		.cfi_def_cfa_offset 8
+ 547              		.cfi_offset 3, -8
+ 548              		.cfi_offset 14, -4
+ 176:../../cores/mapleMX/syscalls.c **** 	errno = EMLINK;
+ 549              		.loc 1 176 0
+ 550 0002 FFF7FEFF 		bl	__errno
+ 551              	.LVL47:
+ 552 0006 1F23     		movs	r3, #31
+ 553 0008 0360     		str	r3, [r0]
+ 177:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 178:../../cores/mapleMX/syscalls.c **** }
+ 554              		.loc 1 178 0
+ 555 000a 4FF0FF30 		mov	r0, #-1
+ 556 000e 08BD     		pop	{r3, pc}
+ 557              		.cfi_endproc
+ 558              	.LFE17:
+ 560              		.section	.text._fork,"ax",%progbits
+ 561              		.align	1
+ 562              		.global	_fork
+ 563              		.thumb
+ 564              		.thumb_func
+ 566              	_fork:
+ 567              	.LFB18:
+ 179:../../cores/mapleMX/syscalls.c **** 
+ 180:../../cores/mapleMX/syscalls.c **** int _fork(void)
+ 181:../../cores/mapleMX/syscalls.c **** {
+ 568              		.loc 1 181 0
+ 569              		.cfi_startproc
+ 570              		@ args = 0, pretend = 0, frame = 0
+ 571              		@ frame_needed = 0, uses_anonymous_args = 0
+ 572 0000 08B5     		push	{r3, lr}
+ 573              	.LCFI9:
+ 574              		.cfi_def_cfa_offset 8
+ 575              		.cfi_offset 3, -8
+ 576              		.cfi_offset 14, -4
+ 182:../../cores/mapleMX/syscalls.c **** 	errno = EAGAIN;
+ 577              		.loc 1 182 0
+ 578 0002 FFF7FEFF 		bl	__errno
+ 579              	.LVL48:
+ 580 0006 0B23     		movs	r3, #11
+ 581 0008 0360     		str	r3, [r0]
+ 183:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 184:../../cores/mapleMX/syscalls.c **** }
+ 582              		.loc 1 184 0
+ 583 000a 4FF0FF30 		mov	r0, #-1
+ 584 000e 08BD     		pop	{r3, pc}
+ 585              		.cfi_endproc
+ 586              	.LFE18:
+ 588              		.section	.text._execve,"ax",%progbits
+ 589              		.align	1
+ 590              		.global	_execve
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 14
+
+
+ 591              		.thumb
+ 592              		.thumb_func
+ 594              	_execve:
+ 595              	.LFB19:
+ 185:../../cores/mapleMX/syscalls.c **** 
+ 186:../../cores/mapleMX/syscalls.c **** int _execve(char *name, char **argv, char **env)
+ 187:../../cores/mapleMX/syscalls.c **** {
+ 596              		.loc 1 187 0
+ 597              		.cfi_startproc
+ 598              		@ args = 0, pretend = 0, frame = 0
+ 599              		@ frame_needed = 0, uses_anonymous_args = 0
+ 600              	.LVL49:
+ 601 0000 08B5     		push	{r3, lr}
+ 602              	.LCFI10:
+ 603              		.cfi_def_cfa_offset 8
+ 604              		.cfi_offset 3, -8
+ 605              		.cfi_offset 14, -4
+ 188:../../cores/mapleMX/syscalls.c **** 	errno = ENOMEM;
+ 606              		.loc 1 188 0
+ 607 0002 FFF7FEFF 		bl	__errno
+ 608              	.LVL50:
+ 609 0006 0C23     		movs	r3, #12
+ 610 0008 0360     		str	r3, [r0]
+ 189:../../cores/mapleMX/syscalls.c **** 	return -1;
+ 190:../../cores/mapleMX/syscalls.c **** }
+ 611              		.loc 1 190 0
+ 612 000a 4FF0FF30 		mov	r0, #-1
+ 613 000e 08BD     		pop	{r3, pc}
+ 614              		.cfi_endproc
+ 615              	.LFE19:
+ 617              		.section	.bss.heap_end.5591,"aw",%nobits
+ 618              		.align	2
+ 619              		.set	.LANCHOR0,. + 0
+ 622              	heap_end.5591:
+ 623 0000 00000000 		.space	4
+ 624              		.weak	__io_getchar
+ 625              		.weak	__io_putchar
+ 626              		.text
+ 627              	.Letext0:
+ 628              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 629              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 630              		.file 4 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 631              		.file 5 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 632              		.file 6 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 633              		.file 7 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 634              		.file 8 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 635              		.file 9 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 syscalls.c
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:19     .text._sbrk:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:24     .text._sbrk:0000000000000000 _sbrk
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:86     .text._sbrk:0000000000000034 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:93     .text._gettimeofday:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:98     .text._gettimeofday:0000000000000000 _gettimeofday
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:122    .text.initialise_monitor_handles:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:127    .text.initialise_monitor_handles:0000000000000000 initialise_monitor_handles
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:139    .text._getpid:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:144    .text._getpid:0000000000000000 _getpid
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:158    .text._kill:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:163    .text._kill:0000000000000000 _kill
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:187    .text._exit:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:192    .text._exit:0000000000000000 _exit
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:220    .text._write:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:225    .text._write:0000000000000000 _write
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:267    .text._close:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:272    .text._close:0000000000000000 _close
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:288    .text._fstat:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:293    .text._fstat:0000000000000000 _fstat
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:312    .text._isatty:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:317    .text._isatty:0000000000000000 _isatty
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:333    .text._lseek:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:338    .text._lseek:0000000000000000 _lseek
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:354    .text._read:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:359    .text._read:0000000000000000 _read
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:401    .text._open:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:406    .text._open:0000000000000000 _open
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:429    .text._wait:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:434    .text._wait:0000000000000000 _wait
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:458    .text._unlink:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:463    .text._unlink:0000000000000000 _unlink
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:487    .text._times:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:492    .text._times:0000000000000000 _times
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:508    .text._stat:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:513    .text._stat:0000000000000000 _stat
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:532    .text._link:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:537    .text._link:0000000000000000 _link
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:561    .text._fork:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:566    .text._fork:0000000000000000 _fork
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:589    .text._execve:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:594    .text._execve:0000000000000000 _execve
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:618    .bss.heap_end.5591:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc92cGVa.s:622    .bss.heap_end.5591:0000000000000000 heap_end.5591
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+__errno
+end
+__io_putchar
+__io_getchar

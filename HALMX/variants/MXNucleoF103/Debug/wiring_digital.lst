@@ -1,0 +1,452 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"wiring_digital.c"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.pinMode,"ax",%progbits
+  19              		.align	1
+  20              		.global	pinMode
+  21              		.thumb
+  22              		.thumb_func
+  24              	pinMode:
+  25              	.LFB64:
+  26              		.file 1 "../../cores/mapleMX/wiring_digital.c"
+   1:../../cores/mapleMX/wiring_digital.c **** /*
+   2:../../cores/mapleMX/wiring_digital.c ****   Copyright (c) 2011 Arduino.  All right reserved.
+   3:../../cores/mapleMX/wiring_digital.c **** 
+   4:../../cores/mapleMX/wiring_digital.c ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/wiring_digital.c ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/wiring_digital.c ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/wiring_digital.c ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/wiring_digital.c **** 
+   9:../../cores/mapleMX/wiring_digital.c ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/wiring_digital.c ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/wiring_digital.c ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  12:../../cores/mapleMX/wiring_digital.c ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/wiring_digital.c **** 
+  14:../../cores/mapleMX/wiring_digital.c ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/wiring_digital.c ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/wiring_digital.c ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/wiring_digital.c **** */
+  18:../../cores/mapleMX/wiring_digital.c **** 
+  19:../../cores/mapleMX/wiring_digital.c **** #include "Arduino.h"
+  20:../../cores/mapleMX/wiring_digital.c **** #include "variant.h"
+  21:../../cores/mapleMX/wiring_digital.c **** 
+  22:../../cores/mapleMX/wiring_digital.c **** #ifdef __cplusplus
+  23:../../cores/mapleMX/wiring_digital.c ****  extern "C" {
+  24:../../cores/mapleMX/wiring_digital.c **** #endif
+  25:../../cores/mapleMX/wiring_digital.c **** 
+  26:../../cores/mapleMX/wiring_digital.c **** 	/* 
+  27:../../cores/mapleMX/wiring_digital.c **** 	
+  28:../../cores/mapleMX/wiring_digital.c **** 		the HAL drivers for STM32 do no access the registers directly 
+  29:../../cores/mapleMX/wiring_digital.c **** 		opaque structures are used to abstract the functions needed
+  30:../../cores/mapleMX/wiring_digital.c **** 		
+  31:../../cores/mapleMX/wiring_digital.c **** 		existing STM examples show this defined locally a static 
+  32:../../cores/mapleMX/wiring_digital.c **** 		'static GPIO_InitTypeDef  GPIO_InitStruct;'
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 2
+
+
+  33:../../cores/mapleMX/wiring_digital.c **** 
+  34:../../cores/mapleMX/wiring_digital.c **** 		value which we set here.  This is different than the
+  35:../../cores/mapleMX/wiring_digital.c **** 		way maple and sam set the pins as they use a global
+  36:../../cores/mapleMX/wiring_digital.c **** 		array that contains device specific register setting values
+  37:../../cores/mapleMX/wiring_digital.c **** 	
+  38:../../cores/mapleMX/wiring_digital.c **** 
+  39:../../cores/mapleMX/wiring_digital.c **** 		GPIO_InitTypeDef has the following members defined in stm32f4xx_hal_gpio.h:
+  40:../../cores/mapleMX/wiring_digital.c **** 
+  41:../../cores/mapleMX/wiring_digital.c ****   uint32_t Pin		Specifies the GPIO pins to be configured.
+  42:../../cores/mapleMX/wiring_digital.c **** 					typically a bitmapped mask that can be stored in a 16 bit value
+  43:../../cores/mapleMX/wiring_digital.c **** 
+  44:../../cores/mapleMX/wiring_digital.c ****   uint32_t Mode		Specifies the operating mode for the selected pins.
+  45:../../cores/mapleMX/wiring_digital.c ****                     There are a number of modes that can be defined. 
+  46:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_INPUT		        	Input Floating Mode
+  47:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_OUTPUT_PP        		Output Push Pull Mode
+  48:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_OUTPUT_OD        		Output Open Drain Mode
+  49:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_AF_PP            		Alternate Function Push Pull Mode
+  50:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_AF_OD            		Alternate Function Open Drain Mode
+  51:../../cores/mapleMX/wiring_digital.c **** 
+  52:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_ANALOG           		Analog Mode
+  53:../../cores/mapleMX/wiring_digital.c ****     
+  54:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_IT_RISING        		External Interrupt Mode with Rising edge trigger detection
+  55:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_IT_FALLING       		External Interrupt Mode with Falling edge trigger detection
+  56:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_IT_RISING_FALLING		External Interrupt Mode with Rising/Falling edge trigger detection
+  57:../../cores/mapleMX/wiring_digital.c ****  
+  58:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_EVT_RISING       		External Event Mode with Rising edge trigger detection
+  59:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_EVT_FALLING      		External Event Mode with Falling edge trigger detection
+  60:../../cores/mapleMX/wiring_digital.c **** GPIO_MODE_EVT_RISING_FALLING	External Event Mode with Rising/Falling edge trigger detection
+  61:../../cores/mapleMX/wiring_digital.c **** 
+  62:../../cores/mapleMX/wiring_digital.c **** 
+  63:../../cores/mapleMX/wiring_digital.c ****   uint32_t Pull		Specifies the Pull-up or Pull-Down activation for the selected pins.
+  64:../../cores/mapleMX/wiring_digital.c **** GPIO_NOPULL						No Pull-up or Pull-down activation
+  65:../../cores/mapleMX/wiring_digital.c **** GPIO_PULLUP						Pull-up activation
+  66:../../cores/mapleMX/wiring_digital.c **** GPIO_PULLDOWN					Pull-down activation
+  67:../../cores/mapleMX/wiring_digital.c **** 
+  68:../../cores/mapleMX/wiring_digital.c ****   uint32_t Speed	Specifies the speed for the selected pins.
+  69:../../cores/mapleMX/wiring_digital.c **** GPIO_SPEED_LOW					Low speed
+  70:../../cores/mapleMX/wiring_digital.c **** GPIO_SPEED_MEDIUM				Medium speed
+  71:../../cores/mapleMX/wiring_digital.c **** GPIO_SPEED_FAST					Fast speed
+  72:../../cores/mapleMX/wiring_digital.c **** GPIO_SPEED_HIGH					High speed
+  73:../../cores/mapleMX/wiring_digital.c **** 
+  74:../../cores/mapleMX/wiring_digital.c ****   uint32_t Alternate	Peripheral to be connected to the selected pins. 
+  75:../../cores/mapleMX/wiring_digital.c ****                         these are defined in stm32f4xx_hal_gpio_ex.h
+  76:../../cores/mapleMX/wiring_digital.c ****                         not all calls to HAL_GPIO_Init require this value to 
+  77:../../cores/mapleMX/wiring_digital.c ****                         be set in the existing example code    
+  78:../../cores/mapleMX/wiring_digital.c ****                             
+  79:../../cores/mapleMX/wiring_digital.c ****                             
+  80:../../cores/mapleMX/wiring_digital.c **** */
+  81:../../cores/mapleMX/wiring_digital.c **** 
+  82:../../cores/mapleMX/wiring_digital.c **** 		
+  83:../../cores/mapleMX/wiring_digital.c **** 		
+  84:../../cores/mapleMX/wiring_digital.c **** 
+  85:../../cores/mapleMX/wiring_digital.c **** extern void pinMode( uint32_t ulPin, uint32_t ulMode )
+  86:../../cores/mapleMX/wiring_digital.c **** {
+  27              		.loc 1 86 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 16
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 3
+
+
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 1FB5     		push	{r0, r1, r2, r3, r4, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 24
+  35              		.cfi_offset 0, -24
+  36              		.cfi_offset 1, -20
+  37              		.cfi_offset 2, -16
+  38              		.cfi_offset 3, -12
+  39              		.cfi_offset 4, -8
+  40              		.cfi_offset 14, -4
+  87:../../cores/mapleMX/wiring_digital.c **** 
+  88:../../cores/mapleMX/wiring_digital.c **** 	/*
+  89:../../cores/mapleMX/wiring_digital.c **** 		in example code this is typically local
+  90:../../cores/mapleMX/wiring_digital.c **** 	*/
+  91:../../cores/mapleMX/wiring_digital.c **** 	GPIO_InitTypeDef  GPIO_InitStruct;
+  92:../../cores/mapleMX/wiring_digital.c **** 	
+  93:../../cores/mapleMX/wiring_digital.c **** 
+  94:../../cores/mapleMX/wiring_digital.c **** 	/* 
+  95:../../cores/mapleMX/wiring_digital.c **** 		to set the mode through the HAL libraries we populate the
+  96:../../cores/mapleMX/wiring_digital.c **** 		structure.  If STM32CubeMX is used to enable the pin
+  97:../../cores/mapleMX/wiring_digital.c **** 		or peripheral this code becomes redundant and may
+  98:../../cores/mapleMX/wiring_digital.c **** 		conflict.
+  99:../../cores/mapleMX/wiring_digital.c **** 		
+ 100:../../cores/mapleMX/wiring_digital.c **** 		an option to overcome this would be to set a flag
+ 101:../../cores/mapleMX/wiring_digital.c **** 		in the startup code that ignores this if the port is
+ 102:../../cores/mapleMX/wiring_digital.c **** 		already in use.
+ 103:../../cores/mapleMX/wiring_digital.c **** 		
+ 104:../../cores/mapleMX/wiring_digital.c **** 		first we need to get the port from the pin2port array
+ 105:../../cores/mapleMX/wiring_digital.c **** 		
+ 106:../../cores/mapleMX/wiring_digital.c **** 	*/
+ 107:../../cores/mapleMX/wiring_digital.c **** 
+ 108:../../cores/mapleMX/wiring_digital.c **** 	GPIO_InitStruct.Pin = g_Pin2PortMapArray[ulPin].Pin_abstraction;
+  41              		.loc 1 108 0
+  42 0002 104B     		ldr	r3, .L8
+  43 0004 1422     		movs	r2, #20
+  44 0006 02FB0032 		mla	r2, r2, r0, r3
+ 109:../../cores/mapleMX/wiring_digital.c **** 	
+ 110:../../cores/mapleMX/wiring_digital.c **** 	/* check the port to see if it is a pin we can modify */
+ 111:../../cores/mapleMX/wiring_digital.c **** // from sam code -- needs work ---
+ 112:../../cores/mapleMX/wiring_digital.c **** //	if ( g_Pin2PortMapArray[ulPin].ulPinType == PIO_NOT_A_PIN )
+ 113:../../cores/mapleMX/wiring_digital.c **** //    {
+ 114:../../cores/mapleMX/wiring_digital.c **** //        return ;
+ 115:../../cores/mapleMX/wiring_digital.c **** //    }
+ 116:../../cores/mapleMX/wiring_digital.c **** 	/* 
+ 117:../../cores/mapleMX/wiring_digital.c **** 		Taken from blink led example
+ 118:../../cores/mapleMX/wiring_digital.c **** 		
+ 119:../../cores/mapleMX/wiring_digital.c **** 		there may need to be some additional methods to
+ 120:../../cores/mapleMX/wiring_digital.c **** 		allow for some of the additional hardware modes
+ 121:../../cores/mapleMX/wiring_digital.c **** 		that the STM32 can provide. these can and are set by the HAL init
+ 122:../../cores/mapleMX/wiring_digital.c **** 		code for specific peripherals this is included here to provide
+ 123:../../cores/mapleMX/wiring_digital.c **** 		existing Arduino library setup code in simple bitbang
+ 124:../../cores/mapleMX/wiring_digital.c **** 		examples.
+ 125:../../cores/mapleMX/wiring_digital.c **** 		Using this to setup built in peripherals probably will
+ 126:../../cores/mapleMX/wiring_digital.c **** 		conflict and cause unpredictable behavior
+ 127:../../cores/mapleMX/wiring_digital.c **** 	*/
+ 128:../../cores/mapleMX/wiring_digital.c **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 4
+
+
+ 129:../../cores/mapleMX/wiring_digital.c **** 	switch ( ulMode )
+  45              		.loc 1 129 0
+  46 000a 0129     		cmp	r1, #1
+ 108:../../cores/mapleMX/wiring_digital.c **** 	GPIO_InitStruct.Pin = g_Pin2PortMapArray[ulPin].Pin_abstraction;
+  47              		.loc 1 108 0
+  48 000c 5268     		ldr	r2, [r2, #4]
+  49 000e 0092     		str	r2, [sp]
+  50 0010 1A46     		mov	r2, r3
+  51              		.loc 1 129 0
+  52 0012 09D0     		beq	.L3
+  53 0014 05D3     		bcc	.L4
+  54 0016 0229     		cmp	r1, #2
+  55 0018 09D1     		bne	.L2
+ 130:../../cores/mapleMX/wiring_digital.c ****     {
+ 131:../../cores/mapleMX/wiring_digital.c ****         case INPUT:
+ 132:../../cores/mapleMX/wiring_digital.c **** 
+ 133:../../cores/mapleMX/wiring_digital.c ****   			GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 134:../../cores/mapleMX/wiring_digital.c ****   			GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 135:../../cores/mapleMX/wiring_digital.c **** 
+ 136:../../cores/mapleMX/wiring_digital.c **** 		break ;
+ 137:../../cores/mapleMX/wiring_digital.c **** 
+ 138:../../cores/mapleMX/wiring_digital.c ****         case INPUT_PULLUP:
+ 139:../../cores/mapleMX/wiring_digital.c **** 			GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  56              		.loc 1 139 0
+  57 001a 0023     		movs	r3, #0
+  58 001c 0193     		str	r3, [sp, #4]
+ 140:../../cores/mapleMX/wiring_digital.c **** 			GPIO_InitStruct.Pull = GPIO_PULLUP;
+  59              		.loc 1 140 0
+  60 001e 0123     		movs	r3, #1
+  61 0020 04E0     		b	.L6
+  62              	.L4:
+ 133:../../cores/mapleMX/wiring_digital.c ****   			GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  63              		.loc 1 133 0
+  64 0022 0023     		movs	r3, #0
+  65 0024 0193     		str	r3, [sp, #4]
+  66 0026 01E0     		b	.L6
+  67              	.L3:
+ 141:../../cores/mapleMX/wiring_digital.c **** 		break ;
+ 142:../../cores/mapleMX/wiring_digital.c **** 
+ 143:../../cores/mapleMX/wiring_digital.c ****         case OUTPUT:
+ 144:../../cores/mapleMX/wiring_digital.c ****  			GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  68              		.loc 1 144 0
+  69 0028 0191     		str	r1, [sp, #4]
+ 145:../../cores/mapleMX/wiring_digital.c ****  			GPIO_InitStruct.Pull = GPIO_NOPULL;
+  70              		.loc 1 145 0
+  71 002a 0023     		movs	r3, #0
+  72              	.L6:
+  73 002c 0293     		str	r3, [sp, #8]
+  74              	.L2:
+ 146:../../cores/mapleMX/wiring_digital.c **** 		break ;
+ 147:../../cores/mapleMX/wiring_digital.c **** 
+ 148:../../cores/mapleMX/wiring_digital.c ****         default:
+ 149:../../cores/mapleMX/wiring_digital.c ****         break ;
+ 150:../../cores/mapleMX/wiring_digital.c ****     }
+ 151:../../cores/mapleMX/wiring_digital.c **** 
+ 152:../../cores/mapleMX/wiring_digital.c **** 	/*
+ 153:../../cores/mapleMX/wiring_digital.c **** 		this speed mapping taken from blink example
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 5
+
+
+ 154:../../cores/mapleMX/wiring_digital.c **** 		
+ 155:../../cores/mapleMX/wiring_digital.c **** 		There may be some chip specific issues here
+ 156:../../cores/mapleMX/wiring_digital.c **** 		Roger Clark identified that the F1xx HAL does
+ 157:../../cores/mapleMX/wiring_digital.c **** 		not define FAST for speed.
+ 158:../../cores/mapleMX/wiring_digital.c **** 		
+ 159:../../cores/mapleMX/wiring_digital.c **** 		Online examples of Blink are all over the place on
+ 160:../../cores/mapleMX/wiring_digital.c **** 		how this should be set.
+ 161:../../cores/mapleMX/wiring_digital.c **** 		
+ 162:../../cores/mapleMX/wiring_digital.c **** 	*/
+ 163:../../cores/mapleMX/wiring_digital.c ****   	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+  75              		.loc 1 163 0
+  76 002e 0323     		movs	r3, #3
+  77 0030 0393     		str	r3, [sp, #12]
+ 164:../../cores/mapleMX/wiring_digital.c ****   	
+ 165:../../cores/mapleMX/wiring_digital.c ****   	/*
+ 166:../../cores/mapleMX/wiring_digital.c ****   		now we can call the actual setup code note that the
+ 167:../../cores/mapleMX/wiring_digital.c ****   		port reference is an opaque data type which
+ 168:../../cores/mapleMX/wiring_digital.c ****   		is typically a pointer.  This makes it awkward
+ 169:../../cores/mapleMX/wiring_digital.c ****   		to start the port clocks locally through a switch statement
+ 170:../../cores/mapleMX/wiring_digital.c ****   		on the port reference. We could shadow the port reference
+ 171:../../cores/mapleMX/wiring_digital.c ****   		as an enum, but would require a separate port peripheral
+ 172:../../cores/mapleMX/wiring_digital.c ****   		definition casts to a switchable int. 
+ 173:../../cores/mapleMX/wiring_digital.c ****   		
+ 174:../../cores/mapleMX/wiring_digital.c ****   		Currently port clocks are set as part of the gpio_h includes
+ 175:../../cores/mapleMX/wiring_digital.c ****   		from CubeMX.  This or an equivalent should be called
+ 176:../../cores/mapleMX/wiring_digital.c ****   		as part of main() as part of the HAL startup
+ 177:../../cores/mapleMX/wiring_digital.c ****   		
+ 178:../../cores/mapleMX/wiring_digital.c ****   		If no gpio is configured in CubeMX the gpio startup
+ 179:../../cores/mapleMX/wiring_digital.c ****   		will not be called and cause conflict with the clock system
+ 180:../../cores/mapleMX/wiring_digital.c ****   		
+ 181:../../cores/mapleMX/wiring_digital.c ****   		It may be necessary to provide some assert or
+ 182:../../cores/mapleMX/wiring_digital.c ****   		compiler warning setup should this code be used for general use. 
+ 183:../../cores/mapleMX/wiring_digital.c ****   		
+ 184:../../cores/mapleMX/wiring_digital.c ****   	*/
+ 185:../../cores/mapleMX/wiring_digital.c ****   	HAL_GPIO_Init(g_Pin2PortMapArray[ulPin].GPIOx_Port, &GPIO_InitStruct); 
+  78              		.loc 1 185 0
+  79 0032 1423     		movs	r3, #20
+  80 0034 5843     		muls	r0, r3, r0
+  81              	.LVL1:
+  82 0036 6946     		mov	r1, sp
+  83              	.LVL2:
+  84 0038 1058     		ldr	r0, [r2, r0]
+  85 003a FFF7FEFF 		bl	HAL_GPIO_Init
+  86              	.LVL3:
+ 186:../../cores/mapleMX/wiring_digital.c **** 
+ 187:../../cores/mapleMX/wiring_digital.c **** 
+ 188:../../cores/mapleMX/wiring_digital.c **** }
+  87              		.loc 1 188 0
+  88 003e 05B0     		add	sp, sp, #20
+  89              		@ sp needed
+  90 0040 5DF804FB 		ldr	pc, [sp], #4
+  91              	.L9:
+  92              		.align	2
+  93              	.L8:
+  94 0044 00000000 		.word	g_Pin2PortMapArray
+  95              		.cfi_endproc
+  96              	.LFE64:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 6
+
+
+  98              		.section	.text.digitalWrite,"ax",%progbits
+  99              		.align	1
+ 100              		.global	digitalWrite
+ 101              		.thumb
+ 102              		.thumb_func
+ 104              	digitalWrite:
+ 105              	.LFB65:
+ 189:../../cores/mapleMX/wiring_digital.c **** 
+ 190:../../cores/mapleMX/wiring_digital.c **** extern void digitalWrite( uint32_t ulPin, uint32_t ulVal )
+ 191:../../cores/mapleMX/wiring_digital.c **** {
+ 106              		.loc 1 191 0
+ 107              		.cfi_startproc
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 0, uses_anonymous_args = 0
+ 110              		@ link register save eliminated.
+ 111              	.LVL4:
+ 192:../../cores/mapleMX/wiring_digital.c **** 
+ 193:../../cores/mapleMX/wiring_digital.c **** 		switch(ulVal) {
+ 112              		.loc 1 193 0
+ 113 0000 0A46     		mov	r2, r1
+ 114 0002 09B1     		cbz	r1, .L12
+ 115 0004 0129     		cmp	r1, #1
+ 116 0006 07D1     		bne	.L14
+ 117              	.L12:
+ 194:../../cores/mapleMX/wiring_digital.c **** 		
+ 195:../../cores/mapleMX/wiring_digital.c **** 			case HIGH:
+ 196:../../cores/mapleMX/wiring_digital.c **** 				/* 
+ 197:../../cores/mapleMX/wiring_digital.c **** 					AVR allows for the writing of inputs to set the pull up state 
+ 198:../../cores/mapleMX/wiring_digital.c **** 					we may want to do this here as well to maintain compatibility. 
+ 199:../../cores/mapleMX/wiring_digital.c **** 				*/
+ 200:../../cores/mapleMX/wiring_digital.c **** 				HAL_GPIO_WritePin(g_Pin2PortMapArray[ulPin].GPIOx_Port,g_Pin2PortMapArray[ulPin].Pin_abstractio
+ 201:../../cores/mapleMX/wiring_digital.c **** 			break;
+ 202:../../cores/mapleMX/wiring_digital.c **** 			
+ 203:../../cores/mapleMX/wiring_digital.c **** 			case LOW:
+ 204:../../cores/mapleMX/wiring_digital.c **** 				/* simply reset the pin */
+ 205:../../cores/mapleMX/wiring_digital.c **** 				HAL_GPIO_WritePin(g_Pin2PortMapArray[ulPin].GPIOx_Port,g_Pin2PortMapArray[ulPin].Pin_abstractio
+ 118              		.loc 1 205 0
+ 119 0008 044B     		ldr	r3, .L15
+ 120 000a 1421     		movs	r1, #20
+ 121              	.LVL5:
+ 122 000c 4843     		muls	r0, r1, r0
+ 123              	.LVL6:
+ 124 000e 1918     		adds	r1, r3, r0
+ 125 0010 1858     		ldr	r0, [r3, r0]
+ 126 0012 8988     		ldrh	r1, [r1, #4]
+ 127 0014 FFF7FEBF 		b	HAL_GPIO_WritePin
+ 128              	.LVL7:
+ 129              	.L14:
+ 130 0018 7047     		bx	lr
+ 131              	.L16:
+ 132 001a 00BF     		.align	2
+ 133              	.L15:
+ 134 001c 00000000 		.word	g_Pin2PortMapArray
+ 135              		.cfi_endproc
+ 136              	.LFE65:
+ 138              		.section	.text.digitalRead,"ax",%progbits
+ 139              		.align	1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 7
+
+
+ 140              		.global	digitalRead
+ 141              		.thumb
+ 142              		.thumb_func
+ 144              	digitalRead:
+ 145              	.LFB66:
+ 206:../../cores/mapleMX/wiring_digital.c **** 			break;
+ 207:../../cores/mapleMX/wiring_digital.c **** 			
+ 208:../../cores/mapleMX/wiring_digital.c **** 			default:
+ 209:../../cores/mapleMX/wiring_digital.c **** 				/* should do an assert here to handle error conditions */
+ 210:../../cores/mapleMX/wiring_digital.c **** 			break;
+ 211:../../cores/mapleMX/wiring_digital.c **** 		}
+ 212:../../cores/mapleMX/wiring_digital.c **** }
+ 213:../../cores/mapleMX/wiring_digital.c **** 
+ 214:../../cores/mapleMX/wiring_digital.c **** extern int digitalRead( uint32_t ulPin )
+ 215:../../cores/mapleMX/wiring_digital.c **** {
+ 146              		.loc 1 215 0
+ 147              		.cfi_startproc
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 0, uses_anonymous_args = 0
+ 150              	.LVL8:
+ 151 0000 08B5     		push	{r3, lr}
+ 152              	.LCFI1:
+ 153              		.cfi_def_cfa_offset 8
+ 154              		.cfi_offset 3, -8
+ 155              		.cfi_offset 14, -4
+ 216:../../cores/mapleMX/wiring_digital.c **** 
+ 217:../../cores/mapleMX/wiring_digital.c **** 	/* can add a section here to see if pin is readable */
+ 218:../../cores/mapleMX/wiring_digital.c **** 	
+ 219:../../cores/mapleMX/wiring_digital.c **** 	
+ 220:../../cores/mapleMX/wiring_digital.c **** 	if(HAL_GPIO_ReadPin(g_Pin2PortMapArray[ulPin].GPIOx_Port,g_Pin2PortMapArray[ulPin].Pin_abstraction
+ 156              		.loc 1 220 0
+ 157 0002 1422     		movs	r2, #20
+ 158 0004 054B     		ldr	r3, .L18
+ 159 0006 5043     		muls	r0, r2, r0
+ 160              	.LVL9:
+ 161 0008 1A18     		adds	r2, r3, r0
+ 162 000a 1858     		ldr	r0, [r3, r0]
+ 163 000c 9188     		ldrh	r1, [r2, #4]
+ 164 000e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 165              	.LVL10:
+ 221:../../cores/mapleMX/wiring_digital.c **** 	{
+ 222:../../cores/mapleMX/wiring_digital.c **** 		return LOW; // Set from HIGH to LOW by Vassilis Serasidis
+ 223:../../cores/mapleMX/wiring_digital.c **** 	}
+ 224:../../cores/mapleMX/wiring_digital.c **** 
+ 225:../../cores/mapleMX/wiring_digital.c **** 	return HIGH ; // Set from LOW to HIGH by Vassilis Serasidis
+ 226:../../cores/mapleMX/wiring_digital.c **** }
+ 166              		.loc 1 226 0
+ 167 0012 0030     		adds	r0, r0, #0
+ 168 0014 18BF     		it	ne
+ 169 0016 0120     		movne	r0, #1
+ 170 0018 08BD     		pop	{r3, pc}
+ 171              	.L19:
+ 172 001a 00BF     		.align	2
+ 173              	.L18:
+ 174 001c 00000000 		.word	g_Pin2PortMapArray
+ 175              		.cfi_endproc
+ 176              	.LFE66:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 8
+
+
+ 178              		.text
+ 179              	.Letext0:
+ 180              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 181              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 182              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 183              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 184              		.file 6 "./variant.h"
+ 185              		.file 7 "Drivers/CMSIS/Include/core_cm3.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 wiring_digital.c
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:19     .text.pinMode:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:24     .text.pinMode:0000000000000000 pinMode
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:94     .text.pinMode:0000000000000044 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:99     .text.digitalWrite:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:104    .text.digitalWrite:0000000000000000 digitalWrite
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:134    .text.digitalWrite:000000000000001c $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:139    .text.digitalRead:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:144    .text.digitalRead:0000000000000000 digitalRead
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc0PRgca.s:174    .text.digitalRead:000000000000001c $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+g_Pin2PortMapArray
+HAL_GPIO_WritePin
+HAL_GPIO_ReadPin

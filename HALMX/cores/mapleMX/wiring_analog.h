@@ -19,10 +19,21 @@
 #ifndef _WIRING_ANALOG_
 #define _WIRING_ANALOG_
 
+//#include "stm32f1xx_hal.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+#define MAX_PWM_PIN 32
 
+extern ADC_HandleTypeDef hadc1;
+extern ADC_HandleTypeDef hadc2;
+/*
+extern TIM_HandleTypeDef htim1;
+extern TIM_HandleTypeDef htim2;
+extern TIM_HandleTypeDef htim3;
+extern TIM_HandleTypeDef htim4;
+*/
 /*
  * \brief SAM3 products have only one reference for ADC
  */
@@ -71,6 +82,8 @@ extern void analogReadResolution(int res);
 extern void analogWriteResolution(int res);
 
 extern void analogOutputInit( void ) ;
+
+extern void MX_TIMx_Init(uint32_t 	ulPin);
 
 #ifdef __cplusplus
 }

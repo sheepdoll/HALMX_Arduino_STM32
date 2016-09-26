@@ -64,13 +64,16 @@ extern void delay( uint32_t dwMs ) ;
  *
  * \param dwUs the number of microseconds to pause (uint32_t)
  */
+
 static inline void delayMicroseconds(uint32_t) __attribute__((always_inline, unused));
 static inline void delayMicroseconds(uint32_t usec){
     /*
      * Based on Paul Stoffregen's implementation
      * for Teensy 3.0 (http://www.pjrc.com/)
      */
+     
     if (usec == 0) return;
+#if 0    
     uint32_t n = usec * (F_CPU / 3000000);
     asm volatile(
         "L_%=_delayMicroseconds:"       "\n\t"
@@ -78,6 +81,17 @@ static inline void delayMicroseconds(uint32_t usec){
         "bne    L_%=_delayMicroseconds" "\n"
         : "+r" (n) :
     );
+#endif
+/**
+ * New STM32 assembly implementation by Vassilis Serasidis
+ * Source: http://www.carminenoviello.com/2015/09/04/precisely-measure-microseconds-stm32/
+ */
+    asm volatile ("MOV R0,%[loops]\n\t"\
+			"1: \n\t"\
+			"SUB R0, #1\n\t"\
+			"CMP R0, #0\n\t"\
+			"BNE 1b \n\t" : : [loops] "r" (4*usec) : "memory"\
+		);\
 }
 
 #ifdef __cplusplus

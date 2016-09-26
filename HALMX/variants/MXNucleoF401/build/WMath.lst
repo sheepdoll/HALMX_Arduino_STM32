@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,19 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"WMath.cpp"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text._Z10randomSeedm,"ax",%progbits
-  19              		.align	1
-  20              		.global	_Z10randomSeedm
-  21              		.thumb
-  22              		.thumb_func
-  24              	_Z10randomSeedm:
-  25              	.LFB0:
-  26              		.file 1 "../../cores/mapleMX/WMath.cpp"
+  14              		.syntax unified
+  15              		.file	"WMath.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._Z10randomSeedm,"ax",%progbits
+  20              		.align	1
+  21              		.global	_Z10randomSeedm
+  22              		.thumb
+  23              		.thumb_func
+  25              	_Z10randomSeedm:
+  26              	.LFB0:
+  27              		.file 1 "../../cores/mapleMX/WMath.cpp"
    1:../../cores/mapleMX/WMath.cpp **** /*
    2:../../cores/mapleMX/WMath.cpp ****   Copyright (c) 2011 Arduino.  All right reserved.
    3:../../cores/mapleMX/WMath.cpp **** 
@@ -52,106 +53,103 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 1
   24:../../cores/mapleMX/WMath.cpp **** 
   25:../../cores/mapleMX/WMath.cpp **** extern void randomSeed( uint32_t dwSeed )
   26:../../cores/mapleMX/WMath.cpp **** {
-  27              		.loc 1 26 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 0
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              		@ link register save eliminated.
-  32              	.LVL0:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 2
+  28              		.loc 1 26 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s 			page 2
 
 
+  33              	.LVL0:
   27:../../cores/mapleMX/WMath.cpp ****   if ( dwSeed != 0 )
-  33              		.loc 1 27 0
-  34 0000 08B1     		cbz	r0, .L1
+  34              		.loc 1 27 0
+  35 0000 08B1     		cbz	r0, .L1
   28:../../cores/mapleMX/WMath.cpp ****   {
   29:../../cores/mapleMX/WMath.cpp ****     srand( dwSeed ) ;
-  35              		.loc 1 29 0
-  36 0002 FFF7FEBF 		b	srand
-  37              	.LVL1:
-  38              	.L1:
-  39 0006 7047     		bx	lr
-  40              		.cfi_endproc
-  41              	.LFE0:
-  43              		.section	.text._Z6randoml,"ax",%progbits
-  44              		.align	1
-  45              		.global	_Z6randoml
-  46              		.thumb
-  47              		.thumb_func
-  49              	_Z6randoml:
-  50              	.LFB1:
+  36              		.loc 1 29 0
+  37 0002 FFF7FEBF 		b	srand
+  38              	.LVL1:
+  39              	.L1:
+  40 0006 7047     		bx	lr
+  41              		.cfi_endproc
+  42              	.LFE0:
+  44              		.section	.text._Z6randoml,"ax",%progbits
+  45              		.align	1
+  46              		.global	_Z6randoml
+  47              		.thumb
+  48              		.thumb_func
+  50              	_Z6randoml:
+  51              	.LFB1:
   30:../../cores/mapleMX/WMath.cpp ****   }
   31:../../cores/mapleMX/WMath.cpp **** }
   32:../../cores/mapleMX/WMath.cpp **** 
   33:../../cores/mapleMX/WMath.cpp **** extern long random( long howbig )
   34:../../cores/mapleMX/WMath.cpp **** {
-  51              		.loc 1 34 0
-  52              		.cfi_startproc
-  53              		@ args = 0, pretend = 0, frame = 0
-  54              		@ frame_needed = 0, uses_anonymous_args = 0
-  55              	.LVL2:
-  56 0000 10B5     		push	{r4, lr}
-  57              		.cfi_def_cfa_offset 8
-  58              		.cfi_offset 4, -8
-  59              		.cfi_offset 14, -4
+  52              		.loc 1 34 0
+  53              		.cfi_startproc
+  54              		@ args = 0, pretend = 0, frame = 0
+  55              		@ frame_needed = 0, uses_anonymous_args = 0
+  56              	.LVL2:
+  57 0000 10B5     		push	{r4, lr}
+  58              		.cfi_def_cfa_offset 8
+  59              		.cfi_offset 4, -8
+  60              		.cfi_offset 14, -4
   35:../../cores/mapleMX/WMath.cpp ****   if ( howbig == 0 )
-  60              		.loc 1 35 0
-  61 0002 0446     		mov	r4, r0
-  62 0004 30B1     		cbz	r0, .L6
+  61              		.loc 1 35 0
+  62 0002 0446     		mov	r4, r0
+  63 0004 30B1     		cbz	r0, .L6
   36:../../cores/mapleMX/WMath.cpp ****   {
   37:../../cores/mapleMX/WMath.cpp ****     return 0 ;
   38:../../cores/mapleMX/WMath.cpp ****   }
   39:../../cores/mapleMX/WMath.cpp **** 
   40:../../cores/mapleMX/WMath.cpp ****   return rand() % howbig;
-  63              		.loc 1 40 0
-  64 0006 FFF7FEFF 		bl	rand
-  65              	.LVL3:
-  66 000a 90FBF4F3 		sdiv	r3, r0, r4
-  67 000e 03FB1400 		mls	r0, r3, r4, r0
-  68 0012 10BD     		pop	{r4, pc}
-  69              	.LVL4:
-  70              	.L6:
+  64              		.loc 1 40 0
+  65 0006 FFF7FEFF 		bl	rand
+  66              	.LVL3:
+  67 000a 90FBF4F3 		sdiv	r3, r0, r4
+  68 000e 03FB1400 		mls	r0, r3, r4, r0
+  69 0012 10BD     		pop	{r4, pc}
+  70              	.LVL4:
+  71              	.L6:
   41:../../cores/mapleMX/WMath.cpp **** }
-  71              		.loc 1 41 0
-  72 0014 10BD     		pop	{r4, pc}
-  73              		.cfi_endproc
-  74              	.LFE1:
-  76              		.section	.text._Z6randomll,"ax",%progbits
-  77              		.align	1
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 3
+  72              		.loc 1 41 0
+  73 0014 10BD     		pop	{r4, pc}
+  74              		.cfi_endproc
+  75              	.LFE1:
+  77              		.section	.text._Z6randomll,"ax",%progbits
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s 			page 3
 
 
-  78              		.global	_Z6randomll
-  79              		.thumb
-  80              		.thumb_func
-  82              	_Z6randomll:
-  83              	.LFB2:
+  78              		.align	1
+  79              		.global	_Z6randomll
+  80              		.thumb
+  81              		.thumb_func
+  83              	_Z6randomll:
+  84              	.LFB2:
   42:../../cores/mapleMX/WMath.cpp **** 
   43:../../cores/mapleMX/WMath.cpp **** extern long random( long howsmall, long howbig )
   44:../../cores/mapleMX/WMath.cpp **** {
-  84              		.loc 1 44 0
-  85              		.cfi_startproc
-  86              		@ args = 0, pretend = 0, frame = 0
-  87              		@ frame_needed = 0, uses_anonymous_args = 0
-  88              	.LVL5:
-  89              	.LBB2:
+  85              		.loc 1 44 0
+  86              		.cfi_startproc
+  87              		@ args = 0, pretend = 0, frame = 0
+  88              		@ frame_needed = 0, uses_anonymous_args = 0
+  89              	.LVL5:
   45:../../cores/mapleMX/WMath.cpp ****   if (howsmall >= howbig)
   90              		.loc 1 45 0
   91 0000 8842     		cmp	r0, r1
-  92              	.LBE2:
-  44:../../cores/mapleMX/WMath.cpp **** {
-  93              		.loc 1 44 0
-  94 0002 10B5     		push	{r4, lr}
-  95              		.cfi_def_cfa_offset 8
-  96              		.cfi_offset 4, -8
-  97              		.cfi_offset 14, -4
-  44:../../cores/mapleMX/WMath.cpp **** {
-  98              		.loc 1 44 0
-  99 0004 0446     		mov	r4, r0
- 100              	.LBB3:
- 101              		.loc 1 45 0
- 102 0006 04DA     		bge	.L9
- 103              	.LVL6:
+  44:../../cores/mapleMX/WMath.cpp ****   if (howsmall >= howbig)
+  92              		.loc 1 44 0
+  93 0002 10B5     		push	{r4, lr}
+  94              		.cfi_def_cfa_offset 8
+  95              		.cfi_offset 4, -8
+  96              		.cfi_offset 14, -4
+  44:../../cores/mapleMX/WMath.cpp ****   if (howsmall >= howbig)
+  97              		.loc 1 44 0
+  98 0004 0446     		mov	r4, r0
+  99              		.loc 1 45 0
+ 100 0006 04DA     		bge	.L9
+ 101              	.LVL6:
   46:../../cores/mapleMX/WMath.cpp ****   {
   47:../../cores/mapleMX/WMath.cpp ****     return howsmall;
   48:../../cores/mapleMX/WMath.cpp ****   }
@@ -159,130 +157,129 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 1
   50:../../cores/mapleMX/WMath.cpp ****   long diff = howbig - howsmall;
   51:../../cores/mapleMX/WMath.cpp **** 
   52:../../cores/mapleMX/WMath.cpp ****   return random(diff) + howsmall;
- 104              		.loc 1 52 0
- 105 0008 081A     		subs	r0, r1, r0
- 106              	.LVL7:
- 107 000a FFF7FEFF 		bl	_Z6randoml
- 108              	.LVL8:
- 109 000e 2044     		add	r0, r0, r4
- 110 0010 10BD     		pop	{r4, pc}
- 111              	.LVL9:
- 112              	.L9:
- 113              	.LBE3:
+ 102              		.loc 1 52 0
+ 103 0008 081A     		subs	r0, r1, r0
+ 104              	.LVL7:
+ 105 000a FFF7FEFF 		bl	_Z6randoml
+ 106              	.LVL8:
+ 107 000e 2044     		add	r0, r0, r4
+ 108 0010 10BD     		pop	{r4, pc}
+ 109              	.LVL9:
+ 110              	.L9:
   53:../../cores/mapleMX/WMath.cpp **** }
- 114              		.loc 1 53 0
- 115 0012 10BD     		pop	{r4, pc}
- 116              		.cfi_endproc
- 117              	.LFE2:
- 119              		.section	.text._Z3maplllll,"ax",%progbits
- 120              		.align	1
- 121              		.global	_Z3maplllll
- 122              		.thumb
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 4
+ 111              		.loc 1 53 0
+ 112 0012 10BD     		pop	{r4, pc}
+ 113              		.cfi_endproc
+ 114              	.LFE2:
+ 116              		.section	.text._Z3maplllll,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	_Z3maplllll
+ 119              		.thumb
+ 120              		.thumb_func
+ 122              	_Z3maplllll:
+ 123              	.LFB3:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s 			page 4
 
 
- 123              		.thumb_func
- 125              	_Z3maplllll:
- 126              	.LFB3:
   54:../../cores/mapleMX/WMath.cpp **** 
   55:../../cores/mapleMX/WMath.cpp **** extern long map(long x, long in_min, long in_max, long out_min, long out_max)
   56:../../cores/mapleMX/WMath.cpp **** {
- 127              		.loc 1 56 0
- 128              		.cfi_startproc
- 129              		@ args = 4, pretend = 0, frame = 0
- 130              		@ frame_needed = 0, uses_anonymous_args = 0
- 131              	.LVL10:
- 132 0000 10B5     		push	{r4, lr}
- 133              		.cfi_def_cfa_offset 8
- 134              		.cfi_offset 4, -8
- 135              		.cfi_offset 14, -4
+ 124              		.loc 1 56 0
+ 125              		.cfi_startproc
+ 126              		@ args = 4, pretend = 0, frame = 0
+ 127              		@ frame_needed = 0, uses_anonymous_args = 0
+ 128              	.LVL10:
+ 129 0000 10B5     		push	{r4, lr}
+ 130              		.cfi_def_cfa_offset 8
+ 131              		.cfi_offset 4, -8
+ 132              		.cfi_offset 14, -4
   57:../../cores/mapleMX/WMath.cpp ****   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
- 136              		.loc 1 57 0
- 137 0002 029C     		ldr	r4, [sp, #8]
- 138 0004 401A     		subs	r0, r0, r1
- 139              	.LVL11:
- 140 0006 E41A     		subs	r4, r4, r3
- 141 0008 4443     		muls	r4, r0, r4
- 142 000a 521A     		subs	r2, r2, r1
- 143              	.LVL12:
- 144 000c 94FBF2F0 		sdiv	r0, r4, r2
+ 133              		.loc 1 57 0
+ 134 0002 029C     		ldr	r4, [sp, #8]
+ 135 0004 401A     		subs	r0, r0, r1
+ 136              	.LVL11:
+ 137 0006 E41A     		subs	r4, r4, r3
+ 138 0008 6043     		muls	r0, r4, r0
+ 139 000a 521A     		subs	r2, r2, r1
+ 140              	.LVL12:
+ 141 000c 90FBF2F0 		sdiv	r0, r0, r2
   58:../../cores/mapleMX/WMath.cpp **** }
- 145              		.loc 1 58 0
- 146 0010 1844     		add	r0, r0, r3
- 147 0012 10BD     		pop	{r4, pc}
- 148              		.cfi_endproc
- 149              	.LFE3:
- 151              		.section	.text._Z8makeWordt,"ax",%progbits
- 152              		.align	1
- 153              		.global	_Z8makeWordt
- 154              		.thumb
- 155              		.thumb_func
- 157              	_Z8makeWordt:
- 158              	.LFB4:
+ 142              		.loc 1 58 0
+ 143 0010 1844     		add	r0, r0, r3
+ 144 0012 10BD     		pop	{r4, pc}
+ 145              		.cfi_endproc
+ 146              	.LFE3:
+ 148              		.section	.text._Z8makeWordt,"ax",%progbits
+ 149              		.align	1
+ 150              		.global	_Z8makeWordt
+ 151              		.thumb
+ 152              		.thumb_func
+ 154              	_Z8makeWordt:
+ 155              	.LFB4:
   59:../../cores/mapleMX/WMath.cpp **** 
   60:../../cores/mapleMX/WMath.cpp **** extern uint16_t makeWord( uint16_t w )
   61:../../cores/mapleMX/WMath.cpp **** {
- 159              		.loc 1 61 0
- 160              		.cfi_startproc
- 161              		@ args = 0, pretend = 0, frame = 0
- 162              		@ frame_needed = 0, uses_anonymous_args = 0
- 163              		@ link register save eliminated.
- 164              	.LVL13:
+ 156              		.loc 1 61 0
+ 157              		.cfi_startproc
+ 158              		@ args = 0, pretend = 0, frame = 0
+ 159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 160              		@ link register save eliminated.
+ 161              	.LVL13:
   62:../../cores/mapleMX/WMath.cpp ****   return w ;
   63:../../cores/mapleMX/WMath.cpp **** }
- 165              		.loc 1 63 0
- 166 0000 7047     		bx	lr
- 167              		.cfi_endproc
- 168              	.LFE4:
- 170              		.section	.text._Z8makeWordhh,"ax",%progbits
- 171              		.align	1
- 172              		.global	_Z8makeWordhh
- 173              		.thumb
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 5
+ 162              		.loc 1 63 0
+ 163 0000 7047     		bx	lr
+ 164              		.cfi_endproc
+ 165              	.LFE4:
+ 167              		.section	.text._Z8makeWordhh,"ax",%progbits
+ 168              		.align	1
+ 169              		.global	_Z8makeWordhh
+ 170              		.thumb
+ 171              		.thumb_func
+ 173              	_Z8makeWordhh:
+ 174              	.LFB5:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s 			page 5
 
 
- 174              		.thumb_func
- 176              	_Z8makeWordhh:
- 177              	.LFB5:
   64:../../cores/mapleMX/WMath.cpp **** 
   65:../../cores/mapleMX/WMath.cpp **** extern uint16_t makeWord( uint8_t h, uint8_t l )
   66:../../cores/mapleMX/WMath.cpp **** {
- 178              		.loc 1 66 0
- 179              		.cfi_startproc
- 180              		@ args = 0, pretend = 0, frame = 0
- 181              		@ frame_needed = 0, uses_anonymous_args = 0
- 182              		@ link register save eliminated.
- 183              	.LVL14:
+ 175              		.loc 1 66 0
+ 176              		.cfi_startproc
+ 177              		@ args = 0, pretend = 0, frame = 0
+ 178              		@ frame_needed = 0, uses_anonymous_args = 0
+ 179              		@ link register save eliminated.
+ 180              	.LVL14:
   67:../../cores/mapleMX/WMath.cpp ****   return (h << 8) | l ;
   68:../../cores/mapleMX/WMath.cpp **** }
- 184              		.loc 1 68 0
- 185 0000 41EA0020 		orr	r0, r1, r0, lsl #8
- 186              	.LVL15:
- 187 0004 7047     		bx	lr
- 188              		.cfi_endproc
- 189              	.LFE5:
- 191              		.text
- 192              	.Letext0:
- 193              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 194              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 195              		.file 4 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s 			page 6
+ 181              		.loc 1 68 0
+ 182 0000 41EA0020 		orr	r0, r1, r0, lsl #8
+ 183              	.LVL15:
+ 184 0004 7047     		bx	lr
+ 185              		.cfi_endproc
+ 186              	.LFE5:
+ 188              		.text
+ 189              	.Letext0:
+ 190              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 191              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 192              		.file 4 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s 			page 6
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 WMath.cpp
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:19     .text._Z10randomSeedm:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:24     .text._Z10randomSeedm:0000000000000000 _Z10randomSeedm
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:44     .text._Z6randoml:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:49     .text._Z6randoml:0000000000000000 _Z6randoml
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:77     .text._Z6randomll:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:82     .text._Z6randomll:0000000000000000 _Z6randomll
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:120    .text._Z3maplllll:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:125    .text._Z3maplllll:0000000000000000 _Z3maplllll
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:152    .text._Z8makeWordt:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:157    .text._Z8makeWordt:0000000000000000 _Z8makeWordt
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:171    .text._Z8makeWordhh:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccWTTD75.s:176    .text._Z8makeWordhh:0000000000000000 _Z8makeWordhh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:20     .text._Z10randomSeedm:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:25     .text._Z10randomSeedm:0000000000000000 _Z10randomSeedm
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:45     .text._Z6randoml:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:50     .text._Z6randoml:0000000000000000 _Z6randoml
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:78     .text._Z6randomll:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:83     .text._Z6randomll:0000000000000000 _Z6randomll
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:117    .text._Z3maplllll:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:122    .text._Z3maplllll:0000000000000000 _Z3maplllll
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:149    .text._Z8makeWordt:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:154    .text._Z8makeWordt:0000000000000000 _Z8makeWordt
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:168    .text._Z8makeWordhh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccMxP5sa.s:173    .text._Z8makeWordhh:0000000000000000 _Z8makeWordhh
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

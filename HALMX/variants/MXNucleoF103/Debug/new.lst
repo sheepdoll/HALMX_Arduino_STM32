@@ -1,0 +1,155 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"new.cpp"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text._Znwj,"ax",%progbits
+  19              		.align	1
+  20              		.global	_Znwj
+  21              		.thumb
+  22              		.thumb_func
+  24              	_Znwj:
+  25              	.LFB0:
+  26              		.file 1 "../../cores/mapleMX/new.cpp"
+   1:../../cores/mapleMX/new.cpp **** /*
+   2:../../cores/mapleMX/new.cpp ****   Copyright (c) 2014 Arduino.  All right reserved.
+   3:../../cores/mapleMX/new.cpp **** 
+   4:../../cores/mapleMX/new.cpp ****   This library is free software; you can redistribute it and/or
+   5:../../cores/mapleMX/new.cpp ****   modify it under the terms of the GNU Lesser General Public
+   6:../../cores/mapleMX/new.cpp ****   License as published by the Free Software Foundation; either
+   7:../../cores/mapleMX/new.cpp ****   version 2.1 of the License, or (at your option) any later version.
+   8:../../cores/mapleMX/new.cpp **** 
+   9:../../cores/mapleMX/new.cpp ****   This library is distributed in the hope that it will be useful,
+  10:../../cores/mapleMX/new.cpp ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:../../cores/mapleMX/new.cpp ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  12:../../cores/mapleMX/new.cpp ****   See the GNU Lesser General Public License for more details.
+  13:../../cores/mapleMX/new.cpp **** 
+  14:../../cores/mapleMX/new.cpp ****   You should have received a copy of the GNU Lesser General Public
+  15:../../cores/mapleMX/new.cpp ****   License along with this library; if not, write to the Free Software
+  16:../../cores/mapleMX/new.cpp ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:../../cores/mapleMX/new.cpp **** */
+  18:../../cores/mapleMX/new.cpp **** 
+  19:../../cores/mapleMX/new.cpp **** #include <stdlib.h>
+  20:../../cores/mapleMX/new.cpp **** 
+  21:../../cores/mapleMX/new.cpp **** void *operator new(size_t size) {
+  27              		.loc 1 21 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32              	.LVL0:
+  22:../../cores/mapleMX/new.cpp ****   return malloc(size);
+  33              		.loc 1 22 0
+  34 0000 FFF7FEBF 		b	malloc
+  35              	.LVL1:
+  36              		.cfi_endproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s 			page 2
+
+
+  37              	.LFE0:
+  39              		.section	.text._Znaj,"ax",%progbits
+  40              		.align	1
+  41              		.global	_Znaj
+  42              		.thumb
+  43              		.thumb_func
+  45              	_Znaj:
+  46              	.LFB1:
+  23:../../cores/mapleMX/new.cpp **** }
+  24:../../cores/mapleMX/new.cpp **** 
+  25:../../cores/mapleMX/new.cpp **** void *operator new[](size_t size) {
+  47              		.loc 1 25 0
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 0
+  50              		@ frame_needed = 0, uses_anonymous_args = 0
+  51              		@ link register save eliminated.
+  52              	.LVL2:
+  26:../../cores/mapleMX/new.cpp ****   return malloc(size);
+  53              		.loc 1 26 0
+  54 0000 FFF7FEBF 		b	malloc
+  55              	.LVL3:
+  56              		.cfi_endproc
+  57              	.LFE1:
+  59              		.section	.text._ZdlPv,"ax",%progbits
+  60              		.align	1
+  61              		.global	_ZdlPv
+  62              		.thumb
+  63              		.thumb_func
+  65              	_ZdlPv:
+  66              	.LFB2:
+  27:../../cores/mapleMX/new.cpp **** }
+  28:../../cores/mapleMX/new.cpp **** 
+  29:../../cores/mapleMX/new.cpp **** void operator delete(void * ptr) {
+  67              		.loc 1 29 0
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 0
+  70              		@ frame_needed = 0, uses_anonymous_args = 0
+  71              		@ link register save eliminated.
+  72              	.LVL4:
+  30:../../cores/mapleMX/new.cpp ****   free(ptr);
+  73              		.loc 1 30 0
+  74 0000 FFF7FEBF 		b	free
+  75              	.LVL5:
+  76              		.cfi_endproc
+  77              	.LFE2:
+  79              		.section	.text._ZdaPv,"ax",%progbits
+  80              		.align	1
+  81              		.global	_ZdaPv
+  82              		.thumb
+  83              		.thumb_func
+  85              	_ZdaPv:
+  86              	.LFB3:
+  31:../../cores/mapleMX/new.cpp **** }
+  32:../../cores/mapleMX/new.cpp **** 
+  33:../../cores/mapleMX/new.cpp **** void operator delete[](void * ptr) {
+  87              		.loc 1 33 0
+  88              		.cfi_startproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s 			page 3
+
+
+  89              		@ args = 0, pretend = 0, frame = 0
+  90              		@ frame_needed = 0, uses_anonymous_args = 0
+  91              		@ link register save eliminated.
+  92              	.LVL6:
+  34:../../cores/mapleMX/new.cpp ****   free(ptr);
+  93              		.loc 1 34 0
+  94 0000 FFF7FEBF 		b	free
+  95              	.LVL7:
+  96              		.cfi_endproc
+  97              	.LFE3:
+  99              		.text
+ 100              	.Letext0:
+ 101              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/l
+ 102              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 new.cpp
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:19     .text._Znwj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:24     .text._Znwj:0000000000000000 _Znwj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:40     .text._Znaj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:45     .text._Znaj:0000000000000000 _Znaj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:60     .text._ZdlPv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:65     .text._ZdlPv:0000000000000000 _ZdlPv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:80     .text._ZdaPv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccc8tdje.s:85     .text._ZdaPv:0000000000000000 _ZdaPv
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+malloc
+free

@@ -26,13 +26,7 @@ build/wiring.o: ../../cores/mapleMX/wiring.c \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Inc/usart.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h Inc/usart.h \
  ../../cores/mapleMX/wiring_constants.h ../../cores/mapleMX/wiring.h \
  ../../cores/mapleMX/wiring_digital.h ../../cores/mapleMX/wiring_analog.h \
  ../../cores/mapleMX/wiring_shift.h ../../cores/mapleMX/WInterrupts.h \

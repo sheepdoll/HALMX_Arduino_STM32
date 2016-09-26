@@ -26,21 +26,15 @@ build/Print.o: ../../cores/mapleMX/Print.cpp \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Inc/usart.h \
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h Inc/usart.h \
  ../../cores/mapleMX/wiring_constants.h ../../cores/mapleMX/WCharacter.h \
  ../../cores/mapleMX/WString.h ../../cores/mapleMX/Tone.h \
  ../../cores/mapleMX/WMath.h ../../cores/mapleMX/HardwareSerial.h \
  ../../cores/mapleMX/Stream.h ../../cores/mapleMX/Print.h \
  ../../cores/mapleMX/Printable.h ../../cores/mapleMX/wiring_pulse.h \
  variant.h ../../cores/mapleMX/UARTClass.h \
- ../../cores/mapleMX/RingBuffer.h ../../cores/mapleMX/USARTClass.h \
- ../../cores/mapleMX/UARTClass.h ../../cores/mapleMX/syscalls.h \
+ ../../cores/mapleMX/USARTClass.h ../../cores/mapleMX/UARTClass.h \
+ ../../cores/mapleMX/RingBuffer.h ../../cores/mapleMX/syscalls.h \
  ../../cores/mapleMX/wiring.h ../../cores/mapleMX/wiring_digital.h \
  ../../cores/mapleMX/wiring_analog.h ../../cores/mapleMX/wiring_shift.h \
  ../../cores/mapleMX/WInterrupts.h ../../cores/mapleMX/USB/USBDesc.h \

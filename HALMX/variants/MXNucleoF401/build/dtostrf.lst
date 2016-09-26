@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cciVreB4.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,19 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"dtostrf.c"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text.dtostrf,"ax",%progbits
-  19              		.align	1
-  20              		.global	dtostrf
-  21              		.thumb
-  22              		.thumb_func
-  24              	dtostrf:
-  25              	.LFB0:
-  26              		.file 1 "../../cores/mapleMX/avr/dtostrf.c"
+  14              		.syntax unified
+  15              		.file	"dtostrf.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.dtostrf,"ax",%progbits
+  20              		.align	1
+  21              		.global	dtostrf
+  22              		.thumb
+  23              		.thumb_func
+  25              	dtostrf:
+  26              	.LFB0:
+  27              		.file 1 "../../cores/mapleMX/avr/dtostrf.c"
    1:../../cores/mapleMX/avr/dtostrf.c **** /*
    2:../../cores/mapleMX/avr/dtostrf.c ****   dtostrf - Emulation for dtostrf function from avr-libc
    3:../../cores/mapleMX/avr/dtostrf.c ****   Copyright (c) 2013 Arduino.  All rights reserved.
@@ -49,74 +50,74 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s 			page 1
   21:../../cores/mapleMX/avr/dtostrf.c **** #include <stdio.h>
   22:../../cores/mapleMX/avr/dtostrf.c **** 
   23:../../cores/mapleMX/avr/dtostrf.c **** char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
-  27              		.loc 1 23 0
-  28              		.cfi_startproc
-  29              		@ args = 4, pretend = 0, frame = 24
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              	.LVL0:
-  32 0000 70B5     		push	{r4, r5, r6, lr}
-  33              	.LCFI0:
-  34              		.cfi_def_cfa_offset 16
-  35              		.cfi_offset 4, -16
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s 			page 2
+  28              		.loc 1 23 0
+  29              		.cfi_startproc
+  30              		@ args = 4, pretend = 0, frame = 24
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 30B5     		push	{r4, r5, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 12
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cciVreB4.s 			page 2
 
 
-  36              		.cfi_offset 5, -12
-  37              		.cfi_offset 6, -8
+  36              		.cfi_offset 4, -12
+  37              		.cfi_offset 5, -8
   38              		.cfi_offset 14, -4
-  39 0002 86B0     		sub	sp, sp, #24
+  39 0002 87B0     		sub	sp, sp, #28
   40              	.LCFI1:
   41              		.cfi_def_cfa_offset 40
   42              		.loc 1 23 0
   43 0004 0446     		mov	r4, r0
-  44 0006 0A9E     		ldr	r6, [sp, #40]
-  45 0008 0D46     		mov	r5, r1
+  44 0006 0D46     		mov	r5, r1
   24:../../cores/mapleMX/avr/dtostrf.c ****   char fmt[20];
   25:../../cores/mapleMX/avr/dtostrf.c ****   sprintf(fmt, "%%%d.%df", width, prec);
-  46              		.loc 1 25 0
-  47 000a 01A8     		add	r0, sp, #4
-  48              	.LVL1:
-  49 000c 0549     		ldr	r1, .L2
-  50 000e FFF7FEFF 		bl	sprintf
-  51              	.LVL2:
+  45              		.loc 1 25 0
+  46 0008 01A8     		add	r0, sp, #4
+  47              	.LVL1:
+  48 000a 0649     		ldr	r1, .L2
+  49 000c FFF7FEFF 		bl	sprintf
+  50              	.LVL2:
   26:../../cores/mapleMX/avr/dtostrf.c ****   sprintf(sout, fmt, val);
-  52              		.loc 1 26 0
-  53 0012 3046     		mov	r0, r6
+  51              		.loc 1 26 0
+  52 0010 2246     		mov	r2, r4
+  53 0012 2B46     		mov	r3, r5
   54 0014 01A9     		add	r1, sp, #4
-  55 0016 2246     		mov	r2, r4
-  56 0018 2B46     		mov	r3, r5
-  57 001a FFF7FEFF 		bl	sprintf
-  58              	.LVL3:
+  55 0016 0A98     		ldr	r0, [sp, #40]
+  56 0018 FFF7FEFF 		bl	sprintf
+  57              	.LVL3:
   27:../../cores/mapleMX/avr/dtostrf.c ****   return sout;
   28:../../cores/mapleMX/avr/dtostrf.c **** }
-  59              		.loc 1 28 0
-  60 001e 3046     		mov	r0, r6
-  61 0020 06B0     		add	sp, sp, #24
-  62              		@ sp needed
-  63 0022 70BD     		pop	{r4, r5, r6, pc}
-  64              	.LVL4:
-  65              	.L3:
-  66              		.align	2
-  67              	.L2:
-  68 0024 00000000 		.word	.LC0
-  69              		.cfi_endproc
-  70              	.LFE0:
-  72              		.section	.rodata.str1.1,"aMS",%progbits,1
-  73              	.LC0:
-  74 0000 25252564 		.ascii	"%%%d.%df\000"
-  74      2E256466 
-  74      00
-  75              		.text
-  76              	.Letext0:
-  77              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s 			page 3
+  58              		.loc 1 28 0
+  59 001c 0A98     		ldr	r0, [sp, #40]
+  60 001e 07B0     		add	sp, sp, #28
+  61              	.LCFI2:
+  62              		.cfi_def_cfa_offset 12
+  63              		@ sp needed
+  64 0020 30BD     		pop	{r4, r5, pc}
+  65              	.LVL4:
+  66              	.L3:
+  67 0022 00BF     		.align	2
+  68              	.L2:
+  69 0024 00000000 		.word	.LC0
+  70              		.cfi_endproc
+  71              	.LFE0:
+  73              		.section	.rodata.str1.1,"aMS",%progbits,1
+  74              	.LC0:
+  75 0000 25252564 		.ascii	"%%%d.%df\000"
+  75      2E256466 
+  75      00
+  76              		.text
+  77              	.Letext0:
+  78              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cciVreB4.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 dtostrf.c
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s:19     .text.dtostrf:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s:24     .text.dtostrf:0000000000000000 dtostrf
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cceDEGco.s:68     .text.dtostrf:0000000000000024 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cciVreB4.s:20     .text.dtostrf:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cciVreB4.s:25     .text.dtostrf:0000000000000000 dtostrf
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cciVreB4.s:69     .text.dtostrf:0000000000000024 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

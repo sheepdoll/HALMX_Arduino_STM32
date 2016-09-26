@@ -1,11 +1,11 @@
 /* stub for hardware types */
-#ifndef _CHIP_NUCLEO_F3xx_
-#define _CHIP_NUCLEO_F3xx_
+#ifndef _CHIP_NUCLEO_F1xx_
+#define _CHIP_NUCLEO_F1xx_
 
 #include <stdbool.h>  /* for wiring constants */
 
-#include "stm32f103xb.h"  /* Ideally this is defined in variant */
-#include "usart.h"
+#include "stm32f1xx_hal.h"  /* Ideally this is defined in variant */
+//#include "usart.h"
 
 /* define some abstractions that are identical to Arduino */
 
@@ -28,5 +28,27 @@
 /* delay in micoseconds  Uses HAL system clock */
 #define delay(a2) HAL_Delay(a2)
 
+
+/**
+ *     12 April 2016 by Vassilis Serasidis
+ */
+//Comment out the Serial port you need to use.
+#define CDC_SERIAL_BUFFER_SIZE  128 //USBSerial buffer data length
+
+//#define USE_USBSerial
+#define USE_USART1
+#define USE_USART2
+#define USE_USART3
+
+//Comment out the SPI port you need to use.
+#define USE_SPI1
+#define USE_SPI2
+/********************************************************/
+
+//Number of Analog-to-Digital-Converter (ADC) pins that has the STM32F103C8 MCU
+#define BOARD_NR_ADC_PINS 9 //The STM32F103C8 has 9 Analog inputs.
+
+//Number of Pulse-Width-Modulation (PWM) pins that has the STM32F103C8 MCU
+#define BOARD_NR_PWM_PINS 12
 
 #endif

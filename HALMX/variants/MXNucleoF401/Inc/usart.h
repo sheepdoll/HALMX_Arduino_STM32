@@ -52,6 +52,8 @@ extern UART_HandleTypeDef huart6;
 
 /* USER CODE END Private defines */
 
+extern void Error_Handler(void);
+
 void MX_USART2_UART_Init(void);
 void MX_USART6_UART_Init(void);
 

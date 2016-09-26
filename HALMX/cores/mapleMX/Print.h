@@ -55,8 +55,6 @@ class Print
       return write((const uint8_t *)buffer, size);
     }
     
-    virtual ~Print() = 0;
-
     size_t print(const __FlashStringHelper *);
     size_t print(const String &);
     size_t print(const char[]);

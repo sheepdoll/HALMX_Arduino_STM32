@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,19 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"gpio.c"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text.MX_GPIO_Init,"ax",%progbits
-  19              		.align	1
-  20              		.global	MX_GPIO_Init
-  21              		.thumb
-  22              		.thumb_func
-  24              	MX_GPIO_Init:
-  25              	.LFB125:
-  26              		.file 1 "Src/gpio.c"
+  14              		.syntax unified
+  15              		.file	"gpio.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.MX_GPIO_Init,"ax",%progbits
+  20              		.align	1
+  21              		.global	MX_GPIO_Init
+  22              		.thumb
+  23              		.thumb_func
+  25              	MX_GPIO_Init:
+  26              	.LFB125:
+  27              		.file 1 "Src/gpio.c"
    1:Src/gpio.c    **** /**
    2:Src/gpio.c    ****   ******************************************************************************
    3:Src/gpio.c    ****   * File Name          : gpio.c
@@ -57,10 +58,10 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 1
   29:Src/gpio.c    ****   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   30:Src/gpio.c    ****   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   31:Src/gpio.c    ****   *
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s 			page 2
+
+
   32:Src/gpio.c    ****   ******************************************************************************
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 2
-
-
   33:Src/gpio.c    ****   */
   34:Src/gpio.c    **** 
   35:Src/gpio.c    **** /* Includes ------------------------------------------------------------------*/
@@ -82,188 +83,240 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 1
   51:Src/gpio.c    ****         * Output
   52:Src/gpio.c    ****         * EVENT_OUT
   53:Src/gpio.c    ****         * EXTI
-  54:Src/gpio.c    **** */
-  55:Src/gpio.c    **** void MX_GPIO_Init(void)
-  56:Src/gpio.c    **** {
-  27              		.loc 1 56 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 40
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31 0000 10B5     		push	{r4, lr}
-  32              	.LCFI0:
-  33              		.cfi_def_cfa_offset 8
-  34              		.cfi_offset 4, -8
-  35              		.cfi_offset 14, -4
-  36 0002 8AB0     		sub	sp, sp, #40
-  37              	.LCFI1:
-  38              		.cfi_def_cfa_offset 48
-  39              	.LBB2:
-  57:Src/gpio.c    **** 
-  58:Src/gpio.c    ****   GPIO_InitTypeDef GPIO_InitStruct;
-  59:Src/gpio.c    **** 
-  60:Src/gpio.c    ****   /* GPIO Ports Clock Enable */
-  61:Src/gpio.c    ****   __GPIOC_CLK_ENABLE();
-  40              		.loc 1 61 0
-  41 0004 244B     		ldr	r3, .L2
-  42              	.LBE2:
-  62:Src/gpio.c    ****   __GPIOH_CLK_ENABLE();
-  63:Src/gpio.c    ****   __GPIOA_CLK_ENABLE();
-  64:Src/gpio.c    ****   __GPIOB_CLK_ENABLE();
-  65:Src/gpio.c    ****   __GPIOD_CLK_ENABLE();
-  66:Src/gpio.c    **** 
-  67:Src/gpio.c    ****   /*Configure GPIO pin : PtPin */
-  68:Src/gpio.c    ****   GPIO_InitStruct.Pin = B1_Pin;
-  69:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
-  70:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  71:Src/gpio.c    ****   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-  43              		.loc 1 71 0
-  44 0006 2548     		ldr	r0, .L2+4
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 3
+  54:Src/gpio.c    ****      PB13   ------> SPI2_SCK
+  55:Src/gpio.c    ****      PB14   ------> SPI2_MISO
+  56:Src/gpio.c    ****      PB15   ------> SPI2_MOSI
+  57:Src/gpio.c    **** */
+  58:Src/gpio.c    **** void MX_GPIO_Init(void)
+  59:Src/gpio.c    **** {
+  28              		.loc 1 59 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 40
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32 0000 70B5     		push	{r4, r5, r6, lr}
+  33              	.LCFI0:
+  34              		.cfi_def_cfa_offset 16
+  35              		.cfi_offset 4, -16
+  36              		.cfi_offset 5, -12
+  37              		.cfi_offset 6, -8
+  38              		.cfi_offset 14, -4
+  39 0002 8AB0     		sub	sp, sp, #40
+  40              	.LCFI1:
+  41              		.cfi_def_cfa_offset 56
+  42              	.LBB2:
+  60:Src/gpio.c    **** 
+  61:Src/gpio.c    ****   GPIO_InitTypeDef GPIO_InitStruct;
+  62:Src/gpio.c    **** 
+  63:Src/gpio.c    ****   /* GPIO Ports Clock Enable */
+  64:Src/gpio.c    ****   __HAL_RCC_GPIOC_CLK_ENABLE();
+  43              		.loc 1 64 0
+  44 0004 294B     		ldr	r3, .L2
+  45              	.LBE2:
+  65:Src/gpio.c    ****   __HAL_RCC_GPIOH_CLK_ENABLE();
+  66:Src/gpio.c    ****   __HAL_RCC_GPIOA_CLK_ENABLE();
+  67:Src/gpio.c    ****   __HAL_RCC_GPIOB_CLK_ENABLE();
+  68:Src/gpio.c    **** 
+  69:Src/gpio.c    ****   /*Configure GPIO pin : PtPin */
+  70:Src/gpio.c    ****   GPIO_InitStruct.Pin = B1_Pin;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s 			page 3
 
 
-  45              	.LBB3:
-  61:Src/gpio.c    ****   __GPIOC_CLK_ENABLE();
-  46              		.loc 1 61 0
-  47 0008 0024     		movs	r4, #0
-  48 000a 0094     		str	r4, [sp]
-  49 000c 1A6B     		ldr	r2, [r3, #48]
-  50 000e 42F00402 		orr	r2, r2, #4
-  51 0012 1A63     		str	r2, [r3, #48]
-  52 0014 1A6B     		ldr	r2, [r3, #48]
-  53 0016 02F00402 		and	r2, r2, #4
-  54 001a 0092     		str	r2, [sp]
-  55 001c 009A     		ldr	r2, [sp]
-  56              	.LBE3:
-  57              	.LBB4:
-  62:Src/gpio.c    ****   __GPIOH_CLK_ENABLE();
-  58              		.loc 1 62 0
-  59 001e 0194     		str	r4, [sp, #4]
-  60 0020 1A6B     		ldr	r2, [r3, #48]
-  61 0022 42F08002 		orr	r2, r2, #128
-  62 0026 1A63     		str	r2, [r3, #48]
-  63 0028 1A6B     		ldr	r2, [r3, #48]
-  64 002a 02F08002 		and	r2, r2, #128
-  65 002e 0192     		str	r2, [sp, #4]
-  66 0030 019A     		ldr	r2, [sp, #4]
-  67              	.LBE4:
-  68              	.LBB5:
-  63:Src/gpio.c    ****   __GPIOA_CLK_ENABLE();
-  69              		.loc 1 63 0
-  70 0032 0294     		str	r4, [sp, #8]
-  71 0034 1A6B     		ldr	r2, [r3, #48]
-  72 0036 42F00102 		orr	r2, r2, #1
-  73 003a 1A63     		str	r2, [r3, #48]
-  74 003c 1A6B     		ldr	r2, [r3, #48]
-  75 003e 02F00102 		and	r2, r2, #1
-  76 0042 0292     		str	r2, [sp, #8]
-  77 0044 029A     		ldr	r2, [sp, #8]
-  78              	.LBE5:
-  79              	.LBB6:
-  64:Src/gpio.c    ****   __GPIOB_CLK_ENABLE();
-  80              		.loc 1 64 0
-  81 0046 0394     		str	r4, [sp, #12]
-  82 0048 1A6B     		ldr	r2, [r3, #48]
-  83 004a 42F00202 		orr	r2, r2, #2
-  84 004e 1A63     		str	r2, [r3, #48]
-  85 0050 1A6B     		ldr	r2, [r3, #48]
-  86 0052 02F00202 		and	r2, r2, #2
-  87 0056 0392     		str	r2, [sp, #12]
-  88 0058 039A     		ldr	r2, [sp, #12]
-  89              	.LBE6:
-  90              	.LBB7:
-  65:Src/gpio.c    ****   __GPIOD_CLK_ENABLE();
-  91              		.loc 1 65 0
-  92 005a 0494     		str	r4, [sp, #16]
-  93 005c 1A6B     		ldr	r2, [r3, #48]
-  94 005e 42F00802 		orr	r2, r2, #8
-  95 0062 1A63     		str	r2, [r3, #48]
-  96 0064 1B6B     		ldr	r3, [r3, #48]
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 4
+  71:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
+  72:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  73:Src/gpio.c    ****   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  74:Src/gpio.c    **** 
+  75:Src/gpio.c    ****   /*Configure GPIO pin : PtPin */
+  76:Src/gpio.c    ****   GPIO_InitStruct.Pin = LD2_Pin;
+  77:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  78:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  79:Src/gpio.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  80:Src/gpio.c    ****   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+  46              		.loc 1 80 0
+  47 0006 2A4D     		ldr	r5, .L2+4
+  73:Src/gpio.c    **** 
+  48              		.loc 1 73 0
+  49 0008 2A48     		ldr	r0, .L2+8
+  50              	.LBB3:
+  64:Src/gpio.c    ****   __HAL_RCC_GPIOH_CLK_ENABLE();
+  51              		.loc 1 64 0
+  52 000a 0024     		movs	r4, #0
+  53 000c 0194     		str	r4, [sp, #4]
+  54 000e 1A6B     		ldr	r2, [r3, #48]
+  55 0010 42F00402 		orr	r2, r2, #4
+  56 0014 1A63     		str	r2, [r3, #48]
+  57 0016 1A6B     		ldr	r2, [r3, #48]
+  58 0018 02F00402 		and	r2, r2, #4
+  59 001c 0192     		str	r2, [sp, #4]
+  60 001e 019A     		ldr	r2, [sp, #4]
+  61              	.LBE3:
+  62              	.LBB4:
+  65:Src/gpio.c    ****   __HAL_RCC_GPIOH_CLK_ENABLE();
+  63              		.loc 1 65 0
+  64 0020 0294     		str	r4, [sp, #8]
+  65 0022 1A6B     		ldr	r2, [r3, #48]
+  66 0024 42F08002 		orr	r2, r2, #128
+  67 0028 1A63     		str	r2, [r3, #48]
+  68 002a 1A6B     		ldr	r2, [r3, #48]
+  69 002c 02F08002 		and	r2, r2, #128
+  70 0030 0292     		str	r2, [sp, #8]
+  71 0032 029A     		ldr	r2, [sp, #8]
+  72              	.LBE4:
+  73              	.LBB5:
+  66:Src/gpio.c    ****   __HAL_RCC_GPIOB_CLK_ENABLE();
+  74              		.loc 1 66 0
+  75 0034 0394     		str	r4, [sp, #12]
+  76 0036 1A6B     		ldr	r2, [r3, #48]
+  77 0038 42F00102 		orr	r2, r2, #1
+  78 003c 1A63     		str	r2, [r3, #48]
+  79 003e 1A6B     		ldr	r2, [r3, #48]
+  80 0040 02F00102 		and	r2, r2, #1
+  81 0044 0392     		str	r2, [sp, #12]
+  82 0046 039A     		ldr	r2, [sp, #12]
+  83              	.LBE5:
+  84              	.LBB6:
+  67:Src/gpio.c    **** 
+  85              		.loc 1 67 0
+  86 0048 0494     		str	r4, [sp, #16]
+  87 004a 1A6B     		ldr	r2, [r3, #48]
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s 			page 4
 
 
-  97 0066 03F00803 		and	r3, r3, #8
-  98 006a 0493     		str	r3, [sp, #16]
-  99 006c 049B     		ldr	r3, [sp, #16]
- 100              	.LBE7:
-  68:Src/gpio.c    ****   GPIO_InitStruct.Pin = B1_Pin;
- 101              		.loc 1 68 0
- 102 006e 4FF40053 		mov	r3, #8192
- 103 0072 0593     		str	r3, [sp, #20]
- 104              		.loc 1 71 0
- 105 0074 05A9     		add	r1, sp, #20
-  69:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
- 106              		.loc 1 69 0
- 107 0076 0A4B     		ldr	r3, .L2+8
- 108 0078 0693     		str	r3, [sp, #24]
-  70:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
- 109              		.loc 1 70 0
- 110 007a 0794     		str	r4, [sp, #28]
- 111              		.loc 1 71 0
- 112 007c FFF7FEFF 		bl	HAL_GPIO_Init
- 113              	.LVL0:
-  72:Src/gpio.c    **** 
-  73:Src/gpio.c    ****   /*Configure GPIO pin : PtPin */
-  74:Src/gpio.c    ****   GPIO_InitStruct.Pin = LD2_Pin;
- 114              		.loc 1 74 0
- 115 0080 2023     		movs	r3, #32
- 116 0082 0593     		str	r3, [sp, #20]
-  75:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  76:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  77:Src/gpio.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-  78:Src/gpio.c    ****   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
- 117              		.loc 1 78 0
- 118 0084 0748     		ldr	r0, .L2+12
-  76:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
- 119              		.loc 1 76 0
- 120 0086 0794     		str	r4, [sp, #28]
-  75:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
- 121              		.loc 1 75 0
- 122 0088 0123     		movs	r3, #1
- 123              		.loc 1 78 0
- 124 008a 05A9     		add	r1, sp, #20
-  75:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
- 125              		.loc 1 75 0
- 126 008c 0693     		str	r3, [sp, #24]
-  77:Src/gpio.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
- 127              		.loc 1 77 0
- 128 008e 0894     		str	r4, [sp, #32]
- 129              		.loc 1 78 0
- 130 0090 FFF7FEFF 		bl	HAL_GPIO_Init
- 131              	.LVL1:
-  79:Src/gpio.c    **** 
-  80:Src/gpio.c    **** }
- 132              		.loc 1 80 0
- 133 0094 0AB0     		add	sp, sp, #40
- 134              		@ sp needed
- 135 0096 10BD     		pop	{r4, pc}
- 136              	.L3:
- 137              		.align	2
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 5
+  88 004c 42F00202 		orr	r2, r2, #2
+  89 0050 1A63     		str	r2, [r3, #48]
+  90 0052 1B6B     		ldr	r3, [r3, #48]
+  91              	.LBE6:
+  72:Src/gpio.c    ****   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  92              		.loc 1 72 0
+  93 0054 0794     		str	r4, [sp, #28]
+  94              	.LBB7:
+  67:Src/gpio.c    **** 
+  95              		.loc 1 67 0
+  96 0056 03F00203 		and	r3, r3, #2
+  97 005a 0493     		str	r3, [sp, #16]
+  98 005c 049B     		ldr	r3, [sp, #16]
+  99              	.LBE7:
+  70:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
+ 100              		.loc 1 70 0
+ 101 005e 4FF40053 		mov	r3, #8192
+ 102 0062 0593     		str	r3, [sp, #20]
+  73:Src/gpio.c    **** 
+ 103              		.loc 1 73 0
+ 104 0064 05A9     		add	r1, sp, #20
+  71:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 105              		.loc 1 71 0
+ 106 0066 144B     		ldr	r3, .L2+12
+ 107 0068 0693     		str	r3, [sp, #24]
+  76:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 108              		.loc 1 76 0
+ 109 006a 2026     		movs	r6, #32
+  73:Src/gpio.c    **** 
+ 110              		.loc 1 73 0
+ 111 006c FFF7FEFF 		bl	HAL_GPIO_Init
+ 112              	.LVL0:
+  77:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 113              		.loc 1 77 0
+ 114 0070 0123     		movs	r3, #1
+ 115              		.loc 1 80 0
+ 116 0072 05A9     		add	r1, sp, #20
+ 117 0074 2846     		mov	r0, r5
+  77:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 118              		.loc 1 77 0
+ 119 0076 0693     		str	r3, [sp, #24]
+  76:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 120              		.loc 1 76 0
+ 121 0078 0596     		str	r6, [sp, #20]
+  78:Src/gpio.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+ 122              		.loc 1 78 0
+ 123 007a 0794     		str	r4, [sp, #28]
+  79:Src/gpio.c    ****   HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+ 124              		.loc 1 79 0
+ 125 007c 0894     		str	r4, [sp, #32]
+ 126              		.loc 1 80 0
+ 127 007e FFF7FEFF 		bl	HAL_GPIO_Init
+ 128              	.LVL1:
+  81:Src/gpio.c    **** 
+  82:Src/gpio.c    ****   /*Configure GPIO pins : PB13 PB14 PB15 */
+  83:Src/gpio.c    ****   GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14|GPIO_PIN_15;
+ 129              		.loc 1 83 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s 			page 5
 
 
- 138              	.L2:
- 139 0098 00380240 		.word	1073887232
- 140 009c 00080240 		.word	1073874944
- 141 00a0 00001210 		.word	269615104
- 142 00a4 00000240 		.word	1073872896
- 143              		.cfi_endproc
- 144              	.LFE125:
- 146              		.text
- 147              	.Letext0:
- 148              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 149              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 150              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
- 151              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
- 152              		.file 6 "Drivers/CMSIS/Include/core_cm4.h"
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s 			page 6
+ 130 0082 4FF46043 		mov	r3, #57344
+ 131 0086 0593     		str	r3, [sp, #20]
+  84:Src/gpio.c    ****   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+ 132              		.loc 1 84 0
+ 133 0088 0223     		movs	r3, #2
+ 134 008a 0693     		str	r3, [sp, #24]
+  85:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  86:Src/gpio.c    ****   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+ 135              		.loc 1 86 0
+ 136 008c 0323     		movs	r3, #3
+ 137 008e 0893     		str	r3, [sp, #32]
+  87:Src/gpio.c    ****   GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+  88:Src/gpio.c    ****   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+ 138              		.loc 1 88 0
+ 139 0090 05A9     		add	r1, sp, #20
+  87:Src/gpio.c    ****   GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+ 140              		.loc 1 87 0
+ 141 0092 0523     		movs	r3, #5
+ 142              		.loc 1 88 0
+ 143 0094 0948     		ldr	r0, .L2+16
+  87:Src/gpio.c    ****   GPIO_InitStruct.Alternate = GPIO_AF5_SPI2;
+ 144              		.loc 1 87 0
+ 145 0096 0993     		str	r3, [sp, #36]
+  85:Src/gpio.c    ****   GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 146              		.loc 1 85 0
+ 147 0098 0794     		str	r4, [sp, #28]
+ 148              		.loc 1 88 0
+ 149 009a FFF7FEFF 		bl	HAL_GPIO_Init
+ 150              	.LVL2:
+  89:Src/gpio.c    **** 
+  90:Src/gpio.c    ****   /*Configure GPIO pin Output Level */
+  91:Src/gpio.c    ****   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+ 151              		.loc 1 91 0
+ 152 009e 2246     		mov	r2, r4
+ 153 00a0 3146     		mov	r1, r6
+ 154 00a2 2846     		mov	r0, r5
+ 155 00a4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 156              	.LVL3:
+  92:Src/gpio.c    **** 
+  93:Src/gpio.c    **** }
+ 157              		.loc 1 93 0
+ 158 00a8 0AB0     		add	sp, sp, #40
+ 159              	.LCFI2:
+ 160              		.cfi_def_cfa_offset 16
+ 161              		@ sp needed
+ 162 00aa 70BD     		pop	{r4, r5, r6, pc}
+ 163              	.L3:
+ 164              		.align	2
+ 165              	.L2:
+ 166 00ac 00380240 		.word	1073887232
+ 167 00b0 00000240 		.word	1073872896
+ 168 00b4 00080240 		.word	1073874944
+ 169 00b8 00001210 		.word	269615104
+ 170 00bc 00040240 		.word	1073873920
+ 171              		.cfi_endproc
+ 172              	.LFE125:
+ 174              		.text
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s 			page 6
+
+
+ 175              	.Letext0:
+ 176              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 177              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 178              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 179              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 180              		.file 6 "Drivers/CMSIS/Include/core_cm4.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s 			page 7
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 gpio.c
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s:19     .text.MX_GPIO_Init:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s:24     .text.MX_GPIO_Init:0000000000000000 MX_GPIO_Init
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchilykB.s:139    .text.MX_GPIO_Init:0000000000000098 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s:20     .text.MX_GPIO_Init:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s:25     .text.MX_GPIO_Init:0000000000000000 MX_GPIO_Init
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccXWqVJe.s:166    .text.MX_GPIO_Init:00000000000000ac $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
 HAL_GPIO_Init
+HAL_GPIO_WritePin

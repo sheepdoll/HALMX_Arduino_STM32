@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,19 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"Print.cpp"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text._ZN5Print5writeEPKhj,"ax",%progbits
-  19              		.align	1
-  20              		.global	_ZN5Print5writeEPKhj
-  21              		.thumb
-  22              		.thumb_func
-  24              	_ZN5Print5writeEPKhj:
-  25              	.LFB211:
-  26              		.file 1 "../../cores/mapleMX/Print.cpp"
+  14              		.syntax unified
+  15              		.file	"Print.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._ZN5Print5writeEPKhj,"ax",%progbits
+  20              		.align	1
+  21              		.global	_ZN5Print5writeEPKhj
+  22              		.thumb
+  23              		.thumb_func
+  25              	_ZN5Print5writeEPKhj:
+  26              	.LFB211:
+  27              		.file 1 "../../cores/mapleMX/Print.cpp"
    1:../../cores/mapleMX/Print.cpp **** /*
    2:../../cores/mapleMX/Print.cpp ****  Print.cpp - Base class that provides print() and println()
    3:../../cores/mapleMX/Print.cpp ****  Copyright (c) 2008 David A. Mellis.  All right reserved.
@@ -57,40 +58,39 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
   29:../../cores/mapleMX/Print.cpp **** 
   30:../../cores/mapleMX/Print.cpp **** // Public Methods //////////////////////////////////////////////////////////////
   31:../../cores/mapleMX/Print.cpp **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 2
+
+
   32:../../cores/mapleMX/Print.cpp **** /* default implementation: may be overridden */
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 2
-
-
   33:../../cores/mapleMX/Print.cpp **** size_t Print::write(const uint8_t *buffer, size_t size)
   34:../../cores/mapleMX/Print.cpp **** {
-  27              		.loc 1 34 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 0
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              	.LVL0:
-  32 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
-  33              		.cfi_def_cfa_offset 24
-  34              		.cfi_offset 3, -24
-  35              		.cfi_offset 4, -20
-  36              		.cfi_offset 5, -16
-  37              		.cfi_offset 6, -12
-  38              		.cfi_offset 7, -8
-  39              		.cfi_offset 14, -4
-  40              		.loc 1 34 0
-  41 0002 0646     		mov	r6, r0
-  42 0004 0C46     		mov	r4, r1
-  43              	.LVL1:
-  44 0006 8F18     		adds	r7, r1, r2
-  45              	.LBB60:
+  28              		.loc 1 34 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+  34              		.cfi_def_cfa_offset 24
+  35              		.cfi_offset 3, -24
+  36              		.cfi_offset 4, -20
+  37              		.cfi_offset 5, -16
+  38              		.cfi_offset 6, -12
+  39              		.cfi_offset 7, -8
+  40              		.cfi_offset 14, -4
+  41              		.loc 1 34 0
+  42 0002 0646     		mov	r6, r0
+  43 0004 0C46     		mov	r4, r1
+  44              	.LVL1:
+  45 0006 8F18     		adds	r7, r1, r2
   35:../../cores/mapleMX/Print.cpp ****   size_t n = 0;
   46              		.loc 1 35 0
   47 0008 0025     		movs	r5, #0
   48              	.LVL2:
-  49              	.L2:
+  49              	.L3:
   36:../../cores/mapleMX/Print.cpp ****   while (size--) {
-  50              		.loc 1 36 0 discriminator 1
+  50              		.loc 1 36 0
   51 000a BC42     		cmp	r4, r7
-  52 000c 07D0     		beq	.L5
+  52 000c 07D0     		beq	.L2
   37:../../cores/mapleMX/Print.cpp ****     n += write(*buffer++);
   53              		.loc 1 37 0
   54 000e 3368     		ldr	r3, [r6]
@@ -102,10 +102,11 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
   60              	.LVL4:
   61 001a 0544     		add	r5, r5, r0
   62              	.LVL5:
-  63 001c F5E7     		b	.L2
-  64              	.LVL6:
-  65              	.L5:
-  66              	.LBE60:
+  36:../../cores/mapleMX/Print.cpp ****   while (size--) {
+  63              		.loc 1 36 0
+  64 001c F5E7     		b	.L3
+  65              	.LVL6:
+  66              	.L2:
   38:../../cores/mapleMX/Print.cpp ****   }
   39:../../cores/mapleMX/Print.cpp ****   return n;
   40:../../cores/mapleMX/Print.cpp **** }
@@ -117,10 +118,10 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
   73              		.section	.text._ZN5Print5writeEPKc,"axG",%progbits,_ZN5Print5writeEPKc,comdat
   74              		.align	1
   75              		.weak	_ZN5Print5writeEPKc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 3
+
+
   76              		.thumb
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 3
-
-
   77              		.thumb_func
   79              	_ZN5Print5writeEPKc:
   80              	.LFB198:
@@ -177,201 +178,189 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
   82              		.loc 2 49 0
   83              		.cfi_startproc
   84              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 4
+
+
   85              		@ frame_needed = 0, uses_anonymous_args = 0
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 4
-
-
   86              	.LVL7:
-  87 0000 38B5     		push	{r3, r4, r5, lr}
+  87 0000 70B5     		push	{r4, r5, r6, lr}
   88              		.cfi_def_cfa_offset 16
-  89              		.cfi_offset 3, -16
-  90              		.cfi_offset 4, -12
-  91              		.cfi_offset 5, -8
+  89              		.cfi_offset 4, -16
+  90              		.cfi_offset 5, -12
+  91              		.cfi_offset 6, -8
   92              		.cfi_offset 14, -4
   93              		.loc 2 49 0
   94 0002 0546     		mov	r5, r0
   50:../../cores/mapleMX/Print.h ****       if (str == NULL) return 0;
   95              		.loc 2 50 0
   96 0004 0C46     		mov	r4, r1
-  97 0006 0846     		mov	r0, r1
-  98              	.LVL8:
-  99 0008 41B1     		cbz	r1, .L8
   51:../../cores/mapleMX/Print.h ****       return write((const uint8_t *)str, strlen(str));
- 100              		.loc 2 51 0
- 101 000a FFF7FEFF 		bl	strlen
- 102              	.LVL9:
- 103 000e 2B68     		ldr	r3, [r5]
- 104 0010 0246     		mov	r2, r0
- 105 0012 5B68     		ldr	r3, [r3, #4]
- 106 0014 2846     		mov	r0, r5
- 107 0016 2146     		mov	r1, r4
- 108 0018 9847     		blx	r3
- 109              	.LVL10:
- 110 001a 38BD     		pop	{r3, r4, r5, pc}
- 111              	.LVL11:
- 112              	.L8:
   52:../../cores/mapleMX/Print.h ****     }
- 113              		.loc 2 52 0
- 114 001c 38BD     		pop	{r3, r4, r5, pc}
- 115              		.cfi_endproc
- 116              	.LFE198:
- 118              		.section	.text._ZN5Print5printEPK19__FlashStringHelper,"ax",%progbits
- 119              		.align	1
- 120              		.global	_ZN5Print5printEPK19__FlashStringHelper
- 121              		.thumb
- 122              		.thumb_func
- 124              	_ZN5Print5printEPK19__FlashStringHelper:
- 125              	.LFB212:
+  97              		.loc 2 52 0
+  98 0006 0846     		mov	r0, r1
+  99              	.LVL8:
+  50:../../cores/mapleMX/Print.h ****       if (str == NULL) return 0;
+ 100              		.loc 2 50 0
+ 101 0008 49B1     		cbz	r1, .L6
+  51:../../cores/mapleMX/Print.h ****       return write((const uint8_t *)str, strlen(str));
+ 102              		.loc 2 51 0
+ 103 000a FFF7FEFF 		bl	strlen
+ 104              	.LVL9:
+ 105 000e 2B68     		ldr	r3, [r5]
+ 106 0010 0246     		mov	r2, r0
+ 107 0012 2146     		mov	r1, r4
+ 108 0014 2846     		mov	r0, r5
+ 109 0016 5B68     		ldr	r3, [r3, #4]
+ 110              		.loc 2 52 0
+ 111 0018 BDE87040 		pop	{r4, r5, r6, lr}
+ 112              		.cfi_remember_state
+ 113              		.cfi_restore 14
+ 114              		.cfi_restore 6
+ 115              		.cfi_restore 5
+ 116              		.cfi_restore 4
+ 117              		.cfi_def_cfa_offset 0
+ 118              	.LVL10:
+  51:../../cores/mapleMX/Print.h ****       return write((const uint8_t *)str, strlen(str));
+ 119              		.loc 2 51 0
+ 120 001c 1847     		bx	r3
+ 121              	.LVL11:
+ 122              	.L6:
+ 123              		.cfi_restore_state
+ 124              		.loc 2 52 0
+ 125 001e 70BD     		pop	{r4, r5, r6, pc}
+ 126              		.cfi_endproc
+ 127              	.LFE198:
+ 129              		.section	.text._ZN5Print5printEPK19__FlashStringHelper,"ax",%progbits
+ 130              		.align	1
+ 131              		.global	_ZN5Print5printEPK19__FlashStringHelper
+ 132              		.thumb
+ 133              		.thumb_func
+ 135              	_ZN5Print5printEPK19__FlashStringHelper:
+ 136              	.LFB243:
+ 137              		.cfi_startproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 5
+
+
+ 138              		@ args = 0, pretend = 0, frame = 0
+ 139              		@ frame_needed = 0, uses_anonymous_args = 0
+ 140 0000 08B5     		push	{r3, lr}
+ 141              		.cfi_def_cfa_offset 8
+ 142              		.cfi_offset 3, -8
+ 143              		.cfi_offset 14, -4
+ 144 0002 FFF7FEFF 		bl	_ZN5Print5writeEPKc
+ 145 0006 08BD     		pop	{r3, pc}
+ 146              		.cfi_endproc
+ 147              	.LFE243:
+ 149              		.section	.text._ZN5Print5printERK6String,"ax",%progbits
+ 150              		.align	1
+ 151              		.global	_ZN5Print5printERK6String
+ 152              		.thumb
+ 153              		.thumb_func
+ 155              	_ZN5Print5printERK6String:
+ 156              	.LFB213:
   41:../../cores/mapleMX/Print.cpp **** 
   42:../../cores/mapleMX/Print.cpp **** size_t Print::print(const __FlashStringHelper *ifsh)
   43:../../cores/mapleMX/Print.cpp **** {
- 126              		.loc 1 43 0
- 127              		.cfi_startproc
- 128              		@ args = 0, pretend = 0, frame = 0
- 129              		@ frame_needed = 0, uses_anonymous_args = 0
- 130              	.LVL12:
- 131 0000 08B5     		push	{r3, lr}
- 132              		.cfi_def_cfa_offset 8
- 133              		.cfi_offset 3, -8
- 134              		.cfi_offset 14, -4
- 135              	.LBB61:
- 136              	.LBB62:
   44:../../cores/mapleMX/Print.cpp ****   return print(reinterpret_cast<const char *>(ifsh));
   45:../../cores/mapleMX/Print.cpp **** }
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 5
-
-
   46:../../cores/mapleMX/Print.cpp **** 
   47:../../cores/mapleMX/Print.cpp **** size_t Print::print(const String &s)
   48:../../cores/mapleMX/Print.cpp **** {
-  49:../../cores/mapleMX/Print.cpp ****   return write(s.c_str(), s.length());
-  50:../../cores/mapleMX/Print.cpp **** }
-  51:../../cores/mapleMX/Print.cpp **** 
-  52:../../cores/mapleMX/Print.cpp **** size_t Print::print(const char str[])
-  53:../../cores/mapleMX/Print.cpp **** {
-  54:../../cores/mapleMX/Print.cpp ****   return write(str);
- 137              		.loc 1 54 0
- 138 0002 FFF7FEFF 		bl	_ZN5Print5writeEPKc
- 139              	.LVL13:
- 140              	.LBE62:
- 141              	.LBE61:
-  45:../../cores/mapleMX/Print.cpp **** }
- 142              		.loc 1 45 0
- 143 0006 08BD     		pop	{r3, pc}
- 144              		.cfi_endproc
- 145              	.LFE212:
- 147              		.section	.text._ZN5Print5printERK6String,"ax",%progbits
- 148              		.align	1
- 149              		.global	_ZN5Print5printERK6String
- 150              		.thumb
- 151              		.thumb_func
- 153              	_ZN5Print5printERK6String:
- 154              	.LFB213:
-  48:../../cores/mapleMX/Print.cpp **** {
- 155              		.loc 1 48 0
- 156              		.cfi_startproc
- 157              		@ args = 0, pretend = 0, frame = 0
- 158              		@ frame_needed = 0, uses_anonymous_args = 0
- 159              	.LVL14:
- 160 0000 10B5     		push	{r4, lr}
- 161              		.cfi_def_cfa_offset 8
- 162              		.cfi_offset 4, -8
- 163              		.cfi_offset 14, -4
-  48:../../cores/mapleMX/Print.cpp **** {
- 164              		.loc 1 48 0
- 165 0002 0B46     		mov	r3, r1
- 166              	.LBB65:
- 167              	.LBB66:
+ 157              		.loc 1 48 0
+ 158              		.cfi_startproc
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 0, uses_anonymous_args = 0
+ 161              		@ link register save eliminated.
+ 162              	.LVL12:
+ 163              	.LBB82:
+ 164              	.LBB83:
   53:../../cores/mapleMX/Print.h ****     virtual size_t write(const uint8_t *buffer, size_t size);
   54:../../cores/mapleMX/Print.h ****     size_t write(const char *buffer, size_t size) {
   55:../../cores/mapleMX/Print.h ****       return write((const uint8_t *)buffer, size);
- 168              		.loc 2 55 0
- 169 0004 0268     		ldr	r2, [r0]
- 170 0006 0968     		ldr	r1, [r1]
- 171              	.LVL15:
- 172 0008 5468     		ldr	r4, [r2, #4]
- 173 000a 9A68     		ldr	r2, [r3, #8]
- 174 000c A047     		blx	r4
- 175              	.LVL16:
- 176              	.LBE66:
- 177              	.LBE65:
+ 165              		.loc 2 55 0
+ 166 0000 0368     		ldr	r3, [r0]
+ 167 0002 8A68     		ldr	r2, [r1, #8]
+ 168 0004 5B68     		ldr	r3, [r3, #4]
+ 169 0006 0968     		ldr	r1, [r1]
+ 170              	.LVL13:
+ 171 0008 1847     		bx	r3
+ 172              	.LVL14:
+ 173              	.LBE83:
+ 174              	.LBE82:
+ 175              		.cfi_endproc
+ 176              	.LFE213:
+ 178              		.section	.text._ZN5Print5printEPKc,"ax",%progbits
+ 179              		.align	1
+ 180              		.global	_ZN5Print5printEPKc
+ 181              		.thumb
+ 182              		.thumb_func
+ 184              	_ZN5Print5printEPKc:
+ 185              	.LFB214:
+  49:../../cores/mapleMX/Print.cpp ****   return write(s.c_str(), s.length());
   50:../../cores/mapleMX/Print.cpp **** }
- 178              		.loc 1 50 0
- 179 000e 10BD     		pop	{r4, pc}
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 6
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 6
 
 
- 180              		.cfi_endproc
- 181              	.LFE213:
- 183              		.section	.text._ZN5Print5printEPKc,"ax",%progbits
- 184              		.align	1
- 185              		.global	_ZN5Print5printEPKc
- 186              		.thumb
- 187              		.thumb_func
- 189              	_ZN5Print5printEPKc:
- 190              	.LFB214:
+  51:../../cores/mapleMX/Print.cpp **** 
+  52:../../cores/mapleMX/Print.cpp **** size_t Print::print(const char str[])
   53:../../cores/mapleMX/Print.cpp **** {
- 191              		.loc 1 53 0
- 192              		.cfi_startproc
- 193              		@ args = 0, pretend = 0, frame = 0
- 194              		@ frame_needed = 0, uses_anonymous_args = 0
- 195              	.LVL17:
- 196 0000 08B5     		push	{r3, lr}
- 197              		.cfi_def_cfa_offset 8
- 198              		.cfi_offset 3, -8
- 199              		.cfi_offset 14, -4
- 200              		.loc 1 54 0
- 201 0002 FFF7FEFF 		bl	_ZN5Print5writeEPKc
- 202              	.LVL18:
+ 186              		.loc 1 53 0
+ 187              		.cfi_startproc
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 0, uses_anonymous_args = 0
+ 190              	.LVL15:
+ 191 0000 08B5     		push	{r3, lr}
+ 192              		.cfi_def_cfa_offset 8
+ 193              		.cfi_offset 3, -8
+ 194              		.cfi_offset 14, -4
+  54:../../cores/mapleMX/Print.cpp ****   return write(str);
+ 195              		.loc 1 54 0
+ 196 0002 FFF7FEFF 		bl	_ZN5Print5writeEPKc
+ 197              	.LVL16:
   55:../../cores/mapleMX/Print.cpp **** }
- 203              		.loc 1 55 0
- 204 0006 08BD     		pop	{r3, pc}
- 205              		.cfi_endproc
- 206              	.LFE214:
- 208              		.section	.text._ZN5Print5printEc,"ax",%progbits
- 209              		.align	1
- 210              		.global	_ZN5Print5printEc
- 211              		.thumb
- 212              		.thumb_func
- 214              	_ZN5Print5printEc:
- 215              	.LFB215:
+ 198              		.loc 1 55 0
+ 199 0006 08BD     		pop	{r3, pc}
+ 200              		.cfi_endproc
+ 201              	.LFE214:
+ 203              		.section	.text._ZN5Print5printEc,"ax",%progbits
+ 204              		.align	1
+ 205              		.global	_ZN5Print5printEc
+ 206              		.thumb
+ 207              		.thumb_func
+ 209              	_ZN5Print5printEc:
+ 210              	.LFB215:
   56:../../cores/mapleMX/Print.cpp **** 
   57:../../cores/mapleMX/Print.cpp **** size_t Print::print(char c)
   58:../../cores/mapleMX/Print.cpp **** {
- 216              		.loc 1 58 0
- 217              		.cfi_startproc
- 218              		@ args = 0, pretend = 0, frame = 0
- 219              		@ frame_needed = 0, uses_anonymous_args = 0
- 220              	.LVL19:
- 221 0000 08B5     		push	{r3, lr}
- 222              		.cfi_def_cfa_offset 8
- 223              		.cfi_offset 3, -8
- 224              		.cfi_offset 14, -4
+ 211              		.loc 1 58 0
+ 212              		.cfi_startproc
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 0, uses_anonymous_args = 0
+ 215              		@ link register save eliminated.
+ 216              	.LVL17:
   59:../../cores/mapleMX/Print.cpp ****   return write(c);
- 225              		.loc 1 59 0
- 226 0002 0368     		ldr	r3, [r0]
- 227 0004 1B68     		ldr	r3, [r3]
- 228 0006 9847     		blx	r3
- 229              	.LVL20:
+ 217              		.loc 1 59 0
+ 218 0000 0368     		ldr	r3, [r0]
+ 219 0002 1B68     		ldr	r3, [r3]
+ 220 0004 1847     		bx	r3
+ 221              	.LVL18:
+ 222              		.cfi_endproc
+ 223              	.LFE215:
+ 225              		.section	.text._ZN5Print5printERK9Printable,"ax",%progbits
+ 226              		.align	1
+ 227              		.global	_ZN5Print5printERK9Printable
+ 228              		.thumb
+ 229              		.thumb_func
+ 231              	_ZN5Print5printERK9Printable:
+ 232              	.LFB223:
   60:../../cores/mapleMX/Print.cpp **** }
- 230              		.loc 1 60 0
- 231 0008 08BD     		pop	{r3, pc}
- 232              		.cfi_endproc
- 233              	.LFE215:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 7
-
-
- 235              		.section	.text._ZN5Print5printERK9Printable,"ax",%progbits
- 236              		.align	1
- 237              		.global	_ZN5Print5printERK9Printable
- 238              		.thumb
- 239              		.thumb_func
- 241              	_ZN5Print5printERK9Printable:
- 242              	.LFB223:
   61:../../cores/mapleMX/Print.cpp **** 
   62:../../cores/mapleMX/Print.cpp **** size_t Print::print(unsigned char b, int base)
   63:../../cores/mapleMX/Print.cpp **** {
   64:../../cores/mapleMX/Print.cpp ****   return print((unsigned long) b, base);
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 7
+
+
   65:../../cores/mapleMX/Print.cpp **** }
   66:../../cores/mapleMX/Print.cpp **** 
   67:../../cores/mapleMX/Print.cpp **** size_t Print::print(int n, int base)
@@ -418,299 +407,249 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
  108:../../cores/mapleMX/Print.cpp ****   return n;
  109:../../cores/mapleMX/Print.cpp **** }
  110:../../cores/mapleMX/Print.cpp **** 
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 8
-
-
  111:../../cores/mapleMX/Print.cpp **** size_t Print::print(const Printable& x)
  112:../../cores/mapleMX/Print.cpp **** {
- 243              		.loc 1 112 0
- 244              		.cfi_startproc
- 245              		@ args = 0, pretend = 0, frame = 0
- 246              		@ frame_needed = 0, uses_anonymous_args = 0
- 247              	.LVL21:
- 248 0000 10B5     		push	{r4, lr}
- 249              		.cfi_def_cfa_offset 8
- 250              		.cfi_offset 4, -8
- 251              		.cfi_offset 14, -4
+ 233              		.loc 1 112 0
+ 234              		.cfi_startproc
+ 235              		@ args = 0, pretend = 0, frame = 0
+ 236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238              	.LVL19:
  113:../../cores/mapleMX/Print.cpp ****   return x.printTo(*this);
- 252              		.loc 1 113 0
- 253 0002 0A68     		ldr	r2, [r1]
- 112:../../cores/mapleMX/Print.cpp **** {
- 254              		.loc 1 112 0
- 255 0004 0446     		mov	r4, r0
- 256              		.loc 1 113 0
- 257 0006 1268     		ldr	r2, [r2]
- 258 0008 0846     		mov	r0, r1
- 259              	.LVL22:
- 260 000a 2146     		mov	r1, r4
- 261              	.LVL23:
- 262 000c 9047     		blx	r2
- 263              	.LVL24:
+ 239              		.loc 1 113 0
+ 240 0000 0A68     		ldr	r2, [r1]
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 8
+
+
+ 112:../../cores/mapleMX/Print.cpp ****   return x.printTo(*this);
+ 241              		.loc 1 112 0
+ 242 0002 0B46     		mov	r3, r1
+ 243              		.loc 1 113 0
+ 244 0004 1268     		ldr	r2, [r2]
+ 245 0006 0146     		mov	r1, r0
+ 246              	.LVL20:
+ 247 0008 1846     		mov	r0, r3
+ 248              	.LVL21:
+ 249 000a 1047     		bx	r2
+ 250              	.LVL22:
+ 251              		.cfi_endproc
+ 252              	.LFE223:
+ 254              		.section	.text._ZN5Print7printlnEv,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	_ZN5Print7printlnEv
+ 257              		.thumb
+ 258              		.thumb_func
+ 260              	_ZN5Print7printlnEv:
+ 261              	.LFB224:
  114:../../cores/mapleMX/Print.cpp **** }
- 264              		.loc 1 114 0
- 265 000e 10BD     		pop	{r4, pc}
- 266              		.cfi_endproc
- 267              	.LFE223:
- 269              		.section	.text._ZN5Print7printlnEv,"ax",%progbits
- 270              		.align	1
- 271              		.global	_ZN5Print7printlnEv
- 272              		.thumb
- 273              		.thumb_func
- 275              	_ZN5Print7printlnEv:
- 276              	.LFB224:
  115:../../cores/mapleMX/Print.cpp **** 
  116:../../cores/mapleMX/Print.cpp **** size_t Print::println(void)
  117:../../cores/mapleMX/Print.cpp **** {
- 277              		.loc 1 117 0
- 278              		.cfi_startproc
- 279              		@ args = 0, pretend = 0, frame = 0
- 280              		@ frame_needed = 0, uses_anonymous_args = 0
- 281              	.LVL25:
- 282 0000 38B5     		push	{r3, r4, r5, lr}
- 283              		.cfi_def_cfa_offset 16
- 284              		.cfi_offset 3, -16
- 285              		.cfi_offset 4, -12
- 286              		.cfi_offset 5, -8
- 287              		.cfi_offset 14, -4
- 288              	.LBB67:
+ 262              		.loc 1 117 0
+ 263              		.cfi_startproc
+ 264              		@ args = 0, pretend = 0, frame = 0
+ 265              		@ frame_needed = 0, uses_anonymous_args = 0
+ 266              	.LVL23:
+ 267 0000 38B5     		push	{r3, r4, r5, lr}
+ 268              		.cfi_def_cfa_offset 16
+ 269              		.cfi_offset 3, -16
+ 270              		.cfi_offset 4, -12
+ 271              		.cfi_offset 5, -8
+ 272              		.cfi_offset 14, -4
  118:../../cores/mapleMX/Print.cpp ****   size_t n = print('\r');
- 289              		.loc 1 118 0
- 290 0002 0D21     		movs	r1, #13
- 291              	.LBE67:
- 117:../../cores/mapleMX/Print.cpp **** {
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 9
-
-
- 292              		.loc 1 117 0
- 293 0004 0546     		mov	r5, r0
- 294              	.LBB68:
- 295              		.loc 1 118 0
- 296 0006 FFF7FEFF 		bl	_ZN5Print5printEc
- 297              	.LVL26:
+ 273              		.loc 1 118 0
+ 274 0002 0D21     		movs	r1, #13
+ 117:../../cores/mapleMX/Print.cpp ****   size_t n = print('\r');
+ 275              		.loc 1 117 0
+ 276 0004 0546     		mov	r5, r0
+ 277              		.loc 1 118 0
+ 278 0006 FFF7FEFF 		bl	_ZN5Print5printEc
+ 279              	.LVL24:
  119:../../cores/mapleMX/Print.cpp ****   n += print('\n');
- 298              		.loc 1 119 0
- 299 000a 0A21     		movs	r1, #10
+ 280              		.loc 1 119 0
+ 281 000a 0A21     		movs	r1, #10
  118:../../cores/mapleMX/Print.cpp ****   size_t n = print('\r');
- 300              		.loc 1 118 0
- 301 000c 0446     		mov	r4, r0
- 302              	.LVL27:
- 303              		.loc 1 119 0
- 304 000e 2846     		mov	r0, r5
- 305              	.LVL28:
- 306 0010 FFF7FEFF 		bl	_ZN5Print5printEc
- 307              	.LVL29:
- 308              	.LBE68:
+ 282              		.loc 1 118 0
+ 283 000c 0446     		mov	r4, r0
+ 284              	.LVL25:
+ 285              		.loc 1 119 0
+ 286 000e 2846     		mov	r0, r5
+ 287              	.LVL26:
+ 288 0010 FFF7FEFF 		bl	_ZN5Print5printEc
+ 289              	.LVL27:
  120:../../cores/mapleMX/Print.cpp ****   return n;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 9
+
+
  121:../../cores/mapleMX/Print.cpp **** }
- 309              		.loc 1 121 0
- 310 0014 2044     		add	r0, r0, r4
- 311              	.LVL30:
- 312 0016 38BD     		pop	{r3, r4, r5, pc}
- 313              		.cfi_endproc
- 314              	.LFE224:
- 316              		.section	.text._ZN5Print7printlnEPK19__FlashStringHelper,"ax",%progbits
- 317              		.align	1
- 318              		.global	_ZN5Print7printlnEPK19__FlashStringHelper
- 319              		.thumb
- 320              		.thumb_func
- 322              	_ZN5Print7printlnEPK19__FlashStringHelper:
- 323              	.LFB222:
- 105:../../cores/mapleMX/Print.cpp **** {
- 324              		.loc 1 105 0
- 325              		.cfi_startproc
- 326              		@ args = 0, pretend = 0, frame = 0
- 327              		@ frame_needed = 0, uses_anonymous_args = 0
- 328              	.LVL31:
- 329 0000 38B5     		push	{r3, r4, r5, lr}
- 330              		.cfi_def_cfa_offset 16
- 331              		.cfi_offset 3, -16
- 332              		.cfi_offset 4, -12
- 333              		.cfi_offset 5, -8
- 334              		.cfi_offset 14, -4
- 105:../../cores/mapleMX/Print.cpp **** {
- 335              		.loc 1 105 0
- 336 0002 0446     		mov	r4, r0
- 337              	.LVL32:
- 338              	.LBB69:
- 339              	.LBB70:
- 340              	.LBB71:
- 341              	.LBB72:
-  54:../../cores/mapleMX/Print.cpp ****   return write(str);
- 342              		.loc 1 54 0
- 343 0004 FFF7FEFF 		bl	_ZN5Print5writeEPKc
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 10
-
-
- 344              	.LVL33:
- 345 0008 0546     		mov	r5, r0
- 346              	.LBE72:
- 347              	.LBE71:
- 348              	.LBE70:
- 107:../../cores/mapleMX/Print.cpp ****   n += println();
- 349              		.loc 1 107 0
- 350 000a 2046     		mov	r0, r4
- 351 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 352              	.LVL34:
- 353              	.LBE69:
- 109:../../cores/mapleMX/Print.cpp **** }
- 354              		.loc 1 109 0
- 355 0010 2844     		add	r0, r0, r5
- 356              	.LVL35:
- 357 0012 38BD     		pop	{r3, r4, r5, pc}
- 358              		.cfi_endproc
- 359              	.LFE222:
- 361              		.section	.text._ZN5Print7printlnERK6String,"ax",%progbits
- 362              		.align	1
- 363              		.global	_ZN5Print7printlnERK6String
- 364              		.thumb
- 365              		.thumb_func
- 367              	_ZN5Print7printlnERK6String:
- 368              	.LFB225:
+ 290              		.loc 1 121 0
+ 291 0014 2044     		add	r0, r0, r4
+ 292              	.LVL28:
+ 293 0016 38BD     		pop	{r3, r4, r5, pc}
+ 294              		.cfi_endproc
+ 295              	.LFE224:
+ 297              		.section	.text._ZN5Print7printlnERK6String,"ax",%progbits
+ 298              		.align	1
+ 299              		.global	_ZN5Print7printlnERK6String
+ 300              		.thumb
+ 301              		.thumb_func
+ 303              	_ZN5Print7printlnERK6String:
+ 304              	.LFB225:
  122:../../cores/mapleMX/Print.cpp **** 
  123:../../cores/mapleMX/Print.cpp **** size_t Print::println(const String &s)
  124:../../cores/mapleMX/Print.cpp **** {
- 369              		.loc 1 124 0
- 370              		.cfi_startproc
- 371              		@ args = 0, pretend = 0, frame = 0
- 372              		@ frame_needed = 0, uses_anonymous_args = 0
- 373              	.LVL36:
- 374 0000 38B5     		push	{r3, r4, r5, lr}
- 375              		.cfi_def_cfa_offset 16
- 376              		.cfi_offset 3, -16
- 377              		.cfi_offset 4, -12
- 378              		.cfi_offset 5, -8
- 379              		.cfi_offset 14, -4
- 380              		.loc 1 124 0
- 381 0002 0446     		mov	r4, r0
- 382              	.LBB73:
+ 305              		.loc 1 124 0
+ 306              		.cfi_startproc
+ 307              		@ args = 0, pretend = 0, frame = 0
+ 308              		@ frame_needed = 0, uses_anonymous_args = 0
+ 309              	.LVL29:
+ 310 0000 38B5     		push	{r3, r4, r5, lr}
+ 311              		.cfi_def_cfa_offset 16
+ 312              		.cfi_offset 3, -16
+ 313              		.cfi_offset 4, -12
+ 314              		.cfi_offset 5, -8
+ 315              		.cfi_offset 14, -4
+ 316              		.loc 1 124 0
+ 317 0002 0546     		mov	r5, r0
  125:../../cores/mapleMX/Print.cpp ****   size_t n = print(s);
- 383              		.loc 1 125 0
- 384 0004 FFF7FEFF 		bl	_ZN5Print5printERK6String
- 385              	.LVL37:
- 386 0008 0546     		mov	r5, r0
- 387              	.LVL38:
+ 318              		.loc 1 125 0
+ 319 0004 FFF7FEFF 		bl	_ZN5Print5printERK6String
+ 320              	.LVL30:
+ 321 0008 0446     		mov	r4, r0
+ 322              	.LVL31:
  126:../../cores/mapleMX/Print.cpp ****   n += println();
- 388              		.loc 1 126 0
- 389 000a 2046     		mov	r0, r4
- 390              	.LVL39:
- 391 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 392              	.LVL40:
- 393              	.LBE73:
+ 323              		.loc 1 126 0
+ 324 000a 2846     		mov	r0, r5
+ 325              	.LVL32:
+ 326 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 327              	.LVL33:
  127:../../cores/mapleMX/Print.cpp ****   return n;
  128:../../cores/mapleMX/Print.cpp **** }
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 11
+ 328              		.loc 1 128 0
+ 329 0010 2044     		add	r0, r0, r4
+ 330              	.LVL34:
+ 331 0012 38BD     		pop	{r3, r4, r5, pc}
+ 332              		.cfi_endproc
+ 333              	.LFE225:
+ 335              		.section	.text._ZN5Print7printlnEPKc,"ax",%progbits
+ 336              		.align	1
+ 337              		.global	_ZN5Print7printlnEPKc
+ 338              		.thumb
+ 339              		.thumb_func
+ 341              	_ZN5Print7printlnEPKc:
+ 342              	.LFB226:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 10
 
 
- 394              		.loc 1 128 0
- 395 0010 2844     		add	r0, r0, r5
- 396              	.LVL41:
- 397 0012 38BD     		pop	{r3, r4, r5, pc}
- 398              		.cfi_endproc
- 399              	.LFE225:
- 401              		.section	.text._ZN5Print7printlnEPKc,"ax",%progbits
- 402              		.align	1
- 403              		.global	_ZN5Print7printlnEPKc
- 404              		.thumb
- 405              		.thumb_func
- 407              	_ZN5Print7printlnEPKc:
- 408              	.LFB226:
  129:../../cores/mapleMX/Print.cpp **** 
  130:../../cores/mapleMX/Print.cpp **** size_t Print::println(const char c[])
  131:../../cores/mapleMX/Print.cpp **** {
- 409              		.loc 1 131 0
- 410              		.cfi_startproc
- 411              		@ args = 0, pretend = 0, frame = 0
- 412              		@ frame_needed = 0, uses_anonymous_args = 0
- 413              	.LVL42:
- 414 0000 38B5     		push	{r3, r4, r5, lr}
- 415              		.cfi_def_cfa_offset 16
- 416              		.cfi_offset 3, -16
- 417              		.cfi_offset 4, -12
- 418              		.cfi_offset 5, -8
- 419              		.cfi_offset 14, -4
- 420              		.loc 1 131 0
- 421 0002 0446     		mov	r4, r0
- 422              	.LVL43:
- 423              	.LBB74:
- 424              	.LBB75:
- 425              	.LBB76:
-  54:../../cores/mapleMX/Print.cpp ****   return write(str);
- 426              		.loc 1 54 0
- 427 0004 FFF7FEFF 		bl	_ZN5Print5writeEPKc
- 428              	.LVL44:
- 429 0008 0546     		mov	r5, r0
- 430              	.LBE76:
- 431              	.LBE75:
+ 343              		.loc 1 131 0
+ 344              		.cfi_startproc
+ 345              		@ args = 0, pretend = 0, frame = 0
+ 346              		@ frame_needed = 0, uses_anonymous_args = 0
+ 347              	.LVL35:
+ 348 0000 38B5     		push	{r3, r4, r5, lr}
+ 349              		.cfi_def_cfa_offset 16
+ 350              		.cfi_offset 3, -16
+ 351              		.cfi_offset 4, -12
+ 352              		.cfi_offset 5, -8
+ 353              		.cfi_offset 14, -4
+ 354              		.loc 1 131 0
+ 355 0002 0546     		mov	r5, r0
+ 356              	.LVL36:
+ 357              	.LBB84:
+ 358              	.LBB85:
+  54:../../cores/mapleMX/Print.cpp **** }
+ 359              		.loc 1 54 0
+ 360 0004 FFF7FEFF 		bl	_ZN5Print5writeEPKc
+ 361              	.LVL37:
+ 362 0008 0446     		mov	r4, r0
+ 363              	.LVL38:
+ 364              	.LBE85:
+ 365              	.LBE84:
  132:../../cores/mapleMX/Print.cpp ****   size_t n = print(c);
  133:../../cores/mapleMX/Print.cpp ****   n += println();
- 432              		.loc 1 133 0
- 433 000a 2046     		mov	r0, r4
- 434 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 435              	.LVL45:
- 436              	.LBE74:
+ 366              		.loc 1 133 0
+ 367 000a 2846     		mov	r0, r5
+ 368 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 369              	.LVL39:
  134:../../cores/mapleMX/Print.cpp ****   return n;
  135:../../cores/mapleMX/Print.cpp **** }
- 437              		.loc 1 135 0
- 438 0010 2844     		add	r0, r0, r5
- 439              	.LVL46:
- 440 0012 38BD     		pop	{r3, r4, r5, pc}
- 441              		.cfi_endproc
- 442              	.LFE226:
- 444              		.section	.text._ZN5Print7printlnEc,"ax",%progbits
- 445              		.align	1
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 12
+ 370              		.loc 1 135 0
+ 371 0010 2044     		add	r0, r0, r4
+ 372              	.LVL40:
+ 373 0012 38BD     		pop	{r3, r4, r5, pc}
+ 374              		.cfi_endproc
+ 375              	.LFE226:
+ 377              		.section	.text._ZN5Print7printlnEPK19__FlashStringHelper,"ax",%progbits
+ 378              		.align	1
+ 379              		.global	_ZN5Print7printlnEPK19__FlashStringHelper
+ 380              		.thumb
+ 381              		.thumb_func
+ 383              	_ZN5Print7printlnEPK19__FlashStringHelper:
+ 384              	.LFB245:
+ 385              		.cfi_startproc
+ 386              		@ args = 0, pretend = 0, frame = 0
+ 387              		@ frame_needed = 0, uses_anonymous_args = 0
+ 388              		@ link register save eliminated.
+ 389 0000 FFF7FEBF 		b	_ZN5Print7printlnEPKc
+ 390              		.cfi_endproc
+ 391              	.LFE245:
+ 393              		.section	.text._ZN5Print7printlnEc,"ax",%progbits
+ 394              		.align	1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 11
 
 
- 446              		.global	_ZN5Print7printlnEc
- 447              		.thumb
- 448              		.thumb_func
- 450              	_ZN5Print7printlnEc:
- 451              	.LFB227:
+ 395              		.global	_ZN5Print7printlnEc
+ 396              		.thumb
+ 397              		.thumb_func
+ 399              	_ZN5Print7printlnEc:
+ 400              	.LFB227:
  136:../../cores/mapleMX/Print.cpp **** 
  137:../../cores/mapleMX/Print.cpp **** size_t Print::println(char c)
  138:../../cores/mapleMX/Print.cpp **** {
- 452              		.loc 1 138 0
- 453              		.cfi_startproc
- 454              		@ args = 0, pretend = 0, frame = 0
- 455              		@ frame_needed = 0, uses_anonymous_args = 0
- 456              	.LVL47:
- 457 0000 38B5     		push	{r3, r4, r5, lr}
- 458              		.cfi_def_cfa_offset 16
- 459              		.cfi_offset 3, -16
- 460              		.cfi_offset 4, -12
- 461              		.cfi_offset 5, -8
- 462              		.cfi_offset 14, -4
- 463              		.loc 1 138 0
- 464 0002 0446     		mov	r4, r0
- 465              	.LBB77:
+ 401              		.loc 1 138 0
+ 402              		.cfi_startproc
+ 403              		@ args = 0, pretend = 0, frame = 0
+ 404              		@ frame_needed = 0, uses_anonymous_args = 0
+ 405              	.LVL41:
+ 406              		.loc 1 138 0
+ 407 0000 38B5     		push	{r3, r4, r5, lr}
+ 408              		.cfi_def_cfa_offset 16
+ 409              		.cfi_offset 3, -16
+ 410              		.cfi_offset 4, -12
+ 411              		.cfi_offset 5, -8
+ 412              		.cfi_offset 14, -4
+ 413              		.loc 1 138 0
+ 414 0002 0546     		mov	r5, r0
  139:../../cores/mapleMX/Print.cpp ****   size_t n = print(c);
- 466              		.loc 1 139 0
- 467 0004 FFF7FEFF 		bl	_ZN5Print5printEc
- 468              	.LVL48:
- 469 0008 0546     		mov	r5, r0
- 470              	.LVL49:
+ 415              		.loc 1 139 0
+ 416 0004 FFF7FEFF 		bl	_ZN5Print5printEc
+ 417              	.LVL42:
+ 418 0008 0446     		mov	r4, r0
+ 419              	.LVL43:
  140:../../cores/mapleMX/Print.cpp ****   n += println();
- 471              		.loc 1 140 0
- 472 000a 2046     		mov	r0, r4
- 473              	.LVL50:
- 474 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 475              	.LVL51:
- 476              	.LBE77:
+ 420              		.loc 1 140 0
+ 421 000a 2846     		mov	r0, r5
+ 422              	.LVL44:
+ 423 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 424              	.LVL45:
  141:../../cores/mapleMX/Print.cpp ****   return n;
  142:../../cores/mapleMX/Print.cpp **** }
- 477              		.loc 1 142 0
- 478 0010 2844     		add	r0, r0, r5
- 479              	.LVL52:
- 480 0012 38BD     		pop	{r3, r4, r5, pc}
- 481              		.cfi_endproc
- 482              	.LFE227:
- 484              		.section	.text._ZN5Print7printlnERK9Printable,"ax",%progbits
- 485              		.align	1
- 486              		.global	_ZN5Print7printlnERK9Printable
- 487              		.thumb
- 488              		.thumb_func
- 490              	_ZN5Print7printlnERK9Printable:
- 491              	.LFB234:
+ 425              		.loc 1 142 0
+ 426 0010 2044     		add	r0, r0, r4
+ 427              	.LVL46:
+ 428 0012 38BD     		pop	{r3, r4, r5, pc}
+ 429              		.cfi_endproc
+ 430              	.LFE227:
+ 432              		.section	.text._ZN5Print7printlnERK9Printable,"ax",%progbits
+ 433              		.align	1
+ 434              		.global	_ZN5Print7printlnERK9Printable
+ 435              		.thumb
+ 436              		.thumb_func
+ 438              	_ZN5Print7printlnERK9Printable:
+ 439              	.LFB234:
  143:../../cores/mapleMX/Print.cpp **** 
  144:../../cores/mapleMX/Print.cpp **** size_t Print::println(unsigned char b, int base)
  145:../../cores/mapleMX/Print.cpp **** {
@@ -718,10 +657,10 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
  147:../../cores/mapleMX/Print.cpp ****   n += println();
  148:../../cores/mapleMX/Print.cpp ****   return n;
  149:../../cores/mapleMX/Print.cpp **** }
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 13
-
-
  150:../../cores/mapleMX/Print.cpp **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 12
+
+
  151:../../cores/mapleMX/Print.cpp **** size_t Print::println(int num, int base)
  152:../../cores/mapleMX/Print.cpp **** {
  153:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
@@ -759,1254 +698,1194 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 1
  185:../../cores/mapleMX/Print.cpp **** 
  186:../../cores/mapleMX/Print.cpp **** size_t Print::println(const Printable& x)
  187:../../cores/mapleMX/Print.cpp **** {
- 492              		.loc 1 187 0
- 493              		.cfi_startproc
- 494              		@ args = 0, pretend = 0, frame = 0
- 495              		@ frame_needed = 0, uses_anonymous_args = 0
- 496              	.LVL53:
- 497 0000 38B5     		push	{r3, r4, r5, lr}
- 498              		.cfi_def_cfa_offset 16
- 499              		.cfi_offset 3, -16
- 500              		.cfi_offset 4, -12
- 501              		.cfi_offset 5, -8
- 502              		.cfi_offset 14, -4
- 503              		.loc 1 187 0
- 504 0002 0446     		mov	r4, r0
- 505              	.LBB78:
+ 440              		.loc 1 187 0
+ 441              		.cfi_startproc
+ 442              		@ args = 0, pretend = 0, frame = 0
+ 443              		@ frame_needed = 0, uses_anonymous_args = 0
+ 444              	.LVL47:
+ 445 0000 38B5     		push	{r3, r4, r5, lr}
+ 446              		.cfi_def_cfa_offset 16
+ 447              		.cfi_offset 3, -16
+ 448              		.cfi_offset 4, -12
+ 449              		.cfi_offset 5, -8
+ 450              		.cfi_offset 14, -4
+ 451              		.loc 1 187 0
+ 452 0002 0546     		mov	r5, r0
  188:../../cores/mapleMX/Print.cpp ****   size_t n = print(x);
- 506              		.loc 1 188 0
- 507 0004 FFF7FEFF 		bl	_ZN5Print5printERK9Printable
- 508              	.LVL54:
- 509 0008 0546     		mov	r5, r0
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 14
-
-
- 510              	.LVL55:
+ 453              		.loc 1 188 0
+ 454 0004 FFF7FEFF 		bl	_ZN5Print5printERK9Printable
+ 455              	.LVL48:
+ 456 0008 0446     		mov	r4, r0
+ 457              	.LVL49:
  189:../../cores/mapleMX/Print.cpp ****   n += println();
- 511              		.loc 1 189 0
- 512 000a 2046     		mov	r0, r4
- 513              	.LVL56:
- 514 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 515              	.LVL57:
- 516              	.LBE78:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 13
+
+
+ 458              		.loc 1 189 0
+ 459 000a 2846     		mov	r0, r5
+ 460              	.LVL50:
+ 461 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 462              	.LVL51:
  190:../../cores/mapleMX/Print.cpp ****   return n;
  191:../../cores/mapleMX/Print.cpp **** }
- 517              		.loc 1 191 0
- 518 0010 2844     		add	r0, r0, r5
- 519              	.LVL58:
- 520 0012 38BD     		pop	{r3, r4, r5, pc}
- 521              		.cfi_endproc
- 522              	.LFE234:
- 524              		.section	.text._ZN5Print11printNumberEmh,"ax",%progbits
- 525              		.align	1
- 526              		.global	_ZN5Print11printNumberEmh
- 527              		.thumb
- 528              		.thumb_func
- 530              	_ZN5Print11printNumberEmh:
- 531              	.LFB235:
+ 463              		.loc 1 191 0
+ 464 0010 2044     		add	r0, r0, r4
+ 465              	.LVL52:
+ 466 0012 38BD     		pop	{r3, r4, r5, pc}
+ 467              		.cfi_endproc
+ 468              	.LFE234:
+ 470              		.section	.text._ZN5Print11printNumberEmh,"ax",%progbits
+ 471              		.align	1
+ 472              		.global	_ZN5Print11printNumberEmh
+ 473              		.thumb
+ 474              		.thumb_func
+ 476              	_ZN5Print11printNumberEmh:
+ 477              	.LFB235:
  192:../../cores/mapleMX/Print.cpp **** 
  193:../../cores/mapleMX/Print.cpp **** // Private Methods /////////////////////////////////////////////////////////////
  194:../../cores/mapleMX/Print.cpp **** 
  195:../../cores/mapleMX/Print.cpp **** size_t Print::printNumber(unsigned long n, uint8_t base) {
- 532              		.loc 1 195 0
- 533              		.cfi_startproc
- 534              		@ args = 0, pretend = 0, frame = 40
- 535              		@ frame_needed = 0, uses_anonymous_args = 0
- 536              	.LVL59:
- 537 0000 30B5     		push	{r4, r5, lr}
- 538              		.cfi_def_cfa_offset 12
- 539              		.cfi_offset 4, -12
- 540              		.cfi_offset 5, -8
- 541              		.cfi_offset 14, -4
- 542 0002 8BB0     		sub	sp, sp, #44
- 543              		.cfi_def_cfa_offset 56
- 544              	.LVL60:
- 545              	.LBB79:
+ 478              		.loc 1 195 0
+ 479              		.cfi_startproc
+ 480              		@ args = 0, pretend = 0, frame = 40
+ 481              		@ frame_needed = 0, uses_anonymous_args = 0
+ 482              	.LVL53:
+ 483 0000 30B5     		push	{r4, r5, lr}
+ 484              		.cfi_def_cfa_offset 12
+ 485              		.cfi_offset 4, -12
+ 486              		.cfi_offset 5, -8
+ 487              		.cfi_offset 14, -4
+ 488 0002 8BB0     		sub	sp, sp, #44
+ 489              		.cfi_def_cfa_offset 56
+ 490              	.LVL54:
+ 491              		.loc 1 195 0
+ 492 0004 0B46     		mov	r3, r1
  196:../../cores/mapleMX/Print.cpp ****   char buf[8 * sizeof(long) + 1]; // Assumes 8-bit chars plus zero byte.
  197:../../cores/mapleMX/Print.cpp ****   char *str = &buf[sizeof(buf) - 1];
  198:../../cores/mapleMX/Print.cpp **** 
  199:../../cores/mapleMX/Print.cpp ****   *str = '\0';
- 546              		.loc 1 199 0
- 547 0004 0023     		movs	r3, #0
- 548 0006 8DF82430 		strb	r3, [sp, #36]
+ 493              		.loc 1 199 0
+ 494 0006 0021     		movs	r1, #0
+ 495              	.LVL55:
+ 496 0008 8DF82410 		strb	r1, [sp, #36]
  200:../../cores/mapleMX/Print.cpp **** 
  201:../../cores/mapleMX/Print.cpp ****   // prevent crash if called with base == 1
  202:../../cores/mapleMX/Print.cpp ****   if (base < 2) base = 10;
- 549              		.loc 1 202 0
- 550 000a 012A     		cmp	r2, #1
- 551 000c 98BF     		it	ls
- 552 000e 0A22     		movls	r2, #10
- 553              	.LVL61:
- 554 0010 0DF12304 		add	r4, sp, #35
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 15
+ 497              		.loc 1 202 0
+ 498 000c 012A     		cmp	r2, #1
+ 499 000e 98BF     		it	ls
+ 500 0010 0A22     		movls	r2, #10
+ 501              	.LVL56:
+ 502 0012 0DF12304 		add	r4, sp, #35
+ 503              	.LVL57:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 14
 
 
- 555              	.LVL62:
- 556              	.L25:
- 557              	.LBB80:
+ 504              	.L22:
+ 505              	.LBB86:
  203:../../cores/mapleMX/Print.cpp **** 
  204:../../cores/mapleMX/Print.cpp ****   do {
  205:../../cores/mapleMX/Print.cpp ****     unsigned long m = n;
  206:../../cores/mapleMX/Print.cpp ****     n /= base;
- 558              		.loc 1 206 0
- 559 0014 B1FBF2F3 		udiv	r3, r1, r2
- 560              	.LVL63:
+ 506              		.loc 1 206 0
+ 507 0016 B3FBF2F5 		udiv	r5, r3, r2
+ 508              	.LVL58:
  207:../../cores/mapleMX/Print.cpp ****     char c = m - base * n;
- 561              		.loc 1 207 0
- 562 0018 03FB1211 		mls	r1, r3, r2, r1
- 563              	.LVL64:
- 564 001c CDB2     		uxtb	r5, r1
- 565              	.LVL65:
+ 509              		.loc 1 207 0
+ 510 001a 05FB1233 		mls	r3, r5, r2, r3
+ 511              	.LVL59:
+ 512 001e 03F0FF03 		and	r3, r3, #255
+ 513              	.LVL60:
  208:../../cores/mapleMX/Print.cpp ****     *--str = c < 10 ? c + '0' : c + 'A' - 10;
- 566              		.loc 1 208 0
- 567 001e 092D     		cmp	r5, #9
- 568 0020 94BF     		ite	ls
- 569 0022 3035     		addls	r5, r5, #48
- 570 0024 3735     		addhi	r5, r5, #55
- 571 0026 EDB2     		uxtb	r5, r5
- 572 0028 2146     		mov	r1, r4
- 573              	.LVL66:
- 574 002a 04F80159 		strb	r5, [r4], #-1
- 575              	.LVL67:
- 576              	.LBE80:
- 204:../../cores/mapleMX/Print.cpp ****   do {
- 577              		.loc 1 204 0
- 578 002e 0BB1     		cbz	r3, .L24
- 579              	.LBB81:
- 206:../../cores/mapleMX/Print.cpp ****     n /= base;
- 580              		.loc 1 206 0
- 581 0030 1946     		mov	r1, r3
- 582              	.LVL68:
- 583 0032 EFE7     		b	.L25
- 584              	.LVL69:
- 585              	.L24:
- 586              	.LBE81:
+ 514              		.loc 1 208 0
+ 515 0022 092B     		cmp	r3, #9
+ 516 0024 94BF     		ite	ls
+ 517 0026 3033     		addls	r3, r3, #48
+ 518              	.LVL61:
+ 519 0028 3733     		addhi	r3, r3, #55
+ 520 002a DBB2     		uxtb	r3, r3
+ 521 002c 2146     		mov	r1, r4
+ 522              	.LVL62:
+ 523 002e 04F80139 		strb	r3, [r4], #-1
+ 524              	.LVL63:
+ 525 0032 2B46     		mov	r3, r5
+ 526              	.LBE86:
+ 204:../../cores/mapleMX/Print.cpp ****     unsigned long m = n;
+ 527              		.loc 1 204 0
+ 528 0034 002D     		cmp	r5, #0
+ 529 0036 EED1     		bne	.L22
  209:../../cores/mapleMX/Print.cpp ****   } while(n);
  210:../../cores/mapleMX/Print.cpp **** 
  211:../../cores/mapleMX/Print.cpp ****   return write(str);
- 587              		.loc 1 211 0
- 588 0034 FFF7FEFF 		bl	_ZN5Print5writeEPKc
- 589              	.LVL70:
- 590              	.LBE79:
+ 530              		.loc 1 211 0
+ 531 0038 FFF7FEFF 		bl	_ZN5Print5writeEPKc
+ 532              	.LVL64:
  212:../../cores/mapleMX/Print.cpp **** }
- 591              		.loc 1 212 0
- 592 0038 0BB0     		add	sp, sp, #44
- 593              		@ sp needed
- 594 003a 30BD     		pop	{r4, r5, pc}
- 595              		.cfi_endproc
- 596              	.LFE235:
- 598              		.section	.text._ZN5Print5printEli,"ax",%progbits
- 599              		.align	1
- 600              		.global	_ZN5Print5printEli
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 16
+ 533              		.loc 1 212 0
+ 534 003c 0BB0     		add	sp, sp, #44
+ 535              		.cfi_def_cfa_offset 12
+ 536              		@ sp needed
+ 537 003e 30BD     		pop	{r4, r5, pc}
+ 538              		.cfi_endproc
+ 539              	.LFE235:
+ 541              		.section	.text._ZN5Print5printEmi,"ax",%progbits
+ 542              		.align	1
+ 543              		.global	_ZN5Print5printEmi
+ 544              		.thumb
+ 545              		.thumb_func
+ 547              	_ZN5Print5printEmi:
+ 548              	.LFB220:
+  94:../../cores/mapleMX/Print.cpp ****   if (base == 0) return write(n);
+ 549              		.loc 1 94 0
+ 550              		.cfi_startproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 15
 
 
- 601              		.thumb
- 602              		.thumb_func
- 604              	_ZN5Print5printEli:
- 605              	.LFB219:
-  78:../../cores/mapleMX/Print.cpp **** {
- 606              		.loc 1 78 0
- 607              		.cfi_startproc
- 608              		@ args = 0, pretend = 0, frame = 0
- 609              		@ frame_needed = 0, uses_anonymous_args = 0
- 610              	.LVL71:
- 611 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
- 612              		.cfi_def_cfa_offset 24
- 613              		.cfi_offset 3, -24
- 614              		.cfi_offset 4, -20
- 615              		.cfi_offset 5, -16
- 616              		.cfi_offset 6, -12
- 617              		.cfi_offset 7, -8
- 618              		.cfi_offset 14, -4
-  78:../../cores/mapleMX/Print.cpp **** {
- 619              		.loc 1 78 0
- 620 0002 0646     		mov	r6, r0
- 621 0004 0D46     		mov	r5, r1
- 622              	.LBB93:
-  79:../../cores/mapleMX/Print.cpp ****   if (base == 0) {
- 623              		.loc 1 79 0
- 624 0006 1446     		mov	r4, r2
- 625 0008 22B9     		cbnz	r2, .L29
-  80:../../cores/mapleMX/Print.cpp ****     return write(n);
- 626              		.loc 1 80 0
- 627 000a 0368     		ldr	r3, [r0]
- 628 000c C9B2     		uxtb	r1, r1
- 629              	.LVL72:
- 630 000e 1B68     		ldr	r3, [r3]
- 631 0010 9847     		blx	r3
- 632              	.LVL73:
- 633 0012 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
- 634              	.LVL74:
- 635              	.L29:
- 636              	.LBB94:
-  81:../../cores/mapleMX/Print.cpp ****   } else if (base == 10) {
- 637              		.loc 1 81 0
- 638 0014 0A2A     		cmp	r2, #10
- 639 0016 0CD1     		bne	.L31
- 640              	.LBB95:
- 641              	.LBB96:
-  82:../../cores/mapleMX/Print.cpp ****     if (n < 0) {
- 642              		.loc 1 82 0
- 643 0018 0029     		cmp	r1, #0
- 644 001a 0BDA     		bge	.L33
- 645              	.LVL75:
- 646              	.LBE96:
- 647              	.LBE95:
- 648              	.LBE94:
- 649              	.LBE93:
- 650              	.LBB99:
- 651              	.LBB100:
-  83:../../cores/mapleMX/Print.cpp ****       int t = print('-');
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 17
+ 551              		@ args = 0, pretend = 0, frame = 0
+ 552              		@ frame_needed = 0, uses_anonymous_args = 0
+ 553              		@ link register save eliminated.
+ 554              	.LVL65:
+ 555 0000 10B4     		push	{r4}
+ 556              		.cfi_def_cfa_offset 4
+ 557              		.cfi_offset 4, -4
+  95:../../cores/mapleMX/Print.cpp ****   else return printNumber(n, base);
+ 558              		.loc 1 95 0
+ 559 0002 22B9     		cbnz	r2, .L26
+ 560              	.LVL66:
+ 561              	.LBB89:
+ 562              	.LBB90:
+ 563 0004 0368     		ldr	r3, [r0]
+ 564              	.LBE90:
+ 565              	.LBE89:
+  97:../../cores/mapleMX/Print.cpp **** 
+ 566              		.loc 1 97 0
+ 567 0006 10BC     		pop	{r4}
+ 568              		.cfi_remember_state
+ 569              		.cfi_restore 4
+ 570              		.cfi_def_cfa_offset 0
+ 571              	.LBB92:
+ 572              	.LBB91:
+  95:../../cores/mapleMX/Print.cpp ****   else return printNumber(n, base);
+ 573              		.loc 1 95 0
+ 574 0008 1B68     		ldr	r3, [r3]
+ 575 000a C9B2     		uxtb	r1, r1
+ 576              	.LVL67:
+ 577 000c 1847     		bx	r3
+ 578              	.LVL68:
+ 579              	.L26:
+ 580              		.cfi_restore_state
+ 581              	.LBE91:
+ 582              	.LBE92:
+  96:../../cores/mapleMX/Print.cpp **** }
+ 583              		.loc 1 96 0
+ 584 000e D2B2     		uxtb	r2, r2
+ 585              	.LVL69:
+  97:../../cores/mapleMX/Print.cpp **** 
+ 586              		.loc 1 97 0
+ 587 0010 10BC     		pop	{r4}
+ 588              		.cfi_restore 4
+ 589              		.cfi_def_cfa_offset 0
+  96:../../cores/mapleMX/Print.cpp **** }
+ 590              		.loc 1 96 0
+ 591 0012 FFF7FEBF 		b	_ZN5Print11printNumberEmh
+ 592              	.LVL70:
+ 593              		.cfi_endproc
+ 594              	.LFE220:
+ 596              		.section	.text._ZN5Print5printEhi,"ax",%progbits
+ 597              		.align	1
+ 598              		.global	_ZN5Print5printEhi
+ 599              		.thumb
+ 600              		.thumb_func
+ 602              	_ZN5Print5printEhi:
+ 603              	.LFB216:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 16
 
 
- 652              		.loc 1 83 0
- 653 001c 2D21     		movs	r1, #45
- 654              	.LVL76:
- 655 001e FFF7FEFF 		bl	_ZN5Print5printEc
- 656              	.LVL77:
-  85:../../cores/mapleMX/Print.cpp ****       return printNumber(n, 10) + t;
- 657              		.loc 1 85 0
- 658 0022 6942     		negs	r1, r5
-  83:../../cores/mapleMX/Print.cpp ****       int t = print('-');
- 659              		.loc 1 83 0
- 660 0024 0746     		mov	r7, r0
- 661              	.LVL78:
-  85:../../cores/mapleMX/Print.cpp ****       return printNumber(n, 10) + t;
- 662              		.loc 1 85 0
- 663 0026 2246     		mov	r2, r4
- 664 0028 3046     		mov	r0, r6
- 665              	.LVL79:
- 666 002a FFF7FEFF 		bl	_ZN5Print11printNumberEmh
- 667              	.LVL80:
- 668 002e 3844     		add	r0, r0, r7
- 669 0030 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
- 670              	.LVL81:
- 671              	.L31:
- 672              	.LBE100:
- 673              	.LBE99:
- 674              	.LBB101:
- 675              	.LBB97:
-  89:../../cores/mapleMX/Print.cpp ****     return printNumber(n, base);
- 676              		.loc 1 89 0
- 677 0032 D2B2     		uxtb	r2, r2
- 678              	.LVL82:
- 679              	.L33:
- 680              	.LBE97:
- 681              	.LBE101:
-  91:../../cores/mapleMX/Print.cpp **** }
- 682              		.loc 1 91 0
- 683 0034 BDE8F840 		pop	{r3, r4, r5, r6, r7, lr}
- 684              	.LVL83:
- 685              	.LBB102:
- 686              	.LBB98:
-  89:../../cores/mapleMX/Print.cpp ****     return printNumber(n, base);
- 687              		.loc 1 89 0
- 688 0038 FFF7FEBF 		b	_ZN5Print11printNumberEmh
- 689              	.LVL84:
- 690              	.LBE98:
- 691              	.LBE102:
- 692              		.cfi_endproc
- 693              	.LFE219:
- 695              		.section	.text._ZN5Print5printEii,"ax",%progbits
- 696              		.align	1
- 697              		.global	_ZN5Print5printEii
- 698              		.thumb
- 699              		.thumb_func
- 701              	_ZN5Print5printEii:
- 702              	.LFB217:
-  68:../../cores/mapleMX/Print.cpp **** {
- 703              		.loc 1 68 0
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 18
+  63:../../cores/mapleMX/Print.cpp ****   return print((unsigned long) b, base);
+ 604              		.loc 1 63 0
+ 605              		.cfi_startproc
+ 606              		@ args = 0, pretend = 0, frame = 0
+ 607              		@ frame_needed = 0, uses_anonymous_args = 0
+ 608              		@ link register save eliminated.
+ 609              	.LVL71:
+  64:../../cores/mapleMX/Print.cpp **** }
+ 610              		.loc 1 64 0
+ 611 0000 FFF7FEBF 		b	_ZN5Print5printEmi
+ 612              	.LVL72:
+ 613              		.cfi_endproc
+ 614              	.LFE216:
+ 616              		.section	.text._ZN5Print7printlnEhi,"ax",%progbits
+ 617              		.align	1
+ 618              		.global	_ZN5Print7printlnEhi
+ 619              		.thumb
+ 620              		.thumb_func
+ 622              	_ZN5Print7printlnEhi:
+ 623              	.LFB228:
+ 145:../../cores/mapleMX/Print.cpp ****   size_t n = print(b, base);
+ 624              		.loc 1 145 0
+ 625              		.cfi_startproc
+ 626              		@ args = 0, pretend = 0, frame = 0
+ 627              		@ frame_needed = 0, uses_anonymous_args = 0
+ 628              	.LVL73:
+ 629 0000 38B5     		push	{r3, r4, r5, lr}
+ 630              		.cfi_def_cfa_offset 16
+ 631              		.cfi_offset 3, -16
+ 632              		.cfi_offset 4, -12
+ 633              		.cfi_offset 5, -8
+ 634              		.cfi_offset 14, -4
+ 145:../../cores/mapleMX/Print.cpp ****   size_t n = print(b, base);
+ 635              		.loc 1 145 0
+ 636 0002 0546     		mov	r5, r0
+ 637              	.LVL74:
+ 638              	.LBB93:
+ 639              	.LBB94:
+  64:../../cores/mapleMX/Print.cpp **** }
+ 640              		.loc 1 64 0
+ 641 0004 FFF7FEFF 		bl	_ZN5Print5printEmi
+ 642              	.LVL75:
+ 643 0008 0446     		mov	r4, r0
+ 644              	.LVL76:
+ 645              	.LBE94:
+ 646              	.LBE93:
+ 147:../../cores/mapleMX/Print.cpp ****   return n;
+ 647              		.loc 1 147 0
+ 648 000a 2846     		mov	r0, r5
+ 649 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 650              	.LVL77:
+ 149:../../cores/mapleMX/Print.cpp **** 
+ 651              		.loc 1 149 0
+ 652 0010 2044     		add	r0, r0, r4
+ 653              	.LVL78:
+ 654 0012 38BD     		pop	{r3, r4, r5, pc}
+ 655              		.cfi_endproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 17
 
 
- 704              		.cfi_startproc
- 705              		@ args = 0, pretend = 0, frame = 0
- 706              		@ frame_needed = 0, uses_anonymous_args = 0
- 707              		@ link register save eliminated.
- 708              	.LVL85:
-  69:../../cores/mapleMX/Print.cpp ****   return print((long) n, base);
- 709              		.loc 1 69 0
- 710 0000 FFF7FEBF 		b	_ZN5Print5printEli
- 711              	.LVL86:
- 712              		.cfi_endproc
- 713              	.LFE217:
- 715              		.section	.text._ZN5Print7printlnEii,"ax",%progbits
- 716              		.align	1
- 717              		.global	_ZN5Print7printlnEii
- 718              		.thumb
- 719              		.thumb_func
- 721              	_ZN5Print7printlnEii:
- 722              	.LFB229:
- 152:../../cores/mapleMX/Print.cpp **** {
- 723              		.loc 1 152 0
- 724              		.cfi_startproc
- 725              		@ args = 0, pretend = 0, frame = 0
- 726              		@ frame_needed = 0, uses_anonymous_args = 0
- 727              	.LVL87:
- 728 0000 38B5     		push	{r3, r4, r5, lr}
- 729              		.cfi_def_cfa_offset 16
- 730              		.cfi_offset 3, -16
- 731              		.cfi_offset 4, -12
- 732              		.cfi_offset 5, -8
- 733              		.cfi_offset 14, -4
- 152:../../cores/mapleMX/Print.cpp **** {
- 734              		.loc 1 152 0
- 735 0002 0446     		mov	r4, r0
- 736              	.LVL88:
- 737              	.LBB103:
- 738              	.LBB104:
- 739              	.LBB105:
-  69:../../cores/mapleMX/Print.cpp ****   return print((long) n, base);
- 740              		.loc 1 69 0
- 741 0004 FFF7FEFF 		bl	_ZN5Print5printEli
- 742              	.LVL89:
- 743 0008 0546     		mov	r5, r0
- 744              	.LBE105:
- 745              	.LBE104:
- 154:../../cores/mapleMX/Print.cpp ****   n += println();
- 746              		.loc 1 154 0
- 747 000a 2046     		mov	r0, r4
- 748 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 749              	.LVL90:
- 750              	.LBE103:
- 156:../../cores/mapleMX/Print.cpp **** }
- 751              		.loc 1 156 0
- 752 0010 2844     		add	r0, r0, r5
- 753              	.LVL91:
+ 656              	.LFE228:
+ 658              		.section	.text._ZN5Print5printEji,"ax",%progbits
+ 659              		.align	1
+ 660              		.global	_ZN5Print5printEji
+ 661              		.thumb
+ 662              		.thumb_func
+ 664              	_ZN5Print5printEji:
+ 665              	.LFB218:
+  73:../../cores/mapleMX/Print.cpp ****   return print((unsigned long) n, base);
+ 666              		.loc 1 73 0
+ 667              		.cfi_startproc
+ 668              		@ args = 0, pretend = 0, frame = 0
+ 669              		@ frame_needed = 0, uses_anonymous_args = 0
+ 670              		@ link register save eliminated.
+ 671              	.LVL79:
+  74:../../cores/mapleMX/Print.cpp **** }
+ 672              		.loc 1 74 0
+ 673 0000 FFF7FEBF 		b	_ZN5Print5printEmi
+ 674              	.LVL80:
+ 675              		.cfi_endproc
+ 676              	.LFE218:
+ 678              		.section	.text._ZN5Print7printlnEji,"ax",%progbits
+ 679              		.align	1
+ 680              		.global	_ZN5Print7printlnEji
+ 681              		.thumb
+ 682              		.thumb_func
+ 684              	_ZN5Print7printlnEji:
+ 685              	.LFB230:
+ 159:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 686              		.loc 1 159 0
+ 687              		.cfi_startproc
+ 688              		@ args = 0, pretend = 0, frame = 0
+ 689              		@ frame_needed = 0, uses_anonymous_args = 0
+ 690              	.LVL81:
+ 691 0000 38B5     		push	{r3, r4, r5, lr}
+ 692              		.cfi_def_cfa_offset 16
+ 693              		.cfi_offset 3, -16
+ 694              		.cfi_offset 4, -12
+ 695              		.cfi_offset 5, -8
+ 696              		.cfi_offset 14, -4
+ 159:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 697              		.loc 1 159 0
+ 698 0002 0546     		mov	r5, r0
+ 699              	.LVL82:
+ 700              	.LBB95:
+ 701              	.LBB96:
+  74:../../cores/mapleMX/Print.cpp **** }
+ 702              		.loc 1 74 0
+ 703 0004 FFF7FEFF 		bl	_ZN5Print5printEmi
+ 704              	.LVL83:
+ 705 0008 0446     		mov	r4, r0
+ 706              	.LVL84:
+ 707              	.LBE96:
+ 708              	.LBE95:
+ 161:../../cores/mapleMX/Print.cpp ****   return n;
+ 709              		.loc 1 161 0
+ 710 000a 2846     		mov	r0, r5
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 18
+
+
+ 711 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 712              	.LVL85:
+ 163:../../cores/mapleMX/Print.cpp **** 
+ 713              		.loc 1 163 0
+ 714 0010 2044     		add	r0, r0, r4
+ 715              	.LVL86:
+ 716 0012 38BD     		pop	{r3, r4, r5, pc}
+ 717              		.cfi_endproc
+ 718              	.LFE230:
+ 720              		.section	.text._ZN5Print7printlnEmi,"ax",%progbits
+ 721              		.align	1
+ 722              		.global	_ZN5Print7printlnEmi
+ 723              		.thumb
+ 724              		.thumb_func
+ 726              	_ZN5Print7printlnEmi:
+ 727              	.LFB232:
+ 173:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 728              		.loc 1 173 0
+ 729              		.cfi_startproc
+ 730              		@ args = 0, pretend = 0, frame = 0
+ 731              		@ frame_needed = 0, uses_anonymous_args = 0
+ 732              	.LVL87:
+ 733 0000 38B5     		push	{r3, r4, r5, lr}
+ 734              		.cfi_def_cfa_offset 16
+ 735              		.cfi_offset 3, -16
+ 736              		.cfi_offset 4, -12
+ 737              		.cfi_offset 5, -8
+ 738              		.cfi_offset 14, -4
+ 173:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 739              		.loc 1 173 0
+ 740 0002 0546     		mov	r5, r0
+ 174:../../cores/mapleMX/Print.cpp ****   n += println();
+ 741              		.loc 1 174 0
+ 742 0004 FFF7FEFF 		bl	_ZN5Print5printEmi
+ 743              	.LVL88:
+ 744 0008 0446     		mov	r4, r0
+ 745              	.LVL89:
+ 175:../../cores/mapleMX/Print.cpp ****   return n;
+ 746              		.loc 1 175 0
+ 747 000a 2846     		mov	r0, r5
+ 748              	.LVL90:
+ 749 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 750              	.LVL91:
+ 177:../../cores/mapleMX/Print.cpp **** 
+ 751              		.loc 1 177 0
+ 752 0010 2044     		add	r0, r0, r4
+ 753              	.LVL92:
  754 0012 38BD     		pop	{r3, r4, r5, pc}
  755              		.cfi_endproc
- 756              	.LFE229:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 19
-
-
- 758              		.section	.text._ZN5Print7printlnEli,"ax",%progbits
+ 756              	.LFE232:
+ 758              		.section	.text._ZN5Print5printEli,"ax",%progbits
  759              		.align	1
- 760              		.global	_ZN5Print7printlnEli
+ 760              		.global	_ZN5Print5printEli
  761              		.thumb
  762              		.thumb_func
- 764              	_ZN5Print7printlnEli:
- 765              	.LFB231:
- 166:../../cores/mapleMX/Print.cpp **** {
- 766              		.loc 1 166 0
+ 764              	_ZN5Print5printEli:
+ 765              	.LFB219:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 19
+
+
+  78:../../cores/mapleMX/Print.cpp ****   if (base == 0) {
+ 766              		.loc 1 78 0
  767              		.cfi_startproc
  768              		@ args = 0, pretend = 0, frame = 0
  769              		@ frame_needed = 0, uses_anonymous_args = 0
- 770              	.LVL92:
- 771 0000 38B5     		push	{r3, r4, r5, lr}
- 772              		.cfi_def_cfa_offset 16
- 773              		.cfi_offset 3, -16
- 774              		.cfi_offset 4, -12
- 775              		.cfi_offset 5, -8
- 776              		.cfi_offset 14, -4
- 166:../../cores/mapleMX/Print.cpp **** {
- 777              		.loc 1 166 0
- 778 0002 0446     		mov	r4, r0
- 779              	.LBB106:
- 167:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
- 780              		.loc 1 167 0
- 781 0004 FFF7FEFF 		bl	_ZN5Print5printEli
- 782              	.LVL93:
- 783 0008 0546     		mov	r5, r0
- 784              	.LVL94:
- 168:../../cores/mapleMX/Print.cpp ****   n += println();
- 785              		.loc 1 168 0
- 786 000a 2046     		mov	r0, r4
- 787              	.LVL95:
- 788 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 789              	.LVL96:
- 790              	.LBE106:
- 170:../../cores/mapleMX/Print.cpp **** }
- 791              		.loc 1 170 0
- 792 0010 2844     		add	r0, r0, r5
- 793              	.LVL97:
- 794 0012 38BD     		pop	{r3, r4, r5, pc}
- 795              		.cfi_endproc
- 796              	.LFE231:
- 798              		.section	.text._ZN5Print5printEmi,"ax",%progbits
- 799              		.align	1
- 800              		.global	_ZN5Print5printEmi
- 801              		.thumb
- 802              		.thumb_func
- 804              	_ZN5Print5printEmi:
- 805              	.LFB220:
-  94:../../cores/mapleMX/Print.cpp **** {
- 806              		.loc 1 94 0
- 807              		.cfi_startproc
- 808              		@ args = 0, pretend = 0, frame = 0
- 809              		@ frame_needed = 0, uses_anonymous_args = 0
- 810              	.LVL98:
- 811 0000 10B5     		push	{r4, lr}
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 20
+ 770              	.LVL93:
+ 771 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 772              		.cfi_def_cfa_offset 24
+ 773              		.cfi_offset 4, -24
+ 774              		.cfi_offset 5, -20
+ 775              		.cfi_offset 6, -16
+ 776              		.cfi_offset 7, -12
+ 777              		.cfi_offset 8, -8
+ 778              		.cfi_offset 14, -4
+  78:../../cores/mapleMX/Print.cpp ****   if (base == 0) {
+ 779              		.loc 1 78 0
+ 780 0004 0746     		mov	r7, r0
+ 781 0006 0E46     		mov	r6, r1
+ 782              	.LBB108:
+  79:../../cores/mapleMX/Print.cpp ****     return write(n);
+ 783              		.loc 1 79 0
+ 784 0008 1546     		mov	r5, r2
+ 785 000a 2AB9     		cbnz	r2, .L33
+  80:../../cores/mapleMX/Print.cpp ****   } else if (base == 10) {
+ 786              		.loc 1 80 0
+ 787 000c 0368     		ldr	r3, [r0]
+ 788 000e C9B2     		uxtb	r1, r1
+ 789              	.LVL94:
+ 790 0010 1B68     		ldr	r3, [r3]
+ 791              	.LBE108:
+  91:../../cores/mapleMX/Print.cpp **** 
+ 792              		.loc 1 91 0
+ 793 0012 BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ 794              		.cfi_remember_state
+ 795              		.cfi_restore 14
+ 796              		.cfi_restore 8
+ 797              		.cfi_restore 7
+ 798              		.cfi_restore 6
+ 799              		.cfi_restore 5
+ 800              		.cfi_restore 4
+ 801              		.cfi_def_cfa_offset 0
+ 802              	.LVL95:
+ 803              	.LBB113:
+  80:../../cores/mapleMX/Print.cpp ****   } else if (base == 10) {
+ 804              		.loc 1 80 0
+ 805 0016 1847     		bx	r3
+ 806              	.LVL96:
+ 807              	.L33:
+ 808              		.cfi_restore_state
+ 809              	.LBB109:
+  81:../../cores/mapleMX/Print.cpp ****     if (n < 0) {
+ 810              		.loc 1 81 0
+ 811 0018 0A2A     		cmp	r2, #10
+ 812 001a 02D1     		bne	.L34
+ 813              	.LBB110:
+ 814              	.LBB111:
+  82:../../cores/mapleMX/Print.cpp ****       int t = print('-');
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 20
 
 
- 812              		.cfi_def_cfa_offset 8
- 813              		.cfi_offset 4, -8
- 814              		.cfi_offset 14, -4
-  95:../../cores/mapleMX/Print.cpp ****   if (base == 0) return write(n);
- 815              		.loc 1 95 0
- 816 0002 22B9     		cbnz	r2, .L38
- 817              	.LVL99:
- 818              	.LBB109:
- 819              	.LBB110:
- 820 0004 0268     		ldr	r2, [r0]
- 821              	.LVL100:
- 822 0006 C9B2     		uxtb	r1, r1
- 823              	.LVL101:
- 824 0008 1268     		ldr	r2, [r2]
- 825 000a 9047     		blx	r2
- 826              	.LVL102:
- 827 000c 10BD     		pop	{r4, pc}
- 828              	.LVL103:
- 829              	.L38:
- 830              	.LBE110:
- 831              	.LBE109:
-  96:../../cores/mapleMX/Print.cpp ****   else return printNumber(n, base);
- 832              		.loc 1 96 0
- 833 000e D2B2     		uxtb	r2, r2
- 834              	.LVL104:
-  97:../../cores/mapleMX/Print.cpp **** }
- 835              		.loc 1 97 0
- 836 0010 BDE81040 		pop	{r4, lr}
-  96:../../cores/mapleMX/Print.cpp ****   else return printNumber(n, base);
- 837              		.loc 1 96 0
- 838 0014 FFF7FEBF 		b	_ZN5Print11printNumberEmh
- 839              	.LVL105:
- 840              		.cfi_endproc
- 841              	.LFE220:
- 843              		.section	.text._ZN5Print5printEhi,"ax",%progbits
- 844              		.align	1
- 845              		.global	_ZN5Print5printEhi
- 846              		.thumb
- 847              		.thumb_func
- 849              	_ZN5Print5printEhi:
- 850              	.LFB216:
-  63:../../cores/mapleMX/Print.cpp **** {
- 851              		.loc 1 63 0
- 852              		.cfi_startproc
- 853              		@ args = 0, pretend = 0, frame = 0
- 854              		@ frame_needed = 0, uses_anonymous_args = 0
- 855              		@ link register save eliminated.
- 856              	.LVL106:
-  64:../../cores/mapleMX/Print.cpp ****   return print((unsigned long) b, base);
- 857              		.loc 1 64 0
- 858 0000 FFF7FEBF 		b	_ZN5Print5printEmi
- 859              	.LVL107:
- 860              		.cfi_endproc
- 861              	.LFE216:
- 863              		.section	.text._ZN5Print7printlnEhi,"ax",%progbits
- 864              		.align	1
- 865              		.global	_ZN5Print7printlnEhi
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 21
+ 815              		.loc 1 82 0
+ 816 001c 0029     		cmp	r1, #0
+ 817 001e 01DA     		bge	.L39
+ 818 0020 04E0     		b	.L38
+ 819              	.L34:
+ 820              	.LBE111:
+ 821              	.LBE110:
+  89:../../cores/mapleMX/Print.cpp ****   }
+ 822              		.loc 1 89 0
+ 823 0022 D2B2     		uxtb	r2, r2
+ 824              	.LVL97:
+ 825              	.L39:
+ 826              	.LBE109:
+ 827              	.LBE113:
+  91:../../cores/mapleMX/Print.cpp **** 
+ 828              		.loc 1 91 0
+ 829 0024 BDE8F041 		pop	{r4, r5, r6, r7, r8, lr}
+ 830              		.cfi_remember_state
+ 831              		.cfi_restore 14
+ 832              		.cfi_restore 8
+ 833              		.cfi_restore 7
+ 834              		.cfi_restore 6
+ 835              		.cfi_restore 5
+ 836              		.cfi_restore 4
+ 837              		.cfi_def_cfa_offset 0
+ 838              	.LVL98:
+ 839              	.LBB114:
+ 840              	.LBB112:
+  89:../../cores/mapleMX/Print.cpp ****   }
+ 841              		.loc 1 89 0
+ 842 0028 FFF7FEBF 		b	_ZN5Print11printNumberEmh
+ 843              	.LVL99:
+ 844              	.L38:
+ 845              		.cfi_restore_state
+ 846              	.LBE112:
+ 847              	.LBE114:
+ 848              	.LBB115:
+ 849              	.LBB116:
+  83:../../cores/mapleMX/Print.cpp ****       n = -n;
+ 850              		.loc 1 83 0
+ 851 002c 2D21     		movs	r1, #45
+ 852              	.LVL100:
+ 853 002e FFF7FEFF 		bl	_ZN5Print5printEc
+ 854              	.LVL101:
+  85:../../cores/mapleMX/Print.cpp ****     }
+ 855              		.loc 1 85 0
+ 856 0032 2A46     		mov	r2, r5
+  83:../../cores/mapleMX/Print.cpp ****       n = -n;
+ 857              		.loc 1 83 0
+ 858 0034 0446     		mov	r4, r0
+ 859              	.LVL102:
+  85:../../cores/mapleMX/Print.cpp ****     }
+ 860              		.loc 1 85 0
+ 861 0036 7142     		negs	r1, r6
+ 862              	.LVL103:
+ 863 0038 3846     		mov	r0, r7
+ 864              	.LVL104:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 21
 
 
- 866              		.thumb
- 867              		.thumb_func
- 869              	_ZN5Print7printlnEhi:
- 870              	.LFB228:
- 145:../../cores/mapleMX/Print.cpp **** {
- 871              		.loc 1 145 0
- 872              		.cfi_startproc
- 873              		@ args = 0, pretend = 0, frame = 0
- 874              		@ frame_needed = 0, uses_anonymous_args = 0
- 875              	.LVL108:
- 876 0000 38B5     		push	{r3, r4, r5, lr}
- 877              		.cfi_def_cfa_offset 16
- 878              		.cfi_offset 3, -16
- 879              		.cfi_offset 4, -12
- 880              		.cfi_offset 5, -8
- 881              		.cfi_offset 14, -4
- 145:../../cores/mapleMX/Print.cpp **** {
- 882              		.loc 1 145 0
- 883 0002 0446     		mov	r4, r0
- 884              	.LVL109:
- 885              	.LBB111:
- 886              	.LBB112:
- 887              	.LBB113:
-  64:../../cores/mapleMX/Print.cpp ****   return print((unsigned long) b, base);
- 888              		.loc 1 64 0
- 889 0004 FFF7FEFF 		bl	_ZN5Print5printEmi
- 890              	.LVL110:
- 891 0008 0546     		mov	r5, r0
- 892              	.LBE113:
- 893              	.LBE112:
- 147:../../cores/mapleMX/Print.cpp ****   n += println();
- 894              		.loc 1 147 0
- 895 000a 2046     		mov	r0, r4
- 896 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 897              	.LVL111:
- 898              	.LBE111:
- 149:../../cores/mapleMX/Print.cpp **** }
- 899              		.loc 1 149 0
- 900 0010 2844     		add	r0, r0, r5
- 901              	.LVL112:
- 902 0012 38BD     		pop	{r3, r4, r5, pc}
- 903              		.cfi_endproc
- 904              	.LFE228:
- 906              		.section	.text._ZN5Print5printEji,"ax",%progbits
- 907              		.align	1
- 908              		.global	_ZN5Print5printEji
- 909              		.thumb
- 910              		.thumb_func
- 912              	_ZN5Print5printEji:
- 913              	.LFB218:
-  73:../../cores/mapleMX/Print.cpp **** {
- 914              		.loc 1 73 0
- 915              		.cfi_startproc
- 916              		@ args = 0, pretend = 0, frame = 0
- 917              		@ frame_needed = 0, uses_anonymous_args = 0
- 918              		@ link register save eliminated.
- 919              	.LVL113:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 22
+ 865 003a FFF7FEFF 		bl	_ZN5Print11printNumberEmh
+ 866              	.LVL105:
+ 867 003e 2044     		add	r0, r0, r4
+ 868              	.LVL106:
+ 869              	.LBE116:
+ 870              	.LBE115:
+  91:../../cores/mapleMX/Print.cpp **** 
+ 871              		.loc 1 91 0
+ 872 0040 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 873              		.cfi_endproc
+ 874              	.LFE219:
+ 876              		.section	.text._ZN5Print5printEii,"ax",%progbits
+ 877              		.align	1
+ 878              		.global	_ZN5Print5printEii
+ 879              		.thumb
+ 880              		.thumb_func
+ 882              	_ZN5Print5printEii:
+ 883              	.LFB217:
+  68:../../cores/mapleMX/Print.cpp ****   return print((long) n, base);
+ 884              		.loc 1 68 0
+ 885              		.cfi_startproc
+ 886              		@ args = 0, pretend = 0, frame = 0
+ 887              		@ frame_needed = 0, uses_anonymous_args = 0
+ 888              		@ link register save eliminated.
+ 889              	.LVL107:
+  69:../../cores/mapleMX/Print.cpp **** }
+ 890              		.loc 1 69 0
+ 891 0000 FFF7FEBF 		b	_ZN5Print5printEli
+ 892              	.LVL108:
+ 893              		.cfi_endproc
+ 894              	.LFE217:
+ 896              		.section	.text._ZN5Print7printlnEii,"ax",%progbits
+ 897              		.align	1
+ 898              		.global	_ZN5Print7printlnEii
+ 899              		.thumb
+ 900              		.thumb_func
+ 902              	_ZN5Print7printlnEii:
+ 903              	.LFB229:
+ 152:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 904              		.loc 1 152 0
+ 905              		.cfi_startproc
+ 906              		@ args = 0, pretend = 0, frame = 0
+ 907              		@ frame_needed = 0, uses_anonymous_args = 0
+ 908              	.LVL109:
+ 909 0000 38B5     		push	{r3, r4, r5, lr}
+ 910              		.cfi_def_cfa_offset 16
+ 911              		.cfi_offset 3, -16
+ 912              		.cfi_offset 4, -12
+ 913              		.cfi_offset 5, -8
+ 914              		.cfi_offset 14, -4
+ 152:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 915              		.loc 1 152 0
+ 916 0002 0546     		mov	r5, r0
+ 917              	.LVL110:
+ 918              	.LBB117:
+ 919              	.LBB118:
+  69:../../cores/mapleMX/Print.cpp **** }
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 22
 
 
-  74:../../cores/mapleMX/Print.cpp ****   return print((unsigned long) n, base);
- 920              		.loc 1 74 0
- 921 0000 FFF7FEBF 		b	_ZN5Print5printEmi
- 922              	.LVL114:
- 923              		.cfi_endproc
- 924              	.LFE218:
- 926              		.section	.text._ZN5Print7printlnEji,"ax",%progbits
- 927              		.align	1
- 928              		.global	_ZN5Print7printlnEji
- 929              		.thumb
- 930              		.thumb_func
- 932              	_ZN5Print7printlnEji:
- 933              	.LFB230:
- 159:../../cores/mapleMX/Print.cpp **** {
- 934              		.loc 1 159 0
- 935              		.cfi_startproc
- 936              		@ args = 0, pretend = 0, frame = 0
- 937              		@ frame_needed = 0, uses_anonymous_args = 0
- 938              	.LVL115:
- 939 0000 38B5     		push	{r3, r4, r5, lr}
- 940              		.cfi_def_cfa_offset 16
- 941              		.cfi_offset 3, -16
- 942              		.cfi_offset 4, -12
- 943              		.cfi_offset 5, -8
- 944              		.cfi_offset 14, -4
- 159:../../cores/mapleMX/Print.cpp **** {
- 945              		.loc 1 159 0
- 946 0002 0446     		mov	r4, r0
- 947              	.LVL116:
- 948              	.LBB114:
- 949              	.LBB115:
- 950              	.LBB116:
-  74:../../cores/mapleMX/Print.cpp ****   return print((unsigned long) n, base);
- 951              		.loc 1 74 0
- 952 0004 FFF7FEFF 		bl	_ZN5Print5printEmi
- 953              	.LVL117:
- 954 0008 0546     		mov	r5, r0
- 955              	.LBE116:
- 956              	.LBE115:
- 161:../../cores/mapleMX/Print.cpp ****   n += println();
- 957              		.loc 1 161 0
- 958 000a 2046     		mov	r0, r4
- 959 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 960              	.LVL118:
- 961              	.LBE114:
- 163:../../cores/mapleMX/Print.cpp **** }
- 962              		.loc 1 163 0
- 963 0010 2844     		add	r0, r0, r5
- 964              	.LVL119:
- 965 0012 38BD     		pop	{r3, r4, r5, pc}
- 966              		.cfi_endproc
- 967              	.LFE230:
- 969              		.section	.text._ZN5Print7printlnEmi,"ax",%progbits
- 970              		.align	1
- 971              		.global	_ZN5Print7printlnEmi
- 972              		.thumb
- 973              		.thumb_func
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 23
+ 920              		.loc 1 69 0
+ 921 0004 FFF7FEFF 		bl	_ZN5Print5printEli
+ 922              	.LVL111:
+ 923 0008 0446     		mov	r4, r0
+ 924              	.LVL112:
+ 925              	.LBE118:
+ 926              	.LBE117:
+ 154:../../cores/mapleMX/Print.cpp ****   return n;
+ 927              		.loc 1 154 0
+ 928 000a 2846     		mov	r0, r5
+ 929 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 930              	.LVL113:
+ 156:../../cores/mapleMX/Print.cpp **** 
+ 931              		.loc 1 156 0
+ 932 0010 2044     		add	r0, r0, r4
+ 933              	.LVL114:
+ 934 0012 38BD     		pop	{r3, r4, r5, pc}
+ 935              		.cfi_endproc
+ 936              	.LFE229:
+ 938              		.section	.text._ZN5Print7printlnEli,"ax",%progbits
+ 939              		.align	1
+ 940              		.global	_ZN5Print7printlnEli
+ 941              		.thumb
+ 942              		.thumb_func
+ 944              	_ZN5Print7printlnEli:
+ 945              	.LFB231:
+ 166:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 946              		.loc 1 166 0
+ 947              		.cfi_startproc
+ 948              		@ args = 0, pretend = 0, frame = 0
+ 949              		@ frame_needed = 0, uses_anonymous_args = 0
+ 950              	.LVL115:
+ 951 0000 38B5     		push	{r3, r4, r5, lr}
+ 952              		.cfi_def_cfa_offset 16
+ 953              		.cfi_offset 3, -16
+ 954              		.cfi_offset 4, -12
+ 955              		.cfi_offset 5, -8
+ 956              		.cfi_offset 14, -4
+ 166:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
+ 957              		.loc 1 166 0
+ 958 0002 0546     		mov	r5, r0
+ 167:../../cores/mapleMX/Print.cpp ****   n += println();
+ 959              		.loc 1 167 0
+ 960 0004 FFF7FEFF 		bl	_ZN5Print5printEli
+ 961              	.LVL116:
+ 962 0008 0446     		mov	r4, r0
+ 963              	.LVL117:
+ 168:../../cores/mapleMX/Print.cpp ****   return n;
+ 964              		.loc 1 168 0
+ 965 000a 2846     		mov	r0, r5
+ 966              	.LVL118:
+ 967 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 968              	.LVL119:
+ 170:../../cores/mapleMX/Print.cpp **** 
+ 969              		.loc 1 170 0
+ 970 0010 2044     		add	r0, r0, r4
+ 971              	.LVL120:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 23
 
 
- 975              	_ZN5Print7printlnEmi:
- 976              	.LFB232:
- 173:../../cores/mapleMX/Print.cpp **** {
- 977              		.loc 1 173 0
- 978              		.cfi_startproc
- 979              		@ args = 0, pretend = 0, frame = 0
- 980              		@ frame_needed = 0, uses_anonymous_args = 0
- 981              	.LVL120:
- 982 0000 38B5     		push	{r3, r4, r5, lr}
- 983              		.cfi_def_cfa_offset 16
- 984              		.cfi_offset 3, -16
- 985              		.cfi_offset 4, -12
- 986              		.cfi_offset 5, -8
- 987              		.cfi_offset 14, -4
- 173:../../cores/mapleMX/Print.cpp **** {
- 988              		.loc 1 173 0
- 989 0002 0446     		mov	r4, r0
- 990              	.LBB117:
- 174:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, base);
- 991              		.loc 1 174 0
- 992 0004 FFF7FEFF 		bl	_ZN5Print5printEmi
- 993              	.LVL121:
- 994 0008 0546     		mov	r5, r0
- 995              	.LVL122:
- 175:../../cores/mapleMX/Print.cpp ****   n += println();
- 996              		.loc 1 175 0
- 997 000a 2046     		mov	r0, r4
- 998              	.LVL123:
- 999 000c FFF7FEFF 		bl	_ZN5Print7printlnEv
- 1000              	.LVL124:
- 1001              	.LBE117:
- 177:../../cores/mapleMX/Print.cpp **** }
- 1002              		.loc 1 177 0
- 1003 0010 2844     		add	r0, r0, r5
- 1004              	.LVL125:
- 1005 0012 38BD     		pop	{r3, r4, r5, pc}
- 1006              		.cfi_endproc
- 1007              	.LFE232:
- 1009              		.global	__aeabi_dcmpgt
- 1010              		.global	__aeabi_dcmplt
- 1011              		.global	__aeabi_ddiv
- 1012              		.global	__aeabi_dadd
- 1013              		.global	__aeabi_d2uiz
- 1014              		.global	__aeabi_ui2d
- 1015              		.global	__aeabi_dsub
- 1016              		.global	__aeabi_dmul
- 1017              		.global	__aeabi_d2iz
- 1018              		.global	__aeabi_i2d
- 1019              		.section	.text._ZN5Print10printFloatEdh,"ax",%progbits
- 1020              		.align	1
- 1021              		.global	_ZN5Print10printFloatEdh
- 1022              		.thumb
- 1023              		.thumb_func
- 1025              	_ZN5Print10printFloatEdh:
- 1026              	.LFB236:
+ 972 0012 38BD     		pop	{r3, r4, r5, pc}
+ 973              		.cfi_endproc
+ 974              	.LFE231:
+ 976              		.global	__aeabi_dcmpgt
+ 977              		.global	__aeabi_dcmplt
+ 978              		.global	__aeabi_ddiv
+ 979              		.global	__aeabi_dadd
+ 980              		.global	__aeabi_d2uiz
+ 981              		.global	__aeabi_ui2d
+ 982              		.global	__aeabi_dsub
+ 983              		.global	__aeabi_dmul
+ 984              		.global	__aeabi_d2iz
+ 985              		.global	__aeabi_i2d
+ 986              		.section	.text._ZN5Print10printFloatEdh,"ax",%progbits
+ 987              		.align	1
+ 988              		.global	_ZN5Print10printFloatEdh
+ 989              		.thumb
+ 990              		.thumb_func
+ 992              	_ZN5Print10printFloatEdh:
+ 993              	.LFB236:
  213:../../cores/mapleMX/Print.cpp **** 
  214:../../cores/mapleMX/Print.cpp **** size_t Print::printFloat(double number, uint8_t digits) 
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 24
-
-
  215:../../cores/mapleMX/Print.cpp **** { 
- 1027              		.loc 1 215 0
- 1028              		.cfi_startproc
- 1029              		@ args = 4, pretend = 0, frame = 0
- 1030              		@ frame_needed = 0, uses_anonymous_args = 0
- 1031              	.LVL126:
- 1032 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
- 1033              		.cfi_def_cfa_offset 32
- 1034              		.cfi_offset 3, -32
- 1035              		.cfi_offset 4, -28
- 1036              		.cfi_offset 5, -24
- 1037              		.cfi_offset 6, -20
- 1038              		.cfi_offset 7, -16
- 1039              		.cfi_offset 8, -12
- 1040              		.cfi_offset 9, -8
- 1041              		.cfi_offset 14, -4
- 1042              	.LBB137:
+ 994              		.loc 1 215 0
+ 995              		.cfi_startproc
+ 996              		@ args = 4, pretend = 0, frame = 0
+ 997              		@ frame_needed = 0, uses_anonymous_args = 0
+ 998              	.LVL121:
+ 999 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 1000              		.cfi_def_cfa_offset 32
+ 1001              		.cfi_offset 3, -32
+ 1002              		.cfi_offset 4, -28
+ 1003              		.cfi_offset 5, -24
+ 1004              		.cfi_offset 6, -20
+ 1005              		.cfi_offset 7, -16
+ 1006              		.cfi_offset 8, -12
+ 1007              		.cfi_offset 9, -8
+ 1008              		.cfi_offset 14, -4
  216:../../cores/mapleMX/Print.cpp ****   size_t n = 0;
  217:../../cores/mapleMX/Print.cpp ****   
  218:../../cores/mapleMX/Print.cpp ****   if (isnan(number)) return print("nan");
- 1043              		.loc 1 218 0
- 1044 0004 1946     		mov	r1, r3
- 1045              	.LBE137:
- 215:../../cores/mapleMX/Print.cpp **** { 
- 1046              		.loc 1 215 0
- 1047 0006 0646     		mov	r6, r0
- 1048              	.LBB155:
- 1049              		.loc 1 218 0
- 1050 0008 1046     		mov	r0, r2
- 1051              	.LVL127:
- 1052              	.LBE155:
- 215:../../cores/mapleMX/Print.cpp **** { 
- 1053              		.loc 1 215 0
- 1054 000a 1446     		mov	r4, r2
- 1055 000c 1D46     		mov	r5, r3
- 1056 000e 9DF82070 		ldrb	r7, [sp, #32]	@ zero_extendqisi2
- 1057              	.LBB156:
- 1058              		.loc 1 218 0
- 1059 0012 FFF7FEFF 		bl	__fpclassifyd
- 1060              	.LVL128:
- 1061 0016 10B9     		cbnz	r0, .L47
- 1062              	.LVL129:
- 1063              	.LBB138:
- 1064              	.LBB139:
-  54:../../cores/mapleMX/Print.cpp ****   return write(str);
- 1065              		.loc 1 54 0
- 1066 0018 3046     		mov	r0, r6
- 1067 001a 4449     		ldr	r1, .L70
- 1068 001c 07E0     		b	.L67
- 1069              	.LVL130:
- 1070              	.L47:
- 1071              	.LBE139:
- 1072              	.LBE138:
+ 1009              		.loc 1 218 0
+ 1010 0004 1946     		mov	r1, r3
+ 215:../../cores/mapleMX/Print.cpp ****   size_t n = 0;
+ 1011              		.loc 1 215 0
+ 1012 0006 8046     		mov	r8, r0
+ 1013              		.loc 1 218 0
+ 1014 0008 1046     		mov	r0, r2
+ 1015              	.LVL122:
+ 215:../../cores/mapleMX/Print.cpp ****   size_t n = 0;
+ 1016              		.loc 1 215 0
+ 1017 000a 1746     		mov	r7, r2
+ 1018 000c 1E46     		mov	r6, r3
+ 1019 000e 9DF82050 		ldrb	r5, [sp, #32]	@ zero_extendqisi2
+ 1020              		.loc 1 218 0
+ 1021 0012 FFF7FEFF 		bl	__fpclassifyd
+ 1022              	.LVL123:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 24
+
+
+ 1023 0016 08B9     		cbnz	r0, .L44
+ 1024              	.LVL124:
+ 1025              	.LBB145:
+ 1026              	.LBB146:
+  54:../../cores/mapleMX/Print.cpp **** }
+ 1027              		.loc 1 54 0
+ 1028 0018 4149     		ldr	r1, .L62
+ 1029 001a 10E0     		b	.L61
+ 1030              	.LVL125:
+ 1031              	.L44:
+ 1032              	.LBE146:
+ 1033              	.LBE145:
  219:../../cores/mapleMX/Print.cpp ****   if (isinf(number)) return print("inf");
- 1073              		.loc 1 219 0 discriminator 2
- 1074 001e 2046     		mov	r0, r4
- 1075 0020 2946     		mov	r1, r5
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 25
-
-
- 1076 0022 FFF7FEFF 		bl	__fpclassifyd
- 1077              	.LVL131:
- 1078 0026 0128     		cmp	r0, #1
- 1079 0028 05D1     		bne	.L49
- 1080              	.LVL132:
- 1081              	.LBB140:
- 1082              	.LBB141:
-  54:../../cores/mapleMX/Print.cpp ****   return write(str);
- 1083              		.loc 1 54 0
- 1084 002a 4149     		ldr	r1, .L70+4
- 1085 002c 3046     		mov	r0, r6
- 1086              	.LVL133:
- 1087              	.L67:
- 1088 002e FFF7FEFF 		bl	_ZN5Print5writeEPKc
- 1089              	.LVL134:
- 1090              	.LBE141:
- 1091              	.LBE140:
- 1092              		.loc 1 219 0
- 1093 0032 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
- 1094              	.LVL135:
- 1095              	.L49:
+ 1034              		.loc 1 219 0 discriminator 2
+ 1035 001c 3846     		mov	r0, r7
+ 1036 001e 3146     		mov	r1, r6
+ 1037 0020 FFF7FEFF 		bl	__fpclassifyd
+ 1038              	.LVL126:
+ 1039 0024 0128     		cmp	r0, #1
+ 1040 0026 01D1     		bne	.L46
+ 1041              	.LVL127:
+ 1042              	.LBB147:
+ 1043              	.LBB148:
+  54:../../cores/mapleMX/Print.cpp **** }
+ 1044              		.loc 1 54 0
+ 1045 0028 3E49     		ldr	r1, .L62+4
+ 1046 002a 08E0     		b	.L61
+ 1047              	.LVL128:
+ 1048              	.L46:
+ 1049              	.LBE148:
+ 1050              	.LBE147:
  220:../../cores/mapleMX/Print.cpp ****   if (number > 4294967040.0) return print ("ovf");  // constant determined empirically
- 1096              		.loc 1 220 0
- 1097 0036 2046     		mov	r0, r4
- 1098 0038 2946     		mov	r1, r5
- 1099 003a 4FF06042 		mov	r2, #-536870912
- 1100 003e 3D4B     		ldr	r3, .L70+8
- 1101 0040 FFF7FEFF 		bl	__aeabi_dcmpgt
- 1102              	.LVL136:
- 1103 0044 10B1     		cbz	r0, .L65
- 1104              	.L52:
- 1105              	.LVL137:
- 1106              	.LBB142:
- 1107              	.LBB143:
-  54:../../cores/mapleMX/Print.cpp ****   return write(str);
- 1108              		.loc 1 54 0
- 1109 0046 3046     		mov	r0, r6
- 1110 0048 3B49     		ldr	r1, .L70+12
- 1111 004a F0E7     		b	.L67
- 1112              	.LVL138:
- 1113              	.L65:
- 1114              	.LBE143:
- 1115              	.LBE142:
+ 1051              		.loc 1 220 0
+ 1052 002c 4FF06042 		mov	r2, #-536870912
+ 1053 0030 3D4B     		ldr	r3, .L62+8
+ 1054 0032 3846     		mov	r0, r7
+ 1055 0034 3146     		mov	r1, r6
+ 1056 0036 FFF7FEFF 		bl	__aeabi_dcmpgt
+ 1057              	.LVL129:
+ 1058 003a 28B1     		cbz	r0, .L59
+ 1059              	.L49:
+ 1060              	.LVL130:
+ 1061              	.LBB149:
+ 1062              	.LBB150:
+  54:../../cores/mapleMX/Print.cpp **** }
+ 1063              		.loc 1 54 0
+ 1064 003c 3B49     		ldr	r1, .L62+12
+ 1065              	.LVL131:
+ 1066              	.L61:
+ 1067 003e 4046     		mov	r0, r8
+ 1068 0040 FFF7FEFF 		bl	_ZN5Print5writeEPKc
+ 1069              	.LVL132:
+ 1070              	.LBE150:
+ 1071              	.LBE149:
+ 1072              		.loc 1 220 0
+ 1073 0044 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 1074              	.LVL133:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 25
+
+
+ 1075              	.L59:
  221:../../cores/mapleMX/Print.cpp ****   if (number <-4294967040.0) return print ("ovf");  // constant determined empirically
- 1116              		.loc 1 221 0
- 1117 004c 2046     		mov	r0, r4
- 1118 004e 2946     		mov	r1, r5
- 1119 0050 4FF06042 		mov	r2, #-536870912
- 1120 0054 394B     		ldr	r3, .L70+16
- 1121 0056 FFF7FEFF 		bl	__aeabi_dcmplt
- 1122              	.LVL139:
- 1123 005a 0028     		cmp	r0, #0
- 1124 005c F3D1     		bne	.L52
+ 1076              		.loc 1 221 0
+ 1077 0048 4FF06042 		mov	r2, #-536870912
+ 1078 004c 384B     		ldr	r3, .L62+16
+ 1079 004e 3846     		mov	r0, r7
+ 1080 0050 3146     		mov	r1, r6
+ 1081 0052 FFF7FEFF 		bl	__aeabi_dcmplt
+ 1082              	.LVL134:
+ 1083 0056 0028     		cmp	r0, #0
+ 1084 0058 F0D1     		bne	.L49
+ 1085              	.LVL135:
+ 1086              	.LBB151:
+ 1087              	.LBB152:
  222:../../cores/mapleMX/Print.cpp ****   
  223:../../cores/mapleMX/Print.cpp ****   // Handle negative numbers
  224:../../cores/mapleMX/Print.cpp ****   if (number < 0.0)
- 1125              		.loc 1 224 0
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 26
-
-
- 1126 005e 2046     		mov	r0, r4
- 1127 0060 2946     		mov	r1, r5
- 1128 0062 0022     		movs	r2, #0
- 1129 0064 0023     		movs	r3, #0
- 1130 0066 FFF7FEFF 		bl	__aeabi_dcmplt
- 1131              	.LVL140:
- 1132 006a 40B1     		cbz	r0, .L66
+ 1088              		.loc 1 224 0
+ 1089 005a 0022     		movs	r2, #0
+ 1090 005c 0023     		movs	r3, #0
+ 1091 005e 3846     		mov	r0, r7
+ 1092 0060 3146     		mov	r1, r6
+ 1093 0062 FFF7FEFF 		bl	__aeabi_dcmplt
+ 1094              	.LVL136:
+ 1095 0066 38B1     		cbz	r0, .L60
  225:../../cores/mapleMX/Print.cpp ****   {
  226:../../cores/mapleMX/Print.cpp ****      n += print('-');
- 1133              		.loc 1 226 0
- 1134 006c 3046     		mov	r0, r6
- 1135 006e 2D21     		movs	r1, #45
- 1136 0070 FFF7FEFF 		bl	_ZN5Print5printEc
- 1137              	.LVL141:
+ 1096              		.loc 1 226 0
+ 1097 0068 2D21     		movs	r1, #45
+ 1098 006a 4046     		mov	r0, r8
+ 1099 006c FFF7FEFF 		bl	_ZN5Print5printEc
+ 1100              	.LVL137:
  227:../../cores/mapleMX/Print.cpp ****      number = -number;
- 1138              		.loc 1 227 0
- 1139 0074 05F10043 		add	r3, r5, #-2147483648
- 226:../../cores/mapleMX/Print.cpp ****      n += print('-');
- 1140              		.loc 1 226 0
- 1141 0078 8046     		mov	r8, r0
- 1142              	.LVL142:
- 1143              		.loc 1 227 0
- 1144 007a 1D46     		mov	r5, r3
- 1145              	.LVL143:
- 1146 007c 00E0     		b	.L53
- 1147              	.LVL144:
- 1148              	.L66:
- 216:../../cores/mapleMX/Print.cpp ****   size_t n = 0;
- 1149              		.loc 1 216 0
- 1150 007e 8046     		mov	r8, r0
- 1151              	.LVL145:
- 1152              	.L53:
+ 1101              		.loc 1 227 0
+ 1102 0070 06F10046 		add	r6, r6, #-2147483648
+ 1103              	.LVL138:
+ 226:../../cores/mapleMX/Print.cpp ****      number = -number;
+ 1104              		.loc 1 226 0
+ 1105 0074 0446     		mov	r4, r0
+ 1106              	.LVL139:
+ 1107 0076 00E0     		b	.L50
+ 1108              	.LVL140:
+ 1109              	.L60:
+ 216:../../cores/mapleMX/Print.cpp ****   
+ 1110              		.loc 1 216 0
+ 1111 0078 0446     		mov	r4, r0
+ 1112              	.LVL141:
+ 1113              	.L50:
  228:../../cores/mapleMX/Print.cpp ****   }
  229:../../cores/mapleMX/Print.cpp **** 
  230:../../cores/mapleMX/Print.cpp ****   // Round correctly so that print(1.999, 2) prints as "2.00"
  231:../../cores/mapleMX/Print.cpp ****   double rounding = 0.5;
- 1153              		.loc 1 231 0
- 1154 0080 2F4B     		ldr	r3, .L70+20
- 1155              	.LBB144:
+ 1114              		.loc 1 231 0
+ 1115 007a 2E49     		ldr	r1, .L62+20
+ 216:../../cores/mapleMX/Print.cpp ****   
+ 1116              		.loc 1 216 0
+ 1117 007c 4FF00009 		mov	r9, #0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 26
+
+
+ 1118              		.loc 1 231 0
+ 1119 0080 0020     		movs	r0, #0
+ 1120              	.LVL142:
+ 1121              	.L53:
+ 1122              	.LBB153:
  232:../../cores/mapleMX/Print.cpp ****   for (uint8_t i=0; i<digits; ++i)
- 1156              		.loc 1 232 0
- 1157 0082 4FF00009 		mov	r9, #0
- 1158              	.LBE144:
- 231:../../cores/mapleMX/Print.cpp ****   double rounding = 0.5;
- 1159              		.loc 1 231 0
- 1160 0086 0022     		movs	r2, #0
- 1161              	.LVL146:
- 1162              	.L55:
- 1163              	.LBB145:
- 1164              		.loc 1 232 0 discriminator 1
- 1165 0088 5FFA89F1 		uxtb	r1, r9
- 1166 008c B942     		cmp	r1, r7
- 1167 008e 0AD2     		bcs	.L68
+ 1123              		.loc 1 232 0
+ 1124 0082 5FFA89F3 		uxtb	r3, r9
+ 1125 0086 9D42     		cmp	r5, r3
+ 1126 0088 06D9     		bls	.L52
  233:../../cores/mapleMX/Print.cpp ****     rounding /= 10.0;
- 1168              		.loc 1 233 0 discriminator 2
- 1169 0090 1046     		mov	r0, r2
- 1170 0092 1946     		mov	r1, r3
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 27
-
-
- 1171 0094 0022     		movs	r2, #0
- 1172              	.LVL147:
- 1173 0096 2B4B     		ldr	r3, .L70+24
- 1174 0098 FFF7FEFF 		bl	__aeabi_ddiv
- 1175              	.LVL148:
- 1176 009c 09F10109 		add	r9, r9, #1
- 1177              	.LVL149:
- 1178 00a0 0246     		mov	r2, r0
- 1179 00a2 0B46     		mov	r3, r1
- 1180              	.LVL150:
- 1181 00a4 F0E7     		b	.L55
- 1182              	.LVL151:
- 1183              	.L68:
- 1184              	.LBE145:
+ 1127              		.loc 1 233 0
+ 1128 008a 0022     		movs	r2, #0
+ 1129 008c 2A4B     		ldr	r3, .L62+24
+ 1130 008e FFF7FEFF 		bl	__aeabi_ddiv
+ 1131              	.LVL143:
+ 1132 0092 09F10109 		add	r9, r9, #1
+ 1133              	.LVL144:
+ 1134 0096 F4E7     		b	.L53
+ 1135              	.LVL145:
+ 1136              	.L52:
+ 1137              	.LBE153:
  234:../../cores/mapleMX/Print.cpp ****   
  235:../../cores/mapleMX/Print.cpp ****   number += rounding;
- 1185              		.loc 1 235 0
- 1186 00a6 2046     		mov	r0, r4
- 1187 00a8 2946     		mov	r1, r5
- 1188 00aa FFF7FEFF 		bl	__aeabi_dadd
- 1189              	.LVL152:
- 1190 00ae 0D46     		mov	r5, r1
- 1191 00b0 0446     		mov	r4, r0
- 1192              	.LVL153:
+ 1138              		.loc 1 235 0
+ 1139 0098 3A46     		mov	r2, r7
+ 1140 009a 3346     		mov	r3, r6
+ 1141 009c FFF7FEFF 		bl	__aeabi_dadd
+ 1142              	.LVL146:
+ 1143 00a0 0F46     		mov	r7, r1
+ 1144              	.LVL147:
+ 1145 00a2 0646     		mov	r6, r0
+ 1146              	.LVL148:
  236:../../cores/mapleMX/Print.cpp **** 
  237:../../cores/mapleMX/Print.cpp ****   // Extract the integer part of the number and print it
  238:../../cores/mapleMX/Print.cpp ****   unsigned long int_part = (unsigned long)number;
- 1193              		.loc 1 238 0
- 1194 00b2 FFF7FEFF 		bl	__aeabi_d2uiz
- 1195              	.LVL154:
- 1196 00b6 8146     		mov	r9, r0
- 1197              	.LVL155:
+ 1147              		.loc 1 238 0
+ 1148 00a4 FFF7FEFF 		bl	__aeabi_d2uiz
+ 1149              	.LVL149:
+ 1150              	.LBB154:
+ 1151              	.LBB155:
+  96:../../cores/mapleMX/Print.cpp **** }
+ 1152              		.loc 1 96 0
+ 1153 00a8 0A22     		movs	r2, #10
+ 1154 00aa 0146     		mov	r1, r0
+ 1155              	.LBE155:
+ 1156              	.LBE154:
+ 1157              		.loc 1 238 0
+ 1158 00ac 8146     		mov	r9, r0
+ 1159              	.LVL150:
+ 1160              	.LBB157:
+ 1161              	.LBB156:
+  96:../../cores/mapleMX/Print.cpp **** }
+ 1162              		.loc 1 96 0
+ 1163 00ae 4046     		mov	r0, r8
+ 1164              	.LVL151:
+ 1165 00b0 FFF7FEFF 		bl	_ZN5Print11printNumberEmh
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 27
+
+
+ 1166              	.LVL152:
+ 1167              	.LBE156:
+ 1168              	.LBE157:
  239:../../cores/mapleMX/Print.cpp ****   double remainder = number - (double)int_part;
- 1198              		.loc 1 239 0
- 1199 00b8 FFF7FEFF 		bl	__aeabi_ui2d
- 1200              	.LVL156:
- 1201 00bc 0246     		mov	r2, r0
- 1202 00be 0B46     		mov	r3, r1
- 1203 00c0 2046     		mov	r0, r4
- 1204 00c2 2946     		mov	r1, r5
- 1205 00c4 FFF7FEFF 		bl	__aeabi_dsub
- 1206              	.LVL157:
- 1207              	.LBB146:
- 1208              	.LBB147:
-  96:../../cores/mapleMX/Print.cpp ****   else return printNumber(n, base);
- 1209              		.loc 1 96 0
- 1210 00c8 0A22     		movs	r2, #10
- 1211              	.LBE147:
- 1212              	.LBE146:
- 1213              		.loc 1 239 0
- 1214 00ca 0446     		mov	r4, r0
- 1215              	.LVL158:
- 1216 00cc 0D46     		mov	r5, r1
- 1217              	.LVL159:
- 1218              	.LBB149:
- 1219              	.LBB148:
-  96:../../cores/mapleMX/Print.cpp ****   else return printNumber(n, base);
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 28
-
-
- 1220              		.loc 1 96 0
- 1221 00ce 3046     		mov	r0, r6
- 1222 00d0 4946     		mov	r1, r9
- 1223 00d2 FFF7FEFF 		bl	_ZN5Print11printNumberEmh
- 1224              	.LVL160:
- 1225              	.LBE148:
- 1226              	.LBE149:
  240:../../cores/mapleMX/Print.cpp ****   n += print(int_part);
- 1227              		.loc 1 240 0
- 1228 00d6 8044     		add	r8, r8, r0
- 1229              	.LVL161:
+ 1169              		.loc 1 240 0
+ 1170 00b4 0444     		add	r4, r4, r0
+ 1171              	.LVL153:
  241:../../cores/mapleMX/Print.cpp **** 
  242:../../cores/mapleMX/Print.cpp ****   // Print the decimal point, but only if there are digits beyond
  243:../../cores/mapleMX/Print.cpp ****   if (digits > 0) {
- 1230              		.loc 1 243 0
- 1231 00d8 27B1     		cbz	r7, .L58
- 1232              	.LVL162:
- 1233              	.LBB150:
- 1234              	.LBB151:
-  54:../../cores/mapleMX/Print.cpp ****   return write(str);
- 1235              		.loc 1 54 0
- 1236 00da 3046     		mov	r0, r6
- 1237 00dc 1A49     		ldr	r1, .L70+28
- 1238 00de FFF7FEFF 		bl	_ZN5Print5writeEPKc
- 1239              	.LVL163:
- 1240              	.LBE151:
- 1241              	.LBE150:
+ 1172              		.loc 1 243 0
+ 1173 00b6 7DB3     		cbz	r5, .L56
+ 239:../../cores/mapleMX/Print.cpp ****   double remainder = number - (double)int_part;
+ 1174              		.loc 1 239 0
+ 1175 00b8 4846     		mov	r0, r9
+ 1176 00ba FFF7FEFF 		bl	__aeabi_ui2d
+ 1177              	.LVL154:
+ 1178 00be 0246     		mov	r2, r0
+ 1179 00c0 0B46     		mov	r3, r1
+ 1180 00c2 3046     		mov	r0, r6
+ 1181 00c4 3946     		mov	r1, r7
+ 1182 00c6 FFF7FEFF 		bl	__aeabi_dsub
+ 1183              	.LVL155:
+ 1184 00ca 0646     		mov	r6, r0
+ 1185              	.LVL156:
+ 1186 00cc 0F46     		mov	r7, r1
+ 1187              	.LVL157:
+ 1188              	.LBB158:
+ 1189              	.LBB159:
+  54:../../cores/mapleMX/Print.cpp **** }
+ 1190              		.loc 1 54 0
+ 1191 00ce 4046     		mov	r0, r8
+ 1192 00d0 1A49     		ldr	r1, .L62+28
+ 1193 00d2 FFF7FEFF 		bl	_ZN5Print5writeEPKc
+ 1194              	.LVL158:
+ 1195              	.LBE159:
+ 1196              	.LBE158:
  244:../../cores/mapleMX/Print.cpp ****     n += print("."); 
- 1242              		.loc 1 244 0
- 1243 00e2 8044     		add	r8, r8, r0
- 1244              	.LVL164:
- 1245              	.L58:
+ 1197              		.loc 1 244 0
+ 1198 00d6 0444     		add	r4, r4, r0
+ 1199              	.LVL159:
+ 1200              	.L54:
+ 1201              	.LBB160:
  245:../../cores/mapleMX/Print.cpp ****   }
  246:../../cores/mapleMX/Print.cpp **** 
  247:../../cores/mapleMX/Print.cpp ****   // Extract digits from the remainder one at a time
  248:../../cores/mapleMX/Print.cpp ****   while (digits-- > 0)
- 1246              		.loc 1 248 0 discriminator 1
- 1247 00e4 F7B1     		cbz	r7, .L69
- 1248              	.LBB152:
  249:../../cores/mapleMX/Print.cpp ****   {
  250:../../cores/mapleMX/Print.cpp ****     remainder *= 10.0;
- 1249              		.loc 1 250 0
- 1250 00e6 174B     		ldr	r3, .L70+24
- 1251 00e8 0022     		movs	r2, #0
- 1252 00ea 2046     		mov	r0, r4
- 1253 00ec 2946     		mov	r1, r5
- 1254 00ee FFF7FEFF 		bl	__aeabi_dmul
- 1255              	.LVL165:
- 1256 00f2 0D46     		mov	r5, r1
- 1257 00f4 0446     		mov	r4, r0
- 1258              	.LVL166:
+ 1202              		.loc 1 250 0
+ 1203 00d8 174B     		ldr	r3, .L62+24
+ 1204 00da 0022     		movs	r2, #0
+ 1205 00dc 3046     		mov	r0, r6
+ 1206 00de 3946     		mov	r1, r7
+ 1207 00e0 FFF7FEFF 		bl	__aeabi_dmul
+ 1208              	.LVL160:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 28
+
+
+ 1209 00e4 0F46     		mov	r7, r1
+ 1210 00e6 0646     		mov	r6, r0
+ 1211              	.LVL161:
  251:../../cores/mapleMX/Print.cpp ****     int toPrint = int(remainder);
- 1259              		.loc 1 251 0
- 1260 00f6 FFF7FEFF 		bl	__aeabi_d2iz
- 1261              	.LVL167:
- 1262 00fa 8146     		mov	r9, r0
- 1263              	.LVL168:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 29
-
-
- 1264              	.LBB153:
- 1265              	.LBB154:
-  69:../../cores/mapleMX/Print.cpp ****   return print((long) n, base);
- 1266              		.loc 1 69 0
- 1267 00fc 0A22     		movs	r2, #10
- 1268 00fe 4946     		mov	r1, r9
- 1269 0100 3046     		mov	r0, r6
- 1270              	.LVL169:
- 1271 0102 FFF7FEFF 		bl	_ZN5Print5printEli
- 1272              	.LVL170:
- 1273              	.LBE154:
- 1274              	.LBE153:
+ 1212              		.loc 1 251 0
+ 1213 00e8 FFF7FEFF 		bl	__aeabi_d2iz
+ 1214              	.LVL162:
+ 1215              	.LBB161:
+ 1216              	.LBB162:
+  69:../../cores/mapleMX/Print.cpp **** }
+ 1217              		.loc 1 69 0
+ 1218 00ec 0A22     		movs	r2, #10
+ 1219 00ee 0146     		mov	r1, r0
+ 1220              	.LBE162:
+ 1221              	.LBE161:
+ 1222              		.loc 1 251 0
+ 1223 00f0 8146     		mov	r9, r0
+ 1224              	.LVL163:
+ 1225              	.LBB164:
+ 1226              	.LBB163:
+  69:../../cores/mapleMX/Print.cpp **** }
+ 1227              		.loc 1 69 0
+ 1228 00f2 4046     		mov	r0, r8
+ 1229              	.LVL164:
+ 1230 00f4 FFF7FEFF 		bl	_ZN5Print5printEli
+ 1231              	.LVL165:
+ 1232              	.LBE163:
+ 1233              	.LBE164:
  252:../../cores/mapleMX/Print.cpp ****     n += print(toPrint);
- 1275              		.loc 1 252 0
- 1276 0106 8044     		add	r8, r8, r0
- 1277              	.LVL171:
+ 1234              		.loc 1 252 0
+ 1235 00f8 0444     		add	r4, r4, r0
+ 1236              	.LVL166:
  253:../../cores/mapleMX/Print.cpp ****     remainder -= toPrint; 
- 1278              		.loc 1 253 0
- 1279 0108 4846     		mov	r0, r9
- 1280 010a FFF7FEFF 		bl	__aeabi_i2d
- 1281              	.LVL172:
- 1282 010e 0246     		mov	r2, r0
- 1283 0110 0B46     		mov	r3, r1
- 1284 0112 2046     		mov	r0, r4
- 1285 0114 2946     		mov	r1, r5
- 1286 0116 FFF7FEFF 		bl	__aeabi_dsub
- 1287              	.LVL173:
- 1288 011a 013F     		subs	r7, r7, #1
- 1289              	.LVL174:
- 1290 011c 0446     		mov	r4, r0
- 1291              	.LVL175:
- 1292 011e 0D46     		mov	r5, r1
- 1293              	.LVL176:
- 1294 0120 FFB2     		uxtb	r7, r7
- 1295              	.LVL177:
- 1296 0122 DFE7     		b	.L58
- 1297              	.LVL178:
- 1298              	.L69:
- 1299              	.LBE152:
- 1300 0124 4046     		mov	r0, r8
- 1301              	.LBE156:
+ 1237              		.loc 1 253 0
+ 1238 00fa 4846     		mov	r0, r9
+ 1239 00fc FFF7FEFF 		bl	__aeabi_i2d
+ 1240              	.LVL167:
+ 1241 0100 0246     		mov	r2, r0
+ 1242 0102 0B46     		mov	r3, r1
+ 1243 0104 3046     		mov	r0, r6
+ 1244 0106 3946     		mov	r1, r7
+ 1245 0108 FFF7FEFF 		bl	__aeabi_dsub
+ 1246              	.LVL168:
+ 1247 010c 013D     		subs	r5, r5, #1
+ 1248              	.LVL169:
+ 1249              	.LBE160:
+ 248:../../cores/mapleMX/Print.cpp ****   {
+ 1250              		.loc 1 248 0
+ 1251 010e 15F0FF05 		ands	r5, r5, #255
+ 1252              	.LBB165:
+ 1253              		.loc 1 253 0
+ 1254 0112 0646     		mov	r6, r0
+ 1255              	.LVL170:
+ 1256 0114 0F46     		mov	r7, r1
+ 1257              	.LVL171:
+ 1258              	.LBE165:
+ 248:../../cores/mapleMX/Print.cpp ****   {
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 29
+
+
+ 1259              		.loc 1 248 0
+ 1260 0116 DFD1     		bne	.L54
+ 1261              	.LVL172:
+ 1262              	.L56:
+ 240:../../cores/mapleMX/Print.cpp **** 
+ 1263              		.loc 1 240 0
+ 1264 0118 2046     		mov	r0, r4
+ 1265              	.LBE152:
+ 1266              	.LBE151:
  254:../../cores/mapleMX/Print.cpp ****   } 
  255:../../cores/mapleMX/Print.cpp ****   
  256:../../cores/mapleMX/Print.cpp ****   return n;
  257:../../cores/mapleMX/Print.cpp **** }
- 1302              		.loc 1 257 0
- 1303 0126 BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
- 1304              	.LVL179:
- 1305              	.L71:
- 1306 012a 00BF     		.align	2
- 1307              	.L70:
- 1308 012c 00000000 		.word	.LC0
- 1309 0130 04000000 		.word	.LC1
- 1310 0134 FFFFEF41 		.word	1106247679
- 1311 0138 08000000 		.word	.LC2
- 1312 013c FFFFEFC1 		.word	-1041235969
- 1313 0140 0000E03F 		.word	1071644672
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 30
+ 1267              		.loc 1 257 0
+ 1268 011a BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 1269              	.LVL173:
+ 1270              	.L63:
+ 1271 011e 00BF     		.align	2
+ 1272              	.L62:
+ 1273 0120 00000000 		.word	.LC0
+ 1274 0124 04000000 		.word	.LC1
+ 1275 0128 FFFFEF41 		.word	1106247679
+ 1276 012c 08000000 		.word	.LC2
+ 1277 0130 FFFFEFC1 		.word	-1041235969
+ 1278 0134 0000E03F 		.word	1071644672
+ 1279 0138 00002440 		.word	1076101120
+ 1280 013c 0C000000 		.word	.LC3
+ 1281              		.cfi_endproc
+ 1282              	.LFE236:
+ 1284              		.section	.text._ZN5Print5printEdi,"ax",%progbits
+ 1285              		.align	1
+ 1286              		.global	_ZN5Print5printEdi
+ 1287              		.thumb
+ 1288              		.thumb_func
+ 1290              	_ZN5Print5printEdi:
+ 1291              	.LFB221:
+ 100:../../cores/mapleMX/Print.cpp ****   return printFloat(n, digits);
+ 1292              		.loc 1 100 0
+ 1293              		.cfi_startproc
+ 1294              		@ args = 4, pretend = 0, frame = 0
+ 1295              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1296              		@ link register save eliminated.
+ 1297              	.LVL174:
+ 101:../../cores/mapleMX/Print.cpp **** }
+ 1298              		.loc 1 101 0
+ 1299 0000 9DF80010 		ldrb	r1, [sp]	@ zero_extendqisi2
+ 1300 0004 0091     		str	r1, [sp]
+ 1301              	.LVL175:
+ 1302 0006 FFF7FEBF 		b	_ZN5Print10printFloatEdh
+ 1303              	.LVL176:
+ 1304              		.cfi_endproc
+ 1305              	.LFE221:
+ 1307              		.section	.text._ZN5Print7printlnEdi,"ax",%progbits
+ 1308              		.align	1
+ 1309              		.global	_ZN5Print7printlnEdi
+ 1310              		.thumb
+ 1311              		.thumb_func
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 30
 
 
- 1314 0144 00002440 		.word	1076101120
- 1315 0148 0C000000 		.word	.LC3
- 1316              		.cfi_endproc
- 1317              	.LFE236:
- 1319              		.section	.text._ZN5Print5printEdi,"ax",%progbits
- 1320              		.align	1
- 1321              		.global	_ZN5Print5printEdi
- 1322              		.thumb
- 1323              		.thumb_func
- 1325              	_ZN5Print5printEdi:
- 1326              	.LFB221:
- 100:../../cores/mapleMX/Print.cpp **** {
- 1327              		.loc 1 100 0
- 1328              		.cfi_startproc
- 1329              		@ args = 4, pretend = 0, frame = 0
- 1330              		@ frame_needed = 0, uses_anonymous_args = 0
- 1331              		@ link register save eliminated.
- 1332              	.LVL180:
- 101:../../cores/mapleMX/Print.cpp ****   return printFloat(n, digits);
- 1333              		.loc 1 101 0
- 1334 0000 9DF80010 		ldrb	r1, [sp]	@ zero_extendqisi2
- 1335 0004 0091     		str	r1, [sp]
- 1336              	.LVL181:
- 1337 0006 FFF7FEBF 		b	_ZN5Print10printFloatEdh
- 1338              	.LVL182:
- 1339              		.cfi_endproc
- 1340              	.LFE221:
- 1342              		.section	.text._ZN5Print7printlnEdi,"ax",%progbits
- 1343              		.align	1
- 1344              		.global	_ZN5Print7printlnEdi
- 1345              		.thumb
- 1346              		.thumb_func
- 1348              	_ZN5Print7printlnEdi:
- 1349              	.LFB233:
- 180:../../cores/mapleMX/Print.cpp **** {
- 1350              		.loc 1 180 0
- 1351              		.cfi_startproc
- 1352              		@ args = 4, pretend = 0, frame = 0
- 1353              		@ frame_needed = 0, uses_anonymous_args = 0
- 1354              	.LVL183:
- 1355 0000 37B5     		push	{r0, r1, r2, r4, r5, lr}
- 1356              		.cfi_def_cfa_offset 24
- 1357              		.cfi_offset 0, -24
- 1358              		.cfi_offset 1, -20
- 1359              		.cfi_offset 2, -16
- 1360              		.cfi_offset 4, -12
- 1361              		.cfi_offset 5, -8
- 1362              		.cfi_offset 14, -4
- 1363              	.LBB157:
- 1364              	.LBB158:
- 1365              	.LBB159:
- 101:../../cores/mapleMX/Print.cpp ****   return printFloat(n, digits);
- 1366              		.loc 1 101 0
- 1367 0002 9DF81810 		ldrb	r1, [sp, #24]	@ zero_extendqisi2
- 1368 0006 0091     		str	r1, [sp]
- 1369              	.LBE159:
- 1370              	.LBE158:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 31
+ 1313              	_ZN5Print7printlnEdi:
+ 1314              	.LFB233:
+ 180:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, digits);
+ 1315              		.loc 1 180 0
+ 1316              		.cfi_startproc
+ 1317              		@ args = 4, pretend = 0, frame = 0
+ 1318              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1319              	.LVL177:
+ 1320 0000 37B5     		push	{r0, r1, r2, r4, r5, lr}
+ 1321              		.cfi_def_cfa_offset 24
+ 1322              		.cfi_offset 4, -12
+ 1323              		.cfi_offset 5, -8
+ 1324              		.cfi_offset 14, -4
+ 1325              	.LBB166:
+ 1326              	.LBB167:
+ 101:../../cores/mapleMX/Print.cpp **** }
+ 1327              		.loc 1 101 0
+ 1328 0002 9DF81810 		ldrb	r1, [sp, #24]	@ zero_extendqisi2
+ 1329 0006 0091     		str	r1, [sp]
+ 1330              	.LBE167:
+ 1331              	.LBE166:
+ 180:../../cores/mapleMX/Print.cpp ****   size_t n = print(num, digits);
+ 1332              		.loc 1 180 0
+ 1333 0008 0546     		mov	r5, r0
+ 1334              	.LVL178:
+ 1335              	.LBB169:
+ 1336              	.LBB168:
+ 101:../../cores/mapleMX/Print.cpp **** }
+ 1337              		.loc 1 101 0
+ 1338 000a FFF7FEFF 		bl	_ZN5Print10printFloatEdh
+ 1339              	.LVL179:
+ 1340 000e 0446     		mov	r4, r0
+ 1341              	.LVL180:
+ 1342              	.LBE168:
+ 1343              	.LBE169:
+ 182:../../cores/mapleMX/Print.cpp ****   return n;
+ 1344              		.loc 1 182 0
+ 1345 0010 2846     		mov	r0, r5
+ 1346 0012 FFF7FEFF 		bl	_ZN5Print7printlnEv
+ 1347              	.LVL181:
+ 184:../../cores/mapleMX/Print.cpp **** 
+ 1348              		.loc 1 184 0
+ 1349 0016 2044     		add	r0, r0, r4
+ 1350              	.LVL182:
+ 1351 0018 03B0     		add	sp, sp, #12
+ 1352              		.cfi_def_cfa_offset 12
+ 1353              		@ sp needed
+ 1354 001a 30BD     		pop	{r4, r5, pc}
+ 1355              		.cfi_endproc
+ 1356              	.LFE233:
+ 1358              		.global	_ZTV5Print
+ 1359              		.section	.rodata._ZTV5Print,"a",%progbits
+ 1360              		.align	2
+ 1363              	_ZTV5Print:
+ 1364 0000 00000000 		.word	0
+ 1365 0004 00000000 		.word	0
+ 1366 0008 00000000 		.word	__cxa_pure_virtual
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 31
 
 
- 1371              	.LBE157:
- 180:../../cores/mapleMX/Print.cpp **** {
- 1372              		.loc 1 180 0
- 1373 0008 0446     		mov	r4, r0
- 1374              	.LVL184:
- 1375              	.LBB162:
- 1376              	.LBB161:
- 1377              	.LBB160:
- 101:../../cores/mapleMX/Print.cpp ****   return printFloat(n, digits);
- 1378              		.loc 1 101 0
- 1379 000a FFF7FEFF 		bl	_ZN5Print10printFloatEdh
- 1380              	.LVL185:
- 1381 000e 0546     		mov	r5, r0
- 1382              	.LBE160:
- 1383              	.LBE161:
- 182:../../cores/mapleMX/Print.cpp ****   n += println();
- 1384              		.loc 1 182 0
- 1385 0010 2046     		mov	r0, r4
- 1386 0012 FFF7FEFF 		bl	_ZN5Print7printlnEv
- 1387              	.LVL186:
- 1388              	.LBE162:
- 184:../../cores/mapleMX/Print.cpp **** }
- 1389              		.loc 1 184 0
- 1390 0016 2844     		add	r0, r0, r5
- 1391              	.LVL187:
- 1392 0018 03B0     		add	sp, sp, #12
- 1393              		@ sp needed
- 1394 001a 30BD     		pop	{r4, r5, pc}
- 1395              		.cfi_endproc
- 1396              	.LFE233:
- 1398              		.section	.text._ZN5PrintD2Ev,"ax",%progbits
- 1399              		.align	1
- 1400              		.global	_ZN5PrintD2Ev
- 1401              		.thumb
- 1402              		.thumb_func
- 1404              	_ZN5PrintD2Ev:
- 1405              	.LFB238:
- 258:../../cores/mapleMX/Print.cpp **** 
- 259:../../cores/mapleMX/Print.cpp **** Print::~Print() {};
- 1406              		.loc 1 259 0
- 1407              		.cfi_startproc
- 1408              		@ args = 0, pretend = 0, frame = 0
- 1409              		@ frame_needed = 0, uses_anonymous_args = 0
- 1410              		@ link register save eliminated.
- 1411              	.LVL188:
- 1412              	.LBB163:
- 1413              		.loc 1 259 0
- 1414 0000 014B     		ldr	r3, .L75
- 1415 0002 0360     		str	r3, [r0]
- 1416              	.LBE163:
- 1417 0004 7047     		bx	lr
- 1418              	.L76:
- 1419 0006 00BF     		.align	2
- 1420              	.L75:
- 1421 0008 08000000 		.word	.LANCHOR0+8
- 1422              		.cfi_endproc
- 1423              	.LFE238:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 32
-
-
- 1425              		.global	_ZN5PrintD1Ev
- 1426              		.thumb_set _ZN5PrintD1Ev,_ZN5PrintD2Ev
- 1427              		.section	.text._ZN5PrintD0Ev,"ax",%progbits
- 1428              		.align	1
- 1429              		.global	_ZN5PrintD0Ev
- 1430              		.thumb
- 1431              		.thumb_func
- 1433              	_ZN5PrintD0Ev:
- 1434              	.LFB240:
- 1435              		.loc 1 259 0
- 1436              		.cfi_startproc
- 1437              		@ args = 0, pretend = 0, frame = 0
- 1438              		@ frame_needed = 0, uses_anonymous_args = 0
- 1439              	.LVL189:
- 1440 0000 10B5     		push	{r4, lr}
- 1441              		.cfi_def_cfa_offset 8
- 1442              		.cfi_offset 4, -8
- 1443              		.cfi_offset 14, -4
- 1444              	.LBB164:
- 1445              	.LBB165:
- 1446              		.loc 1 259 0
- 1447 0002 034B     		ldr	r3, .L78
- 1448 0004 0360     		str	r3, [r0]
- 1449              	.LBE165:
- 1450              	.LBE164:
- 1451 0006 0446     		mov	r4, r0
- 1452 0008 FFF7FEFF 		bl	_ZdlPv
- 1453              	.LVL190:
- 1454 000c 2046     		mov	r0, r4
- 1455 000e 10BD     		pop	{r4, pc}
- 1456              	.LVL191:
- 1457              	.L79:
- 1458              		.align	2
- 1459              	.L78:
- 1460 0010 08000000 		.word	.LANCHOR0+8
- 1461              		.cfi_endproc
- 1462              	.LFE240:
- 1464              		.global	_ZTV5Print
- 1465              		.section	.rodata._ZTV5Print,"a",%progbits
- 1466              		.align	3
- 1467              		.set	.LANCHOR0,. + 0
- 1470              	_ZTV5Print:
- 1471 0000 00000000 		.word	0
- 1472 0004 00000000 		.word	0
- 1473 0008 00000000 		.word	__cxa_pure_virtual
- 1474 000c 00000000 		.word	_ZN5Print5writeEPKhj
- 1475 0010 00000000 		.word	__cxa_pure_virtual
- 1476 0014 00000000 		.word	__cxa_pure_virtual
- 1477              		.section	.rodata.str1.1,"aMS",%progbits,1
- 1478              	.LC0:
- 1479 0000 6E616E00 		.ascii	"nan\000"
- 1480              	.LC1:
- 1481 0004 696E6600 		.ascii	"inf\000"
- 1482              	.LC2:
- 1483 0008 6F766600 		.ascii	"ovf\000"
- 1484              	.LC3:
- 1485 000c 2E00     		.ascii	".\000"
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 33
-
-
- 1486              		.text
- 1487              	.Letext0:
- 1488              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/l
- 1489              		.file 4 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 1490              		.file 5 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 1491              		.file 6 "../../cores/mapleMX/WString.h"
- 1492              		.file 7 "../../cores/mapleMX/Stream.h"
- 1493              		.file 8 "../../cores/mapleMX/HardwareSerial.h"
- 1494              		.file 9 "../../cores/mapleMX/UARTClass.h"
- 1495              		.file 10 "../../cores/mapleMX/USB/USBAPI.h"
- 1496              		.file 11 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/
- 1497              		.file 12 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/
- 1498              		.file 13 "<built-in>"
- 1499              		.file 14 "Drivers/CMSIS/Include/core_cm4.h"
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 34
+ 1367 000c 00000000 		.word	_ZN5Print5writeEPKhj
+ 1368              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 1369              	.LC0:
+ 1370 0000 6E616E00 		.ascii	"nan\000"
+ 1371              	.LC1:
+ 1372 0004 696E6600 		.ascii	"inf\000"
+ 1373              	.LC2:
+ 1374 0008 6F766600 		.ascii	"ovf\000"
+ 1375              	.LC3:
+ 1376 000c 2E00     		.ascii	".\000"
+ 1377              		.text
+ 1378              	.Letext0:
+ 1379              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 1380              		.file 4 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 1381              		.file 5 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 1382              		.file 6 "../../cores/mapleMX/WString.h"
+ 1383              		.file 7 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 1384              		.file 8 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 1385              		.file 9 "<built-in>"
+ 1386              		.file 10 "Drivers/CMSIS/Include/core_cm4.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 32
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 Print.cpp
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:19     .text._ZN5Print5writeEPKhj:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:24     .text._ZN5Print5writeEPKhj:0000000000000000 _ZN5Print5writeEPKhj
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:74     .text._ZN5Print5writeEPKc:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:79     .text._ZN5Print5writeEPKc:0000000000000000 _ZN5Print5writeEPKc
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:119    .text._ZN5Print5printEPK19__FlashStringHelper:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:124    .text._ZN5Print5printEPK19__FlashStringHelper:0000000000000000 _ZN5Print5printEPK19__FlashStringHelper
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:148    .text._ZN5Print5printERK6String:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:153    .text._ZN5Print5printERK6String:0000000000000000 _ZN5Print5printERK6String
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:184    .text._ZN5Print5printEPKc:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:189    .text._ZN5Print5printEPKc:0000000000000000 _ZN5Print5printEPKc
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:209    .text._ZN5Print5printEc:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:214    .text._ZN5Print5printEc:0000000000000000 _ZN5Print5printEc
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:236    .text._ZN5Print5printERK9Printable:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:241    .text._ZN5Print5printERK9Printable:0000000000000000 _ZN5Print5printERK9Printable
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:270    .text._ZN5Print7printlnEv:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:275    .text._ZN5Print7printlnEv:0000000000000000 _ZN5Print7printlnEv
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:317    .text._ZN5Print7printlnEPK19__FlashStringHelper:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:322    .text._ZN5Print7printlnEPK19__FlashStringHelper:0000000000000000 _ZN5Print7printlnEPK19__FlashStringHelper
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:362    .text._ZN5Print7printlnERK6String:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:367    .text._ZN5Print7printlnERK6String:0000000000000000 _ZN5Print7printlnERK6String
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:402    .text._ZN5Print7printlnEPKc:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:407    .text._ZN5Print7printlnEPKc:0000000000000000 _ZN5Print7printlnEPKc
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:445    .text._ZN5Print7printlnEc:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:450    .text._ZN5Print7printlnEc:0000000000000000 _ZN5Print7printlnEc
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:485    .text._ZN5Print7printlnERK9Printable:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:490    .text._ZN5Print7printlnERK9Printable:0000000000000000 _ZN5Print7printlnERK9Printable
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:525    .text._ZN5Print11printNumberEmh:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:530    .text._ZN5Print11printNumberEmh:0000000000000000 _ZN5Print11printNumberEmh
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:599    .text._ZN5Print5printEli:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:604    .text._ZN5Print5printEli:0000000000000000 _ZN5Print5printEli
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:696    .text._ZN5Print5printEii:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:701    .text._ZN5Print5printEii:0000000000000000 _ZN5Print5printEii
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:716    .text._ZN5Print7printlnEii:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:721    .text._ZN5Print7printlnEii:0000000000000000 _ZN5Print7printlnEii
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:759    .text._ZN5Print7printlnEli:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:764    .text._ZN5Print7printlnEli:0000000000000000 _ZN5Print7printlnEli
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:799    .text._ZN5Print5printEmi:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:804    .text._ZN5Print5printEmi:0000000000000000 _ZN5Print5printEmi
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:844    .text._ZN5Print5printEhi:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:849    .text._ZN5Print5printEhi:0000000000000000 _ZN5Print5printEhi
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:864    .text._ZN5Print7printlnEhi:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:869    .text._ZN5Print7printlnEhi:0000000000000000 _ZN5Print7printlnEhi
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:907    .text._ZN5Print5printEji:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:912    .text._ZN5Print5printEji:0000000000000000 _ZN5Print5printEji
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:927    .text._ZN5Print7printlnEji:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:932    .text._ZN5Print7printlnEji:0000000000000000 _ZN5Print7printlnEji
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:970    .text._ZN5Print7printlnEmi:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:975    .text._ZN5Print7printlnEmi:0000000000000000 _ZN5Print7printlnEmi
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1020   .text._ZN5Print10printFloatEdh:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1025   .text._ZN5Print10printFloatEdh:0000000000000000 _ZN5Print10printFloatEdh
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1308   .text._ZN5Print10printFloatEdh:000000000000012c $d
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1320   .text._ZN5Print5printEdi:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1325   .text._ZN5Print5printEdi:0000000000000000 _ZN5Print5printEdi
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1343   .text._ZN5Print7printlnEdi:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1348   .text._ZN5Print7printlnEdi:0000000000000000 _ZN5Print7printlnEdi
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s 			page 35
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:20     .text._ZN5Print5writeEPKhj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:25     .text._ZN5Print5writeEPKhj:0000000000000000 _ZN5Print5writeEPKhj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:74     .text._ZN5Print5writeEPKc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:79     .text._ZN5Print5writeEPKc:0000000000000000 _ZN5Print5writeEPKc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:130    .text._ZN5Print5printEPK19__FlashStringHelper:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:135    .text._ZN5Print5printEPK19__FlashStringHelper:0000000000000000 _ZN5Print5printEPK19__FlashStringHelper
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:150    .text._ZN5Print5printERK6String:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:155    .text._ZN5Print5printERK6String:0000000000000000 _ZN5Print5printERK6String
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:179    .text._ZN5Print5printEPKc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:184    .text._ZN5Print5printEPKc:0000000000000000 _ZN5Print5printEPKc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:204    .text._ZN5Print5printEc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:209    .text._ZN5Print5printEc:0000000000000000 _ZN5Print5printEc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:226    .text._ZN5Print5printERK9Printable:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:231    .text._ZN5Print5printERK9Printable:0000000000000000 _ZN5Print5printERK9Printable
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:255    .text._ZN5Print7printlnEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:260    .text._ZN5Print7printlnEv:0000000000000000 _ZN5Print7printlnEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:298    .text._ZN5Print7printlnERK6String:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:303    .text._ZN5Print7printlnERK6String:0000000000000000 _ZN5Print7printlnERK6String
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:336    .text._ZN5Print7printlnEPKc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:341    .text._ZN5Print7printlnEPKc:0000000000000000 _ZN5Print7printlnEPKc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:378    .text._ZN5Print7printlnEPK19__FlashStringHelper:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:383    .text._ZN5Print7printlnEPK19__FlashStringHelper:0000000000000000 _ZN5Print7printlnEPK19__FlashStringHelper
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:394    .text._ZN5Print7printlnEc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:399    .text._ZN5Print7printlnEc:0000000000000000 _ZN5Print7printlnEc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:433    .text._ZN5Print7printlnERK9Printable:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:438    .text._ZN5Print7printlnERK9Printable:0000000000000000 _ZN5Print7printlnERK9Printable
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:471    .text._ZN5Print11printNumberEmh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:476    .text._ZN5Print11printNumberEmh:0000000000000000 _ZN5Print11printNumberEmh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:542    .text._ZN5Print5printEmi:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:547    .text._ZN5Print5printEmi:0000000000000000 _ZN5Print5printEmi
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:597    .text._ZN5Print5printEhi:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:602    .text._ZN5Print5printEhi:0000000000000000 _ZN5Print5printEhi
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:617    .text._ZN5Print7printlnEhi:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:622    .text._ZN5Print7printlnEhi:0000000000000000 _ZN5Print7printlnEhi
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:659    .text._ZN5Print5printEji:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:664    .text._ZN5Print5printEji:0000000000000000 _ZN5Print5printEji
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:679    .text._ZN5Print7printlnEji:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:684    .text._ZN5Print7printlnEji:0000000000000000 _ZN5Print7printlnEji
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:721    .text._ZN5Print7printlnEmi:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:726    .text._ZN5Print7printlnEmi:0000000000000000 _ZN5Print7printlnEmi
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:759    .text._ZN5Print5printEli:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:764    .text._ZN5Print5printEli:0000000000000000 _ZN5Print5printEli
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:877    .text._ZN5Print5printEii:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:882    .text._ZN5Print5printEii:0000000000000000 _ZN5Print5printEii
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:897    .text._ZN5Print7printlnEii:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:902    .text._ZN5Print7printlnEii:0000000000000000 _ZN5Print7printlnEii
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:939    .text._ZN5Print7printlnEli:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:944    .text._ZN5Print7printlnEli:0000000000000000 _ZN5Print7printlnEli
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:987    .text._ZN5Print10printFloatEdh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:992    .text._ZN5Print10printFloatEdh:0000000000000000 _ZN5Print10printFloatEdh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:1273   .text._ZN5Print10printFloatEdh:0000000000000120 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:1285   .text._ZN5Print5printEdi:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:1290   .text._ZN5Print5printEdi:0000000000000000 _ZN5Print5printEdi
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:1308   .text._ZN5Print7printlnEdi:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:1313   .text._ZN5Print7printlnEdi:0000000000000000 _ZN5Print7printlnEdi
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s 			page 33
 
 
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1399   .text._ZN5PrintD2Ev:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1404   .text._ZN5PrintD2Ev:0000000000000000 _ZN5PrintD2Ev
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1421   .text._ZN5PrintD2Ev:0000000000000008 $d
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1404   .text._ZN5PrintD2Ev:0000000000000000 _ZN5PrintD1Ev
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1428   .text._ZN5PrintD0Ev:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1433   .text._ZN5PrintD0Ev:0000000000000000 _ZN5PrintD0Ev
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1460   .text._ZN5PrintD0Ev:0000000000000010 $d
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1470   .rodata._ZTV5Print:0000000000000000 _ZTV5Print
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccQt5Z8A.s:1466   .rodata._ZTV5Print:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:1363   .rodata._ZTV5Print:0000000000000000 _ZTV5Print
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccd5LdgM.s:1360   .rodata._ZTV5Print:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS
@@ -2022,5 +1901,4 @@ __aeabi_dmul
 __aeabi_d2iz
 __aeabi_i2d
 __fpclassifyd
-_ZdlPv
 __cxa_pure_virtual

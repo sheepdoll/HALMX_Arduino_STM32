@@ -20,7 +20,6 @@
 #define _UART_CLASS_
 
 #include "HardwareSerial.h"
-#include "RingBuffer.h"
 
 // Includes [S]Atmel[/S] STM CMSIS
 #include <chip.h>
@@ -35,6 +34,7 @@
 #define SERIAL_8M1 UARTClass::Mode_8M1
 #define SERIAL_8S1 UARTClass::Mode_8S1
 
+#define SERIAL_BUFFER_SIZE 128
 
 class UARTClass : public HardwareSerial
 {
@@ -46,9 +46,9 @@ class UARTClass : public HardwareSerial
       Mode_8M1, // = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_MARK,
       Mode_8S1 // = US_MR_CHRL_8_BIT | US_MR_NBSTOP_1_BIT | UART_MR_PAR_SPACE,
     };
-    UARTClass(UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer* pRx_buffer, RingBuffer* pTx_buffer);
-    UARTClass(UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, RingBuffer *pRx_buffer, RingBuffer *pTx_buffer, USART_TypeDef* usartNumber );
-    
+    UARTClass(UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId);
+    UARTClass(UART_HandleTypeDef *pUart, IRQn_Type dwIrq, uint32_t dwId, USART_TypeDef* usartNumber );
+    UARTClass(void);
     void begin(const uint32_t dwBaudRate);
     void begin(const uint32_t dwBaudRate, const UARTModes config);
     void end(void);
@@ -70,14 +70,21 @@ class UARTClass : public HardwareSerial
 
   protected:
     void init(const uint32_t dwBaudRate, const uint32_t config);
-
-    RingBuffer *_rx_buffer;
-    RingBuffer *_tx_buffer;
-
+    
+    struct ring_buffer
+    {
+      uint8_t buffer[SERIAL_BUFFER_SIZE];
+      volatile uint16_t iHead;
+      volatile uint16_t iTail;
+    };
+    
     UART_HandleTypeDef *_pUart;
     IRQn_Type _dwIrq;
     uint32_t _dwId;
     USART_TypeDef* _usartNumber;
+    uint8_t r_byte;
+    ring_buffer tx_buffer = { { 0 }, 0, 0};
+    ring_buffer rx_buffer = { { 0 }, 0, 0};
 
 };
 

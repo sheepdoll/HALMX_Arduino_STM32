@@ -1,33 +1,47 @@
-/*
-
-
-*/
+/****************************************************************************
+ * Copyright (c) 2016 by Vassilis Serasidis <info@serasidis.gr>
+ * 
+ * Variant definition library for Arduino STM32 + HAL + CubeMX (HALMX).
+ *
+ * This file is free software; you can redistribute it and/or modify
+ * it under the terms of either the GNU General Public License version 2
+ * or the GNU Lesser General Public License version 2.1, both as
+ * published by the Free Software Foundation.
+ ****************************************************************************/
 
 #ifndef _VARIANT_NUCLEO_F1xx_
 #define _VARIANT_NUCLEO_F1xx_
 
 #include <chip.h>
- /* #include "stm32f4xx_hal.h"  include this here so we do not have to use #ifdefs */
+
+#ifdef USE_USBSerial
+#include "usbd_cdc_if.h"
+#endif
 
 /** Master clock frequency */
 #define VARIANT_MCK			F_CPU
 
+#define NO_ADC 0xffff
 
-#if 1
+#define NO_PWM 0xffff
+#define hTimer1 1
+#define hTimer2 2
+#define hTimer3 3
+#define hTimer4 4
+
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
 
-//#include "Arduino.h"
+#include "Arduino.h"
 #ifdef __cplusplus
 #include "UARTClass.h"
-#include "USARTClass.h"
+
+#ifdef USE_USBSerial
+#include <USBSerial.h>
 #endif
+
 #endif
-
-
-
-
 
 #ifdef __cplusplus
 extern "C"{
@@ -38,6 +52,22 @@ extern "C"{
  */
 #if defined (  __GNUC__  ) /* GCC CS3 */
 #    include <syscalls.h> /** RedHat Newlib minimal stub */
+#endif
+
+#ifdef USE_USART1
+extern UART_HandleTypeDef huart1;
+#endif
+
+#ifdef USE_USART2
+extern UART_HandleTypeDef huart2;
+#endif
+
+#ifdef USE_USART3
+extern UART_HandleTypeDef huart3;
+#endif
+
+#ifdef USE_USBSerial
+extern USBD_HandleTypeDef hUsbDeviceFS;
 #endif
 
 /*
@@ -62,6 +92,20 @@ enum {
     PB2,PB1,PB15,PB14,PB13
 };
 
+/*
+ * Analog pins
+ */
+static const uint8_t A0  = PA0;
+static const uint8_t A1  = PA1;
+static const uint8_t A2  = PA4;
+static const uint8_t A3  = PA3;
+static const uint8_t A4  = PB0;
+static const uint8_t A5  = PC1;
+static const uint8_t A6  = PC7;
+
+static const uint8_t A7  = PA7;
+static const uint8_t A8  = PA6;
+static const uint8_t A9  = PA5;
 
 /* Definitions and types for pins */
 
@@ -89,30 +133,49 @@ typedef struct _Pin2PortMapArray
   		is normally mutable and only used by the init code
   	*/
   	uint32_t 	Pin_abstraction;	/* must match type in GPIO_InitTypeDef struct */
-  
-  
+    
+    uint32_t  adc_channel;
+    uint32_t  timerNumber;   //Timer1 to Timer4.
+    uint32_t  timerChannel;  //Timer channel (1-4).  
 } Pin2PortMapArray ;
 
 /* Pins table to be instanciated into variant.cpp */
 extern const Pin2PortMapArray g_Pin2PortMapArray[] ;
-
+//void UART_Handler(void);
+void Rx1_Handler(void); /* Vassilis Serasidis */
+void Tx1_Handler(void); /* Vassilis Serasidis */
+void Rx2_Handler(void); /* Vassilis Serasidis */
+void Tx2_Handler(void); /* Vassilis Serasidis */
+void Rx3_Handler(void); /* Vassilis Serasidis */
+void Tx3_Handler(void); /* Vassilis Serasidis */
+void USBSerial_Rx_Handler(uint8_t *data, uint16_t len); /* Vassilis Serasidis */
+void USBSerial_Tx_Handler(uint8_t *data, uint16_t len); /* Vassilis Serasidis */
+void StartUSBSerial(void);
 #ifdef __cplusplus
 }
 #endif
 
-
-
-#if 1
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
 
-extern UARTClass Serial;
-extern USARTClass Serial1;
-//extern USARTClass Serial2;
-//extern USARTClass Serial3;
+#ifdef USE_USART1
+extern UARTClass Serial1;
+#endif
+
+#ifdef USE_USART2
+extern UARTClass Serial2;
+#endif
+
+#ifdef USE_USART3
+extern UARTClass Serial3;
+#endif
+
+#ifdef USE_USBSerial
+extern USBSerial Serial;
+#endif
 
 #endif
 
@@ -141,7 +204,18 @@ extern USARTClass Serial1;
 #define SERIAL_PORT_HARDWARE2       Serial2
 #define SERIAL_PORT_HARDWARE3       Serial3
 
+#define WIRE_INTERFACES_COUNT 1
+#define PIN_WIRE_SDA         (PB7)
+#define PIN_WIRE_SCL         (PB8)
+#define WIRE_INTERFACE       hi2c1
+#define WIRE_INTERFACE_ID    I2C2
 
-#endif
+#define PIN_WIRE1_SDA        (PB11)
+#define PIN_WIRE1_SCL        (PB10)
+#define WIRE1_INTERFACE      hi2c2
+#define WIRE1_INTERFACE_ID   I2C2
+
+
+#define SPI_INTERFACES_COUNT 2
 
 #endif

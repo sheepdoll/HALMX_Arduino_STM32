@@ -14,9 +14,12 @@
   You should have received a copy of the GNU Lesser General Public
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  
+  - 08 April 2016 Modified by Vassilis Serasidis
+    This file is converted for using it with ST HAL + CubeMX + Arduino SAM core files.
 */
 
-#include "arduino.h"
+#include "Arduino.h"
 //#include "variant.h"
 
 
@@ -152,33 +155,33 @@ extern "C" {
 
 extern const Pin2PortMapArray g_Pin2PortMapArray[]=
 {    
-	{GPIOA, GPIO_PIN_3	},	/*  D0/PA3	USART2_RX	*/
-	{GPIOA, GPIO_PIN_2	},	/*  D1/PA2	USART2_TX	*/
+	{GPIOA, GPIO_PIN_3,  ADC_CHANNEL_3, hTimer2,  TIM_CHANNEL_4 },	/*  D0/PA3	USART2_RX	*/
+	{GPIOA, GPIO_PIN_2,  ADC_CHANNEL_2, hTimer2,  TIM_CHANNEL_3 },	/*  D1/PA2	USART2_TX	*/
 	
-    {GPIOA, GPIO_PIN_10	},	/*  D2/PA10	USART1_RX	*/
-    {GPIOB, GPIO_PIN_3  },	/*  D3/PB3	SWO			*/
-    {GPIOB, GPIO_PIN_5	},	/*  D4/PB5	GPIO T3		*/
-    {GPIOB, GPIO_PIN_4  },	/*  D5/PB4  GPIO T3		*/
-    {GPIOB, GPIO_PIN_10	},	/*  D6/PB10	I2C2_SCL	*/
-    {GPIOA, GPIO_PIN_8}	,	/*  D7/PA8	GPIO T1		*/
+    {GPIOA, GPIO_PIN_10, NO_ADC       , hTimer1,  TIM_CHANNEL_3 },	/*  D2/PA10	USART1_RX	*/
+    {GPIOB, GPIO_PIN_3,  NO_ADC       , NO_PWM,   NO_PWM        },	/*  D3/PB3	SWO			*/
+    {GPIOB, GPIO_PIN_5,  NO_ADC       , hTimer3,  TIM_CHANNEL_2 },	/*  D4/PB5	GPIO T3		*/
+    {GPIOB, GPIO_PIN_4,  NO_ADC       , hTimer3,  TIM_CHANNEL_1 },	/*  D5/PB4  GPIO T3		*/
+    {GPIOB, GPIO_PIN_10, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D6/PB10	I2C2_SCL	*/
+    {GPIOA, GPIO_PIN_8,  NO_ADC       , hTimer1,  TIM_CHANNEL_1 },	/*  D7/PA8	GPIO T1		*/
 
-    {GPIOA, GPIO_PIN_9	}, 	/*  D8/PA9	USART1_TX	*/
-    {GPIOC, GPIO_PIN_7	}, 	/*  D9/PC7	USART6Rx GPIO */
-    {GPIOB, GPIO_PIN_6	}, 	/*  D10/PB6	I2C1_SCL USART1TXAF */
-    {GPIOA, GPIO_PIN_7	}, 	/*  D11/PA7	SPI_MOSI_NC	*/
-    {GPIOA, GPIO_PIN_6	}, 	/*  D12/PA6	SPI_MISO_NC */
+    {GPIOA, GPIO_PIN_9,  NO_ADC       , hTimer1,  TIM_CHANNEL_2 }, 	/*  D8/PA9	USART1_TX	*/
+    {GPIOC, GPIO_PIN_7,  NO_ADC		  , hTimer3,  TIM_CHANNEL_2 }, 	/*  D9/PC7	USART6Rx GPIO */
+    {GPIOB, GPIO_PIN_6,  NO_ADC       , hTimer4,  TIM_CHANNEL_1 }, 	/*  D10/PB6	I2C1_SCL USART1TXAF */
+    {GPIOA, GPIO_PIN_7,  ADC_CHANNEL_7, NO_PWM,   NO_PWM        }, 	/*  D11/PA7	SPI_MOSI_NC	*/
+    {GPIOA, GPIO_PIN_6,  ADC_CHANNEL_6, NO_PWM,   NO_PWM        }, 	/*  D12/PA6	SPI_MISO_NC */
     
-    {GPIOA, GPIO_PIN_5	},	/*  D13/PA5 LED - no ADC12_IN5 SPI_SCK !*/
+    {GPIOA, GPIO_PIN_5,  ADC_CHANNEL_5, NO_PWM,   NO_PWM        },	/*  D13/PA5 LED - no ADC12_IN5 SPI_SCK !*/
     
-    {GPIOB, GPIO_PIN_9	}, 	/*  D14/PB9 I2C1_SDA	*/
-    {GPIOB, GPIO_PIN_8	}, 	/*  D15/PB8 I2C1_SCL	*/
+    {GPIOB, GPIO_PIN_9,  NO_ADC       , hTimer4,  TIM_CHANNEL_4 }, 	/*  D14/PB9 I2C1_SDA	*/
+    {GPIOB, GPIO_PIN_8,  NO_ADC       , hTimer4,  TIM_CHANNEL_3 }, 	/*  D15/PB8 I2C1_SCL	*/
 
-    {GPIOA, GPIO_PIN_0	}, 	/*  D16/A0/PA0 GPIO		*/
-    {GPIOA, GPIO_PIN_1	}, 	/*  D17/A1/PA1 GPIO		*/
-    {GPIOA, GPIO_PIN_4	}, 	/*  D18/A2/PA4 SPI_NSS	*/
-    {GPIOB, GPIO_PIN_0	}, 	/*  D19/A3/PB0 GPIO		*/
-    {GPIOC, GPIO_PIN_1	}, 	/*  D20/A4/PC1 GPIO		*/
-    {GPIOC, GPIO_PIN_0	},  /*  D21/A5/PC0 GPIO		*/
+    {GPIOA, GPIO_PIN_0,  ADC_CHANNEL_0, hTimer2,  TIM_CHANNEL_1 }, 	/*  D16/A0/PA0 GPIO		*/
+    {GPIOA, GPIO_PIN_1,  ADC_CHANNEL_1, hTimer2,  TIM_CHANNEL_2 }, 	/*  D17/A1/PA1 GPIO		*/
+    {GPIOA, GPIO_PIN_4,  ADC_CHANNEL_4, NO_PWM,   NO_PWM        }, 	/*  D18/A2/PA4 SPI_NSS	*/
+    {GPIOB, GPIO_PIN_0,  ADC_CHANNEL_8, hTimer3,  TIM_CHANNEL_3 }, 	/*  D19/A3/PB0 GPIO		*/
+    {GPIOC, GPIO_PIN_1,  ADC_CHANNEL_11, NO_PWM,  NO_PWM        }, 	/*  D20/A4/PC1 GPIO		*/
+    {GPIOC, GPIO_PIN_7,  ADC_CHANNEL_10, NO_PWM,  NO_PWM        },  /*  D21/A5/PC0 GPIO		*/
 
     /*
     	 these signals are only on the Morpho headers
@@ -186,30 +189,30 @@ extern const Pin2PortMapArray g_Pin2PortMapArray[]=
     	 Even pins are on the right header                 
     */
     
-    {GPIOC, GPIO_PIN_10 },	/*  D22/PC10 	SPI_SCK				ML1 */
-	{GPIOC, GPIO_PIN_12 },	/*  D23/PC12	SPI_MOSI			ML3 */
-    {GPIOB, GPIO_PIN_7  },	/*  D24/PB7		I2C1_SDA USART1RxAF	M21 */
-    {GPIOC, GPIO_PIN_13 },	/*  D25/PC13	USER BLUE BUTTON	M23 */
-    {GPIOC, GPIO_PIN_14 },	/*  D26/PC14	RCC_OSC32_IN 		M25 */
-    {GPIOC, GPIO_PIN_15 },	/*  D27/PC15	RCC_OSC32_OUT		M26 */
-    {GPIOC, GPIO_PIN_2  },	/*  D28/PC2		SPI2_MISO			M35 */
-    {GPIOC, GPIO_PIN_3  },	/*  D29/PC3		GPIO				M37 */
-    {GPIOC, GPIO_PIN_11 },	/*  D30/PC11	SPI3_MISO			ML2 */
-    {GPIOD, GPIO_PIN_2, },	/*  D31/PD2 	GPIO				ML4 */
-    {GPIOC, GPIO_PIN_9, },	/*  D32/PC9		GPIO				MR1 */
-    {GPIOC, GPIO_PIN_8, },	/*  D33/PC8		GPIO				MR2 */
-    {GPIOC, GPIO_PIN_6, },	/*  D34/PC6		USART6Tx GPOO		MR4 */
-    {GPIOC, GPIO_PIN_5	},	/*  D35/PC5		GPIO				MR6 */
-    {GPIOA, GPIO_PIN_12	},	/*  D36/PA12	USB_DP USART6_RX 	M12 AF */
-    {GPIOA, GPIO_PIN_11 },	/*  D37/PA11	USB_DM USART6_TX 	M14 AF */
-    {GPIOB, GPIO_PIN_12,},	/*  D38/PB12	SPI2_NSS			M16 */
-    {GPIOB, GPIO_PIN_11 },	/*  D39/PB11	VCAPPower			M18 PWM-not working?*/
-    {GPIOB, GPIO_PIN_2  },	/*  D40/PB2		BOOT1 !!			ML7 */
-    {GPIOB, GPIO_PIN_1	},	/*  D41/PB1		GPIO 				M24 */
-    {GPIOB, GPIO_PIN_15 },	/*  D42/PB15	SPI2_MOSI			M26 */
-    {GPIOB, GPIO_PIN_14 },	/*  D43/PB14	SPI2_MISO			M28 */
-    {GPIOB, GPIO_PIN_13 },	/*  D44/PB13	SPI2_SCK			M30 */
-    {GPIOC, GPIO_PIN_4, }	/*  D45/PC4		GPIO				M34 */
+    {GPIOC, GPIO_PIN_10, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D22/PC10 	SPI_SCK				ML1 */
+	{GPIOC, GPIO_PIN_12, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D23/PC12	SPI_MOSI			ML3 */
+    {GPIOB, GPIO_PIN_7,  NO_ADC       , hTimer4,  TIM_CHANNEL_2 },	/*  D24/PB7		I2C1_SDA USART1RxAF	M21 */
+    {GPIOC, GPIO_PIN_13, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D25/PC13	USER BLUE BUTTON	M23 */
+    {GPIOC, GPIO_PIN_14, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D26/PC14	RCC_OSC32_IN 		M25 */
+    {GPIOC, GPIO_PIN_15, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D27/PC15	RCC_OSC32_OUT		M26 */
+    {GPIOC, GPIO_PIN_2,  ADC_CHANNEL_12, NO_PWM,  NO_PWM        },	/*  D28/PC2		SPI2_MISO			M35 */
+    {GPIOC, GPIO_PIN_3,  ADC_CHANNEL_13, NO_PWM,  NO_PWM        },	/*  D29/PC3		GPIO				M37 */
+    {GPIOC, GPIO_PIN_11, NO_ADC		  , NO_PWM,  NO_PWM        },	/*  D30/PC11	SPI3_MISO	 ADC1_EXTI11	ML2 */
+    {GPIOD, GPIO_PIN_2,  NO_ADC       , NO_PWM,   NO_PWM        },	/*  D31/PD2 	GPIO				ML4 */
+    {GPIOC, GPIO_PIN_9,  NO_ADC       , hTimer3,  TIM_CHANNEL_4 },	/*  D32/PC9		GPIO				MR1 */
+    {GPIOC, GPIO_PIN_8,  NO_ADC       , hTimer3,  TIM_CHANNEL_3 },	/*  D33/PC8		GPIO				MR2 */
+    {GPIOC, GPIO_PIN_6,  NO_ADC       , hTimer3,  TIM_CHANNEL_1 },	/*  D34/PC6		USART6Tx GPOO		MR4 */
+    {GPIOC, GPIO_PIN_5,  ADC_CHANNEL_15, NO_PWM,  NO_PWM        },	/*  D35/PC5		GPIO				MR6 */
+    {GPIOA, GPIO_PIN_12, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D36/PA12	USB_DP USART6_RX 	M12 AF */
+    {GPIOA, GPIO_PIN_11, NO_ADC       , hTimer1,  TIM_CHANNEL_4 },	/*  D37/PA11	USB_DM USART6_TX 	M14 AF */
+    {GPIOB, GPIO_PIN_12, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D38/PB12	SPI2_NSS			M16 */
+    {GPIOB, GPIO_PIN_11, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D39/PB11	VCAPPower			M18 PWM-not working?*/
+    {GPIOB, GPIO_PIN_2,  NO_ADC       , NO_PWM,   NO_PWM        },	/*  D40/PB2		BOOT1 !!			ML7 */
+    {GPIOB, GPIO_PIN_1,  ADC_CHANNEL_9, hTimer3,  TIM_CHANNEL_4 },	/*  D41/PB1		GPIO 				M24 */
+    {GPIOB, GPIO_PIN_15, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D42/PB15	SPI2_MOSI			M26 */
+    {GPIOB, GPIO_PIN_14, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D43/PB14	SPI2_MISO			M28 */
+    {GPIOB, GPIO_PIN_13, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D44/PB13	SPI2_SCK			M30 */
+    {GPIOC, GPIO_PIN_4,  ADC_CHANNEL_15, NO_PWM,  NO_PWM        }	/*  D45/PC4		GPIO				M34 */
 
   	// JTAG Single wire pins
 	// {GPIOA, NULL,   NULL, 13, 0, ADCx},/* Dxx/PA13 	TMS	do not use	M13 */
@@ -225,18 +228,6 @@ extern const Pin2PortMapArray g_Pin2PortMapArray[]=
 }
 #endif
 
-/*
- * UART objects
- */
-RingBuffer rx_buffer1;
-RingBuffer tx_buffer1;
-
-
-/*
-	install bridge hooks to syscalls that will allow printf() to
-	access one of the USARTS
-*/
-
 #ifdef __GNUC__
   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
      set to 'Yes') calls __io_putchar() */
@@ -245,82 +236,59 @@ RingBuffer tx_buffer1;
   #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
 #endif /* __GNUC__ */
 
-/**
-  * @brief  Retargets the C library printf function to the USART.
-  * @param  None
-  * @retval None
-  */
-PUTCHAR_PROTOTYPE
-{
-  /* Place your implementation of fputc here */
-  /* e.g. write a character to the EVAL_COM1 and Loop until the end of transmission */
-  
-  /* 
-  	huart6 is defined in usart.h and instantiated in usart.c 
-  	usart.h is defined in chip.h and the header is loaded through UARTClass.h
-  */ 
-  
-  HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 0xFFFF); 
 
-  return ch;
+/* ----------------------------------------------------------------------------
+ *     USART objects
+ * ----------------------------------------------------------------------------*/
+
+#ifdef USE_USART1
+UARTClass Serial1(&huart1, USART1_IRQn, 0, USART1);
+void Tx1_Handler(void){
+  Serial1.TxHandler();
 }
-
-//UARTClass Serial(UART, UART_IRQn, ID_UART, &rx_buffer1, &tx_buffer1);
-UARTClass Serial(&huart3, USART3_IRQn, 3, &rx_buffer1, &tx_buffer1);
-void serialEvent() __attribute__((weak));
-void serialEvent() { }
-
-// IT handlers
-void UART_Handler(void)
-{
-//  Serial.IrqHandler();
-}
-
-// ----------------------------------------------------------------------------
-/*
- * USART objects
- */
-#if 1
-RingBuffer rx_buffer2;
-//RingBuffer rx_buffer3;
-//RingBuffer rx_buffer4;
-RingBuffer tx_buffer2;
-//RingBuffer tx_buffer3;
-//RingBuffer tx_buffer4;
-
-USARTClass Serial1(&huart2, USART2_IRQn, 2, &rx_buffer2, &tx_buffer2);
-void serialEvent1() __attribute__((weak));
-void serialEvent1() { }
-//USARTClass Serial2(USART1, USART1_IRQn, ID_USART1, &rx_buffer3, &tx_buffer3);
-//void serialEvent2() __attribute__((weak));
-//void serialEvent2() { }
-//USARTClass Serial3(USART3, USART3_IRQn, ID_USART3, &rx_buffer4, &tx_buffer4);
-//void serialEvent3() __attribute__((weak));
-//void serialEvent3() { }
-
-// IT handlers
-void USART0_Handler(void)
-{
-//  Serial1.IrqHandler();
-}
-
-//void USART1_Handler(void)
-//{
-//  Serial2.IrqHandler();
-//}
-
-//void USART3_Handler(void)
-//{
-//  Serial3.IrqHandler();
-//}
-
-// ----------------------------------------------------------------------------
-
-void serialEventRun(void)
-{
-  if (Serial.available()) serialEvent();
-  if (Serial1.available()) serialEvent1();
-//  if (Serial2.available()) serialEvent2();
-//  if (Serial3.available()) serialEvent3();
+void Rx1_Handler(void){
+  Serial1.RxHandler();
 }
 #endif
+
+#ifdef USE_USART2
+UARTClass Serial2(&huart2, USART2_IRQn, 1, USART2);
+void Tx2_Handler(void){
+  Serial2.TxHandler();
+}
+void Rx2_Handler(void){
+  Serial2.RxHandler();
+}
+#endif
+
+#ifdef USE_USART3
+UARTClass Serial3(&huart3, USART3_IRQn, 2, USART3);
+void Tx3_Handler(void){
+  Serial3.TxHandler();
+}
+void Rx3_Handler(void){
+  Serial3.RxHandler();
+}
+#endif
+
+#ifdef USE_USBSerial
+//uint8_t CDC_RxBuffer[CDC_RX_DATA_SIZE];
+//uint8_t CDC_TxBuffer[CDC_TX_DATA_SIZE];
+
+//RingBuffer USB_rx_buffer;
+//USBSerial Serial(CDC_RxBuffer, CDC_TxBuffer);
+USBSerial Serial;
+
+void USBSerial_Tx_Handler(uint8_t *data, uint16_t len){
+  Serial.CDC_TxHandler();
+}
+
+void USBSerial_Rx_Handler(uint8_t *data, uint16_t len){
+  Serial.CDC_RxHandler(data, len);
+}
+
+void StartUSBSerial (void){
+  Serial.begin(9600);
+}
+#endif
+

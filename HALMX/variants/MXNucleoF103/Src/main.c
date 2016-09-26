@@ -4,7 +4,7 @@
   * Description        : Main program body
   ******************************************************************************
   *
-  * COPYRIGHT(c) 2015 STMicroelectronics
+  * COPYRIGHT(c) 2016 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -30,26 +30,37 @@
   *
   ******************************************************************************
   */
-
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
+#include "adc.h"
 #include "i2c.h"
-#include "spi.h"
+#include "tim.h"
 #include "usart.h"
+#include "usb_device.h"
 #include "gpio.h"
 
 /* USER CODE BEGIN Includes */
-
+/*****************************************
+ * Comment out (//...) only: 
+ *  #include "i2c.h"
+ *  #include "spi.h"
+ *  #include "usart.h"
+ *  #include "usb_device.h"
+ *****************************************/ 
+#include "variant.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+// USBD_HandleTypeDef hUsbDevice_0 = hUsbDeviceFS;
+
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void Error_Handler(void);
 
 /* USER CODE BEGIN PFP */
 
@@ -98,19 +109,49 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
-  MX_SPI2_Init();
   MX_USART1_UART_Init();
   MX_USART2_UART_Init();
   MX_USART3_UART_Init();
+  MX_USB_DEVICE_Init();
+  MX_ADC1_Init();
+  MX_TIM1_Init();
 
   /* USER CODE BEGIN 2 */
+  //HAL_TIM_PWM_Init(&htim3);
+  //HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  /*****************************************
+   * Comment out (//...) only: 
+   *  MX_I2C1_Init();
+   *  MX_SPI1_Init();
+   *  MX_SPI2_Init();
+   *  MX_USART1_UART_Init();
+   *  MX_USART2_UART_Init();
+   *  MX_USB_DEVICE_Init();
+   *
+   *****************************************/
+#ifdef USE_USBSerial     
+ /**
+  * Re-enumerate USB (PA12 pin) 
+  */
+  // volatile unsigned int i;
+  // GPIO_InitStruct.Pin = GPIO_PIN_12;
+  // GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  // HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	// HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_RESET);
+	// for(i=0;i<512;i++);
+	// HAL_GPIO_WritePin(GPIOA, GPIO_PIN_12, GPIO_PIN_SET);
+  /****************************************************/
+
+  StartUSBSerial(); //Start USBSerial.
+#endif
   /* these calls are from arduino main */
 
 	init();
 
 	initVariant();
 	
-	HAL_Delay(7000); 	/* Wait 7 seconds to enable a serial coms channel */
+	HAL_Delay(2000); 	/* Wait 7 seconds to enable a serial coms channel */
 	
 	/* 
 		Usart6 is linked to printf for diagnostic use It is also mapped to
@@ -152,6 +193,7 @@ void SystemClock_Config(void)
 
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
+  RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -159,24 +201,113 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
-  HAL_RCC_OscConfig(&RCC_OscInitStruct);
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK|RCC_CLOCKTYPE_PCLK1;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
+                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2);
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC|RCC_PERIPHCLK_USB;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
+  PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL_DIV1_5;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  {
+    Error_Handler();
+  }
 
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
+  /* SysTick_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 /* USER CODE BEGIN 4 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0); //Toggle the state of pin PA0
+#ifdef USE_USART1
+  if(huart->Instance == USART1){
+    Rx1_Handler();
+  }
+#endif
+#ifdef USE_USART2
+  if(huart->Instance == USART2){
+    Rx2_Handler();
+  }
+#endif
+#ifdef USE_USART3
+  if(huart->Instance == USART3){
+    Rx3_Handler();
+  }
+#endif
+}
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart){
+#ifdef USE_USART1
+  if(huart->Instance == USART1)
+    Tx1_Handler();
+#endif
+#ifdef USE_USART2
+  if(huart->Instance == USART2)
+    Tx2_Handler();
+#endif
+#ifdef USE_USART3
+  if(huart->Instance == USART3)
+    Tx3_Handler();
+#endif
+}
+
+//void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi){
+//  //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+//}
+
+//void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi){
+//  //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_14);
+//}
+
+void HAL_I2C_MasterRxCpltCallback(I2C_HandleTypeDef *hi2c){
+  //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+}
+
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *hi2c){
+  //HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+}
+
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc){
+	//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+}
+
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
+	//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+}
 
 /* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @param  None
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler */
+  /* User can add his own implementation to report the HAL error return state */
+  while(1) 
+  {
+  }
+  /* USER CODE END Error_Handler */ 
+}
 
 #ifdef USE_FULL_ASSERT
 

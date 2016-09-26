@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,19 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"wiring_digital.c"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text.pinMode,"ax",%progbits
-  19              		.align	1
-  20              		.global	pinMode
-  21              		.thumb
-  22              		.thumb_func
-  24              	pinMode:
-  25              	.LFB126:
-  26              		.file 1 "../../cores/mapleMX/wiring_digital.c"
+  14              		.syntax unified
+  15              		.file	"wiring_digital.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.pinMode,"ax",%progbits
+  20              		.align	1
+  21              		.global	pinMode
+  22              		.thumb
+  23              		.thumb_func
+  25              	pinMode:
+  26              	.LFB126:
+  27              		.file 1 "../../cores/mapleMX/wiring_digital.c"
    1:../../cores/mapleMX/wiring_digital.c **** /*
    2:../../cores/mapleMX/wiring_digital.c ****   Copyright (c) 2011 Arduino.  All right reserved.
    3:../../cores/mapleMX/wiring_digital.c **** 
@@ -57,10 +58,10 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
   29:../../cores/mapleMX/wiring_digital.c **** 		opaque structures are used to abstract the functions needed
   30:../../cores/mapleMX/wiring_digital.c **** 		
   31:../../cores/mapleMX/wiring_digital.c **** 		existing STM examples show this defined locally a static 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 2
+
+
   32:../../cores/mapleMX/wiring_digital.c **** 		'static GPIO_InitTypeDef  GPIO_InitStruct;'
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 2
-
-
   33:../../cores/mapleMX/wiring_digital.c **** 
   34:../../cores/mapleMX/wiring_digital.c **** 		value which we set here.  This is different than the
   35:../../cores/mapleMX/wiring_digital.c **** 		way maple and sam set the pins as they use a global
@@ -115,25 +116,18 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
   84:../../cores/mapleMX/wiring_digital.c **** 
   85:../../cores/mapleMX/wiring_digital.c **** extern void pinMode( uint32_t ulPin, uint32_t ulMode )
   86:../../cores/mapleMX/wiring_digital.c **** {
-  27              		.loc 1 86 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 24
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 3
+  28              		.loc 1 86 0
+  29              		.cfi_startproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 3
 
 
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              	.LVL0:
-  32 0000 7FB5     		push	{r0, r1, r2, r3, r4, r5, r6, lr}
-  33              	.LCFI0:
-  34              		.cfi_def_cfa_offset 32
-  35              		.cfi_offset 0, -32
-  36              		.cfi_offset 1, -28
-  37              		.cfi_offset 2, -24
-  38              		.cfi_offset 3, -20
-  39              		.cfi_offset 4, -16
-  40              		.cfi_offset 5, -12
-  41              		.cfi_offset 6, -8
-  42              		.cfi_offset 14, -4
+  30              		@ args = 0, pretend = 0, frame = 24
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              	.LVL0:
+  33 0000 7FB5     		push	{r0, r1, r2, r3, r4, r5, r6, lr}
+  34              	.LCFI0:
+  35              		.cfi_def_cfa_offset 32
+  36              		.cfi_offset 14, -4
   87:../../cores/mapleMX/wiring_digital.c **** 
   88:../../cores/mapleMX/wiring_digital.c **** 	/*
   89:../../cores/mapleMX/wiring_digital.c **** 		in example code this is typically local
@@ -156,9 +150,9 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  106:../../cores/mapleMX/wiring_digital.c **** 	*/
  107:../../cores/mapleMX/wiring_digital.c **** 
  108:../../cores/mapleMX/wiring_digital.c **** 	GPIO_InitStruct.Pin = g_Pin2PortMapArray[ulPin].Pin_abstraction;
-  43              		.loc 1 108 0
-  44 0002 0F4B     		ldr	r3, .L8
-  45 0004 03EBC002 		add	r2, r3, r0, lsl #3
+  37              		.loc 1 108 0
+  38 0002 0F4B     		ldr	r3, .L8
+  39 0004 03EBC002 		add	r2, r3, r0, lsl #3
  109:../../cores/mapleMX/wiring_digital.c **** 	
  110:../../cores/mapleMX/wiring_digital.c **** 	/* check the port to see if it is a pin we can modify */
  111:../../cores/mapleMX/wiring_digital.c **** // from sam code -- needs work ---
@@ -178,23 +172,22 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  125:../../cores/mapleMX/wiring_digital.c **** 		Using this to setup built in peripherals probably will
  126:../../cores/mapleMX/wiring_digital.c **** 		conflict and cause unpredictable behavior
  127:../../cores/mapleMX/wiring_digital.c **** 	*/
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 4
-
-
  128:../../cores/mapleMX/wiring_digital.c **** 
  129:../../cores/mapleMX/wiring_digital.c **** 	switch ( ulMode )
-  46              		.loc 1 129 0
-  47 0008 0129     		cmp	r1, #1
- 108:../../cores/mapleMX/wiring_digital.c **** 	GPIO_InitStruct.Pin = g_Pin2PortMapArray[ulPin].Pin_abstraction;
-  48              		.loc 1 108 0
-  49 000a 5268     		ldr	r2, [r2, #4]
-  50 000c 0192     		str	r2, [sp, #4]
-  51 000e 1A46     		mov	r2, r3
-  52              		.loc 1 129 0
-  53 0010 09D0     		beq	.L3
-  54 0012 05D3     		bcc	.L4
-  55 0014 0229     		cmp	r1, #2
-  56 0016 09D1     		bne	.L2
+  40              		.loc 1 129 0
+  41 0008 0129     		cmp	r1, #1
+ 108:../../cores/mapleMX/wiring_digital.c **** 	
+  42              		.loc 1 108 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 4
+
+
+  43 000a 5268     		ldr	r2, [r2, #4]
+  44 000c 0192     		str	r2, [sp, #4]
+  45              		.loc 1 129 0
+  46 000e 09D0     		beq	.L3
+  47 0010 05D3     		bcc	.L4
+  48 0012 0229     		cmp	r1, #2
+  49 0014 09D1     		bne	.L2
  130:../../cores/mapleMX/wiring_digital.c ****     {
  131:../../cores/mapleMX/wiring_digital.c ****         case INPUT:
  132:../../cores/mapleMX/wiring_digital.c **** 
@@ -205,32 +198,32 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  137:../../cores/mapleMX/wiring_digital.c **** 
  138:../../cores/mapleMX/wiring_digital.c ****         case INPUT_PULLUP:
  139:../../cores/mapleMX/wiring_digital.c **** 			GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  57              		.loc 1 139 0
-  58 0018 0023     		movs	r3, #0
-  59 001a 0293     		str	r3, [sp, #8]
+  50              		.loc 1 139 0
+  51 0016 0022     		movs	r2, #0
+  52 0018 0292     		str	r2, [sp, #8]
  140:../../cores/mapleMX/wiring_digital.c **** 			GPIO_InitStruct.Pull = GPIO_PULLUP;
-  60              		.loc 1 140 0
-  61 001c 0123     		movs	r3, #1
-  62 001e 04E0     		b	.L6
-  63              	.L4:
- 133:../../cores/mapleMX/wiring_digital.c ****   			GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  64              		.loc 1 133 0
-  65 0020 0023     		movs	r3, #0
-  66 0022 0293     		str	r3, [sp, #8]
-  67 0024 01E0     		b	.L6
-  68              	.L3:
+  53              		.loc 1 140 0
+  54 001a 0122     		movs	r2, #1
+  55 001c 04E0     		b	.L6
+  56              	.L4:
+ 133:../../cores/mapleMX/wiring_digital.c ****   			GPIO_InitStruct.Pull = GPIO_NOPULL;
+  57              		.loc 1 133 0
+  58 001e 0022     		movs	r2, #0
+  59 0020 0292     		str	r2, [sp, #8]
+  60 0022 01E0     		b	.L6
+  61              	.L3:
  141:../../cores/mapleMX/wiring_digital.c **** 		break ;
  142:../../cores/mapleMX/wiring_digital.c **** 
  143:../../cores/mapleMX/wiring_digital.c ****         case OUTPUT:
  144:../../cores/mapleMX/wiring_digital.c ****  			GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  69              		.loc 1 144 0
-  70 0026 0291     		str	r1, [sp, #8]
+  62              		.loc 1 144 0
+  63 0024 0291     		str	r1, [sp, #8]
  145:../../cores/mapleMX/wiring_digital.c ****  			GPIO_InitStruct.Pull = GPIO_NOPULL;
-  71              		.loc 1 145 0
-  72 0028 0023     		movs	r3, #0
-  73              	.L6:
-  74 002a 0393     		str	r3, [sp, #12]
-  75              	.L2:
+  64              		.loc 1 145 0
+  65 0026 0022     		movs	r2, #0
+  66              	.L6:
+  67 0028 0392     		str	r2, [sp, #12]
+  68              	.L2:
  146:../../cores/mapleMX/wiring_digital.c **** 		break ;
  147:../../cores/mapleMX/wiring_digital.c **** 
  148:../../cores/mapleMX/wiring_digital.c ****         default:
@@ -238,9 +231,6 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  150:../../cores/mapleMX/wiring_digital.c ****     }
  151:../../cores/mapleMX/wiring_digital.c **** 
  152:../../cores/mapleMX/wiring_digital.c **** 	/*
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 5
-
-
  153:../../cores/mapleMX/wiring_digital.c **** 		this speed mapping taken from blink example
  154:../../cores/mapleMX/wiring_digital.c **** 		
  155:../../cores/mapleMX/wiring_digital.c **** 		There may be some chip specific issues here
@@ -248,12 +238,15 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  157:../../cores/mapleMX/wiring_digital.c **** 		not define FAST for speed.
  158:../../cores/mapleMX/wiring_digital.c **** 		
  159:../../cores/mapleMX/wiring_digital.c **** 		Online examples of Blink are all over the place on
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 5
+
+
  160:../../cores/mapleMX/wiring_digital.c **** 		how this should be set.
  161:../../cores/mapleMX/wiring_digital.c **** 		
  162:../../cores/mapleMX/wiring_digital.c **** 	*/
  163:../../cores/mapleMX/wiring_digital.c ****   	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-  76              		.loc 1 163 0
-  77 002c 0323     		movs	r3, #3
+  69              		.loc 1 163 0
+  70 002a 0322     		movs	r2, #3
  164:../../cores/mapleMX/wiring_digital.c ****   	
  165:../../cores/mapleMX/wiring_digital.c ****   	/*
  166:../../cores/mapleMX/wiring_digital.c ****   		now we can call the actual setup code note that the
@@ -276,57 +269,59 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  183:../../cores/mapleMX/wiring_digital.c ****   		
  184:../../cores/mapleMX/wiring_digital.c ****   	*/
  185:../../cores/mapleMX/wiring_digital.c ****   	HAL_GPIO_Init(g_Pin2PortMapArray[ulPin].GPIOx_Port, &GPIO_InitStruct); 
+  71              		.loc 1 185 0
+  72 002c 01A9     		add	r1, sp, #4
+  73              	.LVL1:
+  74 002e 53F83000 		ldr	r0, [r3, r0, lsl #3]
+  75              	.LVL2:
+ 163:../../cores/mapleMX/wiring_digital.c ****   	
+  76              		.loc 1 163 0
+  77 0032 0492     		str	r2, [sp, #16]
   78              		.loc 1 185 0
-  79 002e 52F83000 		ldr	r0, [r2, r0, lsl #3]
-  80              	.LVL1:
- 163:../../cores/mapleMX/wiring_digital.c ****   	GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-  81              		.loc 1 163 0
-  82 0032 0493     		str	r3, [sp, #16]
-  83              		.loc 1 185 0
-  84 0034 01A9     		add	r1, sp, #4
-  85              	.LVL2:
-  86 0036 FFF7FEFF 		bl	HAL_GPIO_Init
-  87              	.LVL3:
+  79 0034 FFF7FEFF 		bl	HAL_GPIO_Init
+  80              	.LVL3:
  186:../../cores/mapleMX/wiring_digital.c **** 
  187:../../cores/mapleMX/wiring_digital.c **** 
  188:../../cores/mapleMX/wiring_digital.c **** }
-  88              		.loc 1 188 0
-  89 003a 07B0     		add	sp, sp, #28
-  90              		@ sp needed
-  91 003c 5DF804FB 		ldr	pc, [sp], #4
-  92              	.L9:
-  93              		.align	2
-  94              	.L8:
-  95 0040 00000000 		.word	g_Pin2PortMapArray
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 6
+  81              		.loc 1 188 0
+  82 0038 07B0     		add	sp, sp, #28
+  83              	.LCFI1:
+  84              		.cfi_def_cfa_offset 4
+  85              		@ sp needed
+  86 003a 5DF804FB 		ldr	pc, [sp], #4
+  87              	.L9:
+  88 003e 00BF     		.align	2
+  89              	.L8:
+  90 0040 00000000 		.word	g_Pin2PortMapArray
+  91              		.cfi_endproc
+  92              	.LFE126:
+  94              		.section	.text.digitalWrite,"ax",%progbits
+  95              		.align	1
+  96              		.global	digitalWrite
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 6
 
 
-  96              		.cfi_endproc
-  97              	.LFE126:
-  99              		.section	.text.digitalWrite,"ax",%progbits
- 100              		.align	1
- 101              		.global	digitalWrite
- 102              		.thumb
- 103              		.thumb_func
- 105              	digitalWrite:
- 106              	.LFB127:
+  97              		.thumb
+  98              		.thumb_func
+ 100              	digitalWrite:
+ 101              	.LFB127:
  189:../../cores/mapleMX/wiring_digital.c **** 
  190:../../cores/mapleMX/wiring_digital.c **** extern void digitalWrite( uint32_t ulPin, uint32_t ulVal )
  191:../../cores/mapleMX/wiring_digital.c **** {
- 107              		.loc 1 191 0
- 108              		.cfi_startproc
- 109              		@ args = 0, pretend = 0, frame = 0
- 110              		@ frame_needed = 0, uses_anonymous_args = 0
- 111              		@ link register save eliminated.
- 112              	.LVL4:
+ 102              		.loc 1 191 0
+ 103              		.cfi_startproc
+ 104              		@ args = 0, pretend = 0, frame = 0
+ 105              		@ frame_needed = 0, uses_anonymous_args = 0
+ 106              		@ link register save eliminated.
+ 107              	.LVL4:
  192:../../cores/mapleMX/wiring_digital.c **** 
  193:../../cores/mapleMX/wiring_digital.c **** 		switch(ulVal) {
- 113              		.loc 1 193 0
- 114 0000 0A46     		mov	r2, r1
- 115 0002 09B1     		cbz	r1, .L12
- 116 0004 0129     		cmp	r1, #1
- 117 0006 07D1     		bne	.L14
- 118              	.L12:
+ 108              		.loc 1 193 0
+ 109 0000 0A46     		mov	r2, r1
+ 110 0002 09B1     		cbz	r1, .L12
+ 111 0004 0129     		cmp	r1, #1
+ 112 0006 07D1     		bne	.L14
+ 113              	.L12:
  194:../../cores/mapleMX/wiring_digital.c **** 		
  195:../../cores/mapleMX/wiring_digital.c **** 			case HIGH:
  196:../../cores/mapleMX/wiring_digital.c **** 				/* 
@@ -339,33 +334,33 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  203:../../cores/mapleMX/wiring_digital.c **** 			case LOW:
  204:../../cores/mapleMX/wiring_digital.c **** 				/* simply reset the pin */
  205:../../cores/mapleMX/wiring_digital.c **** 				HAL_GPIO_WritePin(g_Pin2PortMapArray[ulPin].GPIOx_Port,g_Pin2PortMapArray[ulPin].Pin_abstractio
- 119              		.loc 1 205 0
- 120 0008 044B     		ldr	r3, .L15
- 121 000a 03EBC001 		add	r1, r3, r0, lsl #3
- 122              	.LVL5:
- 123 000e 53F83000 		ldr	r0, [r3, r0, lsl #3]
- 124              	.LVL6:
- 125 0012 8988     		ldrh	r1, [r1, #4]
- 126 0014 FFF7FEBF 		b	HAL_GPIO_WritePin
- 127              	.LVL7:
- 128              	.L14:
- 129 0018 7047     		bx	lr
- 130              	.L16:
- 131 001a 00BF     		.align	2
- 132              	.L15:
- 133 001c 00000000 		.word	g_Pin2PortMapArray
- 134              		.cfi_endproc
- 135              	.LFE127:
- 137              		.section	.text.digitalRead,"ax",%progbits
- 138              		.align	1
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 7
+ 114              		.loc 1 205 0
+ 115 0008 044B     		ldr	r3, .L15
+ 116 000a 03EBC001 		add	r1, r3, r0, lsl #3
+ 117              	.LVL5:
+ 118 000e 53F83000 		ldr	r0, [r3, r0, lsl #3]
+ 119              	.LVL6:
+ 120 0012 8988     		ldrh	r1, [r1, #4]
+ 121 0014 FFF7FEBF 		b	HAL_GPIO_WritePin
+ 122              	.LVL7:
+ 123              	.L14:
+ 124 0018 7047     		bx	lr
+ 125              	.L16:
+ 126 001a 00BF     		.align	2
+ 127              	.L15:
+ 128 001c 00000000 		.word	g_Pin2PortMapArray
+ 129              		.cfi_endproc
+ 130              	.LFE127:
+ 132              		.section	.text.digitalRead,"ax",%progbits
+ 133              		.align	1
+ 134              		.global	digitalRead
+ 135              		.thumb
+ 136              		.thumb_func
+ 138              	digitalRead:
+ 139              	.LFB128:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 7
 
 
- 139              		.global	digitalRead
- 140              		.thumb
- 141              		.thumb_func
- 143              	digitalRead:
- 144              	.LFB128:
  206:../../cores/mapleMX/wiring_digital.c **** 			break;
  207:../../cores/mapleMX/wiring_digital.c **** 			
  208:../../cores/mapleMX/wiring_digital.c **** 			default:
@@ -376,71 +371,71 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 1
  213:../../cores/mapleMX/wiring_digital.c **** 
  214:../../cores/mapleMX/wiring_digital.c **** extern int digitalRead( uint32_t ulPin )
  215:../../cores/mapleMX/wiring_digital.c **** {
- 145              		.loc 1 215 0
- 146              		.cfi_startproc
- 147              		@ args = 0, pretend = 0, frame = 0
- 148              		@ frame_needed = 0, uses_anonymous_args = 0
- 149              	.LVL8:
- 150 0000 08B5     		push	{r3, lr}
- 151              	.LCFI1:
- 152              		.cfi_def_cfa_offset 8
- 153              		.cfi_offset 3, -8
- 154              		.cfi_offset 14, -4
+ 140              		.loc 1 215 0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              	.LVL8:
+ 145 0000 08B5     		push	{r3, lr}
+ 146              	.LCFI2:
+ 147              		.cfi_def_cfa_offset 8
+ 148              		.cfi_offset 3, -8
+ 149              		.cfi_offset 14, -4
  216:../../cores/mapleMX/wiring_digital.c **** 
  217:../../cores/mapleMX/wiring_digital.c **** 	/* can add a section here to see if pin is readable */
  218:../../cores/mapleMX/wiring_digital.c **** 	
  219:../../cores/mapleMX/wiring_digital.c **** 	
  220:../../cores/mapleMX/wiring_digital.c **** 	if(HAL_GPIO_ReadPin(g_Pin2PortMapArray[ulPin].GPIOx_Port,g_Pin2PortMapArray[ulPin].Pin_abstraction
- 155              		.loc 1 220 0
- 156 0002 064B     		ldr	r3, .L18
- 157 0004 03EBC002 		add	r2, r3, r0, lsl #3
- 158 0008 53F83000 		ldr	r0, [r3, r0, lsl #3]
- 159              	.LVL9:
- 160 000c 9188     		ldrh	r1, [r2, #4]
- 161 000e FFF7FEFF 		bl	HAL_GPIO_ReadPin
- 162              	.LVL10:
+ 150              		.loc 1 220 0
+ 151 0002 064B     		ldr	r3, .L18
+ 152 0004 03EBC002 		add	r2, r3, r0, lsl #3
+ 153 0008 53F83000 		ldr	r0, [r3, r0, lsl #3]
+ 154              	.LVL9:
+ 155 000c 9188     		ldrh	r1, [r2, #4]
+ 156 000e FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 157              	.LVL10:
  221:../../cores/mapleMX/wiring_digital.c **** 	{
- 222:../../cores/mapleMX/wiring_digital.c **** 		return HIGH;
+ 222:../../cores/mapleMX/wiring_digital.c **** 		return LOW; // Set from HIGH to LOW by Vassilis Serasidis
  223:../../cores/mapleMX/wiring_digital.c **** 	}
  224:../../cores/mapleMX/wiring_digital.c **** 
- 225:../../cores/mapleMX/wiring_digital.c **** 	return LOW ;
+ 225:../../cores/mapleMX/wiring_digital.c **** 	return HIGH ; // Set from LOW to HIGH by Vassilis Serasidis
  226:../../cores/mapleMX/wiring_digital.c **** }
- 163              		.loc 1 226 0
- 164 0012 D0F10100 		rsbs	r0, r0, #1
- 165 0016 38BF     		it	cc
- 166 0018 0020     		movcc	r0, #0
- 167 001a 08BD     		pop	{r3, pc}
- 168              	.L19:
- 169              		.align	2
- 170              	.L18:
- 171 001c 00000000 		.word	g_Pin2PortMapArray
- 172              		.cfi_endproc
- 173              	.LFE128:
- 175              		.text
- 176              	.Letext0:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 8
+ 158              		.loc 1 226 0
+ 159 0012 0030     		adds	r0, r0, #0
+ 160 0014 18BF     		it	ne
+ 161 0016 0120     		movne	r0, #1
+ 162 0018 08BD     		pop	{r3, pc}
+ 163              	.L19:
+ 164 001a 00BF     		.align	2
+ 165              	.L18:
+ 166 001c 00000000 		.word	g_Pin2PortMapArray
+ 167              		.cfi_endproc
+ 168              	.LFE128:
+ 170              		.text
+ 171              	.Letext0:
+ 172              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 173              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 174              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ 175              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 176              		.file 6 "./variant.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 8
 
 
- 177              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 178              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 179              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
- 180              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
- 181              		.file 6 "./variant.h"
- 182              		.file 7 "Drivers/CMSIS/Include/core_cm4.h"
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s 			page 9
+ 177              		.file 7 "Drivers/CMSIS/Include/core_cm4.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s 			page 9
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 wiring_digital.c
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:19     .text.pinMode:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:24     .text.pinMode:0000000000000000 pinMode
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:95     .text.pinMode:0000000000000040 $d
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:100    .text.digitalWrite:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:105    .text.digitalWrite:0000000000000000 digitalWrite
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:133    .text.digitalWrite:000000000000001c $d
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:138    .text.digitalRead:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:143    .text.digitalRead:0000000000000000 digitalRead
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc7wsoql.s:171    .text.digitalRead:000000000000001c $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:20     .text.pinMode:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:25     .text.pinMode:0000000000000000 pinMode
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:90     .text.pinMode:0000000000000040 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:95     .text.digitalWrite:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:100    .text.digitalWrite:0000000000000000 digitalWrite
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:128    .text.digitalWrite:000000000000001c $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:133    .text.digitalRead:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:138    .text.digitalRead:0000000000000000 digitalRead
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccSRetOg.s:166    .text.digitalRead:000000000000001c $d
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

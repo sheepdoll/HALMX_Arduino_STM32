@@ -16,7 +16,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "arduino.h"
+#include "Arduino.h"
 //#include "variant.h"
 
 
@@ -266,7 +266,7 @@ PUTCHAR_PROTOTYPE
 }
 
 //UARTClass Serial(UART, UART_IRQn, ID_UART, &rx_buffer1, &tx_buffer1);
-UARTClass Serial(&huart6, USART6_IRQn, 6, &rx_buffer1, &tx_buffer1);
+//UARTClass Serial(&huart6, USART6_IRQn, 6, &rx_buffer1, &tx_buffer1);
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
 
@@ -288,7 +288,7 @@ RingBuffer tx_buffer2;
 //RingBuffer tx_buffer3;
 //RingBuffer tx_buffer4;
 
-USARTClass Serial1(&huart2, USART2_IRQn, 2, &rx_buffer2, &tx_buffer2);
+//USARTClass Serial1(&huart2, USART2_IRQn, 2, &rx_buffer2, &tx_buffer2);
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
 //USARTClass Serial2(USART1, USART1_IRQn, ID_USART1, &rx_buffer3, &tx_buffer3);

@@ -22,13 +22,5 @@ build/main.o: Src/main.c Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h \
- Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h Inc/adc.h \
- Inc/fatfs.h Inc/ff.h Inc/integer.h Inc/ffconf.h Inc/bsp_driver_sd.h \
- Inc/ff_gen_drv.h Inc/diskio.h Inc/sd_diskio.h Inc/sdio.h Inc/spi.h \
- Inc/usart.h Inc/usb_device.h Inc/usbd_def.h Inc/usbd_conf.h Inc/gpio.h
+ Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h Inc/adc.h \
+ Inc/usart.h Inc/gpio.h

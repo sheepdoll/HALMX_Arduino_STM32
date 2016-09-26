@@ -5,7 +5,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -40,6 +40,8 @@
  extern "C" {
 #endif
 
+#include "mxconstants.h" 
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
@@ -48,37 +50,37 @@
   * @brief This is the list of modules to be used in the HAL driver 
   */
 #define HAL_MODULE_ENABLED  
-//#define HAL_ADC_MODULE_ENABLED   
-//#define HAL_CAN_MODULE_ENABLED   
-//#define HAL_CEC_MODULE_ENABLED   
-//#define HAL_CORTEX_MODULE_ENABLED   
-//#define HAL_CRC_MODULE_ENABLED   
-//#define HAL_DAC_MODULE_ENABLED   
-//#define HAL_DMA_MODULE_ENABLED   
-//#define HAL_ETH_MODULE_ENABLED   
-//#define HAL_FLASH_MODULE_ENABLED   
+#define HAL_ADC_MODULE_ENABLED
+/*#define HAL_CAN_MODULE_ENABLED   */
+/*#define HAL_CEC_MODULE_ENABLED   */
+/*#define HAL_CORTEX_MODULE_ENABLED   */
+/*#define HAL_CRC_MODULE_ENABLED   */
+/*#define HAL_DAC_MODULE_ENABLED   */
+/*#define HAL_DMA_MODULE_ENABLED   */
+/*#define HAL_ETH_MODULE_ENABLED   */
+/*#define HAL_FLASH_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
-//#define HAL_I2S_MODULE_ENABLED   
-//#define HAL_IRDA_MODULE_ENABLED   
-//#define HAL_IWDG_MODULE_ENABLED   
-//#define HAL_NOR_MODULE_ENABLED   
-//#define HAL_NAND_MODULE_ENABLED   
-//#define HAL_PCCARD_MODULE_ENABLED   
-//#define HAL_PCD_MODULE_ENABLED   
-//#define HAL_HCD_MODULE_ENABLED   
-//#define HAL_PWR_MODULE_ENABLED   
-//#define HAL_RCC_MODULE_ENABLED   
-//#define HAL_RTC_MODULE_ENABLED   
-//#define HAL_SD_MODULE_ENABLED   
-//#define HAL_SDRAM_MODULE_ENABLED   
-//#define HAL_SMARTCARD_MODULE_ENABLED   
-#define HAL_SPI_MODULE_ENABLED
-//#define HAL_SRAM_MODULE_ENABLED   
-//#define HAL_TIM_MODULE_ENABLED   
+/*#define HAL_I2S_MODULE_ENABLED   */
+/*#define HAL_IRDA_MODULE_ENABLED   */
+/*#define HAL_IWDG_MODULE_ENABLED   */
+/*#define HAL_NOR_MODULE_ENABLED   */
+/*#define HAL_NAND_MODULE_ENABLED   */
+/*#define HAL_PCCARD_MODULE_ENABLED   */
+#define HAL_PCD_MODULE_ENABLED
+/*#define HAL_HCD_MODULE_ENABLED   */
+/*#define HAL_PWR_MODULE_ENABLED   */
+/*#define HAL_RCC_MODULE_ENABLED   */
+/*#define HAL_RTC_MODULE_ENABLED   */
+/*#define HAL_SD_MODULE_ENABLED   */
+/*#define HAL_SDRAM_MODULE_ENABLED   */
+/*#define HAL_SMARTCARD_MODULE_ENABLED   */
+/*#define HAL_SPI_MODULE_ENABLED   */
+/*#define HAL_SRAM_MODULE_ENABLED   */
+#define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
-//#define HAL_USART_MODULE_ENABLED   
-//#define HAL_WWDG_MODULE_ENABLED   
+/*#define HAL_USART_MODULE_ENABLED   */
+/*#define HAL_WWDG_MODULE_ENABLED   */
 
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
@@ -98,7 +100,7 @@
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
-  #define HSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for HSE start up, in ms */
+  #define HSE_STARTUP_TIMEOUT    ((uint32_t)100)   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
 
 /**
@@ -120,7 +122,7 @@
 
 #if !defined  (LSE_STARTUP_TIMEOUT)
   #define LSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for LSE start up, in ms */
-#endif /* HSE_STARTUP_TIMEOUT */
+#endif /* LSE_STARTUP_TIMEOUT */
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
    ===  you can define the HSE value in your toolchain compiler preprocessor. */
@@ -129,7 +131,7 @@
 /**
   * @brief This is the HAL system configuration section
   */     
-#define  VDD_VALUE                    ((uint32_t)3300)) /*!< Value of VDD in mv */           
+#define  VDD_VALUE                    ((uint32_t)3300) /*!< Value of VDD in mv */           
 #define  TICK_INT_PRIORITY            ((uint32_t)0)    /*!< tick interrupt priority (lowest by default)  */            
 #define  USE_RTOS                     0
 #define  PREFETCH_ENABLE              1
@@ -161,8 +163,8 @@
 
 /* Section 2: PHY configuration section */
 
-/* DP83848 PHY Address*/ 
-#define DP83848_PHY_ADDRESS             0x01
+/* DP83848_PHY_ADDRESS Address*/ 
+#define DP83848_PHY_ADDRESS           0x01U
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/ 
 #define PHY_RESET_DELAY                 ((uint32_t)0x000000FF)
 /* PHY Configuration delay */

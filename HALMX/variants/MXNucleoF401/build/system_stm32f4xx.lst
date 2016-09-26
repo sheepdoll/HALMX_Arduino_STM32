@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 1
 
 
    1              		.syntax unified
@@ -14,24 +14,25 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"system_stm32f4xx.c"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text.SystemInit,"ax",%progbits
-  19              		.align	1
-  20              		.global	SystemInit
-  21              		.thumb
-  22              		.thumb_func
-  24              	SystemInit:
-  25              	.LFB123:
-  26              		.file 1 "Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c"
+  14              		.syntax unified
+  15              		.file	"system_stm32f4xx.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.SystemInit,"ax",%progbits
+  20              		.align	1
+  21              		.global	SystemInit
+  22              		.thumb
+  23              		.thumb_func
+  25              	SystemInit:
+  26              	.LFB123:
+  27              		.file 1 "Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c"
    1:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
    2:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   ******************************************************************************
    3:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @file    system_stm32f4xx.c
    4:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @author  MCD Application Team
-   5:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @version V2.4.2
-   6:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @date    13-November-2015
+   5:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @version V2.5.1
+   6:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @date    28-June-2016
    7:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @brief   CMSIS Cortex-M4 Device Peripheral Access Layer System Source File.
    8:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *
    9:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *   This file provides two functions and one global variable to be called from 
@@ -52,15 +53,15 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 1
   24:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   ******************************************************************************
   25:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @attention
   26:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *
-  27:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * <h2><center>&copy; COPYRIGHT 2015 STMicroelectronics</center></h2>
+  27:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * <h2><center>&copy; COPYRIGHT 2016 STMicroelectronics</center></h2>
   28:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *
   29:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * Redistribution and use in source and binary forms, with or without modification,
   30:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * are permitted provided that the following conditions are met:
   31:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *   1. Redistributions of source code must retain the above copyright notice,
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 2
+
+
   32:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *      this list of conditions and the following disclaimer.
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 2
-
-
   33:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *   2. Redistributions in binary form must reproduce the above copyright notice,
   34:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *      this list of conditions and the following disclaimer in the documentation
   35:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *      and/or other materials provided with the distribution.
@@ -117,10 +118,10 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 1
   86:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
   87:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
   88:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 3
+
+
   89:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_Defines
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 3
-
-
   90:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
   91:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
   92:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
@@ -128,402 +129,406 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 1
   94:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /*!< Uncomment the following line if you need to use external SRAM or SDRAM as data memory  */
   95:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #if defined(STM32F405xx) || defined(STM32F415xx) || defined(STM32F407xx) || defined(STM32F417xx)\
   96:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****  || defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
-  97:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****  || defined(STM32F469xx) || defined(STM32F479xx)
+  97:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****  || defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F412Zx) || defined(STM32F412Vx)
   98:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /* #define DATA_IN_ExtSRAM */
-  99:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* STM32F40xxx || STM32F41xxx || STM32F42xxx || STM32F43xxx || STM32F469xx || STM32F479xx */
- 100:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****  
- 101:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
- 102:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****  || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
- 103:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /* #define DATA_IN_ExtSDRAM */
- 104:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F446xx || STM32F469xx ||
- 105:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****           STM32F479xx */
- 106:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 107:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /*!< Uncomment the following line if you need to relocate your vector Table in
- 108:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****      Internal SRAM. */
- 109:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /* #define VECT_TAB_SRAM */
- 110:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #define VECT_TAB_OFFSET  0x00 /*!< Vector Table base offset field. 
- 111:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****                                    This value must be a multiple of 0x200. */
- 112:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /******************************************************************************/
- 113:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 114:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
- 115:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
- 116:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 117:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 118:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_Macros
- 119:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
- 120:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 121:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 122:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
- 123:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
- 124:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 125:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 126:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_Variables
- 127:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
- 128:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 129:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* This variable is updated in three ways:
- 130:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       1) by calling CMSIS function SystemCoreClockUpdate()
- 131:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       2) by calling HAL API function HAL_RCC_GetHCLKFreq()
- 132:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency 
- 133:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****          Note: If you use this function to configure the system clock; then there
- 134:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****                is no need to call the 2 first functions listed above, since SystemCoreClock
- 135:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****                variable is updated automatically.
- 136:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 137:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   uint32_t SystemCoreClock = 16000000;
- 138:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
- 139:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 140:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
- 141:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
- 142:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 143:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 144:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
- 145:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
- 146:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 4
+  99:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* STM32F40xxx || STM32F41xxx || STM32F42xxx || STM32F43xxx || STM32F469xx || STM32F479xx ||
+ 100:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****           STM32F412Zx || STM32F412Vx */
+ 101:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****  
+ 102:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
+ 103:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****  || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
+ 104:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /* #define DATA_IN_ExtSDRAM */
+ 105:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F446xx || STM32F469xx ||
+ 106:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****           STM32F479xx */
+ 107:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 108:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /*!< Uncomment the following line if you need to relocate your vector Table in
+ 109:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****      Internal SRAM. */
+ 110:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /* #define VECT_TAB_SRAM */
+ 111:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #define VECT_TAB_OFFSET  0x00 /*!< Vector Table base offset field. 
+ 112:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****                                    This value must be a multiple of 0x200. */
+ 113:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /******************************************************************************/
+ 114:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 115:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
+ 116:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
+ 117:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 118:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 119:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_Macros
+ 120:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
+ 121:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 122:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 123:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
+ 124:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
+ 125:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 126:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 127:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_Variables
+ 128:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
+ 129:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 130:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* This variable is updated in three ways:
+ 131:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       1) by calling CMSIS function SystemCoreClockUpdate()
+ 132:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       2) by calling HAL API function HAL_RCC_GetHCLKFreq()
+ 133:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency 
+ 134:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****          Note: If you use this function to configure the system clock; then there
+ 135:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****                is no need to call the 2 first functions listed above, since SystemCoreClock
+ 136:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****                variable is updated automatically.
+ 137:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 138:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   uint32_t SystemCoreClock = 16000000;
+ 139:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+ 140:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 141:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
+ 142:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
+ 143:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 144:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 145:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 4
 
 
- 147:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 148:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
- 149:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   static void SystemInit_ExtMemCtl(void); 
- 150:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* DATA_IN_ExtSRAM || DATA_IN_ExtSDRAM */
- 151:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 152:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
- 153:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
- 154:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 155:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 156:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_Functions
- 157:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
- 158:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 159:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 160:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
- 161:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @brief  Setup the microcontroller system
- 162:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         Initialize the FPU setting, vector table location and External memory 
- 163:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         configuration.
- 164:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @param  None
- 165:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @retval None
- 166:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 167:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** void SystemInit(void)
- 168:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** {
-  27              		.loc 1 168 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 0
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              		@ link register save eliminated.
- 169:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* FPU settings ------------------------------------------------------------*/
- 170:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
- 171:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
- 172:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   #endif
- 173:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset the RCC clock configuration to the default reset state ------------*/
- 174:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Set HSION bit */
- 175:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CR |= (uint32_t)0x00000001;
-  32              		.loc 1 175 0
-  33 0000 0C4B     		ldr	r3, .L2
-  34 0002 1A68     		ldr	r2, [r3]
+ 146:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
+ 147:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 148:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 149:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
+ 150:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   static void SystemInit_ExtMemCtl(void); 
+ 151:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* DATA_IN_ExtSRAM || DATA_IN_ExtSDRAM */
+ 152:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 153:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
+ 154:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @}
+ 155:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 156:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 157:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /** @addtogroup STM32F4xx_System_Private_Functions
+ 158:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @{
+ 159:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 160:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 161:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
+ 162:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @brief  Setup the microcontroller system
+ 163:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         Initialize the FPU setting, vector table location and External memory 
+ 164:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         configuration.
+ 165:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @param  None
+ 166:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @retval None
+ 167:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 168:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** void SystemInit(void)
+ 169:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** {
+  28              		.loc 1 169 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+ 170:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* FPU settings ------------------------------------------------------------*/
+ 171:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
+ 172:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     SCB->CPACR |= ((3UL << 10*2)|(3UL << 11*2));  /* set CP10 and CP11 Full Access */
+ 173:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   #endif
+ 174:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset the RCC clock configuration to the default reset state ------------*/
+ 175:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Set HSION bit */
+ 176:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CR |= (uint32_t)0x00000001;
+  33              		.loc 1 176 0
+  34 0000 0C4B     		ldr	r3, .L2
+  35 0002 1A68     		ldr	r2, [r3]
+ 177:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 178:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset CFGR register */
+ 179:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CFGR = 0x00000000;
+  36              		.loc 1 179 0
+  37 0004 0021     		movs	r1, #0
  176:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 177:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset CFGR register */
- 178:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CFGR = 0x00000000;
-  35              		.loc 1 178 0
-  36 0004 0021     		movs	r1, #0
- 175:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CR |= (uint32_t)0x00000001;
-  37              		.loc 1 175 0
-  38 0006 42F00102 		orr	r2, r2, #1
-  39 000a 1A60     		str	r2, [r3]
-  40              		.loc 1 178 0
-  41 000c 9960     		str	r1, [r3, #8]
- 179:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 180:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset HSEON, CSSON and PLLON bits */
- 181:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CR &= (uint32_t)0xFEF6FFFF;
-  42              		.loc 1 181 0
-  43 000e 1A68     		ldr	r2, [r3]
-  44 0010 22F08472 		bic	r2, r2, #17301504
-  45 0014 22F48032 		bic	r2, r2, #65536
-  46 0018 1A60     		str	r2, [r3]
- 182:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 5
+  38              		.loc 1 176 0
+  39 0006 42F00102 		orr	r2, r2, #1
+  40 000a 1A60     		str	r2, [r3]
+  41              		.loc 1 179 0
+  42 000c 9960     		str	r1, [r3, #8]
+ 180:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 181:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset HSEON, CSSON and PLLON bits */
+ 182:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CR &= (uint32_t)0xFEF6FFFF;
+  43              		.loc 1 182 0
+  44 000e 1A68     		ldr	r2, [r3]
+  45 0010 22F08472 		bic	r2, r2, #17301504
+  46 0014 22F48032 		bic	r2, r2, #65536
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 5
 
 
- 183:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset PLLCFGR register */
- 184:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->PLLCFGR = 0x24003010;
-  47              		.loc 1 184 0
-  48 001a 074A     		ldr	r2, .L2+4
-  49 001c 5A60     		str	r2, [r3, #4]
- 185:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 186:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset HSEBYP bit */
- 187:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CR &= (uint32_t)0xFFFBFFFF;
-  50              		.loc 1 187 0
-  51 001e 1A68     		ldr	r2, [r3]
-  52 0020 22F48022 		bic	r2, r2, #262144
-  53 0024 1A60     		str	r2, [r3]
- 188:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 189:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Disable all interrupts */
- 190:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CIR = 0x00000000;
-  54              		.loc 1 190 0
-  55 0026 D960     		str	r1, [r3, #12]
- 191:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 192:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
- 193:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SystemInit_ExtMemCtl(); 
- 194:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* DATA_IN_ExtSRAM || DATA_IN_ExtSDRAM */
- 195:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 196:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Configure the Vector Table location add offset address ------------------*/
- 197:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #ifdef VECT_TAB_SRAM
- 198:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
- 199:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #else
- 200:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
-  56              		.loc 1 200 0
-  57 0028 044B     		ldr	r3, .L2+8
-  58 002a 4FF00062 		mov	r2, #134217728
-  59 002e 9A60     		str	r2, [r3, #8]
-  60 0030 7047     		bx	lr
-  61              	.L3:
-  62 0032 00BF     		.align	2
-  63              	.L2:
-  64 0034 00380240 		.word	1073887232
-  65 0038 10300024 		.word	603992080
-  66 003c 00ED00E0 		.word	-536810240
-  67              		.cfi_endproc
-  68              	.LFE123:
-  70              		.section	.text.SystemCoreClockUpdate,"ax",%progbits
-  71              		.align	1
-  72              		.global	SystemCoreClockUpdate
-  73              		.thumb
-  74              		.thumb_func
-  76              	SystemCoreClockUpdate:
-  77              	.LFB124:
- 201:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif
- 202:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** }
- 203:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 204:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
- 205:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****    * @brief  Update SystemCoreClock variable according to Clock Register Values.
- 206:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         The SystemCoreClock variable contains the core clock (HCLK), it can
- 207:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         be used by the user application to setup the SysTick timer or configure
- 208:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         other parameters.
- 209:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           
- 210:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @note   Each time the core clock (HCLK) changes, this function must be called
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 6
+  47 0018 1A60     		str	r2, [r3]
+ 183:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 184:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset PLLCFGR register */
+ 185:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->PLLCFGR = 0x24003010;
+  48              		.loc 1 185 0
+  49 001a 074A     		ldr	r2, .L2+4
+  50 001c 5A60     		str	r2, [r3, #4]
+ 186:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 187:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Reset HSEBYP bit */
+ 188:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CR &= (uint32_t)0xFFFBFFFF;
+  51              		.loc 1 188 0
+  52 001e 1A68     		ldr	r2, [r3]
+  53 0020 22F48022 		bic	r2, r2, #262144
+  54 0024 1A60     		str	r2, [r3]
+ 189:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 190:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Disable all interrupts */
+ 191:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   RCC->CIR = 0x00000000;
+  55              		.loc 1 191 0
+  56 0026 D960     		str	r1, [r3, #12]
+ 192:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 193:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #if defined (DATA_IN_ExtSRAM) || defined (DATA_IN_ExtSDRAM)
+ 194:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SystemInit_ExtMemCtl(); 
+ 195:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif /* DATA_IN_ExtSRAM || DATA_IN_ExtSDRAM */
+ 196:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 197:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Configure the Vector Table location add offset address ------------------*/
+ 198:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #ifdef VECT_TAB_SRAM
+ 199:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SCB->VTOR = SRAM_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
+ 200:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #else
+ 201:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
+  57              		.loc 1 201 0
+  58 0028 044B     		ldr	r3, .L2+8
+  59 002a 4FF00062 		mov	r2, #134217728
+  60 002e 9A60     		str	r2, [r3, #8]
+  61 0030 7047     		bx	lr
+  62              	.L3:
+  63 0032 00BF     		.align	2
+  64              	.L2:
+  65 0034 00380240 		.word	1073887232
+  66 0038 10300024 		.word	603992080
+  67 003c 00ED00E0 		.word	-536810240
+  68              		.cfi_endproc
+  69              	.LFE123:
+  71              		.section	.text.SystemCoreClockUpdate,"ax",%progbits
+  72              		.align	1
+  73              		.global	SystemCoreClockUpdate
+  74              		.thumb
+  75              		.thumb_func
+  77              	SystemCoreClockUpdate:
+  78              	.LFB124:
+ 202:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** #endif
+ 203:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** }
+ 204:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 205:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** /**
+ 206:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****    * @brief  Update SystemCoreClock variable according to Clock Register Values.
+ 207:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         The SystemCoreClock variable contains the core clock (HCLK), it can
+ 208:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         be used by the user application to setup the SysTick timer or configure
+ 209:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         other parameters.
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 6
 
 
- 211:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         to update SystemCoreClock variable value. Otherwise, any configuration
- 212:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         based on this variable will be incorrect.         
- 213:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *     
- 214:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @note   - The system frequency computed by this function is not the real 
- 215:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           frequency in the chip. It is calculated based on the predefined 
- 216:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           constant and the selected clock source:
- 217:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             
- 218:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           - If SYSCLK source is HSI, SystemCoreClock will contain the HSI_VALUE(*)
- 219:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *                                              
- 220:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           - If SYSCLK source is HSE, SystemCoreClock will contain the HSE_VALUE(**)
- 221:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *                          
- 222:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           - If SYSCLK source is PLL, SystemCoreClock will contain the HSE_VALUE(**) 
- 223:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             or HSI_VALUE(*) multiplied/divided by the PLL factors.
- 224:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         
- 225:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         (*) HSI_VALUE is a constant defined in stm32f4xx_hal_conf.h file (default value
- 226:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             16 MHz) but the real value may vary depending on the variations
- 227:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             in voltage and temperature.   
- 228:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *    
- 229:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         (**) HSE_VALUE is a constant defined in stm32f4xx_hal_conf.h file (its value
- 230:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *              depends on the application requirements), user has to ensure that HSE_VALUE
- 231:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *              is same as the real frequency of the crystal used. Otherwise, this function
- 232:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *              may have wrong result.
- 233:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *                
- 234:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         - The result of this function could be not correct when using fractional
- 235:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           value for HSE crystal.
- 236:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *     
- 237:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @param  None
- 238:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @retval None
- 239:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
- 240:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** void SystemCoreClockUpdate(void)
- 241:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** {
-  78              		.loc 1 241 0
-  79              		.cfi_startproc
-  80              		@ args = 0, pretend = 0, frame = 0
-  81              		@ frame_needed = 0, uses_anonymous_args = 0
-  82              		@ link register save eliminated.
-  83              	.LVL0:
- 242:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
- 243:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   
- 244:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Get SYSCLK source -------------------------------------------------------*/
- 245:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   tmp = RCC->CFGR & RCC_CFGR_SWS;
-  84              		.loc 1 245 0
-  85 0000 174A     		ldr	r2, .L15
-  86 0002 184B     		ldr	r3, .L15+4
-  87 0004 9168     		ldr	r1, [r2, #8]
-  88              	.LVL1:
-  89 0006 01F00C01 		and	r1, r1, #12
-  90              	.LVL2:
- 246:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 247:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   switch (tmp)
-  91              		.loc 1 247 0
-  92 000a 0429     		cmp	r1, #4
-  93 000c 03D0     		beq	.L6
-  94 000e 0829     		cmp	r1, #8
-  95 0010 03D0     		beq	.L7
-  96 0012 154A     		ldr	r2, .L15+8
-  97 0014 18E0     		b	.L13
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 7
+ 210:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           
+ 211:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @note   Each time the core clock (HCLK) changes, this function must be called
+ 212:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         to update SystemCoreClock variable value. Otherwise, any configuration
+ 213:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         based on this variable will be incorrect.         
+ 214:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *     
+ 215:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @note   - The system frequency computed by this function is not the real 
+ 216:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           frequency in the chip. It is calculated based on the predefined 
+ 217:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           constant and the selected clock source:
+ 218:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             
+ 219:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           - If SYSCLK source is HSI, SystemCoreClock will contain the HSI_VALUE(*)
+ 220:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *                                              
+ 221:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           - If SYSCLK source is HSE, SystemCoreClock will contain the HSE_VALUE(**)
+ 222:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *                          
+ 223:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           - If SYSCLK source is PLL, SystemCoreClock will contain the HSE_VALUE(**) 
+ 224:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             or HSI_VALUE(*) multiplied/divided by the PLL factors.
+ 225:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         
+ 226:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         (*) HSI_VALUE is a constant defined in stm32f4xx_hal_conf.h file (default value
+ 227:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             16 MHz) but the real value may vary depending on the variations
+ 228:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *             in voltage and temperature.   
+ 229:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *    
+ 230:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         (**) HSE_VALUE is a constant defined in stm32f4xx_hal_conf.h file (its value
+ 231:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *              depends on the application requirements), user has to ensure that HSE_VALUE
+ 232:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *              is same as the real frequency of the crystal used. Otherwise, this function
+ 233:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *              may have wrong result.
+ 234:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *                
+ 235:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *         - The result of this function could be not correct when using fractional
+ 236:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *           value for HSE crystal.
+ 237:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   *     
+ 238:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @param  None
+ 239:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   * @retval None
+ 240:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   */
+ 241:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** void SystemCoreClockUpdate(void)
+ 242:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** {
+  79              		.loc 1 242 0
+  80              		.cfi_startproc
+  81              		@ args = 0, pretend = 0, frame = 0
+  82              		@ frame_needed = 0, uses_anonymous_args = 0
+  83              		@ link register save eliminated.
+  84              	.LVL0:
+ 243:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
+ 244:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   
+ 245:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Get SYSCLK source -------------------------------------------------------*/
+ 246:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   tmp = RCC->CFGR & RCC_CFGR_SWS;
+  85              		.loc 1 246 0
+  86 0000 174A     		ldr	r2, .L15
+  87 0002 1849     		ldr	r1, .L15+4
+  88 0004 9368     		ldr	r3, [r2, #8]
+  89              	.LVL1:
+ 247:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 248:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   switch (tmp)
+  90              		.loc 1 248 0
+  91 0006 03F00C03 		and	r3, r3, #12
+  92              	.LVL2:
+  93 000a 042B     		cmp	r3, #4
+  94 000c 03D0     		beq	.L6
+  95 000e 082B     		cmp	r3, #8
+  96 0010 03D0     		beq	.L7
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 7
 
 
-  98              	.L6:
- 248:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   {
- 249:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     case 0x00:  /* HSI used as system clock source */
- 250:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = HSI_VALUE;
- 251:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
- 252:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     case 0x04:  /* HSE used as system clock source */
- 253:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = HSE_VALUE;
-  99              		.loc 1 253 0
- 100 0016 154A     		ldr	r2, .L15+12
- 101 0018 16E0     		b	.L13
- 102              	.L7:
- 254:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
- 255:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     case 0x08:  /* PLL used as system clock source */
- 256:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 257:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N
- 258:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****          SYSCLK = PLL_VCO / PLL_P
- 259:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****          */    
- 260:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
- 103              		.loc 1 260 0
- 104 001a 5068     		ldr	r0, [r2, #4]
- 105              	.LVL3:
- 261:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
- 106              		.loc 1 261 0
- 107 001c 5168     		ldr	r1, [r2, #4]
- 108              	.LVL4:
- 262:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       
- 263:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       if (pllsource != 0)
- 109              		.loc 1 263 0
- 110 001e 10F4800F 		tst	r0, #4194304
- 264:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       {
- 265:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         /* HSE used as PLL clock source */
- 266:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
- 111              		.loc 1 266 0
- 112 0022 5068     		ldr	r0, [r2, #4]
- 113              	.LVL5:
- 114 0024 14BF     		ite	ne
- 115 0026 114A     		ldrne	r2, .L15+12
+  97 0012 154B     		ldr	r3, .L15+8
+  98              	.LVL3:
+  99 0014 18E0     		b	.L13
+ 100              	.LVL4:
+ 101              	.L6:
+ 249:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   {
+ 250:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     case 0x00:  /* HSI used as system clock source */
+ 251:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = HSI_VALUE;
+ 252:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
+ 253:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     case 0x04:  /* HSE used as system clock source */
+ 254:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = HSE_VALUE;
+ 102              		.loc 1 254 0
+ 103 0016 154B     		ldr	r3, .L15+12
+ 104              	.LVL5:
+ 105 0018 16E0     		b	.L13
+ 106              	.LVL6:
+ 107              	.L7:
+ 255:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
+ 256:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     case 0x08:  /* PLL used as system clock source */
+ 257:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 258:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       /* PLL_VCO = (HSE_VALUE or HSI_VALUE / PLL_M) * PLL_N
+ 259:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****          SYSCLK = PLL_VCO / PLL_P
+ 260:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****          */    
+ 261:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
+ 108              		.loc 1 261 0
+ 109 001a 5068     		ldr	r0, [r2, #4]
+ 110              	.LVL7:
+ 262:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
+ 111              		.loc 1 262 0
+ 112 001c 5368     		ldr	r3, [r2, #4]
+ 113              	.LVL8:
+ 263:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       
+ 264:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       if (pllsource != 0)
+ 114              		.loc 1 264 0
+ 115 001e 10F4800F 		tst	r0, #4194304
+ 262:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
+ 116              		.loc 1 262 0
+ 117 0022 03F03F03 		and	r3, r3, #63
+ 118              	.LVL9:
+ 265:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       {
+ 266:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         /* HSE used as PLL clock source */
+ 267:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
+ 119              		.loc 1 267 0
+ 120 0026 5068     		ldr	r0, [r2, #4]
+ 121              	.LVL10:
+ 122 0028 14BF     		ite	ne
+ 123 002a 104A     		ldrne	r2, .L15+12
+ 268:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       }
+ 269:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       else
+ 270:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       {
+ 271:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         /* HSI used as PLL clock source */
+ 272:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
+ 124              		.loc 1 272 0
+ 125 002c 0E4A     		ldreq	r2, .L15+8
+ 126 002e B2FBF3F3 		udiv	r3, r2, r3
+ 127              	.LVL11:
+ 273:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       }
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 8
+
+
+ 274:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
+ 275:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >>16) + 1 ) *2;
+ 128              		.loc 1 275 0
+ 129 0032 0B4A     		ldr	r2, .L15
+ 130 0034 5268     		ldr	r2, [r2, #4]
+ 276:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = pllvco/pllp;
+ 131              		.loc 1 276 0
+ 132 0036 C2F30142 		ubfx	r2, r2, #16, #2
  267:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       }
- 268:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       else
- 269:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       {
- 270:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         /* HSI used as PLL clock source */
- 271:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
- 116              		.loc 1 271 0
- 117 0028 0F4A     		ldreq	r2, .L15+8
- 261:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
- 118              		.loc 1 261 0
- 119 002a 01F03F01 		and	r1, r1, #63
- 120              	.LVL6:
- 121              		.loc 1 271 0
- 122 002e B2FBF1F2 		udiv	r2, r2, r1
+ 133              		.loc 1 267 0
+ 134 003a C0F38810 		ubfx	r0, r0, #6, #9
+ 135              		.loc 1 276 0
+ 136 003e 0132     		adds	r2, r2, #1
  272:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       }
- 273:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c **** 
- 274:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       pllp = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLP) >>16) + 1 ) *2;
- 123              		.loc 1 274 0
- 124 0032 0B49     		ldr	r1, .L15
- 125              	.LVL7:
- 126 0034 4968     		ldr	r1, [r1, #4]
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 8
-
-
- 127 0036 C1F30141 		ubfx	r1, r1, #16, #2
- 266:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
- 128              		.loc 1 266 0
- 129 003a C0F38810 		ubfx	r0, r0, #6, #9
- 130              		.loc 1 274 0
- 131 003e 0131     		adds	r1, r1, #1
- 271:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****         pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
- 132              		.loc 1 271 0
- 133 0040 4243     		muls	r2, r0, r2
- 134              	.LVL8:
- 135              		.loc 1 274 0
- 136 0042 4900     		lsls	r1, r1, #1
- 275:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = pllvco/pllp;
- 137              		.loc 1 275 0
- 138 0044 B2FBF1F2 		udiv	r2, r2, r1
- 139              	.LVL9:
- 140              	.L13:
- 141 0048 1A60     		str	r2, [r3]
- 276:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
- 277:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     default:
- 278:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = HSI_VALUE;
- 279:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
- 280:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   }
- 281:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Compute HCLK frequency --------------------------------------------------*/
- 282:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Get HCLK prescaler */
- 283:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 4)];
- 142              		.loc 1 283 0
- 143 004a 054A     		ldr	r2, .L15
+ 137              		.loc 1 272 0
+ 138 0040 4343     		muls	r3, r0, r3
+ 139              	.LVL12:
+ 140              		.loc 1 276 0
+ 141 0042 5200     		lsls	r2, r2, #1
+ 142 0044 B3FBF2F3 		udiv	r3, r3, r2
+ 143              	.LVL13:
+ 144              	.L13:
+ 145 0048 0B60     		str	r3, [r1]
+ 277:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
+ 278:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****     default:
+ 279:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       SystemCoreClock = HSI_VALUE;
+ 280:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****       break;
+ 281:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   }
+ 282:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Compute HCLK frequency --------------------------------------------------*/
+ 283:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* Get HCLK prescaler */
+ 284:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 4)];
+ 146              		.loc 1 284 0
+ 147 004a 054B     		ldr	r3, .L15
+ 285:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* HCLK frequency */
+ 286:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SystemCoreClock >>= tmp;
+ 148              		.loc 1 286 0
+ 149 004c 084A     		ldr	r2, .L15+16
  284:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   /* HCLK frequency */
- 285:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   SystemCoreClock >>= tmp;
- 144              		.loc 1 285 0
- 145 004c 0849     		ldr	r1, .L15+16
- 283:Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c ****   tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 4)];
- 146              		.loc 1 283 0
- 147 004e 9268     		ldr	r2, [r2, #8]
- 148              	.LVL10:
- 149 0050 C2F30312 		ubfx	r2, r2, #4, #4
- 150              	.LVL11:
- 151              		.loc 1 285 0
- 152 0054 895C     		ldrb	r1, [r1, r2]	@ zero_extendqisi2
- 153 0056 1A68     		ldr	r2, [r3]
- 154 0058 CA40     		lsrs	r2, r2, r1
- 155 005a 1A60     		str	r2, [r3]
- 156 005c 7047     		bx	lr
- 157              	.L16:
- 158 005e 00BF     		.align	2
- 159              	.L15:
- 160 0060 00380240 		.word	1073887232
- 161 0064 00000000 		.word	.LANCHOR0
- 162 0068 0024F400 		.word	16000000
- 163 006c 40787D01 		.word	25000000
- 164 0070 00000000 		.word	.LANCHOR1
- 165              		.cfi_endproc
- 166              	.LFE124:
- 168              		.global	AHBPrescTable
- 169              		.global	SystemCoreClock
- 170              		.section	.rodata.AHBPrescTable,"a",%progbits
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 9
+ 150              		.loc 1 284 0
+ 151 004e 9B68     		ldr	r3, [r3, #8]
+ 152              	.LVL14:
+ 153 0050 C3F30313 		ubfx	r3, r3, #4, #4
+ 154              	.LVL15:
+ 155              		.loc 1 286 0
+ 156 0054 D25C     		ldrb	r2, [r2, r3]	@ zero_extendqisi2
+ 157 0056 0B68     		ldr	r3, [r1]
+ 158 0058 D340     		lsrs	r3, r3, r2
+ 159 005a 0B60     		str	r3, [r1]
+ 160 005c 7047     		bx	lr
+ 161              	.L16:
+ 162 005e 00BF     		.align	2
+ 163              	.L15:
+ 164 0060 00380240 		.word	1073887232
+ 165 0064 00000000 		.word	.LANCHOR0
+ 166 0068 0024F400 		.word	16000000
+ 167 006c 40787D01 		.word	25000000
+ 168 0070 00000000 		.word	.LANCHOR1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 9
 
 
- 171              		.set	.LANCHOR1,. + 0
- 174              	AHBPrescTable:
- 175 0000 00       		.byte	0
- 176 0001 00       		.byte	0
- 177 0002 00       		.byte	0
- 178 0003 00       		.byte	0
- 179 0004 00       		.byte	0
- 180 0005 00       		.byte	0
- 181 0006 00       		.byte	0
- 182 0007 00       		.byte	0
- 183 0008 01       		.byte	1
- 184 0009 02       		.byte	2
- 185 000a 03       		.byte	3
- 186 000b 04       		.byte	4
- 187 000c 06       		.byte	6
- 188 000d 07       		.byte	7
- 189 000e 08       		.byte	8
- 190 000f 09       		.byte	9
- 191              		.section	.data.SystemCoreClock,"aw",%progbits
- 192              		.align	2
- 193              		.set	.LANCHOR0,. + 0
- 196              	SystemCoreClock:
- 197 0000 0024F400 		.word	16000000
- 198              		.text
- 199              	.Letext0:
- 200              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 201              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
- 202              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
- 203              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s 			page 10
+ 169              		.cfi_endproc
+ 170              	.LFE124:
+ 172              		.global	AHBPrescTable
+ 173              		.global	SystemCoreClock
+ 174              		.section	.rodata.AHBPrescTable,"a",%progbits
+ 175              		.set	.LANCHOR1,. + 0
+ 178              	AHBPrescTable:
+ 179 0000 00       		.byte	0
+ 180 0001 00       		.byte	0
+ 181 0002 00       		.byte	0
+ 182 0003 00       		.byte	0
+ 183 0004 00       		.byte	0
+ 184 0005 00       		.byte	0
+ 185 0006 00       		.byte	0
+ 186 0007 00       		.byte	0
+ 187 0008 01       		.byte	1
+ 188 0009 02       		.byte	2
+ 189 000a 03       		.byte	3
+ 190 000b 04       		.byte	4
+ 191 000c 06       		.byte	6
+ 192 000d 07       		.byte	7
+ 193 000e 08       		.byte	8
+ 194 000f 09       		.byte	9
+ 195              		.section	.data.SystemCoreClock,"aw",%progbits
+ 196              		.align	2
+ 197              		.set	.LANCHOR0,. + 0
+ 200              	SystemCoreClock:
+ 201 0000 0024F400 		.word	16000000
+ 202              		.text
+ 203              	.Letext0:
+ 204              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 205              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ 206              		.file 4 "Drivers/CMSIS/Include/core_cm4.h"
+ 207              		.file 5 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xe.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s 			page 10
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 system_stm32f4xx.c
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:19     .text.SystemInit:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:24     .text.SystemInit:0000000000000000 SystemInit
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:64     .text.SystemInit:0000000000000034 $d
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:71     .text.SystemCoreClockUpdate:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:76     .text.SystemCoreClockUpdate:0000000000000000 SystemCoreClockUpdate
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:160    .text.SystemCoreClockUpdate:0000000000000060 $d
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:174    .rodata.AHBPrescTable:0000000000000000 AHBPrescTable
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:196    .data.SystemCoreClock:0000000000000000 SystemCoreClock
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccYJ2ITk.s:192    .data.SystemCoreClock:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:20     .text.SystemInit:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:25     .text.SystemInit:0000000000000000 SystemInit
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:65     .text.SystemInit:0000000000000034 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:72     .text.SystemCoreClockUpdate:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:77     .text.SystemCoreClockUpdate:0000000000000000 SystemCoreClockUpdate
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:164    .text.SystemCoreClockUpdate:0000000000000060 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:178    .rodata.AHBPrescTable:0000000000000000 AHBPrescTable
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:200    .data.SystemCoreClock:0000000000000000 SystemCoreClock
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cchmIN6Q.s:196    .data.SystemCoreClock:0000000000000000 $d
                      .debug_frame:0000000000000010 $d
 
 NO UNDEFINED SYMBOLS

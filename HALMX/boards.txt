@@ -75,7 +75,7 @@ MXNucleoF103.build.DRIVERS=STM32F1xx_HAL_Driver/Inc
 MXDiscoF429I.name=STM Discovery F429I (HALMX)
 
 MXDiscoF429I.upload.tool=stlink_upload
-MXDiscoF429I.upload.protocol=maple_dfu
+#MXDiscoF429I.upload.protocol=maple_dfu
 MXDiscoF429I.upload.maximum_size=2028000
 
 MXDiscoF429I.upload.file_type=bin

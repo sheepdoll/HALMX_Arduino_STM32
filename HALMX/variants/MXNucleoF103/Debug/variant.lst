@@ -1,0 +1,854 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"variant.cpp"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text.Tx1_Handler,"ax",%progbits
+  19              		.align	1
+  20              		.global	Tx1_Handler
+  21              		.thumb
+  22              		.thumb_func
+  24              	Tx1_Handler:
+  25              	.LFB149:
+  26              		.file 1 "variant.cpp"
+   1:variant.cpp   **** /*
+   2:variant.cpp   ****   Copyright (c) 2011 Arduino.  All right reserved.
+   3:variant.cpp   **** 
+   4:variant.cpp   ****   This library is free software; you can redistribute it and/or
+   5:variant.cpp   ****   modify it under the terms of the GNU Lesser General Public
+   6:variant.cpp   ****   License as published by the Free Software Foundation; either
+   7:variant.cpp   ****   version 2.1 of the License, or (at your option) any later version.
+   8:variant.cpp   **** 
+   9:variant.cpp   ****   This library is distributed in the hope that it will be useful,
+  10:variant.cpp   ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  11:variant.cpp   ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  12:variant.cpp   ****   See the GNU Lesser General Public License for more details.
+  13:variant.cpp   **** 
+  14:variant.cpp   ****   You should have received a copy of the GNU Lesser General Public
+  15:variant.cpp   ****   License along with this library; if not, write to the Free Software
+  16:variant.cpp   ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  17:variant.cpp   ****   
+  18:variant.cpp   ****   - 08 April 2016 Modified by Vassilis Serasidis
+  19:variant.cpp   ****     This file is converted for using it with ST HAL + CubeMX + Arduino SAM core files.
+  20:variant.cpp   **** */
+  21:variant.cpp   **** 
+  22:variant.cpp   **** #include "Arduino.h"
+  23:variant.cpp   **** //#include "variant.h"
+  24:variant.cpp   **** 
+  25:variant.cpp   **** 
+  26:variant.cpp   **** /*
+  27:variant.cpp   ****  * DUE Board pin   |  PORT  | Label
+  28:variant.cpp   ****  * ----------------+--------+-------
+  29:variant.cpp   ****  *   0             |  PA8   | "RX0"
+  30:variant.cpp   ****  *   1             |  PA9   | "TX0"
+  31:variant.cpp   ****  *   2       TIOA0 |  PB25  |
+  32:variant.cpp   ****  *   3       TIOA7 |  PC28  |
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 2
+
+
+  33:variant.cpp   ****  *   4       NPCS1 |  PA29  |
+  34:variant.cpp   ****  *           TIOB6 |  PC26  |
+  35:variant.cpp   ****  *   5       TIOA6 |  PC25  |
+  36:variant.cpp   ****  *   6       PWML7 |  PC24  |
+  37:variant.cpp   ****  *   7       PWML6 |  PC23  |
+  38:variant.cpp   ****  *   8       PWML5 |  PC22  |
+  39:variant.cpp   ****  *   9       PWML4 |  PC21  |
+  40:variant.cpp   ****  *  10       NPCS0 |  PA28  |
+  41:variant.cpp   ****  *           TIOB7 |  PC29  |
+  42:variant.cpp   ****  *  11       TIOA8 |  PD7   |
+  43:variant.cpp   ****  *  12       TIOB8 |  PD8   |
+  44:variant.cpp   ****  *  13       TIOB0 |  PB27  | LED AMBER "L"
+  45:variant.cpp   ****  *  14       TXD3  |  PD4   | "TX3"
+  46:variant.cpp   ****  *  15       RXD3  |  PD5   | "RX3"
+  47:variant.cpp   ****  *  16       TXD1  |  PA13  | "TX2"
+  48:variant.cpp   ****  *  17       RXD1  |  PA12  | "RX2"
+  49:variant.cpp   ****  *  18       TXD0  |  PA11  | "TX1"
+  50:variant.cpp   ****  *  19       RXD0  |  PA10  | "RX1"
+  51:variant.cpp   ****  *  20             |  PB12  | "SDA"
+  52:variant.cpp   ****  *  21             |  PB13  | "SCL"
+  53:variant.cpp   ****  *  22             |  PB26  |
+  54:variant.cpp   ****  *  23             |  PA14  |
+  55:variant.cpp   ****  *  24             |  PA15  |
+  56:variant.cpp   ****  *  25             |  PD0   |
+  57:variant.cpp   ****  *  26             |  PD1   |
+  58:variant.cpp   ****  *  27             |  PD2   |
+  59:variant.cpp   ****  *  28             |  PD3   |
+  60:variant.cpp   ****  *  29             |  PD6   |
+  61:variant.cpp   ****  *  30             |  PD9   |
+  62:variant.cpp   ****  *  31             |  PA7   |
+  63:variant.cpp   ****  *  32             |  PD10  |
+  64:variant.cpp   ****  *  33             |  PC1   |
+  65:variant.cpp   ****  *  34             |  PC2   |
+  66:variant.cpp   ****  *  35             |  PC3   |
+  67:variant.cpp   ****  *  36             |  PC4   |
+  68:variant.cpp   ****  *  37             |  PC5   |
+  69:variant.cpp   ****  *  38             |  PC6   |
+  70:variant.cpp   ****  *  39             |  PC7   |
+  71:variant.cpp   ****  *  40             |  PC8   |
+  72:variant.cpp   ****  *  41             |  PC9   |
+  73:variant.cpp   ****  *  42             |  PA19  |
+  74:variant.cpp   ****  *  43             |  PA20  |
+  75:variant.cpp   ****  *  44             |  PC19  |
+  76:variant.cpp   ****  *  45             |  PC18  |
+  77:variant.cpp   ****  *  46             |  PC17  |
+  78:variant.cpp   ****  *  47             |  PC16  |
+  79:variant.cpp   ****  *  48             |  PC15  |
+  80:variant.cpp   ****  *  49             |  PC14  |
+  81:variant.cpp   ****  *  50             |  PC13  |
+  82:variant.cpp   ****  *  51             |  PC12  |
+  83:variant.cpp   ****  *  52       NPCS2 |  PB21  |
+  84:variant.cpp   ****  *  53             |  PB14  |
+  85:variant.cpp   ****  *  54             |  PA16  | "A0"
+  86:variant.cpp   ****  *  55             |  PA24  | "A1"
+  87:variant.cpp   ****  *  56             |  PA23  | "A2"
+  88:variant.cpp   ****  *  57             |  PA22  | "A3"
+  89:variant.cpp   ****  *  58       TIOB2 |  PA6   | "A4"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 3
+
+
+  90:variant.cpp   ****  *  69             |  PA4   | "A5"
+  91:variant.cpp   ****  *  60       TIOB1 |  PA3   | "A6"
+  92:variant.cpp   ****  *  61       TIOA1 |  PA2   | "A7"
+  93:variant.cpp   ****  *  62             |  PB17  | "A8"
+  94:variant.cpp   ****  *  63             |  PB18  | "A9"
+  95:variant.cpp   ****  *  64             |  PB19  | "A10"
+  96:variant.cpp   ****  *  65             |  PB20  | "A11"
+  97:variant.cpp   ****  *  66             |  PB15  | "DAC0"
+  98:variant.cpp   ****  *  67             |  PB16  | "DAC1"
+  99:variant.cpp   ****  *  68             |  PA1   | "CANRX"
+ 100:variant.cpp   ****  *  69             |  PA0   | "CANTX"
+ 101:variant.cpp   ****  *  70             |  PA17  | "SDA1"
+ 102:variant.cpp   ****  *  71             |  PA18  | "SCL1"
+ 103:variant.cpp   ****  *  72             |  PC30  | LED AMBER "RX"
+ 104:variant.cpp   ****  *  73             |  PA21  | LED AMBER "TX"
+ 105:variant.cpp   ****  *  74       MISO  |  PA25  |
+ 106:variant.cpp   ****  *  75       MOSI  |  PA26  |
+ 107:variant.cpp   ****  *  76       SCLK  |  PA27  |
+ 108:variant.cpp   ****  *  77       NPCS0 |  PA28  |
+ 109:variant.cpp   ****  *  78       NPCS3 |  PB23  | unconnected!
+ 110:variant.cpp   ****  *
+ 111:variant.cpp   ****  * USB pin         |  PORT
+ 112:variant.cpp   ****  * ----------------+--------
+ 113:variant.cpp   ****  *  ID             |  PB11
+ 114:variant.cpp   ****  *  VBOF           |  PB10
+ 115:variant.cpp   ****  *
+ 116:variant.cpp   ****  */
+ 117:variant.cpp   **** 
+ 118:variant.cpp   **** 
+ 119:variant.cpp   **** #ifdef __cplusplus
+ 120:variant.cpp   **** extern "C" {
+ 121:variant.cpp   **** #endif
+ 122:variant.cpp   **** 
+ 123:variant.cpp   **** /*
+ 124:variant.cpp   **** 
+ 125:variant.cpp   ****  * Pins descriptions
+ 126:variant.cpp   **** 
+ 127:variant.cpp   ****  this is reworked to be a bit more abstract.  The main use of this array is for
+ 128:variant.cpp   ****  bit banged GPIO setup.  Since we are using the HAL libraries, the setup
+ 129:variant.cpp   ****  is through STM32CubeMX for our peripherals, rendering this table
+ 130:variant.cpp   ****  redundant for general io and peripheral setup
+ 131:variant.cpp   ****  
+ 132:variant.cpp   ****  What we have here is an Abstraction on top of another abstraction. 
+ 133:variant.cpp   ****  
+ 134:variant.cpp   ****  The abstraction is that to set or read a pin we only need two items of
+ 135:variant.cpp   ****  information, the port and the pin.  As Arduino abstracts by pin
+ 136:variant.cpp   ****  we use this abstraction to map into the following table the order
+ 137:variant.cpp   ****  of this table should be by Arduino D number
+ 138:variant.cpp   **** 
+ 139:variant.cpp   ****  The only thing the HAL API needs are the port and PIN references
+ 140:variant.cpp   **** 
+ 141:variant.cpp   ****  The following table is written in c shorthand it could also be set up
+ 142:variant.cpp   ****  with the more readable 
+ 143:variant.cpp   ****  
+ 144:variant.cpp   ****  g_Pin2PortMapArray[D1 ].GPIOx_Port = GPIOA;
+ 145:variant.cpp   ****  g_Pin2PortMapArray[D1 ].Pin_abstraction = GPIO_PIN_3    D0/PA3	USART_RX	 
+ 146:variant.cpp   ****  g_Pin2PortMapArray[D2 ].GPIOx_Port = GPIOA;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 4
+
+
+ 147:variant.cpp   ****  g_Pin2PortMapArray[D2].Pin_abstraction = GPIO_PIN_2    D0/PA3	USART_RX
+ 148:variant.cpp   ****  ... ect ...
+ 149:variant.cpp   ****  Ideally this array should be non mutable and in flash	 
+ 150:variant.cpp   **** 
+ 151:variant.cpp   ****  
+ 152:variant.cpp   **** */
+ 153:variant.cpp   **** 
+ 154:variant.cpp   **** 
+ 155:variant.cpp   **** 
+ 156:variant.cpp   **** extern const Pin2PortMapArray g_Pin2PortMapArray[]=
+ 157:variant.cpp   **** {    
+ 158:variant.cpp   **** 	{GPIOA, GPIO_PIN_3,  ADC_CHANNEL_3, hTimer2,  TIM_CHANNEL_4 },	/*  D0/PA3	USART2_RX	*/
+ 159:variant.cpp   **** 	{GPIOA, GPIO_PIN_2,  ADC_CHANNEL_2, hTimer2,  TIM_CHANNEL_3 },	/*  D1/PA2	USART2_TX	*/
+ 160:variant.cpp   **** 	
+ 161:variant.cpp   ****     {GPIOA, GPIO_PIN_10, NO_ADC       , hTimer1,  TIM_CHANNEL_3 },	/*  D2/PA10	USART1_RX	*/
+ 162:variant.cpp   ****     {GPIOB, GPIO_PIN_3,  NO_ADC       , NO_PWM,   NO_PWM        },	/*  D3/PB3	SWO			*/
+ 163:variant.cpp   ****     {GPIOB, GPIO_PIN_5,  NO_ADC       , hTimer3,  TIM_CHANNEL_2 },	/*  D4/PB5	GPIO T3		*/
+ 164:variant.cpp   ****     {GPIOB, GPIO_PIN_4,  NO_ADC       , hTimer3,  TIM_CHANNEL_1 },	/*  D5/PB4  GPIO T3		*/
+ 165:variant.cpp   ****     {GPIOB, GPIO_PIN_10, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D6/PB10	I2C2_SCL	*/
+ 166:variant.cpp   ****     {GPIOA, GPIO_PIN_8,  NO_ADC       , hTimer1,  TIM_CHANNEL_1 },	/*  D7/PA8	GPIO T1		*/
+ 167:variant.cpp   **** 
+ 168:variant.cpp   ****     {GPIOA, GPIO_PIN_9,  NO_ADC       , hTimer1,  TIM_CHANNEL_2 }, 	/*  D8/PA9	USART1_TX	*/
+ 169:variant.cpp   ****     {GPIOC, GPIO_PIN_7,  NO_ADC		  , hTimer3,  TIM_CHANNEL_2 }, 	/*  D9/PC7	USART6Rx GPIO */
+ 170:variant.cpp   ****     {GPIOB, GPIO_PIN_6,  NO_ADC       , hTimer4,  TIM_CHANNEL_1 }, 	/*  D10/PB6	I2C1_SCL USART1TXAF
+ 171:variant.cpp   ****     {GPIOA, GPIO_PIN_7,  ADC_CHANNEL_7, NO_PWM,   NO_PWM        }, 	/*  D11/PA7	SPI_MOSI_NC	*/
+ 172:variant.cpp   ****     {GPIOA, GPIO_PIN_6,  ADC_CHANNEL_6, NO_PWM,   NO_PWM        }, 	/*  D12/PA6	SPI_MISO_NC */
+ 173:variant.cpp   ****     
+ 174:variant.cpp   ****     {GPIOA, GPIO_PIN_5,  ADC_CHANNEL_5, NO_PWM,   NO_PWM        },	/*  D13/PA5 LED - no ADC12_IN5 S
+ 175:variant.cpp   ****     
+ 176:variant.cpp   ****     {GPIOB, GPIO_PIN_9,  NO_ADC       , hTimer4,  TIM_CHANNEL_4 }, 	/*  D14/PB9 I2C1_SDA	*/
+ 177:variant.cpp   ****     {GPIOB, GPIO_PIN_8,  NO_ADC       , hTimer4,  TIM_CHANNEL_3 }, 	/*  D15/PB8 I2C1_SCL	*/
+ 178:variant.cpp   **** 
+ 179:variant.cpp   ****     {GPIOA, GPIO_PIN_0,  ADC_CHANNEL_0, hTimer2,  TIM_CHANNEL_1 }, 	/*  D16/A0/PA0 GPIO		*/
+ 180:variant.cpp   ****     {GPIOA, GPIO_PIN_1,  ADC_CHANNEL_1, hTimer2,  TIM_CHANNEL_2 }, 	/*  D17/A1/PA1 GPIO		*/
+ 181:variant.cpp   ****     {GPIOA, GPIO_PIN_4,  ADC_CHANNEL_4, NO_PWM,   NO_PWM        }, 	/*  D18/A2/PA4 SPI_NSS	*/
+ 182:variant.cpp   ****     {GPIOB, GPIO_PIN_0,  ADC_CHANNEL_8, hTimer3,  TIM_CHANNEL_3 }, 	/*  D19/A3/PB0 GPIO		*/
+ 183:variant.cpp   ****     {GPIOC, GPIO_PIN_1,  ADC_CHANNEL_11, NO_PWM,  NO_PWM        }, 	/*  D20/A4/PC1 GPIO		*/
+ 184:variant.cpp   ****     {GPIOC, GPIO_PIN_7,  ADC_CHANNEL_10, NO_PWM,  NO_PWM        },  /*  D21/A5/PC0 GPIO		*/
+ 185:variant.cpp   **** 
+ 186:variant.cpp   ****     /*
+ 187:variant.cpp   ****     	 these signals are only on the Morpho headers
+ 188:variant.cpp   ****     	 Odd pins are on the left header
+ 189:variant.cpp   ****     	 Even pins are on the right header                 
+ 190:variant.cpp   ****     */
+ 191:variant.cpp   ****     
+ 192:variant.cpp   ****     {GPIOC, GPIO_PIN_10, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D22/PC10 	SPI_SCK				ML1 */
+ 193:variant.cpp   **** 	{GPIOC, GPIO_PIN_12, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D23/PC12	SPI_MOSI			ML3 */
+ 194:variant.cpp   ****     {GPIOB, GPIO_PIN_7,  NO_ADC       , hTimer4,  TIM_CHANNEL_2 },	/*  D24/PB7		I2C1_SDA USART1RxAF
+ 195:variant.cpp   ****     {GPIOC, GPIO_PIN_13, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D25/PC13	USER BLUE BUTTON	M2
+ 196:variant.cpp   ****     {GPIOC, GPIO_PIN_14, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D26/PC14	RCC_OSC32_IN 		M25 
+ 197:variant.cpp   ****     {GPIOC, GPIO_PIN_15, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D27/PC15	RCC_OSC32_OUT		M26 
+ 198:variant.cpp   ****     {GPIOC, GPIO_PIN_2,  ADC_CHANNEL_12, NO_PWM,  NO_PWM        },	/*  D28/PC2		SPI2_MISO			M35 */
+ 199:variant.cpp   ****     {GPIOC, GPIO_PIN_3,  ADC_CHANNEL_13, NO_PWM,  NO_PWM        },	/*  D29/PC3		GPIO				M37 */
+ 200:variant.cpp   ****     {GPIOC, GPIO_PIN_11, NO_ADC		  , NO_PWM,  NO_PWM        },	/*  D30/PC11	SPI3_MISO	 ADC1_EXTI11	
+ 201:variant.cpp   ****     {GPIOD, GPIO_PIN_2,  NO_ADC       , NO_PWM,   NO_PWM        },	/*  D31/PD2 	GPIO				ML4 */
+ 202:variant.cpp   ****     {GPIOC, GPIO_PIN_9,  NO_ADC       , hTimer3,  TIM_CHANNEL_4 },	/*  D32/PC9		GPIO				MR1 */
+ 203:variant.cpp   ****     {GPIOC, GPIO_PIN_8,  NO_ADC       , hTimer3,  TIM_CHANNEL_3 },	/*  D33/PC8		GPIO				MR2 */
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 5
+
+
+ 204:variant.cpp   ****     {GPIOC, GPIO_PIN_6,  NO_ADC       , hTimer3,  TIM_CHANNEL_1 },	/*  D34/PC6		USART6Tx GPOO		MR4 
+ 205:variant.cpp   ****     {GPIOC, GPIO_PIN_5,  ADC_CHANNEL_15, NO_PWM,  NO_PWM        },	/*  D35/PC5		GPIO				MR6 */
+ 206:variant.cpp   ****     {GPIOA, GPIO_PIN_12, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D36/PA12	USB_DP USART6_RX 	M
+ 207:variant.cpp   ****     {GPIOA, GPIO_PIN_11, NO_ADC       , hTimer1,  TIM_CHANNEL_4 },	/*  D37/PA11	USB_DM USART6_TX 	M
+ 208:variant.cpp   ****     {GPIOB, GPIO_PIN_12, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D38/PB12	SPI2_NSS			M16 */
+ 209:variant.cpp   ****     {GPIOB, GPIO_PIN_11, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D39/PB11	VCAPPower			M18 PWM
+ 210:variant.cpp   ****     {GPIOB, GPIO_PIN_2,  NO_ADC       , NO_PWM,   NO_PWM        },	/*  D40/PB2		BOOT1 !!			ML7 */
+ 211:variant.cpp   ****     {GPIOB, GPIO_PIN_1,  ADC_CHANNEL_9, hTimer3,  TIM_CHANNEL_4 },	/*  D41/PB1		GPIO 				M24 */
+ 212:variant.cpp   ****     {GPIOB, GPIO_PIN_15, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D42/PB15	SPI2_MOSI			M26 */
+ 213:variant.cpp   ****     {GPIOB, GPIO_PIN_14, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D43/PB14	SPI2_MISO			M28 */
+ 214:variant.cpp   ****     {GPIOB, GPIO_PIN_13, NO_ADC       , NO_PWM,   NO_PWM        },	/*  D44/PB13	SPI2_SCK			M30 */
+ 215:variant.cpp   ****     {GPIOC, GPIO_PIN_4,  ADC_CHANNEL_15, NO_PWM,  NO_PWM        }	/*  D45/PC4		GPIO				M34 */
+ 216:variant.cpp   **** 
+ 217:variant.cpp   ****   	// JTAG Single wire pins
+ 218:variant.cpp   **** 	// {GPIOA, NULL,   NULL, 13, 0, ADCx},/* Dxx/PA13 	TMS	do not use	M13 */
+ 219:variant.cpp   **** 	// {GPIOA, NULL,   NULL, 14, 0, ADCx},/* Dxx/PA14	TCK do not use	M15 */
+ 220:variant.cpp   **** 
+ 221:variant.cpp   **** 	// sheepdoll -- not sure why this one is locked out?
+ 222:variant.cpp   **** 	// {GPIOA, TIMER2, NULL, 15, 1, ADCx},/* Dxx/PA15 	TDI do not use	M17 */
+ 223:variant.cpp   **** 	
+ 224:variant.cpp   **** 	
+ 225:variant.cpp   **** } ;
+ 226:variant.cpp   **** 
+ 227:variant.cpp   **** #ifdef __cplusplus
+ 228:variant.cpp   **** }
+ 229:variant.cpp   **** #endif
+ 230:variant.cpp   **** 
+ 231:variant.cpp   **** #ifdef __GNUC__
+ 232:variant.cpp   ****   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+ 233:variant.cpp   ****      set to 'Yes') calls __io_putchar() */
+ 234:variant.cpp   ****   #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+ 235:variant.cpp   **** #else
+ 236:variant.cpp   ****   #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+ 237:variant.cpp   **** #endif /* __GNUC__ */
+ 238:variant.cpp   **** 
+ 239:variant.cpp   **** 
+ 240:variant.cpp   **** /* ----------------------------------------------------------------------------
+ 241:variant.cpp   ****  *     USART objects
+ 242:variant.cpp   ****  * ----------------------------------------------------------------------------*/
+ 243:variant.cpp   **** 
+ 244:variant.cpp   **** #ifdef USE_USART1
+ 245:variant.cpp   **** UARTClass Serial1(&huart1, USART1_IRQn, 0, USART1);
+ 246:variant.cpp   **** void Tx1_Handler(void){
+  27              		.loc 1 246 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+ 247:variant.cpp   ****   Serial1.TxHandler();
+  32              		.loc 1 247 0
+  33 0000 0148     		ldr	r0, .L2
+  34 0002 FFF7FEBF 		b	_ZN9UARTClass9TxHandlerEv
+  35              	.LVL0:
+  36              	.L3:
+  37 0006 00BF     		.align	2
+  38              	.L2:
+  39 0008 00000000 		.word	.LANCHOR0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 6
+
+
+  40              		.cfi_endproc
+  41              	.LFE149:
+  43              		.section	.text.Rx1_Handler,"ax",%progbits
+  44              		.align	1
+  45              		.global	Rx1_Handler
+  46              		.thumb
+  47              		.thumb_func
+  49              	Rx1_Handler:
+  50              	.LFB150:
+ 248:variant.cpp   **** }
+ 249:variant.cpp   **** void Rx1_Handler(void){
+  51              		.loc 1 249 0
+  52              		.cfi_startproc
+  53              		@ args = 0, pretend = 0, frame = 0
+  54              		@ frame_needed = 0, uses_anonymous_args = 0
+  55              		@ link register save eliminated.
+ 250:variant.cpp   ****   Serial1.RxHandler();
+  56              		.loc 1 250 0
+  57 0000 0148     		ldr	r0, .L5
+  58 0002 FFF7FEBF 		b	_ZN9UARTClass9RxHandlerEv
+  59              	.LVL1:
+  60              	.L6:
+  61 0006 00BF     		.align	2
+  62              	.L5:
+  63 0008 00000000 		.word	.LANCHOR0
+  64              		.cfi_endproc
+  65              	.LFE150:
+  67              		.section	.text.Tx2_Handler,"ax",%progbits
+  68              		.align	1
+  69              		.global	Tx2_Handler
+  70              		.thumb
+  71              		.thumb_func
+  73              	Tx2_Handler:
+  74              	.LFB151:
+ 251:variant.cpp   **** }
+ 252:variant.cpp   **** #endif
+ 253:variant.cpp   **** 
+ 254:variant.cpp   **** #ifdef USE_USART2
+ 255:variant.cpp   **** UARTClass Serial2(&huart2, USART2_IRQn, 1, USART2);
+ 256:variant.cpp   **** void Tx2_Handler(void){
+  75              		.loc 1 256 0
+  76              		.cfi_startproc
+  77              		@ args = 0, pretend = 0, frame = 0
+  78              		@ frame_needed = 0, uses_anonymous_args = 0
+  79              		@ link register save eliminated.
+ 257:variant.cpp   ****   Serial2.TxHandler();
+  80              		.loc 1 257 0
+  81 0000 0148     		ldr	r0, .L8
+  82 0002 FFF7FEBF 		b	_ZN9UARTClass9TxHandlerEv
+  83              	.LVL2:
+  84              	.L9:
+  85 0006 00BF     		.align	2
+  86              	.L8:
+  87 0008 00000000 		.word	.LANCHOR1
+  88              		.cfi_endproc
+  89              	.LFE151:
+  91              		.section	.text.Rx2_Handler,"ax",%progbits
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 7
+
+
+  92              		.align	1
+  93              		.global	Rx2_Handler
+  94              		.thumb
+  95              		.thumb_func
+  97              	Rx2_Handler:
+  98              	.LFB152:
+ 258:variant.cpp   **** }
+ 259:variant.cpp   **** void Rx2_Handler(void){
+  99              		.loc 1 259 0
+ 100              		.cfi_startproc
+ 101              		@ args = 0, pretend = 0, frame = 0
+ 102              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103              		@ link register save eliminated.
+ 260:variant.cpp   ****   Serial2.RxHandler();
+ 104              		.loc 1 260 0
+ 105 0000 0148     		ldr	r0, .L11
+ 106 0002 FFF7FEBF 		b	_ZN9UARTClass9RxHandlerEv
+ 107              	.LVL3:
+ 108              	.L12:
+ 109 0006 00BF     		.align	2
+ 110              	.L11:
+ 111 0008 00000000 		.word	.LANCHOR1
+ 112              		.cfi_endproc
+ 113              	.LFE152:
+ 115              		.section	.text.Tx3_Handler,"ax",%progbits
+ 116              		.align	1
+ 117              		.global	Tx3_Handler
+ 118              		.thumb
+ 119              		.thumb_func
+ 121              	Tx3_Handler:
+ 122              	.LFB153:
+ 261:variant.cpp   **** }
+ 262:variant.cpp   **** #endif
+ 263:variant.cpp   **** 
+ 264:variant.cpp   **** #ifdef USE_USART3
+ 265:variant.cpp   **** UARTClass Serial3(&huart3, USART3_IRQn, 2, USART3);
+ 266:variant.cpp   **** void Tx3_Handler(void){
+ 123              		.loc 1 266 0
+ 124              		.cfi_startproc
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 0, uses_anonymous_args = 0
+ 127              		@ link register save eliminated.
+ 267:variant.cpp   ****   Serial3.TxHandler();
+ 128              		.loc 1 267 0
+ 129 0000 0148     		ldr	r0, .L14
+ 130 0002 FFF7FEBF 		b	_ZN9UARTClass9TxHandlerEv
+ 131              	.LVL4:
+ 132              	.L15:
+ 133 0006 00BF     		.align	2
+ 134              	.L14:
+ 135 0008 00000000 		.word	.LANCHOR2
+ 136              		.cfi_endproc
+ 137              	.LFE153:
+ 139              		.section	.text.Rx3_Handler,"ax",%progbits
+ 140              		.align	1
+ 141              		.global	Rx3_Handler
+ 142              		.thumb
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 8
+
+
+ 143              		.thumb_func
+ 145              	Rx3_Handler:
+ 146              	.LFB154:
+ 268:variant.cpp   **** }
+ 269:variant.cpp   **** void Rx3_Handler(void){
+ 147              		.loc 1 269 0
+ 148              		.cfi_startproc
+ 149              		@ args = 0, pretend = 0, frame = 0
+ 150              		@ frame_needed = 0, uses_anonymous_args = 0
+ 151              		@ link register save eliminated.
+ 270:variant.cpp   ****   Serial3.RxHandler();
+ 152              		.loc 1 270 0
+ 153 0000 0148     		ldr	r0, .L17
+ 154 0002 FFF7FEBF 		b	_ZN9UARTClass9RxHandlerEv
+ 155              	.LVL5:
+ 156              	.L18:
+ 157 0006 00BF     		.align	2
+ 158              	.L17:
+ 159 0008 00000000 		.word	.LANCHOR2
+ 160              		.cfi_endproc
+ 161              	.LFE154:
+ 163              		.section	.text.startup._GLOBAL__sub_I_g_Pin2PortMapArray,"ax",%progbits
+ 164              		.align	1
+ 165              		.thumb
+ 166              		.thumb_func
+ 168              	_GLOBAL__sub_I_g_Pin2PortMapArray:
+ 169              	.LFB156:
+ 271:variant.cpp   **** }
+ 170              		.loc 1 271 0
+ 171              		.cfi_startproc
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 0, uses_anonymous_args = 0
+ 174              	.LVL6:
+ 175 0000 07B5     		push	{r0, r1, r2, lr}
+ 176              		.cfi_def_cfa_offset 16
+ 177              		.cfi_offset 0, -16
+ 178              		.cfi_offset 1, -12
+ 179              		.cfi_offset 2, -8
+ 180              		.cfi_offset 14, -4
+ 181              	.LBB4:
+ 182              	.LBB5:
+ 245:variant.cpp   **** UARTClass Serial1(&huart1, USART1_IRQn, 0, USART1);
+ 183              		.loc 1 245 0
+ 184 0002 0D4B     		ldr	r3, .L20
+ 185 0004 0093     		str	r3, [sp]
+ 186 0006 0D49     		ldr	r1, .L20+4
+ 187 0008 0D48     		ldr	r0, .L20+8
+ 188 000a 2522     		movs	r2, #37
+ 189 000c 0023     		movs	r3, #0
+ 190 000e FFF7FEFF 		bl	_ZN9UARTClassC1EP18UART_HandleTypeDef9IRQn_TypemP13USART_TypeDef
+ 191              	.LVL7:
+ 255:variant.cpp   **** UARTClass Serial2(&huart2, USART2_IRQn, 1, USART2);
+ 192              		.loc 1 255 0
+ 193 0012 0C4B     		ldr	r3, .L20+12
+ 194 0014 0093     		str	r3, [sp]
+ 195 0016 0C49     		ldr	r1, .L20+16
+ 196 0018 0C48     		ldr	r0, .L20+20
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 9
+
+
+ 197 001a 2622     		movs	r2, #38
+ 198 001c 0123     		movs	r3, #1
+ 199 001e FFF7FEFF 		bl	_ZN9UARTClassC1EP18UART_HandleTypeDef9IRQn_TypemP13USART_TypeDef
+ 200              	.LVL8:
+ 265:variant.cpp   **** UARTClass Serial3(&huart3, USART3_IRQn, 2, USART3);
+ 201              		.loc 1 265 0
+ 202 0022 0B4B     		ldr	r3, .L20+24
+ 203 0024 0093     		str	r3, [sp]
+ 204 0026 0B49     		ldr	r1, .L20+28
+ 205 0028 0B48     		ldr	r0, .L20+32
+ 206 002a 2722     		movs	r2, #39
+ 207 002c 0223     		movs	r3, #2
+ 208 002e FFF7FEFF 		bl	_ZN9UARTClassC1EP18UART_HandleTypeDef9IRQn_TypemP13USART_TypeDef
+ 209              	.LVL9:
+ 210              	.LBE5:
+ 211              	.LBE4:
+ 212              		.loc 1 271 0
+ 213 0032 03B0     		add	sp, sp, #12
+ 214              		@ sp needed
+ 215 0034 5DF804FB 		ldr	pc, [sp], #4
+ 216              	.L21:
+ 217              		.align	2
+ 218              	.L20:
+ 219 0038 00380140 		.word	1073821696
+ 220 003c 00000000 		.word	huart1
+ 221 0040 00000000 		.word	.LANCHOR0
+ 222 0044 00440040 		.word	1073759232
+ 223 0048 00000000 		.word	huart2
+ 224 004c 00000000 		.word	.LANCHOR1
+ 225 0050 00480040 		.word	1073760256
+ 226 0054 00000000 		.word	huart3
+ 227 0058 00000000 		.word	.LANCHOR2
+ 228              		.cfi_endproc
+ 229              	.LFE156:
+ 231              		.section	.init_array,"aw",%init_array
+ 232              		.align	2
+ 233 0000 00000000 		.word	_GLOBAL__sub_I_g_Pin2PortMapArray(target1)
+ 234              		.global	Serial3
+ 235              		.global	Serial2
+ 236              		.global	Serial1
+ 237              		.global	g_Pin2PortMapArray
+ 238              		.section	.bss.Serial1,"aw",%nobits
+ 239              		.align	2
+ 240              		.set	.LANCHOR0,. + 0
+ 243              	Serial1:
+ 244 0000 00000000 		.space	300
+ 244      00000000 
+ 244      00000000 
+ 244      00000000 
+ 244      00000000 
+ 245              		.section	.bss.Serial2,"aw",%nobits
+ 246              		.align	2
+ 247              		.set	.LANCHOR1,. + 0
+ 250              	Serial2:
+ 251 0000 00000000 		.space	300
+ 251      00000000 
+ 251      00000000 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 10
+
+
+ 251      00000000 
+ 251      00000000 
+ 252              		.section	.bss.Serial3,"aw",%nobits
+ 253              		.align	2
+ 254              		.set	.LANCHOR2,. + 0
+ 257              	Serial3:
+ 258 0000 00000000 		.space	300
+ 258      00000000 
+ 258      00000000 
+ 258      00000000 
+ 258      00000000 
+ 259              		.section	.rodata.g_Pin2PortMapArray,"a",%progbits
+ 260              		.align	2
+ 263              	g_Pin2PortMapArray:
+ 264 0000 00080140 		.word	1073809408
+ 265 0004 08000000 		.word	8
+ 266 0008 03000000 		.word	3
+ 267 000c 02000000 		.word	2
+ 268 0010 0C000000 		.word	12
+ 269 0014 00080140 		.word	1073809408
+ 270 0018 04000000 		.word	4
+ 271 001c 02000000 		.word	2
+ 272 0020 02000000 		.word	2
+ 273 0024 08000000 		.word	8
+ 274 0028 00080140 		.word	1073809408
+ 275 002c 00040000 		.word	1024
+ 276 0030 FFFF0000 		.word	65535
+ 277 0034 01000000 		.word	1
+ 278 0038 08000000 		.word	8
+ 279 003c 000C0140 		.word	1073810432
+ 280 0040 08000000 		.word	8
+ 281 0044 FFFF0000 		.word	65535
+ 282 0048 FFFF0000 		.word	65535
+ 283 004c FFFF0000 		.word	65535
+ 284 0050 000C0140 		.word	1073810432
+ 285 0054 20000000 		.word	32
+ 286 0058 FFFF0000 		.word	65535
+ 287 005c 03000000 		.word	3
+ 288 0060 04000000 		.word	4
+ 289 0064 000C0140 		.word	1073810432
+ 290 0068 10000000 		.word	16
+ 291 006c FFFF0000 		.word	65535
+ 292 0070 03000000 		.word	3
+ 293 0074 00000000 		.word	0
+ 294 0078 000C0140 		.word	1073810432
+ 295 007c 00040000 		.word	1024
+ 296 0080 FFFF0000 		.word	65535
+ 297 0084 FFFF0000 		.word	65535
+ 298 0088 FFFF0000 		.word	65535
+ 299 008c 00080140 		.word	1073809408
+ 300 0090 00010000 		.word	256
+ 301 0094 FFFF0000 		.word	65535
+ 302 0098 01000000 		.word	1
+ 303 009c 00000000 		.word	0
+ 304 00a0 00080140 		.word	1073809408
+ 305 00a4 00020000 		.word	512
+ 306 00a8 FFFF0000 		.word	65535
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 11
+
+
+ 307 00ac 01000000 		.word	1
+ 308 00b0 04000000 		.word	4
+ 309 00b4 00100140 		.word	1073811456
+ 310 00b8 80000000 		.word	128
+ 311 00bc FFFF0000 		.word	65535
+ 312 00c0 03000000 		.word	3
+ 313 00c4 04000000 		.word	4
+ 314 00c8 000C0140 		.word	1073810432
+ 315 00cc 40000000 		.word	64
+ 316 00d0 FFFF0000 		.word	65535
+ 317 00d4 04000000 		.word	4
+ 318 00d8 00000000 		.word	0
+ 319 00dc 00080140 		.word	1073809408
+ 320 00e0 80000000 		.word	128
+ 321 00e4 07000000 		.word	7
+ 322 00e8 FFFF0000 		.word	65535
+ 323 00ec FFFF0000 		.word	65535
+ 324 00f0 00080140 		.word	1073809408
+ 325 00f4 40000000 		.word	64
+ 326 00f8 06000000 		.word	6
+ 327 00fc FFFF0000 		.word	65535
+ 328 0100 FFFF0000 		.word	65535
+ 329 0104 00080140 		.word	1073809408
+ 330 0108 20000000 		.word	32
+ 331 010c 05000000 		.word	5
+ 332 0110 FFFF0000 		.word	65535
+ 333 0114 FFFF0000 		.word	65535
+ 334 0118 000C0140 		.word	1073810432
+ 335 011c 00020000 		.word	512
+ 336 0120 FFFF0000 		.word	65535
+ 337 0124 04000000 		.word	4
+ 338 0128 0C000000 		.word	12
+ 339 012c 000C0140 		.word	1073810432
+ 340 0130 00010000 		.word	256
+ 341 0134 FFFF0000 		.word	65535
+ 342 0138 04000000 		.word	4
+ 343 013c 08000000 		.word	8
+ 344 0140 00080140 		.word	1073809408
+ 345 0144 01000000 		.word	1
+ 346 0148 00000000 		.word	0
+ 347 014c 02000000 		.word	2
+ 348 0150 00000000 		.word	0
+ 349 0154 00080140 		.word	1073809408
+ 350 0158 02000000 		.word	2
+ 351 015c 01000000 		.word	1
+ 352 0160 02000000 		.word	2
+ 353 0164 04000000 		.word	4
+ 354 0168 00080140 		.word	1073809408
+ 355 016c 10000000 		.word	16
+ 356 0170 04000000 		.word	4
+ 357 0174 FFFF0000 		.word	65535
+ 358 0178 FFFF0000 		.word	65535
+ 359 017c 000C0140 		.word	1073810432
+ 360 0180 01000000 		.word	1
+ 361 0184 08000000 		.word	8
+ 362 0188 03000000 		.word	3
+ 363 018c 08000000 		.word	8
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 12
+
+
+ 364 0190 00100140 		.word	1073811456
+ 365 0194 02000000 		.word	2
+ 366 0198 0B000000 		.word	11
+ 367 019c FFFF0000 		.word	65535
+ 368 01a0 FFFF0000 		.word	65535
+ 369 01a4 00100140 		.word	1073811456
+ 370 01a8 80000000 		.word	128
+ 371 01ac 0A000000 		.word	10
+ 372 01b0 FFFF0000 		.word	65535
+ 373 01b4 FFFF0000 		.word	65535
+ 374 01b8 00100140 		.word	1073811456
+ 375 01bc 00040000 		.word	1024
+ 376 01c0 FFFF0000 		.word	65535
+ 377 01c4 FFFF0000 		.word	65535
+ 378 01c8 FFFF0000 		.word	65535
+ 379 01cc 00100140 		.word	1073811456
+ 380 01d0 00100000 		.word	4096
+ 381 01d4 FFFF0000 		.word	65535
+ 382 01d8 FFFF0000 		.word	65535
+ 383 01dc FFFF0000 		.word	65535
+ 384 01e0 000C0140 		.word	1073810432
+ 385 01e4 80000000 		.word	128
+ 386 01e8 FFFF0000 		.word	65535
+ 387 01ec 04000000 		.word	4
+ 388 01f0 04000000 		.word	4
+ 389 01f4 00100140 		.word	1073811456
+ 390 01f8 00200000 		.word	8192
+ 391 01fc FFFF0000 		.word	65535
+ 392 0200 FFFF0000 		.word	65535
+ 393 0204 FFFF0000 		.word	65535
+ 394 0208 00100140 		.word	1073811456
+ 395 020c 00400000 		.word	16384
+ 396 0210 FFFF0000 		.word	65535
+ 397 0214 FFFF0000 		.word	65535
+ 398 0218 FFFF0000 		.word	65535
+ 399 021c 00100140 		.word	1073811456
+ 400 0220 00800000 		.word	32768
+ 401 0224 FFFF0000 		.word	65535
+ 402 0228 FFFF0000 		.word	65535
+ 403 022c FFFF0000 		.word	65535
+ 404 0230 00100140 		.word	1073811456
+ 405 0234 04000000 		.word	4
+ 406 0238 0C000000 		.word	12
+ 407 023c FFFF0000 		.word	65535
+ 408 0240 FFFF0000 		.word	65535
+ 409 0244 00100140 		.word	1073811456
+ 410 0248 08000000 		.word	8
+ 411 024c 0D000000 		.word	13
+ 412 0250 FFFF0000 		.word	65535
+ 413 0254 FFFF0000 		.word	65535
+ 414 0258 00100140 		.word	1073811456
+ 415 025c 00080000 		.word	2048
+ 416 0260 FFFF0000 		.word	65535
+ 417 0264 FFFF0000 		.word	65535
+ 418 0268 FFFF0000 		.word	65535
+ 419 026c 00140140 		.word	1073812480
+ 420 0270 04000000 		.word	4
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 13
+
+
+ 421 0274 FFFF0000 		.word	65535
+ 422 0278 FFFF0000 		.word	65535
+ 423 027c FFFF0000 		.word	65535
+ 424 0280 00100140 		.word	1073811456
+ 425 0284 00020000 		.word	512
+ 426 0288 FFFF0000 		.word	65535
+ 427 028c 03000000 		.word	3
+ 428 0290 0C000000 		.word	12
+ 429 0294 00100140 		.word	1073811456
+ 430 0298 00010000 		.word	256
+ 431 029c FFFF0000 		.word	65535
+ 432 02a0 03000000 		.word	3
+ 433 02a4 08000000 		.word	8
+ 434 02a8 00100140 		.word	1073811456
+ 435 02ac 40000000 		.word	64
+ 436 02b0 FFFF0000 		.word	65535
+ 437 02b4 03000000 		.word	3
+ 438 02b8 00000000 		.word	0
+ 439 02bc 00100140 		.word	1073811456
+ 440 02c0 20000000 		.word	32
+ 441 02c4 0F000000 		.word	15
+ 442 02c8 FFFF0000 		.word	65535
+ 443 02cc FFFF0000 		.word	65535
+ 444 02d0 00080140 		.word	1073809408
+ 445 02d4 00100000 		.word	4096
+ 446 02d8 FFFF0000 		.word	65535
+ 447 02dc FFFF0000 		.word	65535
+ 448 02e0 FFFF0000 		.word	65535
+ 449 02e4 00080140 		.word	1073809408
+ 450 02e8 00080000 		.word	2048
+ 451 02ec FFFF0000 		.word	65535
+ 452 02f0 01000000 		.word	1
+ 453 02f4 0C000000 		.word	12
+ 454 02f8 000C0140 		.word	1073810432
+ 455 02fc 00100000 		.word	4096
+ 456 0300 FFFF0000 		.word	65535
+ 457 0304 FFFF0000 		.word	65535
+ 458 0308 FFFF0000 		.word	65535
+ 459 030c 000C0140 		.word	1073810432
+ 460 0310 00080000 		.word	2048
+ 461 0314 FFFF0000 		.word	65535
+ 462 0318 FFFF0000 		.word	65535
+ 463 031c FFFF0000 		.word	65535
+ 464 0320 000C0140 		.word	1073810432
+ 465 0324 04000000 		.word	4
+ 466 0328 FFFF0000 		.word	65535
+ 467 032c FFFF0000 		.word	65535
+ 468 0330 FFFF0000 		.word	65535
+ 469 0334 000C0140 		.word	1073810432
+ 470 0338 02000000 		.word	2
+ 471 033c 09000000 		.word	9
+ 472 0340 03000000 		.word	3
+ 473 0344 0C000000 		.word	12
+ 474 0348 000C0140 		.word	1073810432
+ 475 034c 00800000 		.word	32768
+ 476 0350 FFFF0000 		.word	65535
+ 477 0354 FFFF0000 		.word	65535
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 14
+
+
+ 478 0358 FFFF0000 		.word	65535
+ 479 035c 000C0140 		.word	1073810432
+ 480 0360 00400000 		.word	16384
+ 481 0364 FFFF0000 		.word	65535
+ 482 0368 FFFF0000 		.word	65535
+ 483 036c FFFF0000 		.word	65535
+ 484 0370 000C0140 		.word	1073810432
+ 485 0374 00200000 		.word	8192
+ 486 0378 FFFF0000 		.word	65535
+ 487 037c FFFF0000 		.word	65535
+ 488 0380 FFFF0000 		.word	65535
+ 489 0384 00100140 		.word	1073811456
+ 490 0388 10000000 		.word	16
+ 491 038c 0F000000 		.word	15
+ 492 0390 FFFF0000 		.word	65535
+ 493 0394 FFFF0000 		.word	65535
+ 494              		.text
+ 495              	.Letext0:
+ 496              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 497              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 498              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 499              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 500              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 501              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 502              		.file 8 "./variant.h"
+ 503              		.file 9 "../../cores/mapleMX/UARTClass.h"
+ 504              		.file 10 "Drivers/CMSIS/Include/core_cm3.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 variant.cpp
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:19     .text.Tx1_Handler:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:24     .text.Tx1_Handler:0000000000000000 Tx1_Handler
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:39     .text.Tx1_Handler:0000000000000008 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:44     .text.Rx1_Handler:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:49     .text.Rx1_Handler:0000000000000000 Rx1_Handler
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:63     .text.Rx1_Handler:0000000000000008 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:68     .text.Tx2_Handler:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:73     .text.Tx2_Handler:0000000000000000 Tx2_Handler
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:87     .text.Tx2_Handler:0000000000000008 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:92     .text.Rx2_Handler:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:97     .text.Rx2_Handler:0000000000000000 Rx2_Handler
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:111    .text.Rx2_Handler:0000000000000008 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:116    .text.Tx3_Handler:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:121    .text.Tx3_Handler:0000000000000000 Tx3_Handler
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:135    .text.Tx3_Handler:0000000000000008 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:140    .text.Rx3_Handler:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:145    .text.Rx3_Handler:0000000000000000 Rx3_Handler
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:159    .text.Rx3_Handler:0000000000000008 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:164    .text.startup._GLOBAL__sub_I_g_Pin2PortMapArray:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:168    .text.startup._GLOBAL__sub_I_g_Pin2PortMapArray:0000000000000000 _GLOBAL__sub_I_g_Pin2PortMapArray
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:219    .text.startup._GLOBAL__sub_I_g_Pin2PortMapArray:0000000000000038 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:232    .init_array:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:257    .bss.Serial3:0000000000000000 Serial3
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:250    .bss.Serial2:0000000000000000 Serial2
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:243    .bss.Serial1:0000000000000000 Serial1
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:263    .rodata.g_Pin2PortMapArray:0000000000000000 g_Pin2PortMapArray
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:239    .bss.Serial1:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:246    .bss.Serial2:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:253    .bss.Serial3:0000000000000000 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccNuv2Sy.s:260    .rodata.g_Pin2PortMapArray:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+_ZN9UARTClass9TxHandlerEv
+_ZN9UARTClass9RxHandlerEv
+_ZN9UARTClassC1EP18UART_HandleTypeDef9IRQn_TypemP13USART_TypeDef
+huart1
+huart2
+huart3

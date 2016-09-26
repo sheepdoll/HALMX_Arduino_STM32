@@ -1,0 +1,4115 @@
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m4
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 4
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.thumb
+  14              		.file	"WString.cpp"
+  15              		.text
+  16              	.Ltext0:
+  17              		.cfi_sections	.debug_frame
+  18              		.section	.text._ZN6StringD2Ev,"ax",%progbits
+  19              		.align	1
+  20              		.global	_ZN6StringD2Ev
+  21              		.thumb
+  22              		.thumb_func
+  24              	_ZN6StringD2Ev:
+  25              	.LFB85:
+  26              		.file 1 "../../cores/mapleMX/WString.cpp"
+   1:../../cores/mapleMX/WString.cpp **** /*
+   2:../../cores/mapleMX/WString.cpp ****   WString.cpp - String library for Wiring & Arduino
+   3:../../cores/mapleMX/WString.cpp ****   ...mostly rewritten by Paul Stoffregen...
+   4:../../cores/mapleMX/WString.cpp ****   Copyright (c) 2009-10 Hernando Barragan.  All rights reserved.
+   5:../../cores/mapleMX/WString.cpp ****   Copyright 2011, Paul Stoffregen, paul@pjrc.com
+   6:../../cores/mapleMX/WString.cpp **** 
+   7:../../cores/mapleMX/WString.cpp ****   This library is free software; you can redistribute it and/or
+   8:../../cores/mapleMX/WString.cpp ****   modify it under the terms of the GNU Lesser General Public
+   9:../../cores/mapleMX/WString.cpp ****   License as published by the Free Software Foundation; either
+  10:../../cores/mapleMX/WString.cpp ****   version 2.1 of the License, or (at your option) any later version.
+  11:../../cores/mapleMX/WString.cpp **** 
+  12:../../cores/mapleMX/WString.cpp ****   This library is distributed in the hope that it will be useful,
+  13:../../cores/mapleMX/WString.cpp ****   but WITHOUT ANY WARRANTY; without even the implied warranty of
+  14:../../cores/mapleMX/WString.cpp ****   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  15:../../cores/mapleMX/WString.cpp ****   Lesser General Public License for more details.
+  16:../../cores/mapleMX/WString.cpp **** 
+  17:../../cores/mapleMX/WString.cpp ****   You should have received a copy of the GNU Lesser General Public
+  18:../../cores/mapleMX/WString.cpp ****   License along with this library; if not, write to the Free Software
+  19:../../cores/mapleMX/WString.cpp ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+  20:../../cores/mapleMX/WString.cpp **** */
+  21:../../cores/mapleMX/WString.cpp **** 
+  22:../../cores/mapleMX/WString.cpp **** #include "WString.h"
+  23:../../cores/mapleMX/WString.cpp **** #include "itoa.h"
+  24:../../cores/mapleMX/WString.cpp **** #include "avr/dtostrf.h"
+  25:../../cores/mapleMX/WString.cpp **** 
+  26:../../cores/mapleMX/WString.cpp **** /*********************************************/
+  27:../../cores/mapleMX/WString.cpp **** /*  Constructors                             */
+  28:../../cores/mapleMX/WString.cpp **** /*********************************************/
+  29:../../cores/mapleMX/WString.cpp **** 
+  30:../../cores/mapleMX/WString.cpp **** String::String(const char *cstr)
+  31:../../cores/mapleMX/WString.cpp **** {
+  32:../../cores/mapleMX/WString.cpp **** 	init();
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 2
+
+
+  33:../../cores/mapleMX/WString.cpp **** 	if (cstr) copy(cstr, strlen(cstr));
+  34:../../cores/mapleMX/WString.cpp **** }
+  35:../../cores/mapleMX/WString.cpp **** 
+  36:../../cores/mapleMX/WString.cpp **** String::String(const String &value)
+  37:../../cores/mapleMX/WString.cpp **** {
+  38:../../cores/mapleMX/WString.cpp **** 	init();
+  39:../../cores/mapleMX/WString.cpp **** 	*this = value;
+  40:../../cores/mapleMX/WString.cpp **** }
+  41:../../cores/mapleMX/WString.cpp **** 
+  42:../../cores/mapleMX/WString.cpp **** String::String(const __FlashStringHelper *pstr)
+  43:../../cores/mapleMX/WString.cpp **** {
+  44:../../cores/mapleMX/WString.cpp **** 	init();
+  45:../../cores/mapleMX/WString.cpp **** 	*this = pstr;
+  46:../../cores/mapleMX/WString.cpp **** }
+  47:../../cores/mapleMX/WString.cpp **** 
+  48:../../cores/mapleMX/WString.cpp **** #ifdef __GXX_EXPERIMENTAL_CXX0X__
+  49:../../cores/mapleMX/WString.cpp **** String::String(String &&rval)
+  50:../../cores/mapleMX/WString.cpp **** {
+  51:../../cores/mapleMX/WString.cpp **** 	init();
+  52:../../cores/mapleMX/WString.cpp **** 	move(rval);
+  53:../../cores/mapleMX/WString.cpp **** }
+  54:../../cores/mapleMX/WString.cpp **** String::String(StringSumHelper &&rval)
+  55:../../cores/mapleMX/WString.cpp **** {
+  56:../../cores/mapleMX/WString.cpp **** 	init();
+  57:../../cores/mapleMX/WString.cpp **** 	move(rval);
+  58:../../cores/mapleMX/WString.cpp **** }
+  59:../../cores/mapleMX/WString.cpp **** #endif
+  60:../../cores/mapleMX/WString.cpp **** 
+  61:../../cores/mapleMX/WString.cpp **** String::String(char c)
+  62:../../cores/mapleMX/WString.cpp **** {
+  63:../../cores/mapleMX/WString.cpp **** 	init();
+  64:../../cores/mapleMX/WString.cpp **** 	char buf[2];
+  65:../../cores/mapleMX/WString.cpp **** 	buf[0] = c;
+  66:../../cores/mapleMX/WString.cpp **** 	buf[1] = 0;
+  67:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+  68:../../cores/mapleMX/WString.cpp **** }
+  69:../../cores/mapleMX/WString.cpp **** 
+  70:../../cores/mapleMX/WString.cpp **** String::String(unsigned char value, unsigned char base)
+  71:../../cores/mapleMX/WString.cpp **** {
+  72:../../cores/mapleMX/WString.cpp **** 	init();
+  73:../../cores/mapleMX/WString.cpp **** 	char buf[1 + 8 * sizeof(unsigned char)];
+  74:../../cores/mapleMX/WString.cpp **** 	utoa(value, buf, base);
+  75:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+  76:../../cores/mapleMX/WString.cpp **** }
+  77:../../cores/mapleMX/WString.cpp **** 
+  78:../../cores/mapleMX/WString.cpp **** String::String(int value, unsigned char base)
+  79:../../cores/mapleMX/WString.cpp **** {
+  80:../../cores/mapleMX/WString.cpp **** 	init();
+  81:../../cores/mapleMX/WString.cpp **** 	char buf[2 + 8 * sizeof(int)];
+  82:../../cores/mapleMX/WString.cpp **** 	itoa(value, buf, base);
+  83:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+  84:../../cores/mapleMX/WString.cpp **** }
+  85:../../cores/mapleMX/WString.cpp **** 
+  86:../../cores/mapleMX/WString.cpp **** String::String(unsigned int value, unsigned char base)
+  87:../../cores/mapleMX/WString.cpp **** {
+  88:../../cores/mapleMX/WString.cpp **** 	init();
+  89:../../cores/mapleMX/WString.cpp **** 	char buf[1 + 8 * sizeof(unsigned int)];
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 3
+
+
+  90:../../cores/mapleMX/WString.cpp **** 	utoa(value, buf, base);
+  91:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+  92:../../cores/mapleMX/WString.cpp **** }
+  93:../../cores/mapleMX/WString.cpp **** 
+  94:../../cores/mapleMX/WString.cpp **** String::String(long value, unsigned char base)
+  95:../../cores/mapleMX/WString.cpp **** {
+  96:../../cores/mapleMX/WString.cpp **** 	init();
+  97:../../cores/mapleMX/WString.cpp **** 	char buf[2 + 8 * sizeof(long)];
+  98:../../cores/mapleMX/WString.cpp **** 	ltoa(value, buf, base);
+  99:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 100:../../cores/mapleMX/WString.cpp **** }
+ 101:../../cores/mapleMX/WString.cpp **** 
+ 102:../../cores/mapleMX/WString.cpp **** String::String(unsigned long value, unsigned char base)
+ 103:../../cores/mapleMX/WString.cpp **** {
+ 104:../../cores/mapleMX/WString.cpp **** 	init();
+ 105:../../cores/mapleMX/WString.cpp **** 	char buf[1 + 8 * sizeof(unsigned long)];
+ 106:../../cores/mapleMX/WString.cpp **** 	ultoa(value, buf, base);
+ 107:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 108:../../cores/mapleMX/WString.cpp **** }
+ 109:../../cores/mapleMX/WString.cpp **** 
+ 110:../../cores/mapleMX/WString.cpp **** String::String(float value, unsigned char decimalPlaces)
+ 111:../../cores/mapleMX/WString.cpp **** {
+ 112:../../cores/mapleMX/WString.cpp **** 	init();
+ 113:../../cores/mapleMX/WString.cpp **** 	char buf[33];
+ 114:../../cores/mapleMX/WString.cpp **** 	*this = dtostrf(value, (decimalPlaces + 2), decimalPlaces, buf);
+ 115:../../cores/mapleMX/WString.cpp **** }
+ 116:../../cores/mapleMX/WString.cpp **** 
+ 117:../../cores/mapleMX/WString.cpp **** String::String(double value, unsigned char decimalPlaces)
+ 118:../../cores/mapleMX/WString.cpp **** {
+ 119:../../cores/mapleMX/WString.cpp **** 	init();
+ 120:../../cores/mapleMX/WString.cpp **** 	char buf[33];
+ 121:../../cores/mapleMX/WString.cpp **** 	*this = dtostrf(value, (decimalPlaces + 2), decimalPlaces, buf);
+ 122:../../cores/mapleMX/WString.cpp **** }
+ 123:../../cores/mapleMX/WString.cpp **** 
+ 124:../../cores/mapleMX/WString.cpp **** String::~String()
+  27              		.loc 1 124 0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              	.LVL0:
+  32 0000 10B5     		push	{r4, lr}
+  33              		.cfi_def_cfa_offset 8
+  34              		.cfi_offset 4, -8
+  35              		.cfi_offset 14, -4
+  36              		.loc 1 124 0
+  37 0002 0446     		mov	r4, r0
+  38              	.LBB35:
+ 125:../../cores/mapleMX/WString.cpp **** {
+ 126:../../cores/mapleMX/WString.cpp **** 	free(buffer);
+  39              		.loc 1 126 0
+  40 0004 0068     		ldr	r0, [r0]
+  41              	.LVL1:
+  42 0006 FFF7FEFF 		bl	free
+  43              	.LVL2:
+  44              	.LBE35:
+ 127:../../cores/mapleMX/WString.cpp **** }
+  45              		.loc 1 127 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 4
+
+
+  46 000a 2046     		mov	r0, r4
+  47 000c 10BD     		pop	{r4, pc}
+  48              		.cfi_endproc
+  49              	.LFE85:
+  51              		.global	_ZN6StringD1Ev
+  52              		.thumb_set _ZN6StringD1Ev,_ZN6StringD2Ev
+  53              		.section	.text._ZN6String10invalidateEv,"ax",%progbits
+  54              		.align	1
+  55              		.global	_ZN6String10invalidateEv
+  56              		.thumb
+  57              		.thumb_func
+  59              	_ZN6String10invalidateEv:
+  60              	.LFB88:
+ 128:../../cores/mapleMX/WString.cpp **** 
+ 129:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 130:../../cores/mapleMX/WString.cpp **** /*  Memory Management                        */
+ 131:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 132:../../cores/mapleMX/WString.cpp **** 
+ 133:../../cores/mapleMX/WString.cpp **** inline void String::init(void)
+ 134:../../cores/mapleMX/WString.cpp **** {
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 138:../../cores/mapleMX/WString.cpp **** }
+ 139:../../cores/mapleMX/WString.cpp **** 
+ 140:../../cores/mapleMX/WString.cpp **** void String::invalidate(void)
+ 141:../../cores/mapleMX/WString.cpp **** {
+  61              		.loc 1 141 0
+  62              		.cfi_startproc
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 0, uses_anonymous_args = 0
+  65              	.LVL3:
+  66 0000 10B5     		push	{r4, lr}
+  67              		.cfi_def_cfa_offset 8
+  68              		.cfi_offset 4, -8
+  69              		.cfi_offset 14, -4
+  70              		.loc 1 141 0
+  71 0002 0446     		mov	r4, r0
+ 142:../../cores/mapleMX/WString.cpp **** 	if (buffer) free(buffer);
+  72              		.loc 1 142 0
+  73 0004 0068     		ldr	r0, [r0]
+  74              	.LVL4:
+  75 0006 08B1     		cbz	r0, .L3
+  76              		.loc 1 142 0 is_stmt 0 discriminator 1
+  77 0008 FFF7FEFF 		bl	free
+  78              	.LVL5:
+  79              	.L3:
+ 143:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+  80              		.loc 1 143 0 is_stmt 1
+  81 000c 0023     		movs	r3, #0
+  82 000e 2360     		str	r3, [r4]
+ 144:../../cores/mapleMX/WString.cpp **** 	capacity = len = 0;
+  83              		.loc 1 144 0
+  84 0010 A360     		str	r3, [r4, #8]
+  85 0012 6360     		str	r3, [r4, #4]
+  86 0014 10BD     		pop	{r4, pc}
+  87              		.cfi_endproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 5
+
+
+  88              	.LFE88:
+  90              		.section	.text._ZN6String12changeBufferEj,"ax",%progbits
+  91              		.align	1
+  92              		.global	_ZN6String12changeBufferEj
+  93              		.thumb
+  94              		.thumb_func
+  96              	_ZN6String12changeBufferEj:
+  97              	.LFB90:
+ 145:../../cores/mapleMX/WString.cpp **** }
+ 146:../../cores/mapleMX/WString.cpp **** 
+ 147:../../cores/mapleMX/WString.cpp **** unsigned char String::reserve(unsigned int size)
+ 148:../../cores/mapleMX/WString.cpp **** {
+ 149:../../cores/mapleMX/WString.cpp **** 	if (buffer && capacity >= size) return 1;
+ 150:../../cores/mapleMX/WString.cpp **** 	if (changeBuffer(size)) {
+ 151:../../cores/mapleMX/WString.cpp **** 		if (len == 0) buffer[0] = 0;
+ 152:../../cores/mapleMX/WString.cpp **** 		return 1;
+ 153:../../cores/mapleMX/WString.cpp **** 	}
+ 154:../../cores/mapleMX/WString.cpp **** 	return 0;
+ 155:../../cores/mapleMX/WString.cpp **** }
+ 156:../../cores/mapleMX/WString.cpp **** 
+ 157:../../cores/mapleMX/WString.cpp **** unsigned char String::changeBuffer(unsigned int maxStrLen)
+ 158:../../cores/mapleMX/WString.cpp **** {
+  98              		.loc 1 158 0
+  99              		.cfi_startproc
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 0, uses_anonymous_args = 0
+ 102              	.LVL6:
+ 103 0000 38B5     		push	{r3, r4, r5, lr}
+ 104              		.cfi_def_cfa_offset 16
+ 105              		.cfi_offset 3, -16
+ 106              		.cfi_offset 4, -12
+ 107              		.cfi_offset 5, -8
+ 108              		.cfi_offset 14, -4
+ 109              		.loc 1 158 0
+ 110 0002 0446     		mov	r4, r0
+ 111 0004 0D46     		mov	r5, r1
+ 112              	.LBB36:
+ 159:../../cores/mapleMX/WString.cpp **** 	char *newbuffer = (char *)realloc(buffer, maxStrLen + 1);
+ 113              		.loc 1 159 0
+ 114 0006 0068     		ldr	r0, [r0]
+ 115              	.LVL7:
+ 116 0008 0131     		adds	r1, r1, #1
+ 117              	.LVL8:
+ 118 000a FFF7FEFF 		bl	realloc
+ 119              	.LVL9:
+ 160:../../cores/mapleMX/WString.cpp **** 	if (newbuffer) {
+ 120              		.loc 1 160 0
+ 121 000e 10B1     		cbz	r0, .L9
+ 161:../../cores/mapleMX/WString.cpp **** 		buffer = newbuffer;
+ 162:../../cores/mapleMX/WString.cpp **** 		capacity = maxStrLen;
+ 122              		.loc 1 162 0
+ 123 0010 84E82100 		stmia	r4, {r0, r5}
+ 163:../../cores/mapleMX/WString.cpp **** 		return 1;
+ 124              		.loc 1 163 0
+ 125 0014 0120     		movs	r0, #1
+ 126              	.LVL10:
+ 127              	.L9:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 6
+
+
+ 128              	.LBE36:
+ 164:../../cores/mapleMX/WString.cpp **** 	}
+ 165:../../cores/mapleMX/WString.cpp **** 	return 0;
+ 166:../../cores/mapleMX/WString.cpp **** }
+ 129              		.loc 1 166 0
+ 130 0016 38BD     		pop	{r3, r4, r5, pc}
+ 131              		.cfi_endproc
+ 132              	.LFE90:
+ 134              		.section	.text._ZN6String7reserveEj,"ax",%progbits
+ 135              		.align	1
+ 136              		.global	_ZN6String7reserveEj
+ 137              		.thumb
+ 138              		.thumb_func
+ 140              	_ZN6String7reserveEj:
+ 141              	.LFB89:
+ 148:../../cores/mapleMX/WString.cpp **** {
+ 142              		.loc 1 148 0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              	.LVL11:
+ 149:../../cores/mapleMX/WString.cpp **** 	if (buffer && capacity >= size) return 1;
+ 147              		.loc 1 149 0
+ 148 0000 0368     		ldr	r3, [r0]
+ 148:../../cores/mapleMX/WString.cpp **** {
+ 149              		.loc 1 148 0
+ 150 0002 10B5     		push	{r4, lr}
+ 151              		.cfi_def_cfa_offset 8
+ 152              		.cfi_offset 4, -8
+ 153              		.cfi_offset 14, -4
+ 148:../../cores/mapleMX/WString.cpp **** {
+ 154              		.loc 1 148 0
+ 155 0004 0446     		mov	r4, r0
+ 149:../../cores/mapleMX/WString.cpp **** 	if (buffer && capacity >= size) return 1;
+ 156              		.loc 1 149 0
+ 157 0006 13B1     		cbz	r3, .L12
+ 149:../../cores/mapleMX/WString.cpp **** 	if (buffer && capacity >= size) return 1;
+ 158              		.loc 1 149 0 is_stmt 0 discriminator 1
+ 159 0008 4368     		ldr	r3, [r0, #4]
+ 160 000a 8B42     		cmp	r3, r1
+ 161 000c 07D2     		bcs	.L21
+ 162              	.L12:
+ 150:../../cores/mapleMX/WString.cpp **** 	if (changeBuffer(size)) {
+ 163              		.loc 1 150 0 is_stmt 1
+ 164 000e 2046     		mov	r0, r4
+ 165              	.LVL12:
+ 166 0010 FFF7FEFF 		bl	_ZN6String12changeBufferEj
+ 167              	.LVL13:
+ 168 0014 20B1     		cbz	r0, .L13
+ 169              	.LVL14:
+ 170              	.LBB39:
+ 171              	.LBB40:
+ 151:../../cores/mapleMX/WString.cpp **** 		if (len == 0) buffer[0] = 0;
+ 172              		.loc 1 151 0
+ 173 0016 A368     		ldr	r3, [r4, #8]
+ 174 0018 0BB9     		cbnz	r3, .L21
+ 175 001a 2268     		ldr	r2, [r4]
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 7
+
+
+ 176 001c 1370     		strb	r3, [r2]
+ 177              	.LVL15:
+ 178              	.L21:
+ 179 001e 0120     		movs	r0, #1
+ 180              	.L13:
+ 181              	.LBE40:
+ 182              	.LBE39:
+ 155:../../cores/mapleMX/WString.cpp **** }
+ 183              		.loc 1 155 0
+ 184 0020 10BD     		pop	{r4, pc}
+ 185              		.cfi_endproc
+ 186              	.LFE89:
+ 188              		.section	.text._ZN6String4copyEPKcj,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	_ZN6String4copyEPKcj
+ 191              		.thumb
+ 192              		.thumb_func
+ 194              	_ZN6String4copyEPKcj:
+ 195              	.LFB91:
+ 167:../../cores/mapleMX/WString.cpp **** 
+ 168:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 169:../../cores/mapleMX/WString.cpp **** /*  Copy and Move                            */
+ 170:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 171:../../cores/mapleMX/WString.cpp **** 
+ 172:../../cores/mapleMX/WString.cpp **** String & String::copy(const char *cstr, unsigned int length)
+ 173:../../cores/mapleMX/WString.cpp **** {
+ 196              		.loc 1 173 0
+ 197              		.cfi_startproc
+ 198              		@ args = 0, pretend = 0, frame = 0
+ 199              		@ frame_needed = 0, uses_anonymous_args = 0
+ 200              	.LVL16:
+ 201 0000 70B5     		push	{r4, r5, r6, lr}
+ 202              		.cfi_def_cfa_offset 16
+ 203              		.cfi_offset 4, -16
+ 204              		.cfi_offset 5, -12
+ 205              		.cfi_offset 6, -8
+ 206              		.cfi_offset 14, -4
+ 207              		.loc 1 173 0
+ 208 0002 0E46     		mov	r6, r1
+ 174:../../cores/mapleMX/WString.cpp **** 	if (!reserve(length)) {
+ 209              		.loc 1 174 0
+ 210 0004 1146     		mov	r1, r2
+ 211              	.LVL17:
+ 173:../../cores/mapleMX/WString.cpp **** {
+ 212              		.loc 1 173 0
+ 213 0006 0446     		mov	r4, r0
+ 214 0008 1546     		mov	r5, r2
+ 215              		.loc 1 174 0
+ 216 000a FFF7FEFF 		bl	_ZN6String7reserveEj
+ 217              	.LVL18:
+ 218 000e 18B9     		cbnz	r0, .L23
+ 175:../../cores/mapleMX/WString.cpp **** 		invalidate();
+ 219              		.loc 1 175 0
+ 220 0010 2046     		mov	r0, r4
+ 221 0012 FFF7FEFF 		bl	_ZN6String10invalidateEv
+ 222              	.LVL19:
+ 176:../../cores/mapleMX/WString.cpp **** 		return *this;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 8
+
+
+ 223              		.loc 1 176 0
+ 224 0016 04E0     		b	.L24
+ 225              	.L23:
+ 177:../../cores/mapleMX/WString.cpp **** 	}
+ 178:../../cores/mapleMX/WString.cpp **** 	len = length;
+ 226              		.loc 1 178 0
+ 227 0018 A560     		str	r5, [r4, #8]
+ 179:../../cores/mapleMX/WString.cpp **** 	strcpy(buffer, cstr);
+ 228              		.loc 1 179 0
+ 229 001a 2068     		ldr	r0, [r4]
+ 230 001c 3146     		mov	r1, r6
+ 231 001e FFF7FEFF 		bl	strcpy
+ 232              	.LVL20:
+ 233              	.L24:
+ 180:../../cores/mapleMX/WString.cpp **** 	return *this;
+ 181:../../cores/mapleMX/WString.cpp **** }
+ 234              		.loc 1 181 0
+ 235 0022 2046     		mov	r0, r4
+ 236 0024 70BD     		pop	{r4, r5, r6, pc}
+ 237              		.cfi_endproc
+ 238              	.LFE91:
+ 240              		.section	.text._ZN6StringC2EPKc,"ax",%progbits
+ 241              		.align	1
+ 242              		.global	_ZN6StringC2EPKc
+ 243              		.thumb
+ 244              		.thumb_func
+ 246              	_ZN6StringC2EPKc:
+ 247              	.LFB52:
+  30:../../cores/mapleMX/WString.cpp **** String::String(const char *cstr)
+ 248              		.loc 1 30 0
+ 249              		.cfi_startproc
+ 250              		@ args = 0, pretend = 0, frame = 0
+ 251              		@ frame_needed = 0, uses_anonymous_args = 0
+ 252              	.LVL21:
+ 253 0000 38B5     		push	{r3, r4, r5, lr}
+ 254              		.cfi_def_cfa_offset 16
+ 255              		.cfi_offset 3, -16
+ 256              		.cfi_offset 4, -12
+ 257              		.cfi_offset 5, -8
+ 258              		.cfi_offset 14, -4
+ 259              	.LBB41:
+ 260              	.LBB42:
+ 261              	.LBB43:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 262              		.loc 1 135 0
+ 263 0002 0023     		movs	r3, #0
+ 264              	.LBE43:
+ 265              	.LBE42:
+ 266              	.LBE41:
+  30:../../cores/mapleMX/WString.cpp **** String::String(const char *cstr)
+ 267              		.loc 1 30 0
+ 268 0004 0446     		mov	r4, r0
+ 269              	.LBB46:
+ 270              	.LBB45:
+ 271              	.LBB44:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 272              		.loc 1 135 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 9
+
+
+ 273 0006 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 274              		.loc 1 136 0
+ 275 0008 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 276              		.loc 1 137 0
+ 277 000a 8360     		str	r3, [r0, #8]
+ 278              	.LBE44:
+ 279              	.LBE45:
+  33:../../cores/mapleMX/WString.cpp **** 	if (cstr) copy(cstr, strlen(cstr));
+ 280              		.loc 1 33 0
+ 281 000c 0D46     		mov	r5, r1
+ 282 000e 39B1     		cbz	r1, .L26
+  33:../../cores/mapleMX/WString.cpp **** 	if (cstr) copy(cstr, strlen(cstr));
+ 283              		.loc 1 33 0 is_stmt 0 discriminator 1
+ 284 0010 0846     		mov	r0, r1
+ 285              	.LVL22:
+ 286 0012 FFF7FEFF 		bl	strlen
+ 287              	.LVL23:
+ 288 0016 2946     		mov	r1, r5
+ 289 0018 0246     		mov	r2, r0
+ 290 001a 2046     		mov	r0, r4
+ 291 001c FFF7FEFF 		bl	_ZN6String4copyEPKcj
+ 292              	.LVL24:
+ 293              	.L26:
+ 294              	.LBE46:
+  34:../../cores/mapleMX/WString.cpp **** }
+ 295              		.loc 1 34 0 is_stmt 1
+ 296 0020 2046     		mov	r0, r4
+ 297 0022 38BD     		pop	{r3, r4, r5, pc}
+ 298              		.cfi_endproc
+ 299              	.LFE52:
+ 301              		.global	_ZN6StringC1EPKc
+ 302              		.thumb_set _ZN6StringC1EPKc,_ZN6StringC2EPKc
+ 303              		.section	.text._ZN6String4copyEPK19__FlashStringHelperj,"ax",%progbits
+ 304              		.align	1
+ 305              		.global	_ZN6String4copyEPK19__FlashStringHelperj
+ 306              		.thumb
+ 307              		.thumb_func
+ 309              	_ZN6String4copyEPK19__FlashStringHelperj:
+ 310              	.LFB92:
+ 182:../../cores/mapleMX/WString.cpp **** 
+ 183:../../cores/mapleMX/WString.cpp **** String & String::copy(const __FlashStringHelper *pstr, unsigned int length)
+ 184:../../cores/mapleMX/WString.cpp **** {
+ 311              		.loc 1 184 0
+ 312              		.cfi_startproc
+ 313              		@ args = 0, pretend = 0, frame = 0
+ 314              		@ frame_needed = 0, uses_anonymous_args = 0
+ 315              	.LVL25:
+ 316 0000 70B5     		push	{r4, r5, r6, lr}
+ 317              		.cfi_def_cfa_offset 16
+ 318              		.cfi_offset 4, -16
+ 319              		.cfi_offset 5, -12
+ 320              		.cfi_offset 6, -8
+ 321              		.cfi_offset 14, -4
+ 322              		.loc 1 184 0
+ 323 0002 0E46     		mov	r6, r1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 10
+
+
+ 185:../../cores/mapleMX/WString.cpp **** 	if (!reserve(length)) {
+ 324              		.loc 1 185 0
+ 325 0004 1146     		mov	r1, r2
+ 326              	.LVL26:
+ 184:../../cores/mapleMX/WString.cpp **** {
+ 327              		.loc 1 184 0
+ 328 0006 0446     		mov	r4, r0
+ 329 0008 1546     		mov	r5, r2
+ 330              		.loc 1 185 0
+ 331 000a FFF7FEFF 		bl	_ZN6String7reserveEj
+ 332              	.LVL27:
+ 333 000e 18B9     		cbnz	r0, .L31
+ 186:../../cores/mapleMX/WString.cpp **** 		invalidate();
+ 334              		.loc 1 186 0
+ 335 0010 2046     		mov	r0, r4
+ 336 0012 FFF7FEFF 		bl	_ZN6String10invalidateEv
+ 337              	.LVL28:
+ 187:../../cores/mapleMX/WString.cpp **** 		return *this;
+ 338              		.loc 1 187 0
+ 339 0016 04E0     		b	.L32
+ 340              	.L31:
+ 188:../../cores/mapleMX/WString.cpp **** 	}
+ 189:../../cores/mapleMX/WString.cpp **** 	len = length;
+ 341              		.loc 1 189 0
+ 342 0018 A560     		str	r5, [r4, #8]
+ 190:../../cores/mapleMX/WString.cpp **** 	strcpy_P(buffer, (PGM_P)pstr);
+ 343              		.loc 1 190 0
+ 344 001a 2068     		ldr	r0, [r4]
+ 345 001c 3146     		mov	r1, r6
+ 346 001e FFF7FEFF 		bl	strcpy
+ 347              	.LVL29:
+ 348              	.L32:
+ 191:../../cores/mapleMX/WString.cpp **** 	return *this;
+ 192:../../cores/mapleMX/WString.cpp **** }
+ 349              		.loc 1 192 0
+ 350 0022 2046     		mov	r0, r4
+ 351 0024 70BD     		pop	{r4, r5, r6, pc}
+ 352              		.cfi_endproc
+ 353              	.LFE92:
+ 355              		.section	.text._ZN6StringaSERKS_,"ax",%progbits
+ 356              		.align	1
+ 357              		.global	_ZN6StringaSERKS_
+ 358              		.thumb
+ 359              		.thumb_func
+ 361              	_ZN6StringaSERKS_:
+ 362              	.LFB93:
+ 193:../../cores/mapleMX/WString.cpp **** 
+ 194:../../cores/mapleMX/WString.cpp **** #ifdef __GXX_EXPERIMENTAL_CXX0X__
+ 195:../../cores/mapleMX/WString.cpp **** void String::move(String &rhs)
+ 196:../../cores/mapleMX/WString.cpp **** {
+ 197:../../cores/mapleMX/WString.cpp **** 	if (buffer) {
+ 198:../../cores/mapleMX/WString.cpp **** 		if (capacity >= rhs.len) {
+ 199:../../cores/mapleMX/WString.cpp **** 			strcpy(buffer, rhs.buffer);
+ 200:../../cores/mapleMX/WString.cpp **** 			len = rhs.len;
+ 201:../../cores/mapleMX/WString.cpp **** 			rhs.len = 0;
+ 202:../../cores/mapleMX/WString.cpp **** 			return;
+ 203:../../cores/mapleMX/WString.cpp **** 		} else {
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 11
+
+
+ 204:../../cores/mapleMX/WString.cpp **** 			free(buffer);
+ 205:../../cores/mapleMX/WString.cpp **** 		}
+ 206:../../cores/mapleMX/WString.cpp **** 	}
+ 207:../../cores/mapleMX/WString.cpp **** 	buffer = rhs.buffer;
+ 208:../../cores/mapleMX/WString.cpp **** 	capacity = rhs.capacity;
+ 209:../../cores/mapleMX/WString.cpp **** 	len = rhs.len;
+ 210:../../cores/mapleMX/WString.cpp **** 	rhs.buffer = NULL;
+ 211:../../cores/mapleMX/WString.cpp **** 	rhs.capacity = 0;
+ 212:../../cores/mapleMX/WString.cpp **** 	rhs.len = 0;
+ 213:../../cores/mapleMX/WString.cpp **** }
+ 214:../../cores/mapleMX/WString.cpp **** #endif
+ 215:../../cores/mapleMX/WString.cpp **** 
+ 216:../../cores/mapleMX/WString.cpp **** String & String::operator = (const String &rhs)
+ 217:../../cores/mapleMX/WString.cpp **** {
+ 363              		.loc 1 217 0
+ 364              		.cfi_startproc
+ 365              		@ args = 0, pretend = 0, frame = 0
+ 366              		@ frame_needed = 0, uses_anonymous_args = 0
+ 367              	.LVL30:
+ 218:../../cores/mapleMX/WString.cpp **** 	if (this == &rhs) return *this;
+ 368              		.loc 1 218 0
+ 369 0000 8842     		cmp	r0, r1
+ 217:../../cores/mapleMX/WString.cpp **** {
+ 370              		.loc 1 217 0
+ 371 0002 10B5     		push	{r4, lr}
+ 372              		.cfi_def_cfa_offset 8
+ 373              		.cfi_offset 4, -8
+ 374              		.cfi_offset 14, -4
+ 217:../../cores/mapleMX/WString.cpp **** {
+ 375              		.loc 1 217 0
+ 376 0004 0B46     		mov	r3, r1
+ 377 0006 0446     		mov	r4, r0
+ 378              		.loc 1 218 0
+ 379 0008 07D0     		beq	.L34
+ 219:../../cores/mapleMX/WString.cpp **** 	
+ 220:../../cores/mapleMX/WString.cpp **** 	if (rhs.buffer) copy(rhs.buffer, rhs.len);
+ 380              		.loc 1 220 0
+ 381 000a 0968     		ldr	r1, [r1]
+ 382              	.LVL31:
+ 383 000c 19B1     		cbz	r1, .L35
+ 384              		.loc 1 220 0 is_stmt 0 discriminator 1
+ 385 000e 9A68     		ldr	r2, [r3, #8]
+ 386 0010 FFF7FEFF 		bl	_ZN6String4copyEPKcj
+ 387              	.LVL32:
+ 388 0014 01E0     		b	.L34
+ 389              	.LVL33:
+ 390              	.L35:
+ 221:../../cores/mapleMX/WString.cpp **** 	else invalidate();
+ 391              		.loc 1 221 0 is_stmt 1
+ 392 0016 FFF7FEFF 		bl	_ZN6String10invalidateEv
+ 393              	.LVL34:
+ 394              	.L34:
+ 222:../../cores/mapleMX/WString.cpp **** 	
+ 223:../../cores/mapleMX/WString.cpp **** 	return *this;
+ 224:../../cores/mapleMX/WString.cpp **** }
+ 395              		.loc 1 224 0
+ 396 001a 2046     		mov	r0, r4
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 12
+
+
+ 397 001c 10BD     		pop	{r4, pc}
+ 398              		.cfi_endproc
+ 399              	.LFE93:
+ 401              		.section	.text._ZN6StringC2ERKS_,"ax",%progbits
+ 402              		.align	1
+ 403              		.global	_ZN6StringC2ERKS_
+ 404              		.thumb
+ 405              		.thumb_func
+ 407              	_ZN6StringC2ERKS_:
+ 408              	.LFB55:
+  36:../../cores/mapleMX/WString.cpp **** String::String(const String &value)
+ 409              		.loc 1 36 0
+ 410              		.cfi_startproc
+ 411              		@ args = 0, pretend = 0, frame = 0
+ 412              		@ frame_needed = 0, uses_anonymous_args = 0
+ 413              	.LVL35:
+ 414 0000 10B5     		push	{r4, lr}
+ 415              		.cfi_def_cfa_offset 8
+ 416              		.cfi_offset 4, -8
+ 417              		.cfi_offset 14, -4
+ 418              	.LBB47:
+ 419              	.LBB48:
+ 420              	.LBB49:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 421              		.loc 1 135 0
+ 422 0002 0023     		movs	r3, #0
+ 423              	.LBE49:
+ 424              	.LBE48:
+ 425              	.LBE47:
+  36:../../cores/mapleMX/WString.cpp **** String::String(const String &value)
+ 426              		.loc 1 36 0
+ 427 0004 0446     		mov	r4, r0
+ 428              	.LBB52:
+ 429              	.LBB51:
+ 430              	.LBB50:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 431              		.loc 1 135 0
+ 432 0006 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 433              		.loc 1 136 0
+ 434 0008 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 435              		.loc 1 137 0
+ 436 000a 8360     		str	r3, [r0, #8]
+ 437              	.LBE50:
+ 438              	.LBE51:
+  39:../../cores/mapleMX/WString.cpp **** 	*this = value;
+ 439              		.loc 1 39 0
+ 440 000c FFF7FEFF 		bl	_ZN6StringaSERKS_
+ 441              	.LVL36:
+ 442              	.LBE52:
+  40:../../cores/mapleMX/WString.cpp **** }
+ 443              		.loc 1 40 0
+ 444 0010 2046     		mov	r0, r4
+ 445 0012 10BD     		pop	{r4, pc}
+ 446              		.cfi_endproc
+ 447              	.LFE55:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 13
+
+
+ 449              		.global	_ZN6StringC1ERKS_
+ 450              		.thumb_set _ZN6StringC1ERKS_,_ZN6StringC2ERKS_
+ 451              		.section	.text._ZN6StringaSEPKc,"ax",%progbits
+ 452              		.align	1
+ 453              		.global	_ZN6StringaSEPKc
+ 454              		.thumb
+ 455              		.thumb_func
+ 457              	_ZN6StringaSEPKc:
+ 458              	.LFB94:
+ 225:../../cores/mapleMX/WString.cpp **** 
+ 226:../../cores/mapleMX/WString.cpp **** #ifdef __GXX_EXPERIMENTAL_CXX0X__
+ 227:../../cores/mapleMX/WString.cpp **** String & String::operator = (String &&rval)
+ 228:../../cores/mapleMX/WString.cpp **** {
+ 229:../../cores/mapleMX/WString.cpp **** 	if (this != &rval) move(rval);
+ 230:../../cores/mapleMX/WString.cpp **** 	return *this;
+ 231:../../cores/mapleMX/WString.cpp **** }
+ 232:../../cores/mapleMX/WString.cpp **** 
+ 233:../../cores/mapleMX/WString.cpp **** String & String::operator = (StringSumHelper &&rval)
+ 234:../../cores/mapleMX/WString.cpp **** {
+ 235:../../cores/mapleMX/WString.cpp **** 	if (this != &rval) move(rval);
+ 236:../../cores/mapleMX/WString.cpp **** 	return *this;
+ 237:../../cores/mapleMX/WString.cpp **** }
+ 238:../../cores/mapleMX/WString.cpp **** #endif
+ 239:../../cores/mapleMX/WString.cpp **** 
+ 240:../../cores/mapleMX/WString.cpp **** String & String::operator = (const char *cstr)
+ 241:../../cores/mapleMX/WString.cpp **** {
+ 459              		.loc 1 241 0
+ 460              		.cfi_startproc
+ 461              		@ args = 0, pretend = 0, frame = 0
+ 462              		@ frame_needed = 0, uses_anonymous_args = 0
+ 463              	.LVL37:
+ 464 0000 38B5     		push	{r3, r4, r5, lr}
+ 465              		.cfi_def_cfa_offset 16
+ 466              		.cfi_offset 3, -16
+ 467              		.cfi_offset 4, -12
+ 468              		.cfi_offset 5, -8
+ 469              		.cfi_offset 14, -4
+ 470              		.loc 1 241 0
+ 471 0002 0546     		mov	r5, r0
+ 242:../../cores/mapleMX/WString.cpp **** 	if (cstr) copy(cstr, strlen(cstr));
+ 472              		.loc 1 242 0
+ 473 0004 0C46     		mov	r4, r1
+ 474 0006 41B1     		cbz	r1, .L38
+ 475              		.loc 1 242 0 is_stmt 0 discriminator 1
+ 476 0008 0846     		mov	r0, r1
+ 477              	.LVL38:
+ 478 000a FFF7FEFF 		bl	strlen
+ 479              	.LVL39:
+ 480 000e 2146     		mov	r1, r4
+ 481 0010 0246     		mov	r2, r0
+ 482 0012 2846     		mov	r0, r5
+ 483 0014 FFF7FEFF 		bl	_ZN6String4copyEPKcj
+ 484              	.LVL40:
+ 485 0018 01E0     		b	.L39
+ 486              	.LVL41:
+ 487              	.L38:
+ 243:../../cores/mapleMX/WString.cpp **** 	else invalidate();
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 14
+
+
+ 488              		.loc 1 243 0 is_stmt 1
+ 489 001a FFF7FEFF 		bl	_ZN6String10invalidateEv
+ 490              	.LVL42:
+ 491              	.L39:
+ 244:../../cores/mapleMX/WString.cpp **** 	
+ 245:../../cores/mapleMX/WString.cpp **** 	return *this;
+ 246:../../cores/mapleMX/WString.cpp **** }
+ 492              		.loc 1 246 0
+ 493 001e 2846     		mov	r0, r5
+ 494 0020 38BD     		pop	{r3, r4, r5, pc}
+ 495              		.cfi_endproc
+ 496              	.LFE94:
+ 498              		.section	.text._ZN6StringC2Ec,"ax",%progbits
+ 499              		.align	1
+ 500              		.global	_ZN6StringC2Ec
+ 501              		.thumb
+ 502              		.thumb_func
+ 504              	_ZN6StringC2Ec:
+ 505              	.LFB61:
+  61:../../cores/mapleMX/WString.cpp **** String::String(char c)
+ 506              		.loc 1 61 0
+ 507              		.cfi_startproc
+ 508              		@ args = 0, pretend = 0, frame = 8
+ 509              		@ frame_needed = 0, uses_anonymous_args = 0
+ 510              	.LVL43:
+ 511 0000 13B5     		push	{r0, r1, r4, lr}
+ 512              		.cfi_def_cfa_offset 16
+ 513              		.cfi_offset 0, -16
+ 514              		.cfi_offset 1, -12
+ 515              		.cfi_offset 4, -8
+ 516              		.cfi_offset 14, -4
+ 517              	.LBB53:
+ 518              	.LBB54:
+ 519              	.LBB55:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 520              		.loc 1 135 0
+ 521 0002 0023     		movs	r3, #0
+ 522              	.LBE55:
+ 523              	.LBE54:
+  65:../../cores/mapleMX/WString.cpp **** 	buf[0] = c;
+ 524              		.loc 1 65 0
+ 525 0004 8DF80410 		strb	r1, [sp, #4]
+ 526              	.LBB57:
+ 527              	.LBB56:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 528              		.loc 1 135 0
+ 529 0008 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 530              		.loc 1 136 0
+ 531 000a 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 532              		.loc 1 137 0
+ 533 000c 8360     		str	r3, [r0, #8]
+ 534              	.LBE56:
+ 535              	.LBE57:
+  67:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 536              		.loc 1 67 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 15
+
+
+ 537 000e 01A9     		add	r1, sp, #4
+ 538              	.LVL44:
+ 539              	.LBE53:
+  61:../../cores/mapleMX/WString.cpp **** String::String(char c)
+ 540              		.loc 1 61 0
+ 541 0010 0446     		mov	r4, r0
+ 542              	.LBB58:
+  66:../../cores/mapleMX/WString.cpp **** 	buf[1] = 0;
+ 543              		.loc 1 66 0
+ 544 0012 8DF80530 		strb	r3, [sp, #5]
+  67:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 545              		.loc 1 67 0
+ 546 0016 FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 547              	.LVL45:
+ 548              	.LBE58:
+  68:../../cores/mapleMX/WString.cpp **** }
+ 549              		.loc 1 68 0
+ 550 001a 2046     		mov	r0, r4
+ 551 001c 02B0     		add	sp, sp, #8
+ 552              		@ sp needed
+ 553 001e 10BD     		pop	{r4, pc}
+ 554              		.cfi_endproc
+ 555              	.LFE61:
+ 557              		.global	_ZN6StringC1Ec
+ 558              		.thumb_set _ZN6StringC1Ec,_ZN6StringC2Ec
+ 559              		.section	.text._ZN6StringC2Ehh,"ax",%progbits
+ 560              		.align	1
+ 561              		.global	_ZN6StringC2Ehh
+ 562              		.thumb
+ 563              		.thumb_func
+ 565              	_ZN6StringC2Ehh:
+ 566              	.LFB64:
+  70:../../cores/mapleMX/WString.cpp **** String::String(unsigned char value, unsigned char base)
+ 567              		.loc 1 70 0
+ 568              		.cfi_startproc
+ 569              		@ args = 0, pretend = 0, frame = 16
+ 570              		@ frame_needed = 0, uses_anonymous_args = 0
+ 571              	.LVL46:
+ 572 0000 1FB5     		push	{r0, r1, r2, r3, r4, lr}
+ 573              		.cfi_def_cfa_offset 24
+ 574              		.cfi_offset 0, -24
+ 575              		.cfi_offset 1, -20
+ 576              		.cfi_offset 2, -16
+ 577              		.cfi_offset 3, -12
+ 578              		.cfi_offset 4, -8
+ 579              		.cfi_offset 14, -4
+ 580              	.LBB59:
+ 581              	.LBB60:
+ 582              	.LBB61:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 583              		.loc 1 135 0
+ 584 0002 0023     		movs	r3, #0
+ 585              	.LBE61:
+ 586              	.LBE60:
+ 587              	.LBE59:
+  70:../../cores/mapleMX/WString.cpp **** String::String(unsigned char value, unsigned char base)
+ 588              		.loc 1 70 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 16
+
+
+ 589 0004 0446     		mov	r4, r0
+ 590              	.LBB64:
+ 591              	.LBB63:
+ 592              	.LBB62:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 593              		.loc 1 135 0
+ 594 0006 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 595              		.loc 1 136 0
+ 596 0008 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 597              		.loc 1 137 0
+ 598 000a 8360     		str	r3, [r0, #8]
+ 599              	.LBE62:
+ 600              	.LBE63:
+  74:../../cores/mapleMX/WString.cpp **** 	utoa(value, buf, base);
+ 601              		.loc 1 74 0
+ 602 000c 0846     		mov	r0, r1
+ 603              	.LVL47:
+ 604 000e 01A9     		add	r1, sp, #4
+ 605              	.LVL48:
+ 606 0010 FFF7FEFF 		bl	utoa
+ 607              	.LVL49:
+  75:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 608              		.loc 1 75 0
+ 609 0014 2046     		mov	r0, r4
+ 610 0016 01A9     		add	r1, sp, #4
+ 611 0018 FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 612              	.LVL50:
+ 613              	.LBE64:
+  76:../../cores/mapleMX/WString.cpp **** }
+ 614              		.loc 1 76 0
+ 615 001c 2046     		mov	r0, r4
+ 616 001e 04B0     		add	sp, sp, #16
+ 617              		@ sp needed
+ 618 0020 10BD     		pop	{r4, pc}
+ 619              		.cfi_endproc
+ 620              	.LFE64:
+ 622              		.global	_ZN6StringC1Ehh
+ 623              		.thumb_set _ZN6StringC1Ehh,_ZN6StringC2Ehh
+ 624              		.section	.text._ZN6StringC2Eih,"ax",%progbits
+ 625              		.align	1
+ 626              		.global	_ZN6StringC2Eih
+ 627              		.thumb
+ 628              		.thumb_func
+ 630              	_ZN6StringC2Eih:
+ 631              	.LFB67:
+  78:../../cores/mapleMX/WString.cpp **** String::String(int value, unsigned char base)
+ 632              		.loc 1 78 0
+ 633              		.cfi_startproc
+ 634              		@ args = 0, pretend = 0, frame = 40
+ 635              		@ frame_needed = 0, uses_anonymous_args = 0
+ 636              	.LVL51:
+ 637 0000 10B5     		push	{r4, lr}
+ 638              		.cfi_def_cfa_offset 8
+ 639              		.cfi_offset 4, -8
+ 640              		.cfi_offset 14, -4
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 17
+
+
+ 641              	.LBB65:
+ 642              	.LBB66:
+ 643              	.LBB67:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 644              		.loc 1 135 0
+ 645 0002 0023     		movs	r3, #0
+ 646              	.LBE67:
+ 647              	.LBE66:
+ 648              	.LBE65:
+  78:../../cores/mapleMX/WString.cpp **** String::String(int value, unsigned char base)
+ 649              		.loc 1 78 0
+ 650 0004 8AB0     		sub	sp, sp, #40
+ 651              		.cfi_def_cfa_offset 48
+  78:../../cores/mapleMX/WString.cpp **** String::String(int value, unsigned char base)
+ 652              		.loc 1 78 0
+ 653 0006 0446     		mov	r4, r0
+ 654              	.LBB70:
+ 655              	.LBB69:
+ 656              	.LBB68:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 657              		.loc 1 135 0
+ 658 0008 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 659              		.loc 1 136 0
+ 660 000a 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 661              		.loc 1 137 0
+ 662 000c 8360     		str	r3, [r0, #8]
+ 663              	.LBE68:
+ 664              	.LBE69:
+  82:../../cores/mapleMX/WString.cpp **** 	itoa(value, buf, base);
+ 665              		.loc 1 82 0
+ 666 000e 0846     		mov	r0, r1
+ 667              	.LVL52:
+ 668 0010 01A9     		add	r1, sp, #4
+ 669              	.LVL53:
+ 670 0012 FFF7FEFF 		bl	itoa
+ 671              	.LVL54:
+  83:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 672              		.loc 1 83 0
+ 673 0016 2046     		mov	r0, r4
+ 674 0018 01A9     		add	r1, sp, #4
+ 675 001a FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 676              	.LVL55:
+ 677              	.LBE70:
+  84:../../cores/mapleMX/WString.cpp **** }
+ 678              		.loc 1 84 0
+ 679 001e 2046     		mov	r0, r4
+ 680 0020 0AB0     		add	sp, sp, #40
+ 681              		@ sp needed
+ 682 0022 10BD     		pop	{r4, pc}
+ 683              		.cfi_endproc
+ 684              	.LFE67:
+ 686              		.global	_ZN6StringC1Eih
+ 687              		.thumb_set _ZN6StringC1Eih,_ZN6StringC2Eih
+ 688              		.section	.text._ZN6StringC2Ejh,"ax",%progbits
+ 689              		.align	1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 18
+
+
+ 690              		.global	_ZN6StringC2Ejh
+ 691              		.thumb
+ 692              		.thumb_func
+ 694              	_ZN6StringC2Ejh:
+ 695              	.LFB70:
+  86:../../cores/mapleMX/WString.cpp **** String::String(unsigned int value, unsigned char base)
+ 696              		.loc 1 86 0
+ 697              		.cfi_startproc
+ 698              		@ args = 0, pretend = 0, frame = 40
+ 699              		@ frame_needed = 0, uses_anonymous_args = 0
+ 700              	.LVL56:
+ 701 0000 10B5     		push	{r4, lr}
+ 702              		.cfi_def_cfa_offset 8
+ 703              		.cfi_offset 4, -8
+ 704              		.cfi_offset 14, -4
+ 705              	.LBB71:
+ 706              	.LBB72:
+ 707              	.LBB73:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 708              		.loc 1 135 0
+ 709 0002 0023     		movs	r3, #0
+ 710              	.LBE73:
+ 711              	.LBE72:
+ 712              	.LBE71:
+  86:../../cores/mapleMX/WString.cpp **** String::String(unsigned int value, unsigned char base)
+ 713              		.loc 1 86 0
+ 714 0004 8AB0     		sub	sp, sp, #40
+ 715              		.cfi_def_cfa_offset 48
+  86:../../cores/mapleMX/WString.cpp **** String::String(unsigned int value, unsigned char base)
+ 716              		.loc 1 86 0
+ 717 0006 0446     		mov	r4, r0
+ 718              	.LBB76:
+ 719              	.LBB75:
+ 720              	.LBB74:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 721              		.loc 1 135 0
+ 722 0008 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 723              		.loc 1 136 0
+ 724 000a 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 725              		.loc 1 137 0
+ 726 000c 8360     		str	r3, [r0, #8]
+ 727              	.LBE74:
+ 728              	.LBE75:
+  90:../../cores/mapleMX/WString.cpp **** 	utoa(value, buf, base);
+ 729              		.loc 1 90 0
+ 730 000e 0846     		mov	r0, r1
+ 731              	.LVL57:
+ 732 0010 01A9     		add	r1, sp, #4
+ 733              	.LVL58:
+ 734 0012 FFF7FEFF 		bl	utoa
+ 735              	.LVL59:
+  91:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 736              		.loc 1 91 0
+ 737 0016 2046     		mov	r0, r4
+ 738 0018 01A9     		add	r1, sp, #4
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 19
+
+
+ 739 001a FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 740              	.LVL60:
+ 741              	.LBE76:
+  92:../../cores/mapleMX/WString.cpp **** }
+ 742              		.loc 1 92 0
+ 743 001e 2046     		mov	r0, r4
+ 744 0020 0AB0     		add	sp, sp, #40
+ 745              		@ sp needed
+ 746 0022 10BD     		pop	{r4, pc}
+ 747              		.cfi_endproc
+ 748              	.LFE70:
+ 750              		.global	_ZN6StringC1Ejh
+ 751              		.thumb_set _ZN6StringC1Ejh,_ZN6StringC2Ejh
+ 752              		.section	.text._ZN6StringC2Elh,"ax",%progbits
+ 753              		.align	1
+ 754              		.global	_ZN6StringC2Elh
+ 755              		.thumb
+ 756              		.thumb_func
+ 758              	_ZN6StringC2Elh:
+ 759              	.LFB73:
+  94:../../cores/mapleMX/WString.cpp **** String::String(long value, unsigned char base)
+ 760              		.loc 1 94 0
+ 761              		.cfi_startproc
+ 762              		@ args = 0, pretend = 0, frame = 40
+ 763              		@ frame_needed = 0, uses_anonymous_args = 0
+ 764              	.LVL61:
+ 765 0000 10B5     		push	{r4, lr}
+ 766              		.cfi_def_cfa_offset 8
+ 767              		.cfi_offset 4, -8
+ 768              		.cfi_offset 14, -4
+ 769              	.LBB77:
+ 770              	.LBB78:
+ 771              	.LBB79:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 772              		.loc 1 135 0
+ 773 0002 0023     		movs	r3, #0
+ 774              	.LBE79:
+ 775              	.LBE78:
+ 776              	.LBE77:
+  94:../../cores/mapleMX/WString.cpp **** String::String(long value, unsigned char base)
+ 777              		.loc 1 94 0
+ 778 0004 8AB0     		sub	sp, sp, #40
+ 779              		.cfi_def_cfa_offset 48
+  94:../../cores/mapleMX/WString.cpp **** String::String(long value, unsigned char base)
+ 780              		.loc 1 94 0
+ 781 0006 0446     		mov	r4, r0
+ 782              	.LBB82:
+ 783              	.LBB81:
+ 784              	.LBB80:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 785              		.loc 1 135 0
+ 786 0008 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 787              		.loc 1 136 0
+ 788 000a 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 789              		.loc 1 137 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 20
+
+
+ 790 000c 8360     		str	r3, [r0, #8]
+ 791              	.LBE80:
+ 792              	.LBE81:
+  98:../../cores/mapleMX/WString.cpp **** 	ltoa(value, buf, base);
+ 793              		.loc 1 98 0
+ 794 000e 0846     		mov	r0, r1
+ 795              	.LVL62:
+ 796 0010 01A9     		add	r1, sp, #4
+ 797              	.LVL63:
+ 798 0012 FFF7FEFF 		bl	ltoa
+ 799              	.LVL64:
+  99:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 800              		.loc 1 99 0
+ 801 0016 2046     		mov	r0, r4
+ 802 0018 01A9     		add	r1, sp, #4
+ 803 001a FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 804              	.LVL65:
+ 805              	.LBE82:
+ 100:../../cores/mapleMX/WString.cpp **** }
+ 806              		.loc 1 100 0
+ 807 001e 2046     		mov	r0, r4
+ 808 0020 0AB0     		add	sp, sp, #40
+ 809              		@ sp needed
+ 810 0022 10BD     		pop	{r4, pc}
+ 811              		.cfi_endproc
+ 812              	.LFE73:
+ 814              		.global	_ZN6StringC1Elh
+ 815              		.thumb_set _ZN6StringC1Elh,_ZN6StringC2Elh
+ 816              		.section	.text._ZN6StringC2Emh,"ax",%progbits
+ 817              		.align	1
+ 818              		.global	_ZN6StringC2Emh
+ 819              		.thumb
+ 820              		.thumb_func
+ 822              	_ZN6StringC2Emh:
+ 823              	.LFB76:
+ 102:../../cores/mapleMX/WString.cpp **** String::String(unsigned long value, unsigned char base)
+ 824              		.loc 1 102 0
+ 825              		.cfi_startproc
+ 826              		@ args = 0, pretend = 0, frame = 40
+ 827              		@ frame_needed = 0, uses_anonymous_args = 0
+ 828              	.LVL66:
+ 829 0000 10B5     		push	{r4, lr}
+ 830              		.cfi_def_cfa_offset 8
+ 831              		.cfi_offset 4, -8
+ 832              		.cfi_offset 14, -4
+ 833              	.LBB83:
+ 834              	.LBB84:
+ 835              	.LBB85:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 836              		.loc 1 135 0
+ 837 0002 0023     		movs	r3, #0
+ 838              	.LBE85:
+ 839              	.LBE84:
+ 840              	.LBE83:
+ 102:../../cores/mapleMX/WString.cpp **** String::String(unsigned long value, unsigned char base)
+ 841              		.loc 1 102 0
+ 842 0004 8AB0     		sub	sp, sp, #40
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 21
+
+
+ 843              		.cfi_def_cfa_offset 48
+ 102:../../cores/mapleMX/WString.cpp **** String::String(unsigned long value, unsigned char base)
+ 844              		.loc 1 102 0
+ 845 0006 0446     		mov	r4, r0
+ 846              	.LBB88:
+ 847              	.LBB87:
+ 848              	.LBB86:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 849              		.loc 1 135 0
+ 850 0008 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 851              		.loc 1 136 0
+ 852 000a 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 853              		.loc 1 137 0
+ 854 000c 8360     		str	r3, [r0, #8]
+ 855              	.LBE86:
+ 856              	.LBE87:
+ 106:../../cores/mapleMX/WString.cpp **** 	ultoa(value, buf, base);
+ 857              		.loc 1 106 0
+ 858 000e 0846     		mov	r0, r1
+ 859              	.LVL67:
+ 860 0010 01A9     		add	r1, sp, #4
+ 861              	.LVL68:
+ 862 0012 FFF7FEFF 		bl	ultoa
+ 863              	.LVL69:
+ 107:../../cores/mapleMX/WString.cpp **** 	*this = buf;
+ 864              		.loc 1 107 0
+ 865 0016 2046     		mov	r0, r4
+ 866 0018 01A9     		add	r1, sp, #4
+ 867 001a FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 868              	.LVL70:
+ 869              	.LBE88:
+ 108:../../cores/mapleMX/WString.cpp **** }
+ 870              		.loc 1 108 0
+ 871 001e 2046     		mov	r0, r4
+ 872 0020 0AB0     		add	sp, sp, #40
+ 873              		@ sp needed
+ 874 0022 10BD     		pop	{r4, pc}
+ 875              		.cfi_endproc
+ 876              	.LFE76:
+ 878              		.global	_ZN6StringC1Emh
+ 879              		.thumb_set _ZN6StringC1Emh,_ZN6StringC2Emh
+ 880              		.global	__aeabi_f2d
+ 881              		.section	.text._ZN6StringC2Efh,"ax",%progbits
+ 882              		.align	1
+ 883              		.global	_ZN6StringC2Efh
+ 884              		.thumb
+ 885              		.thumb_func
+ 887              	_ZN6StringC2Efh:
+ 888              	.LFB79:
+ 110:../../cores/mapleMX/WString.cpp **** String::String(float value, unsigned char decimalPlaces)
+ 889              		.loc 1 110 0
+ 890              		.cfi_startproc
+ 891              		@ args = 0, pretend = 0, frame = 40
+ 892              		@ frame_needed = 0, uses_anonymous_args = 0
+ 893              	.LVL71:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 22
+
+
+ 894 0000 30B5     		push	{r4, r5, lr}
+ 895              		.cfi_def_cfa_offset 12
+ 896              		.cfi_offset 4, -12
+ 897              		.cfi_offset 5, -8
+ 898              		.cfi_offset 14, -4
+ 899 0002 0446     		mov	r4, r0
+ 900              	.LVL72:
+ 901              	.LBB89:
+ 902              	.LBB90:
+ 903              	.LBB91:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 904              		.loc 1 135 0
+ 905 0004 0020     		movs	r0, #0
+ 906              	.LVL73:
+ 907              	.LBE91:
+ 908              	.LBE90:
+ 909              	.LBE89:
+ 110:../../cores/mapleMX/WString.cpp **** String::String(float value, unsigned char decimalPlaces)
+ 910              		.loc 1 110 0
+ 911 0006 8DB0     		sub	sp, sp, #52
+ 912              		.cfi_def_cfa_offset 64
+ 110:../../cores/mapleMX/WString.cpp **** String::String(float value, unsigned char decimalPlaces)
+ 913              		.loc 1 110 0
+ 914 0008 1546     		mov	r5, r2
+ 915              	.LBB94:
+ 916              	.LBB93:
+ 917              	.LBB92:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 918              		.loc 1 135 0
+ 919 000a 2060     		str	r0, [r4]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 920              		.loc 1 136 0
+ 921 000c 6060     		str	r0, [r4, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 922              		.loc 1 137 0
+ 923 000e A060     		str	r0, [r4, #8]
+ 924              	.LBE92:
+ 925              	.LBE93:
+ 114:../../cores/mapleMX/WString.cpp **** 	*this = dtostrf(value, (decimalPlaces + 2), decimalPlaces, buf);
+ 926              		.loc 1 114 0
+ 927 0010 0846     		mov	r0, r1
+ 928 0012 FFF7FEFF 		bl	__aeabi_f2d
+ 929              	.LVL74:
+ 930 0016 03AB     		add	r3, sp, #12
+ 931 0018 AA1C     		adds	r2, r5, #2
+ 932 001a 0093     		str	r3, [sp]
+ 933 001c 52B2     		sxtb	r2, r2
+ 934 001e 2B46     		mov	r3, r5
+ 935 0020 FFF7FEFF 		bl	dtostrf
+ 936              	.LVL75:
+ 937 0024 0146     		mov	r1, r0
+ 938 0026 2046     		mov	r0, r4
+ 939 0028 FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 940              	.LVL76:
+ 941              	.LBE94:
+ 115:../../cores/mapleMX/WString.cpp **** }
+ 942              		.loc 1 115 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 23
+
+
+ 943 002c 2046     		mov	r0, r4
+ 944 002e 0DB0     		add	sp, sp, #52
+ 945              		@ sp needed
+ 946 0030 30BD     		pop	{r4, r5, pc}
+ 947              		.cfi_endproc
+ 948              	.LFE79:
+ 950              		.global	_ZN6StringC1Efh
+ 951              		.thumb_set _ZN6StringC1Efh,_ZN6StringC2Efh
+ 952              		.section	.text._ZN6StringC2Edh,"ax",%progbits
+ 953              		.align	1
+ 954              		.global	_ZN6StringC2Edh
+ 955              		.thumb
+ 956              		.thumb_func
+ 958              	_ZN6StringC2Edh:
+ 959              	.LFB82:
+ 117:../../cores/mapleMX/WString.cpp **** String::String(double value, unsigned char decimalPlaces)
+ 960              		.loc 1 117 0
+ 961              		.cfi_startproc
+ 962              		@ args = 4, pretend = 0, frame = 40
+ 963              		@ frame_needed = 0, uses_anonymous_args = 0
+ 964              	.LVL77:
+ 965 0000 70B5     		push	{r4, r5, r6, lr}
+ 966              		.cfi_def_cfa_offset 16
+ 967              		.cfi_offset 4, -16
+ 968              		.cfi_offset 5, -12
+ 969              		.cfi_offset 6, -8
+ 970              		.cfi_offset 14, -4
+ 971 0002 8CB0     		sub	sp, sp, #48
+ 972              		.cfi_def_cfa_offset 64
+ 973              	.LBB95:
+ 974              	.LBB96:
+ 975              	.LBB97:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 976              		.loc 1 135 0
+ 977 0004 0021     		movs	r1, #0
+ 978              	.LBE97:
+ 979              	.LBE96:
+ 980              	.LBE95:
+ 117:../../cores/mapleMX/WString.cpp **** String::String(double value, unsigned char decimalPlaces)
+ 981              		.loc 1 117 0
+ 982 0006 9DF84050 		ldrb	r5, [sp, #64]	@ zero_extendqisi2
+ 983              	.LBB100:
+ 984              	.LBB99:
+ 985              	.LBB98:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 986              		.loc 1 135 0
+ 987 000a 0160     		str	r1, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 988              		.loc 1 136 0
+ 989 000c 4160     		str	r1, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 990              		.loc 1 137 0
+ 991 000e 8160     		str	r1, [r0, #8]
+ 992              	.LBE98:
+ 993              	.LBE99:
+ 121:../../cores/mapleMX/WString.cpp **** 	*this = dtostrf(value, (decimalPlaces + 2), decimalPlaces, buf);
+ 994              		.loc 1 121 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 24
+
+
+ 995 0010 AE1C     		adds	r6, r5, #2
+ 996 0012 03A9     		add	r1, sp, #12
+ 997              	.LBE100:
+ 117:../../cores/mapleMX/WString.cpp **** String::String(double value, unsigned char decimalPlaces)
+ 998              		.loc 1 117 0
+ 999 0014 0446     		mov	r4, r0
+ 1000              	.LBB101:
+ 121:../../cores/mapleMX/WString.cpp **** 	*this = dtostrf(value, (decimalPlaces + 2), decimalPlaces, buf);
+ 1001              		.loc 1 121 0
+ 1002 0016 0091     		str	r1, [sp]
+ 1003 0018 1046     		mov	r0, r2
+ 1004              	.LVL78:
+ 1005 001a 1946     		mov	r1, r3
+ 1006 001c 72B2     		sxtb	r2, r6
+ 1007              	.LVL79:
+ 1008 001e 2B46     		mov	r3, r5
+ 1009 0020 FFF7FEFF 		bl	dtostrf
+ 1010              	.LVL80:
+ 1011 0024 0146     		mov	r1, r0
+ 1012 0026 2046     		mov	r0, r4
+ 1013 0028 FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 1014              	.LVL81:
+ 1015              	.LBE101:
+ 122:../../cores/mapleMX/WString.cpp **** }
+ 1016              		.loc 1 122 0
+ 1017 002c 2046     		mov	r0, r4
+ 1018 002e 0CB0     		add	sp, sp, #48
+ 1019              		@ sp needed
+ 1020 0030 70BD     		pop	{r4, r5, r6, pc}
+ 1021              		.cfi_endproc
+ 1022              	.LFE82:
+ 1024              		.global	_ZN6StringC1Edh
+ 1025              		.thumb_set _ZN6StringC1Edh,_ZN6StringC2Edh
+ 1026              		.section	.text._ZN6StringaSEPK19__FlashStringHelper,"ax",%progbits
+ 1027              		.align	1
+ 1028              		.global	_ZN6StringaSEPK19__FlashStringHelper
+ 1029              		.thumb
+ 1030              		.thumb_func
+ 1032              	_ZN6StringaSEPK19__FlashStringHelper:
+ 1033              	.LFB95:
+ 247:../../cores/mapleMX/WString.cpp **** 
+ 248:../../cores/mapleMX/WString.cpp **** String & String::operator = (const __FlashStringHelper *pstr)
+ 249:../../cores/mapleMX/WString.cpp **** {
+ 1034              		.loc 1 249 0
+ 1035              		.cfi_startproc
+ 1036              		@ args = 0, pretend = 0, frame = 0
+ 1037              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1038              	.LVL82:
+ 1039 0000 38B5     		push	{r3, r4, r5, lr}
+ 1040              		.cfi_def_cfa_offset 16
+ 1041              		.cfi_offset 3, -16
+ 1042              		.cfi_offset 4, -12
+ 1043              		.cfi_offset 5, -8
+ 1044              		.cfi_offset 14, -4
+ 1045              		.loc 1 249 0
+ 1046 0002 0546     		mov	r5, r0
+ 250:../../cores/mapleMX/WString.cpp **** 	if (pstr) copy(pstr, strlen_P((PGM_P)pstr));
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 25
+
+
+ 1047              		.loc 1 250 0
+ 1048 0004 0C46     		mov	r4, r1
+ 1049 0006 41B1     		cbz	r1, .L49
+ 1050              		.loc 1 250 0 is_stmt 0 discriminator 1
+ 1051 0008 0846     		mov	r0, r1
+ 1052              	.LVL83:
+ 1053 000a FFF7FEFF 		bl	strlen
+ 1054              	.LVL84:
+ 1055 000e 2146     		mov	r1, r4
+ 1056 0010 0246     		mov	r2, r0
+ 1057 0012 2846     		mov	r0, r5
+ 1058 0014 FFF7FEFF 		bl	_ZN6String4copyEPK19__FlashStringHelperj
+ 1059              	.LVL85:
+ 1060 0018 01E0     		b	.L50
+ 1061              	.LVL86:
+ 1062              	.L49:
+ 251:../../cores/mapleMX/WString.cpp **** 	else invalidate();
+ 1063              		.loc 1 251 0 is_stmt 1
+ 1064 001a FFF7FEFF 		bl	_ZN6String10invalidateEv
+ 1065              	.LVL87:
+ 1066              	.L50:
+ 252:../../cores/mapleMX/WString.cpp **** 
+ 253:../../cores/mapleMX/WString.cpp **** 	return *this;
+ 254:../../cores/mapleMX/WString.cpp **** }
+ 1067              		.loc 1 254 0
+ 1068 001e 2846     		mov	r0, r5
+ 1069 0020 38BD     		pop	{r3, r4, r5, pc}
+ 1070              		.cfi_endproc
+ 1071              	.LFE95:
+ 1073              		.section	.text._ZN6StringC2EPK19__FlashStringHelper,"ax",%progbits
+ 1074              		.align	1
+ 1075              		.global	_ZN6StringC2EPK19__FlashStringHelper
+ 1076              		.thumb
+ 1077              		.thumb_func
+ 1079              	_ZN6StringC2EPK19__FlashStringHelper:
+ 1080              	.LFB58:
+  42:../../cores/mapleMX/WString.cpp **** String::String(const __FlashStringHelper *pstr)
+ 1081              		.loc 1 42 0
+ 1082              		.cfi_startproc
+ 1083              		@ args = 0, pretend = 0, frame = 0
+ 1084              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1085              	.LVL88:
+ 1086 0000 10B5     		push	{r4, lr}
+ 1087              		.cfi_def_cfa_offset 8
+ 1088              		.cfi_offset 4, -8
+ 1089              		.cfi_offset 14, -4
+ 1090              	.LBB102:
+ 1091              	.LBB103:
+ 1092              	.LBB104:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 1093              		.loc 1 135 0
+ 1094 0002 0023     		movs	r3, #0
+ 1095              	.LBE104:
+ 1096              	.LBE103:
+ 1097              	.LBE102:
+  42:../../cores/mapleMX/WString.cpp **** String::String(const __FlashStringHelper *pstr)
+ 1098              		.loc 1 42 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 26
+
+
+ 1099 0004 0446     		mov	r4, r0
+ 1100              	.LBB107:
+ 1101              	.LBB106:
+ 1102              	.LBB105:
+ 135:../../cores/mapleMX/WString.cpp **** 	buffer = NULL;
+ 1103              		.loc 1 135 0
+ 1104 0006 0360     		str	r3, [r0]
+ 136:../../cores/mapleMX/WString.cpp **** 	capacity = 0;
+ 1105              		.loc 1 136 0
+ 1106 0008 4360     		str	r3, [r0, #4]
+ 137:../../cores/mapleMX/WString.cpp **** 	len = 0;
+ 1107              		.loc 1 137 0
+ 1108 000a 8360     		str	r3, [r0, #8]
+ 1109              	.LBE105:
+ 1110              	.LBE106:
+  45:../../cores/mapleMX/WString.cpp **** 	*this = pstr;
+ 1111              		.loc 1 45 0
+ 1112 000c FFF7FEFF 		bl	_ZN6StringaSEPK19__FlashStringHelper
+ 1113              	.LVL89:
+ 1114              	.LBE107:
+  46:../../cores/mapleMX/WString.cpp **** }
+ 1115              		.loc 1 46 0
+ 1116 0010 2046     		mov	r0, r4
+ 1117 0012 10BD     		pop	{r4, pc}
+ 1118              		.cfi_endproc
+ 1119              	.LFE58:
+ 1121              		.global	_ZN6StringC1EPK19__FlashStringHelper
+ 1122              		.thumb_set _ZN6StringC1EPK19__FlashStringHelper,_ZN6StringC2EPK19__FlashStringHelper
+ 1123              		.section	.text._ZN6String6concatERKS_,"ax",%progbits
+ 1124              		.align	1
+ 1125              		.global	_ZN6String6concatERKS_
+ 1126              		.thumb
+ 1127              		.thumb_func
+ 1129              	_ZN6String6concatERKS_:
+ 1130              	.LFB96:
+ 255:../../cores/mapleMX/WString.cpp **** 
+ 256:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 257:../../cores/mapleMX/WString.cpp **** /*  concat                                   */
+ 258:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 259:../../cores/mapleMX/WString.cpp **** 
+ 260:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(const String &s)
+ 261:../../cores/mapleMX/WString.cpp **** {
+ 1131              		.loc 1 261 0
+ 1132              		.cfi_startproc
+ 1133              		@ args = 0, pretend = 0, frame = 0
+ 1134              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1135              		@ link register save eliminated.
+ 1136              	.LVL90:
+ 1137              		.loc 1 261 0
+ 1138 0000 0B46     		mov	r3, r1
+ 262:../../cores/mapleMX/WString.cpp **** 	return concat(s.buffer, s.len);
+ 1139              		.loc 1 262 0
+ 1140 0002 0968     		ldr	r1, [r1]
+ 1141              	.LVL91:
+ 1142 0004 9A68     		ldr	r2, [r3, #8]
+ 1143 0006 FFF7FEBF 		b	_ZN6String6concatEPKcj
+ 1144              	.LVL92:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 27
+
+
+ 1145              		.cfi_endproc
+ 1146              	.LFE96:
+ 1148              		.section	.text._ZNK6String9compareToERKS_,"ax",%progbits
+ 1149              		.align	1
+ 1150              		.global	_ZNK6String9compareToERKS_
+ 1151              		.thumb
+ 1152              		.thumb_func
+ 1154              	_ZNK6String9compareToERKS_:
+ 1155              	.LFB97:
+ 263:../../cores/mapleMX/WString.cpp **** }
+ 264:../../cores/mapleMX/WString.cpp **** #if 0
+ 265:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(const char *cstr, unsigned int length)
+ 266:../../cores/mapleMX/WString.cpp **** {
+ 267:../../cores/mapleMX/WString.cpp **** 	unsigned int newlen = len + length;
+ 268:../../cores/mapleMX/WString.cpp **** 	if (!cstr) return 0;
+ 269:../../cores/mapleMX/WString.cpp **** 	if (length == 0) return 1;
+ 270:../../cores/mapleMX/WString.cpp **** 	if (!reserve(newlen)) return 0;
+ 271:../../cores/mapleMX/WString.cpp **** 	strcpy(buffer + len, cstr);
+ 272:../../cores/mapleMX/WString.cpp **** 	len = newlen;
+ 273:../../cores/mapleMX/WString.cpp **** 	return 1;
+ 274:../../cores/mapleMX/WString.cpp **** }
+ 275:../../cores/mapleMX/WString.cpp **** 
+ 276:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(const char *cstr)
+ 277:../../cores/mapleMX/WString.cpp **** {
+ 278:../../cores/mapleMX/WString.cpp **** 	if (!cstr) return 0;
+ 279:../../cores/mapleMX/WString.cpp **** 	return concat(cstr, strlen(cstr));
+ 280:../../cores/mapleMX/WString.cpp **** }
+ 281:../../cores/mapleMX/WString.cpp **** 
+ 282:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(char c)
+ 283:../../cores/mapleMX/WString.cpp **** {
+ 284:../../cores/mapleMX/WString.cpp **** 	char buf[2];
+ 285:../../cores/mapleMX/WString.cpp **** 	buf[0] = c;
+ 286:../../cores/mapleMX/WString.cpp **** 	buf[1] = 0;
+ 287:../../cores/mapleMX/WString.cpp **** 	return concat(buf, 1);
+ 288:../../cores/mapleMX/WString.cpp **** }
+ 289:../../cores/mapleMX/WString.cpp **** 
+ 290:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(unsigned char num)
+ 291:../../cores/mapleMX/WString.cpp **** {
+ 292:../../cores/mapleMX/WString.cpp **** 	char buf[1 + 3 * sizeof(unsigned char)];
+ 293:../../cores/mapleMX/WString.cpp **** 	itoa(num, buf, 10);
+ 294:../../cores/mapleMX/WString.cpp **** 	return concat(buf, strlen(buf));
+ 295:../../cores/mapleMX/WString.cpp **** }
+ 296:../../cores/mapleMX/WString.cpp **** 
+ 297:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(int num)
+ 298:../../cores/mapleMX/WString.cpp **** {
+ 299:../../cores/mapleMX/WString.cpp **** 	char buf[2 + 3 * sizeof(int)];
+ 300:../../cores/mapleMX/WString.cpp **** 	itoa(num, buf, 10);
+ 301:../../cores/mapleMX/WString.cpp **** 	return concat(buf, strlen(buf));
+ 302:../../cores/mapleMX/WString.cpp **** }
+ 303:../../cores/mapleMX/WString.cpp **** 
+ 304:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(unsigned int num)
+ 305:../../cores/mapleMX/WString.cpp **** {
+ 306:../../cores/mapleMX/WString.cpp **** 	char buf[1 + 3 * sizeof(unsigned int)];
+ 307:../../cores/mapleMX/WString.cpp **** 	utoa(num, buf, 10);
+ 308:../../cores/mapleMX/WString.cpp **** 	return concat(buf, strlen(buf));
+ 309:../../cores/mapleMX/WString.cpp **** }
+ 310:../../cores/mapleMX/WString.cpp **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 28
+
+
+ 311:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(long num)
+ 312:../../cores/mapleMX/WString.cpp **** {
+ 313:../../cores/mapleMX/WString.cpp **** 	char buf[2 + 3 * sizeof(long)];
+ 314:../../cores/mapleMX/WString.cpp **** 	ltoa(num, buf, 10);
+ 315:../../cores/mapleMX/WString.cpp **** 	return concat(buf, strlen(buf));
+ 316:../../cores/mapleMX/WString.cpp **** }
+ 317:../../cores/mapleMX/WString.cpp **** 
+ 318:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(unsigned long num)
+ 319:../../cores/mapleMX/WString.cpp **** {
+ 320:../../cores/mapleMX/WString.cpp **** 	char buf[1 + 3 * sizeof(unsigned long)];
+ 321:../../cores/mapleMX/WString.cpp **** 	ultoa(num, buf, 10);
+ 322:../../cores/mapleMX/WString.cpp **** 	return concat(buf, strlen(buf));
+ 323:../../cores/mapleMX/WString.cpp **** }
+ 324:../../cores/mapleMX/WString.cpp **** 
+ 325:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(float num)
+ 326:../../cores/mapleMX/WString.cpp **** {
+ 327:../../cores/mapleMX/WString.cpp **** 	char buf[20];
+ 328:../../cores/mapleMX/WString.cpp **** 	char* string = dtostrf(num, 4, 2, buf);
+ 329:../../cores/mapleMX/WString.cpp **** 	return concat(string, strlen(string));
+ 330:../../cores/mapleMX/WString.cpp **** }
+ 331:../../cores/mapleMX/WString.cpp **** 
+ 332:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(double num)
+ 333:../../cores/mapleMX/WString.cpp **** {
+ 334:../../cores/mapleMX/WString.cpp **** 	char buf[20];
+ 335:../../cores/mapleMX/WString.cpp **** 	char* string = dtostrf(num, 4, 2, buf);
+ 336:../../cores/mapleMX/WString.cpp **** 	return concat(string, strlen(string));
+ 337:../../cores/mapleMX/WString.cpp **** }
+ 338:../../cores/mapleMX/WString.cpp **** 
+ 339:../../cores/mapleMX/WString.cpp **** unsigned char String::concat(const __FlashStringHelper * str)
+ 340:../../cores/mapleMX/WString.cpp **** {
+ 341:../../cores/mapleMX/WString.cpp **** 	if (!str) return 0;
+ 342:../../cores/mapleMX/WString.cpp **** 	int length = strlen_P((const char *) str);
+ 343:../../cores/mapleMX/WString.cpp **** 	if (length == 0) return 1;
+ 344:../../cores/mapleMX/WString.cpp **** 	unsigned int newlen = len + length;
+ 345:../../cores/mapleMX/WString.cpp **** 	if (!reserve(newlen)) return 0;
+ 346:../../cores/mapleMX/WString.cpp **** 	strcpy_P(buffer + len, (const char *) str);
+ 347:../../cores/mapleMX/WString.cpp **** 	len = newlen;
+ 348:../../cores/mapleMX/WString.cpp **** 	return 1;
+ 349:../../cores/mapleMX/WString.cpp **** }
+ 350:../../cores/mapleMX/WString.cpp **** 
+ 351:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 352:../../cores/mapleMX/WString.cpp **** /*  Concatenate                              */
+ 353:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 354:../../cores/mapleMX/WString.cpp **** 
+ 355:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, const String &rhs)
+ 356:../../cores/mapleMX/WString.cpp **** {
+ 357:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 358:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(rhs.buffer, rhs.len)) a.invalidate();
+ 359:../../cores/mapleMX/WString.cpp **** 	return a;
+ 360:../../cores/mapleMX/WString.cpp **** }
+ 361:../../cores/mapleMX/WString.cpp **** 
+ 362:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, const char *cstr)
+ 363:../../cores/mapleMX/WString.cpp **** {
+ 364:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 365:../../cores/mapleMX/WString.cpp **** 	if (!cstr || !a.concat(cstr, strlen(cstr))) a.invalidate();
+ 366:../../cores/mapleMX/WString.cpp **** 	return a;
+ 367:../../cores/mapleMX/WString.cpp **** }
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 29
+
+
+ 368:../../cores/mapleMX/WString.cpp **** 
+ 369:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, char c)
+ 370:../../cores/mapleMX/WString.cpp **** {
+ 371:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 372:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(c)) a.invalidate();
+ 373:../../cores/mapleMX/WString.cpp **** 	return a;
+ 374:../../cores/mapleMX/WString.cpp **** }
+ 375:../../cores/mapleMX/WString.cpp **** 
+ 376:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, unsigned char num)
+ 377:../../cores/mapleMX/WString.cpp **** {
+ 378:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 379:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(num)) a.invalidate();
+ 380:../../cores/mapleMX/WString.cpp **** 	return a;
+ 381:../../cores/mapleMX/WString.cpp **** }
+ 382:../../cores/mapleMX/WString.cpp **** 
+ 383:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, int num)
+ 384:../../cores/mapleMX/WString.cpp **** {
+ 385:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 386:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(num)) a.invalidate();
+ 387:../../cores/mapleMX/WString.cpp **** 	return a;
+ 388:../../cores/mapleMX/WString.cpp **** }
+ 389:../../cores/mapleMX/WString.cpp **** 
+ 390:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, unsigned int num)
+ 391:../../cores/mapleMX/WString.cpp **** {
+ 392:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 393:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(num)) a.invalidate();
+ 394:../../cores/mapleMX/WString.cpp **** 	return a;
+ 395:../../cores/mapleMX/WString.cpp **** }
+ 396:../../cores/mapleMX/WString.cpp **** 
+ 397:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, long num)
+ 398:../../cores/mapleMX/WString.cpp **** {
+ 399:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 400:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(num)) a.invalidate();
+ 401:../../cores/mapleMX/WString.cpp **** 	return a;
+ 402:../../cores/mapleMX/WString.cpp **** }
+ 403:../../cores/mapleMX/WString.cpp **** 
+ 404:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, unsigned long num)
+ 405:../../cores/mapleMX/WString.cpp **** {
+ 406:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 407:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(num)) a.invalidate();
+ 408:../../cores/mapleMX/WString.cpp **** 	return a;
+ 409:../../cores/mapleMX/WString.cpp **** }
+ 410:../../cores/mapleMX/WString.cpp **** 
+ 411:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, float num)
+ 412:../../cores/mapleMX/WString.cpp **** {
+ 413:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 414:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(num)) a.invalidate();
+ 415:../../cores/mapleMX/WString.cpp **** 	return a;
+ 416:../../cores/mapleMX/WString.cpp **** }
+ 417:../../cores/mapleMX/WString.cpp **** 
+ 418:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, double num)
+ 419:../../cores/mapleMX/WString.cpp **** {
+ 420:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 421:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(num)) a.invalidate();
+ 422:../../cores/mapleMX/WString.cpp **** 	return a;
+ 423:../../cores/mapleMX/WString.cpp **** }
+ 424:../../cores/mapleMX/WString.cpp **** 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 30
+
+
+ 425:../../cores/mapleMX/WString.cpp **** StringSumHelper & operator + (const StringSumHelper &lhs, const __FlashStringHelper *rhs)
+ 426:../../cores/mapleMX/WString.cpp **** {
+ 427:../../cores/mapleMX/WString.cpp **** 	StringSumHelper &a = const_cast<StringSumHelper&>(lhs);
+ 428:../../cores/mapleMX/WString.cpp **** 	if (!a.concat(rhs))	a.invalidate();
+ 429:../../cores/mapleMX/WString.cpp **** 	return a;
+ 430:../../cores/mapleMX/WString.cpp **** }
+ 431:../../cores/mapleMX/WString.cpp **** #endif
+ 432:../../cores/mapleMX/WString.cpp **** 
+ 433:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 434:../../cores/mapleMX/WString.cpp **** /*  Comparison                               */
+ 435:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 436:../../cores/mapleMX/WString.cpp **** 
+ 437:../../cores/mapleMX/WString.cpp **** int String::compareTo(const String &s) const
+ 438:../../cores/mapleMX/WString.cpp **** {
+ 1156              		.loc 1 438 0
+ 1157              		.cfi_startproc
+ 1158              		@ args = 0, pretend = 0, frame = 0
+ 1159              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1160              		@ link register save eliminated.
+ 1161              	.LVL93:
+ 439:../../cores/mapleMX/WString.cpp **** 	if (!buffer || !s.buffer) {
+ 1162              		.loc 1 439 0
+ 1163 0000 0368     		ldr	r3, [r0]
+ 1164 0002 0A68     		ldr	r2, [r1]
+ 1165 0004 0BB1     		cbz	r3, .L54
+ 1166              		.loc 1 439 0 is_stmt 0 discriminator 1
+ 1167 0006 5AB9     		cbnz	r2, .L55
+ 1168 0008 05E0     		b	.L56
+ 1169              	.L54:
+ 440:../../cores/mapleMX/WString.cpp **** 		if (s.buffer && s.len > 0) return 0 - *(unsigned char *)s.buffer;
+ 1170              		.loc 1 440 0 is_stmt 1
+ 1171 000a 22B1     		cbz	r2, .L56
+ 1172              		.loc 1 440 0 is_stmt 0 discriminator 1
+ 1173 000c 8968     		ldr	r1, [r1, #8]
+ 1174              	.LVL94:
+ 1175 000e 11B1     		cbz	r1, .L56
+ 1176 0010 1078     		ldrb	r0, [r2]	@ zero_extendqisi2
+ 1177              	.LVL95:
+ 1178 0012 4042     		negs	r0, r0
+ 1179 0014 7047     		bx	lr
+ 1180              	.LVL96:
+ 1181              	.L56:
+ 441:../../cores/mapleMX/WString.cpp **** 		if (buffer && len > 0) return *(unsigned char *)buffer;
+ 1182              		.loc 1 441 0 is_stmt 1
+ 1183 0016 3BB1     		cbz	r3, .L58
+ 1184              		.loc 1 441 0 is_stmt 0 discriminator 1
+ 1185 0018 8068     		ldr	r0, [r0, #8]
+ 1186              	.LVL97:
+ 1187 001a 30B1     		cbz	r0, .L57
+ 1188 001c 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 1189 001e 7047     		bx	lr
+ 1190              	.LVL98:
+ 1191              	.L55:
+ 442:../../cores/mapleMX/WString.cpp **** 		return 0;
+ 443:../../cores/mapleMX/WString.cpp **** 	}
+ 444:../../cores/mapleMX/WString.cpp **** 	return strcmp(buffer, s.buffer);
+ 1192              		.loc 1 444 0 is_stmt 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 31
+
+
+ 1193 0020 1846     		mov	r0, r3
+ 1194              	.LVL99:
+ 1195 0022 1146     		mov	r1, r2
+ 1196              	.LVL100:
+ 1197 0024 FFF7FEBF 		b	strcmp
+ 1198              	.LVL101:
+ 1199              	.L58:
+ 442:../../cores/mapleMX/WString.cpp **** 		return 0;
+ 1200              		.loc 1 442 0
+ 1201 0028 1846     		mov	r0, r3
+ 1202              	.LVL102:
+ 1203              	.L57:
+ 445:../../cores/mapleMX/WString.cpp **** }
+ 1204              		.loc 1 445 0
+ 1205 002a 7047     		bx	lr
+ 1206              		.cfi_endproc
+ 1207              	.LFE97:
+ 1209              		.section	.text._ZNK6String6equalsERKS_,"ax",%progbits
+ 1210              		.align	1
+ 1211              		.global	_ZNK6String6equalsERKS_
+ 1212              		.thumb
+ 1213              		.thumb_func
+ 1215              	_ZNK6String6equalsERKS_:
+ 1216              	.LFB98:
+ 446:../../cores/mapleMX/WString.cpp **** 
+ 447:../../cores/mapleMX/WString.cpp **** unsigned char String::equals(const String &s2) const
+ 448:../../cores/mapleMX/WString.cpp **** {
+ 1217              		.loc 1 448 0
+ 1218              		.cfi_startproc
+ 1219              		@ args = 0, pretend = 0, frame = 0
+ 1220              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1221              	.LVL103:
+ 1222 0000 08B5     		push	{r3, lr}
+ 1223              		.cfi_def_cfa_offset 8
+ 1224              		.cfi_offset 3, -8
+ 1225              		.cfi_offset 14, -4
+ 449:../../cores/mapleMX/WString.cpp **** 	return (len == s2.len && compareTo(s2) == 0);
+ 1226              		.loc 1 449 0
+ 1227 0002 8268     		ldr	r2, [r0, #8]
+ 1228 0004 8B68     		ldr	r3, [r1, #8]
+ 1229 0006 9A42     		cmp	r2, r3
+ 1230 0008 06D1     		bne	.L71
+ 1231              		.loc 1 449 0 is_stmt 0 discriminator 1
+ 1232 000a FFF7FEFF 		bl	_ZNK6String9compareToERKS_
+ 1233              	.LVL104:
+ 1234 000e D0F10100 		rsbs	r0, r0, #1
+ 1235 0012 38BF     		it	cc
+ 1236 0014 0020     		movcc	r0, #0
+ 1237 0016 08BD     		pop	{r3, pc}
+ 1238              	.LVL105:
+ 1239              	.L71:
+ 1240              		.loc 1 449 0
+ 1241 0018 0020     		movs	r0, #0
+ 1242              	.LVL106:
+ 450:../../cores/mapleMX/WString.cpp **** }
+ 1243              		.loc 1 450 0 is_stmt 1
+ 1244 001a 08BD     		pop	{r3, pc}
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 32
+
+
+ 1245              		.cfi_endproc
+ 1246              	.LFE98:
+ 1248              		.section	.text._ZNK6String6equalsEPKc,"ax",%progbits
+ 1249              		.align	1
+ 1250              		.global	_ZNK6String6equalsEPKc
+ 1251              		.thumb
+ 1252              		.thumb_func
+ 1254              	_ZNK6String6equalsEPKc:
+ 1255              	.LFB99:
+ 451:../../cores/mapleMX/WString.cpp **** 
+ 452:../../cores/mapleMX/WString.cpp **** unsigned char String::equals(const char *cstr) const
+ 453:../../cores/mapleMX/WString.cpp **** {
+ 1256              		.loc 1 453 0
+ 1257              		.cfi_startproc
+ 1258              		@ args = 0, pretend = 0, frame = 0
+ 1259              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1260              	.LVL107:
+ 454:../../cores/mapleMX/WString.cpp **** 	if (len == 0) return (cstr == NULL || *cstr == 0);
+ 1261              		.loc 1 454 0
+ 1262 0000 8268     		ldr	r2, [r0, #8]
+ 453:../../cores/mapleMX/WString.cpp **** {
+ 1263              		.loc 1 453 0
+ 1264 0002 08B5     		push	{r3, lr}
+ 1265              		.cfi_def_cfa_offset 8
+ 1266              		.cfi_offset 3, -8
+ 1267              		.cfi_offset 14, -4
+ 453:../../cores/mapleMX/WString.cpp **** {
+ 1268              		.loc 1 453 0
+ 1269 0004 0B46     		mov	r3, r1
+ 1270              		.loc 1 454 0
+ 1271 0006 12B9     		cbnz	r2, .L73
+ 1272              		.loc 1 454 0 is_stmt 0 discriminator 1
+ 1273 0008 19B9     		cbnz	r1, .L79
+ 1274              		.loc 1 454 0
+ 1275 000a 0120     		movs	r0, #1
+ 1276              	.LVL108:
+ 1277 000c 08BD     		pop	{r3, pc}
+ 1278              	.LVL109:
+ 1279              	.L73:
+ 455:../../cores/mapleMX/WString.cpp **** 	if (cstr == NULL) return buffer[0] == 0;
+ 1280              		.loc 1 455 0 is_stmt 1
+ 1281 000e 11B9     		cbnz	r1, .L76
+ 1282              		.loc 1 455 0 is_stmt 0 discriminator 1
+ 1283 0010 0368     		ldr	r3, [r0]
+ 1284              	.L79:
+ 1285 0012 1878     		ldrb	r0, [r3]	@ zero_extendqisi2
+ 1286              	.LVL110:
+ 1287 0014 02E0     		b	.L78
+ 1288              	.LVL111:
+ 1289              	.L76:
+ 456:../../cores/mapleMX/WString.cpp **** 	return strcmp(buffer, cstr) == 0;
+ 1290              		.loc 1 456 0 is_stmt 1
+ 1291 0016 0068     		ldr	r0, [r0]
+ 1292              	.LVL112:
+ 1293 0018 FFF7FEFF 		bl	strcmp
+ 1294              	.LVL113:
+ 1295              	.L78:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 33
+
+
+ 1296 001c D0F10100 		rsbs	r0, r0, #1
+ 1297 0020 38BF     		it	cc
+ 1298 0022 0020     		movcc	r0, #0
+ 457:../../cores/mapleMX/WString.cpp **** }
+ 1299              		.loc 1 457 0
+ 1300 0024 08BD     		pop	{r3, pc}
+ 1301              		.cfi_endproc
+ 1302              	.LFE99:
+ 1304              		.section	.text._ZNK6StringltERKS_,"ax",%progbits
+ 1305              		.align	1
+ 1306              		.global	_ZNK6StringltERKS_
+ 1307              		.thumb
+ 1308              		.thumb_func
+ 1310              	_ZNK6StringltERKS_:
+ 1311              	.LFB100:
+ 458:../../cores/mapleMX/WString.cpp **** 
+ 459:../../cores/mapleMX/WString.cpp **** unsigned char String::operator<(const String &rhs) const
+ 460:../../cores/mapleMX/WString.cpp **** {
+ 1312              		.loc 1 460 0
+ 1313              		.cfi_startproc
+ 1314              		@ args = 0, pretend = 0, frame = 0
+ 1315              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1316              	.LVL114:
+ 1317 0000 08B5     		push	{r3, lr}
+ 1318              		.cfi_def_cfa_offset 8
+ 1319              		.cfi_offset 3, -8
+ 1320              		.cfi_offset 14, -4
+ 461:../../cores/mapleMX/WString.cpp **** 	return compareTo(rhs) < 0;
+ 1321              		.loc 1 461 0
+ 1322 0002 FFF7FEFF 		bl	_ZNK6String9compareToERKS_
+ 1323              	.LVL115:
+ 462:../../cores/mapleMX/WString.cpp **** }
+ 1324              		.loc 1 462 0
+ 1325 0006 C00F     		lsrs	r0, r0, #31
+ 1326 0008 08BD     		pop	{r3, pc}
+ 1327              		.cfi_endproc
+ 1328              	.LFE100:
+ 1330              		.section	.text._ZNK6StringgtERKS_,"ax",%progbits
+ 1331              		.align	1
+ 1332              		.global	_ZNK6StringgtERKS_
+ 1333              		.thumb
+ 1334              		.thumb_func
+ 1336              	_ZNK6StringgtERKS_:
+ 1337              	.LFB101:
+ 463:../../cores/mapleMX/WString.cpp **** 
+ 464:../../cores/mapleMX/WString.cpp **** unsigned char String::operator>(const String &rhs) const
+ 465:../../cores/mapleMX/WString.cpp **** {
+ 1338              		.loc 1 465 0
+ 1339              		.cfi_startproc
+ 1340              		@ args = 0, pretend = 0, frame = 0
+ 1341              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1342              	.LVL116:
+ 1343 0000 08B5     		push	{r3, lr}
+ 1344              		.cfi_def_cfa_offset 8
+ 1345              		.cfi_offset 3, -8
+ 1346              		.cfi_offset 14, -4
+ 466:../../cores/mapleMX/WString.cpp **** 	return compareTo(rhs) > 0;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 34
+
+
+ 1347              		.loc 1 466 0
+ 1348 0002 FFF7FEFF 		bl	_ZNK6String9compareToERKS_
+ 1349              	.LVL117:
+ 467:../../cores/mapleMX/WString.cpp **** }
+ 1350              		.loc 1 467 0
+ 1351 0006 0028     		cmp	r0, #0
+ 1352 0008 D4BF     		ite	le
+ 1353 000a 0020     		movle	r0, #0
+ 1354 000c 0120     		movgt	r0, #1
+ 1355 000e 08BD     		pop	{r3, pc}
+ 1356              		.cfi_endproc
+ 1357              	.LFE101:
+ 1359              		.section	.text._ZNK6StringleERKS_,"ax",%progbits
+ 1360              		.align	1
+ 1361              		.global	_ZNK6StringleERKS_
+ 1362              		.thumb
+ 1363              		.thumb_func
+ 1365              	_ZNK6StringleERKS_:
+ 1366              	.LFB102:
+ 468:../../cores/mapleMX/WString.cpp **** 
+ 469:../../cores/mapleMX/WString.cpp **** unsigned char String::operator<=(const String &rhs) const
+ 470:../../cores/mapleMX/WString.cpp **** {
+ 1367              		.loc 1 470 0
+ 1368              		.cfi_startproc
+ 1369              		@ args = 0, pretend = 0, frame = 0
+ 1370              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1371              	.LVL118:
+ 1372 0000 08B5     		push	{r3, lr}
+ 1373              		.cfi_def_cfa_offset 8
+ 1374              		.cfi_offset 3, -8
+ 1375              		.cfi_offset 14, -4
+ 471:../../cores/mapleMX/WString.cpp **** 	return compareTo(rhs) <= 0;
+ 1376              		.loc 1 471 0
+ 1377 0002 FFF7FEFF 		bl	_ZNK6String9compareToERKS_
+ 1378              	.LVL119:
+ 472:../../cores/mapleMX/WString.cpp **** }
+ 1379              		.loc 1 472 0
+ 1380 0006 0028     		cmp	r0, #0
+ 1381 0008 CCBF     		ite	gt
+ 1382 000a 0020     		movgt	r0, #0
+ 1383 000c 0120     		movle	r0, #1
+ 1384 000e 08BD     		pop	{r3, pc}
+ 1385              		.cfi_endproc
+ 1386              	.LFE102:
+ 1388              		.section	.text._ZNK6StringgeERKS_,"ax",%progbits
+ 1389              		.align	1
+ 1390              		.global	_ZNK6StringgeERKS_
+ 1391              		.thumb
+ 1392              		.thumb_func
+ 1394              	_ZNK6StringgeERKS_:
+ 1395              	.LFB103:
+ 473:../../cores/mapleMX/WString.cpp **** 
+ 474:../../cores/mapleMX/WString.cpp **** unsigned char String::operator>=(const String &rhs) const
+ 475:../../cores/mapleMX/WString.cpp **** {
+ 1396              		.loc 1 475 0
+ 1397              		.cfi_startproc
+ 1398              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 35
+
+
+ 1399              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1400              	.LVL120:
+ 1401 0000 08B5     		push	{r3, lr}
+ 1402              		.cfi_def_cfa_offset 8
+ 1403              		.cfi_offset 3, -8
+ 1404              		.cfi_offset 14, -4
+ 476:../../cores/mapleMX/WString.cpp **** 	return compareTo(rhs) >= 0;
+ 1405              		.loc 1 476 0
+ 1406 0002 FFF7FEFF 		bl	_ZNK6String9compareToERKS_
+ 1407              	.LVL121:
+ 477:../../cores/mapleMX/WString.cpp **** }
+ 1408              		.loc 1 477 0
+ 1409 0006 C043     		mvns	r0, r0
+ 1410 0008 C00F     		lsrs	r0, r0, #31
+ 1411 000a 08BD     		pop	{r3, pc}
+ 1412              		.cfi_endproc
+ 1413              	.LFE103:
+ 1415              		.section	.text._ZNK6String16equalsIgnoreCaseERKS_,"ax",%progbits
+ 1416              		.align	1
+ 1417              		.global	_ZNK6String16equalsIgnoreCaseERKS_
+ 1418              		.thumb
+ 1419              		.thumb_func
+ 1421              	_ZNK6String16equalsIgnoreCaseERKS_:
+ 1422              	.LFB104:
+ 478:../../cores/mapleMX/WString.cpp **** 
+ 479:../../cores/mapleMX/WString.cpp **** unsigned char String::equalsIgnoreCase( const String &s2 ) const
+ 480:../../cores/mapleMX/WString.cpp **** {
+ 1423              		.loc 1 480 0
+ 1424              		.cfi_startproc
+ 1425              		@ args = 0, pretend = 0, frame = 0
+ 1426              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1427              	.LVL122:
+ 1428              	.LBB108:
+ 481:../../cores/mapleMX/WString.cpp **** 	if (this == &s2) return 1;
+ 1429              		.loc 1 481 0
+ 1430 0000 8842     		cmp	r0, r1
+ 1431              	.LBE108:
+ 480:../../cores/mapleMX/WString.cpp **** {
+ 1432              		.loc 1 480 0
+ 1433 0002 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1434              		.cfi_def_cfa_offset 24
+ 1435              		.cfi_offset 3, -24
+ 1436              		.cfi_offset 4, -20
+ 1437              		.cfi_offset 5, -16
+ 1438              		.cfi_offset 6, -12
+ 1439              		.cfi_offset 7, -8
+ 1440              		.cfi_offset 14, -4
+ 1441              	.LBB109:
+ 1442              		.loc 1 481 0
+ 1443 0004 14D0     		beq	.L90
+ 482:../../cores/mapleMX/WString.cpp **** 	if (len != s2.len) return 0;
+ 1444              		.loc 1 482 0
+ 1445 0006 8368     		ldr	r3, [r0, #8]
+ 1446 0008 8A68     		ldr	r2, [r1, #8]
+ 1447 000a 9342     		cmp	r3, r2
+ 1448 000c 12D1     		bne	.L91
+ 483:../../cores/mapleMX/WString.cpp **** 	if (len == 0) return 1;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 36
+
+
+ 1449              		.loc 1 483 0
+ 1450 000e 7BB1     		cbz	r3, .L90
+ 484:../../cores/mapleMX/WString.cpp **** 	const char *p1 = buffer;
+ 1451              		.loc 1 484 0
+ 1452 0010 0668     		ldr	r6, [r0]
+ 1453              	.LVL123:
+ 485:../../cores/mapleMX/WString.cpp **** 	const char *p2 = s2.buffer;
+ 1454              		.loc 1 485 0
+ 1455 0012 0D68     		ldr	r5, [r1]
+ 1456              	.LVL124:
+ 486:../../cores/mapleMX/WString.cpp **** 	while (*p1) {
+ 1457              		.loc 1 486 0
+ 1458 0014 0024     		movs	r4, #0
+ 1459              	.LVL125:
+ 1460              	.L86:
+ 1461              		.loc 1 486 0 is_stmt 0 discriminator 1
+ 1462 0016 305D     		ldrb	r0, [r6, r4]	@ zero_extendqisi2
+ 1463 0018 50B1     		cbz	r0, .L90
+ 1464              	.LVL126:
+ 487:../../cores/mapleMX/WString.cpp **** 		if (tolower(*p1++) != tolower(*p2++)) return 0;
+ 1465              		.loc 1 487 0 is_stmt 1
+ 1466 001a FFF7FEFF 		bl	tolower
+ 1467              	.LVL127:
+ 1468 001e 0746     		mov	r7, r0
+ 1469              	.LVL128:
+ 1470 0020 285D     		ldrb	r0, [r5, r4]	@ zero_extendqisi2
+ 1471 0022 FFF7FEFF 		bl	tolower
+ 1472              	.LVL129:
+ 1473 0026 8742     		cmp	r7, r0
+ 1474 0028 04F10104 		add	r4, r4, #1
+ 1475              	.LVL130:
+ 1476 002c F3D0     		beq	.L86
+ 1477 002e 01E0     		b	.L91
+ 1478              	.LVL131:
+ 1479              	.L90:
+ 481:../../cores/mapleMX/WString.cpp **** 	if (this == &s2) return 1;
+ 1480              		.loc 1 481 0
+ 1481 0030 0120     		movs	r0, #1
+ 1482 0032 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1483              	.L91:
+ 482:../../cores/mapleMX/WString.cpp **** 	if (len != s2.len) return 0;
+ 1484              		.loc 1 482 0
+ 1485 0034 0020     		movs	r0, #0
+ 1486              	.LBE109:
+ 488:../../cores/mapleMX/WString.cpp **** 	} 
+ 489:../../cores/mapleMX/WString.cpp **** 	return 1;
+ 490:../../cores/mapleMX/WString.cpp **** }
+ 1487              		.loc 1 490 0
+ 1488 0036 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1489              		.cfi_endproc
+ 1490              	.LFE104:
+ 1492              		.section	.text._ZNK6String10startsWithERKS_j,"ax",%progbits
+ 1493              		.align	1
+ 1494              		.global	_ZNK6String10startsWithERKS_j
+ 1495              		.thumb
+ 1496              		.thumb_func
+ 1498              	_ZNK6String10startsWithERKS_j:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 37
+
+
+ 1499              	.LFB106:
+ 491:../../cores/mapleMX/WString.cpp **** 
+ 492:../../cores/mapleMX/WString.cpp **** unsigned char String::startsWith( const String &s2 ) const
+ 493:../../cores/mapleMX/WString.cpp **** {
+ 494:../../cores/mapleMX/WString.cpp **** 	if (len < s2.len) return 0;
+ 495:../../cores/mapleMX/WString.cpp **** 	return startsWith(s2, 0);
+ 496:../../cores/mapleMX/WString.cpp **** }
+ 497:../../cores/mapleMX/WString.cpp **** 
+ 498:../../cores/mapleMX/WString.cpp **** unsigned char String::startsWith( const String &s2, unsigned int offset ) const
+ 499:../../cores/mapleMX/WString.cpp **** {
+ 1500              		.loc 1 499 0
+ 1501              		.cfi_startproc
+ 1502              		@ args = 0, pretend = 0, frame = 0
+ 1503              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1504              	.LVL132:
+ 1505 0000 10B5     		push	{r4, lr}
+ 1506              		.cfi_def_cfa_offset 8
+ 1507              		.cfi_offset 4, -8
+ 1508              		.cfi_offset 14, -4
+ 500:../../cores/mapleMX/WString.cpp **** 	if (offset > len - s2.len || !buffer || !s2.buffer) return 0;
+ 1509              		.loc 1 500 0
+ 1510 0002 8B68     		ldr	r3, [r1, #8]
+ 1511 0004 8468     		ldr	r4, [r0, #8]
+ 1512 0006 E41A     		subs	r4, r4, r3
+ 1513 0008 A242     		cmp	r2, r4
+ 1514 000a 0CD8     		bhi	.L94
+ 1515              		.loc 1 500 0 is_stmt 0 discriminator 2
+ 1516 000c 0068     		ldr	r0, [r0]
+ 1517              	.LVL133:
+ 1518 000e 68B1     		cbz	r0, .L93
+ 1519              		.loc 1 500 0 discriminator 1
+ 1520 0010 0968     		ldr	r1, [r1]
+ 1521              	.LVL134:
+ 1522 0012 51B1     		cbz	r1, .L96
+ 501:../../cores/mapleMX/WString.cpp **** 	return strncmp( &buffer[offset], s2.buffer, s2.len ) == 0;
+ 1523              		.loc 1 501 0 is_stmt 1
+ 1524 0014 1044     		add	r0, r0, r2
+ 1525 0016 1A46     		mov	r2, r3
+ 1526              	.LVL135:
+ 1527 0018 FFF7FEFF 		bl	strncmp
+ 1528              	.LVL136:
+ 1529 001c D0F10100 		rsbs	r0, r0, #1
+ 1530 0020 38BF     		it	cc
+ 1531 0022 0020     		movcc	r0, #0
+ 1532 0024 10BD     		pop	{r4, pc}
+ 1533              	.LVL137:
+ 1534              	.L94:
+ 500:../../cores/mapleMX/WString.cpp **** 	if (offset > len - s2.len || !buffer || !s2.buffer) return 0;
+ 1535              		.loc 1 500 0
+ 1536 0026 0020     		movs	r0, #0
+ 1537              	.LVL138:
+ 1538 0028 10BD     		pop	{r4, pc}
+ 1539              	.LVL139:
+ 1540              	.L96:
+ 1541 002a 0846     		mov	r0, r1
+ 1542              	.L93:
+ 502:../../cores/mapleMX/WString.cpp **** }
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 38
+
+
+ 1543              		.loc 1 502 0
+ 1544 002c 10BD     		pop	{r4, pc}
+ 1545              		.cfi_endproc
+ 1546              	.LFE106:
+ 1548              		.section	.text._ZNK6String10startsWithERKS_,"ax",%progbits
+ 1549              		.align	1
+ 1550              		.global	_ZNK6String10startsWithERKS_
+ 1551              		.thumb
+ 1552              		.thumb_func
+ 1554              	_ZNK6String10startsWithERKS_:
+ 1555              	.LFB105:
+ 493:../../cores/mapleMX/WString.cpp **** {
+ 1556              		.loc 1 493 0
+ 1557              		.cfi_startproc
+ 1558              		@ args = 0, pretend = 0, frame = 0
+ 1559              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1560              		@ link register save eliminated.
+ 1561              	.LVL140:
+ 494:../../cores/mapleMX/WString.cpp **** 	if (len < s2.len) return 0;
+ 1562              		.loc 1 494 0
+ 1563 0000 8268     		ldr	r2, [r0, #8]
+ 1564 0002 8B68     		ldr	r3, [r1, #8]
+ 1565 0004 9A42     		cmp	r2, r3
+ 1566 0006 02D3     		bcc	.L98
+ 495:../../cores/mapleMX/WString.cpp **** 	return startsWith(s2, 0);
+ 1567              		.loc 1 495 0
+ 1568 0008 0022     		movs	r2, #0
+ 1569 000a FFF7FEBF 		b	_ZNK6String10startsWithERKS_j
+ 1570              	.LVL141:
+ 1571              	.L98:
+ 496:../../cores/mapleMX/WString.cpp **** }
+ 1572              		.loc 1 496 0
+ 1573 000e 0020     		movs	r0, #0
+ 1574              	.LVL142:
+ 1575 0010 7047     		bx	lr
+ 1576              		.cfi_endproc
+ 1577              	.LFE105:
+ 1579              		.section	.text._ZNK6String8endsWithERKS_,"ax",%progbits
+ 1580              		.align	1
+ 1581              		.global	_ZNK6String8endsWithERKS_
+ 1582              		.thumb
+ 1583              		.thumb_func
+ 1585              	_ZNK6String8endsWithERKS_:
+ 1586              	.LFB107:
+ 503:../../cores/mapleMX/WString.cpp **** 
+ 504:../../cores/mapleMX/WString.cpp **** unsigned char String::endsWith( const String &s2 ) const
+ 505:../../cores/mapleMX/WString.cpp **** {
+ 1587              		.loc 1 505 0
+ 1588              		.cfi_startproc
+ 1589              		@ args = 0, pretend = 0, frame = 0
+ 1590              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1591              	.LVL143:
+ 1592 0000 08B5     		push	{r3, lr}
+ 1593              		.cfi_def_cfa_offset 8
+ 1594              		.cfi_offset 3, -8
+ 1595              		.cfi_offset 14, -4
+ 506:../../cores/mapleMX/WString.cpp **** 	if ( len < s2.len || !buffer || !s2.buffer) return 0;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 39
+
+
+ 1596              		.loc 1 506 0
+ 1597 0002 8268     		ldr	r2, [r0, #8]
+ 1598 0004 8B68     		ldr	r3, [r1, #8]
+ 1599 0006 9A42     		cmp	r2, r3
+ 1600 0008 0CD3     		bcc	.L101
+ 1601              		.loc 1 506 0 is_stmt 0 discriminator 2
+ 1602 000a 0068     		ldr	r0, [r0]
+ 1603              	.LVL144:
+ 1604 000c 68B1     		cbz	r0, .L100
+ 1605              		.loc 1 506 0 discriminator 1
+ 1606 000e 0968     		ldr	r1, [r1]
+ 1607              	.LVL145:
+ 1608 0010 51B1     		cbz	r1, .L103
+ 507:../../cores/mapleMX/WString.cpp **** 	return strcmp(&buffer[len - s2.len], s2.buffer) == 0;
+ 1609              		.loc 1 507 0 is_stmt 1
+ 1610 0012 D31A     		subs	r3, r2, r3
+ 1611 0014 1844     		add	r0, r0, r3
+ 1612 0016 FFF7FEFF 		bl	strcmp
+ 1613              	.LVL146:
+ 1614 001a D0F10100 		rsbs	r0, r0, #1
+ 1615 001e 38BF     		it	cc
+ 1616 0020 0020     		movcc	r0, #0
+ 1617 0022 08BD     		pop	{r3, pc}
+ 1618              	.LVL147:
+ 1619              	.L101:
+ 506:../../cores/mapleMX/WString.cpp **** 	if ( len < s2.len || !buffer || !s2.buffer) return 0;
+ 1620              		.loc 1 506 0
+ 1621 0024 0020     		movs	r0, #0
+ 1622              	.LVL148:
+ 1623 0026 08BD     		pop	{r3, pc}
+ 1624              	.LVL149:
+ 1625              	.L103:
+ 1626 0028 0846     		mov	r0, r1
+ 1627              	.L100:
+ 508:../../cores/mapleMX/WString.cpp **** }
+ 1628              		.loc 1 508 0
+ 1629 002a 08BD     		pop	{r3, pc}
+ 1630              		.cfi_endproc
+ 1631              	.LFE107:
+ 1633              		.section	.text._ZN6String9setCharAtEjc,"ax",%progbits
+ 1634              		.align	1
+ 1635              		.global	_ZN6String9setCharAtEjc
+ 1636              		.thumb
+ 1637              		.thumb_func
+ 1639              	_ZN6String9setCharAtEjc:
+ 1640              	.LFB109:
+ 509:../../cores/mapleMX/WString.cpp **** 
+ 510:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 511:../../cores/mapleMX/WString.cpp **** /*  Character Access                         */
+ 512:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 513:../../cores/mapleMX/WString.cpp **** 
+ 514:../../cores/mapleMX/WString.cpp **** char String::charAt(unsigned int loc) const
+ 515:../../cores/mapleMX/WString.cpp **** {
+ 516:../../cores/mapleMX/WString.cpp **** 	return operator[](loc);
+ 517:../../cores/mapleMX/WString.cpp **** }
+ 518:../../cores/mapleMX/WString.cpp **** 
+ 519:../../cores/mapleMX/WString.cpp **** void String::setCharAt(unsigned int loc, char c) 
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 40
+
+
+ 520:../../cores/mapleMX/WString.cpp **** {
+ 1641              		.loc 1 520 0
+ 1642              		.cfi_startproc
+ 1643              		@ args = 0, pretend = 0, frame = 0
+ 1644              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1645              		@ link register save eliminated.
+ 1646              	.LVL150:
+ 521:../../cores/mapleMX/WString.cpp **** 	if (loc < len) buffer[loc] = c;
+ 1647              		.loc 1 521 0
+ 1648 0000 8368     		ldr	r3, [r0, #8]
+ 1649 0002 9942     		cmp	r1, r3
+ 1650 0004 3CBF     		itt	cc
+ 1651 0006 0368     		ldrcc	r3, [r0]
+ 1652 0008 5A54     		strbcc	r2, [r3, r1]
+ 1653 000a 7047     		bx	lr
+ 1654              		.cfi_endproc
+ 1655              	.LFE109:
+ 1657              		.section	.text._ZN6StringixEj,"ax",%progbits
+ 1658              		.align	1
+ 1659              		.global	_ZN6StringixEj
+ 1660              		.thumb
+ 1661              		.thumb_func
+ 1663              	_ZN6StringixEj:
+ 1664              	.LFB110:
+ 522:../../cores/mapleMX/WString.cpp **** }
+ 523:../../cores/mapleMX/WString.cpp **** 
+ 524:../../cores/mapleMX/WString.cpp **** char & String::operator[](unsigned int index)
+ 525:../../cores/mapleMX/WString.cpp **** {
+ 1665              		.loc 1 525 0
+ 1666              		.cfi_startproc
+ 1667              		@ args = 0, pretend = 0, frame = 0
+ 1668              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1669              		@ link register save eliminated.
+ 1670              	.LVL151:
+ 1671              	.LBB110:
+ 526:../../cores/mapleMX/WString.cpp **** 	static char dummy_writable_char;
+ 527:../../cores/mapleMX/WString.cpp **** 	if (index >= len || !buffer) {
+ 1672              		.loc 1 527 0
+ 1673 0000 8368     		ldr	r3, [r0, #8]
+ 1674 0002 9942     		cmp	r1, r3
+ 1675 0004 01D2     		bcs	.L107
+ 1676              		.loc 1 527 0 is_stmt 0 discriminator 1
+ 1677 0006 0068     		ldr	r0, [r0]
+ 1678              	.LVL152:
+ 1679 0008 18B9     		cbnz	r0, .L108
+ 1680              	.L107:
+ 528:../../cores/mapleMX/WString.cpp **** 		dummy_writable_char = 0;
+ 1681              		.loc 1 528 0 is_stmt 1
+ 1682 000a 0348     		ldr	r0, .L110
+ 1683 000c 0023     		movs	r3, #0
+ 1684 000e 0370     		strb	r3, [r0]
+ 529:../../cores/mapleMX/WString.cpp **** 		return dummy_writable_char;
+ 1685              		.loc 1 529 0
+ 1686 0010 7047     		bx	lr
+ 1687              	.L108:
+ 530:../../cores/mapleMX/WString.cpp **** 	}
+ 531:../../cores/mapleMX/WString.cpp **** 	return buffer[index];
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 41
+
+
+ 1688              		.loc 1 531 0
+ 1689 0012 0844     		add	r0, r0, r1
+ 1690              	.LBE110:
+ 532:../../cores/mapleMX/WString.cpp **** }
+ 1691              		.loc 1 532 0
+ 1692 0014 7047     		bx	lr
+ 1693              	.L111:
+ 1694 0016 00BF     		.align	2
+ 1695              	.L110:
+ 1696 0018 00000000 		.word	.LANCHOR0
+ 1697              		.cfi_endproc
+ 1698              	.LFE110:
+ 1700              		.section	.text._ZNK6StringixEj,"ax",%progbits
+ 1701              		.align	1
+ 1702              		.global	_ZNK6StringixEj
+ 1703              		.thumb
+ 1704              		.thumb_func
+ 1706              	_ZNK6StringixEj:
+ 1707              	.LFB111:
+ 533:../../cores/mapleMX/WString.cpp **** 
+ 534:../../cores/mapleMX/WString.cpp **** char String::operator[]( unsigned int index ) const
+ 535:../../cores/mapleMX/WString.cpp **** {
+ 1708              		.loc 1 535 0
+ 1709              		.cfi_startproc
+ 1710              		@ args = 0, pretend = 0, frame = 0
+ 1711              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1712              		@ link register save eliminated.
+ 1713              	.LVL153:
+ 536:../../cores/mapleMX/WString.cpp **** 	if (index >= len || !buffer) return 0;
+ 1714              		.loc 1 536 0
+ 1715 0000 8368     		ldr	r3, [r0, #8]
+ 1716 0002 9942     		cmp	r1, r3
+ 1717 0004 03D2     		bcs	.L114
+ 1718              		.loc 1 536 0 is_stmt 0 discriminator 2
+ 1719 0006 0068     		ldr	r0, [r0]
+ 1720              	.LVL154:
+ 1721 0008 10B1     		cbz	r0, .L113
+ 537:../../cores/mapleMX/WString.cpp **** 	return buffer[index];
+ 1722              		.loc 1 537 0 is_stmt 1
+ 1723 000a 405C     		ldrb	r0, [r0, r1]	@ zero_extendqisi2
+ 1724 000c 7047     		bx	lr
+ 1725              	.LVL155:
+ 1726              	.L114:
+ 536:../../cores/mapleMX/WString.cpp **** 	if (index >= len || !buffer) return 0;
+ 1727              		.loc 1 536 0
+ 1728 000e 0020     		movs	r0, #0
+ 1729              	.LVL156:
+ 1730              	.L113:
+ 538:../../cores/mapleMX/WString.cpp **** }
+ 1731              		.loc 1 538 0
+ 1732 0010 7047     		bx	lr
+ 1733              		.cfi_endproc
+ 1734              	.LFE111:
+ 1736              		.section	.text._ZNK6String6charAtEj,"ax",%progbits
+ 1737              		.align	1
+ 1738              		.global	_ZNK6String6charAtEj
+ 1739              		.thumb
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 42
+
+
+ 1740              		.thumb_func
+ 1742              	_ZNK6String6charAtEj:
+ 1743              	.LFB108:
+ 515:../../cores/mapleMX/WString.cpp **** {
+ 1744              		.loc 1 515 0
+ 1745              		.cfi_startproc
+ 1746              		@ args = 0, pretend = 0, frame = 0
+ 1747              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1748              		@ link register save eliminated.
+ 1749              	.LVL157:
+ 516:../../cores/mapleMX/WString.cpp **** 	return operator[](loc);
+ 1750              		.loc 1 516 0
+ 1751 0000 FFF7FEBF 		b	_ZNK6StringixEj
+ 1752              	.LVL158:
+ 1753              		.cfi_endproc
+ 1754              	.LFE108:
+ 1756              		.section	.text._ZNK6String8getBytesEPhjj,"ax",%progbits
+ 1757              		.align	1
+ 1758              		.global	_ZNK6String8getBytesEPhjj
+ 1759              		.thumb
+ 1760              		.thumb_func
+ 1762              	_ZNK6String8getBytesEPhjj:
+ 1763              	.LFB112:
+ 539:../../cores/mapleMX/WString.cpp **** 
+ 540:../../cores/mapleMX/WString.cpp **** void String::getBytes(unsigned char *buf, unsigned int bufsize, unsigned int index) const
+ 541:../../cores/mapleMX/WString.cpp **** {
+ 1764              		.loc 1 541 0
+ 1765              		.cfi_startproc
+ 1766              		@ args = 0, pretend = 0, frame = 0
+ 1767              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1768              	.LVL159:
+ 1769 0000 38B5     		push	{r3, r4, r5, lr}
+ 1770              		.cfi_def_cfa_offset 16
+ 1771              		.cfi_offset 3, -16
+ 1772              		.cfi_offset 4, -12
+ 1773              		.cfi_offset 5, -8
+ 1774              		.cfi_offset 14, -4
+ 1775              		.loc 1 541 0
+ 1776 0002 0C46     		mov	r4, r1
+ 1777              	.LBB111:
+ 542:../../cores/mapleMX/WString.cpp **** 	if (!bufsize || !buf) return;
+ 1778              		.loc 1 542 0
+ 1779 0004 9AB1     		cbz	r2, .L117
+ 1780              		.loc 1 542 0 is_stmt 0 discriminator 2
+ 1781 0006 91B1     		cbz	r1, .L117
+ 543:../../cores/mapleMX/WString.cpp **** 	if (index >= len) {
+ 1782              		.loc 1 543 0 is_stmt 1
+ 1783 0008 8168     		ldr	r1, [r0, #8]
+ 1784              	.LVL160:
+ 1785 000a 8B42     		cmp	r3, r1
+ 1786 000c 02D3     		bcc	.L119
+ 544:../../cores/mapleMX/WString.cpp **** 		buf[0] = 0;
+ 1787              		.loc 1 544 0
+ 1788 000e 0023     		movs	r3, #0
+ 1789              	.LVL161:
+ 1790 0010 2370     		strb	r3, [r4]
+ 545:../../cores/mapleMX/WString.cpp **** 		return;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 43
+
+
+ 1791              		.loc 1 545 0
+ 1792 0012 38BD     		pop	{r3, r4, r5, pc}
+ 1793              	.LVL162:
+ 1794              	.L119:
+ 546:../../cores/mapleMX/WString.cpp **** 	}
+ 547:../../cores/mapleMX/WString.cpp **** 	unsigned int n = bufsize - 1;
+ 548:../../cores/mapleMX/WString.cpp **** 	if (n > len - index) n = len - index;
+ 1795              		.loc 1 548 0
+ 1796 0014 C91A     		subs	r1, r1, r3
+ 547:../../cores/mapleMX/WString.cpp **** 	unsigned int n = bufsize - 1;
+ 1797              		.loc 1 547 0
+ 1798 0016 551E     		subs	r5, r2, #1
+ 1799              	.LVL163:
+ 1800 0018 8D42     		cmp	r5, r1
+ 1801 001a 28BF     		it	cs
+ 1802 001c 0D46     		movcs	r5, r1
+ 1803              	.LVL164:
+ 549:../../cores/mapleMX/WString.cpp **** 	strncpy((char *)buf, buffer + index, n);
+ 1804              		.loc 1 549 0
+ 1805 001e 0168     		ldr	r1, [r0]
+ 1806 0020 2A46     		mov	r2, r5
+ 1807              	.LVL165:
+ 1808 0022 1944     		add	r1, r1, r3
+ 1809 0024 2046     		mov	r0, r4
+ 1810              	.LVL166:
+ 1811 0026 FFF7FEFF 		bl	strncpy
+ 1812              	.LVL167:
+ 550:../../cores/mapleMX/WString.cpp **** 	buf[n] = 0;
+ 1813              		.loc 1 550 0
+ 1814 002a 0023     		movs	r3, #0
+ 1815 002c 6355     		strb	r3, [r4, r5]
+ 1816              	.LVL168:
+ 1817              	.L117:
+ 1818 002e 38BD     		pop	{r3, r4, r5, pc}
+ 1819              	.LBE111:
+ 1820              		.cfi_endproc
+ 1821              	.LFE112:
+ 1823              		.section	.text._ZNK6String7indexOfEcj,"ax",%progbits
+ 1824              		.align	1
+ 1825              		.global	_ZNK6String7indexOfEcj
+ 1826              		.thumb
+ 1827              		.thumb_func
+ 1829              	_ZNK6String7indexOfEcj:
+ 1830              	.LFB114:
+ 551:../../cores/mapleMX/WString.cpp **** }
+ 552:../../cores/mapleMX/WString.cpp **** 
+ 553:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 554:../../cores/mapleMX/WString.cpp **** /*  Search                                   */
+ 555:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 556:../../cores/mapleMX/WString.cpp **** 
+ 557:../../cores/mapleMX/WString.cpp **** int String::indexOf(char c) const
+ 558:../../cores/mapleMX/WString.cpp **** {
+ 559:../../cores/mapleMX/WString.cpp **** 	return indexOf(c, 0);
+ 560:../../cores/mapleMX/WString.cpp **** }
+ 561:../../cores/mapleMX/WString.cpp **** 
+ 562:../../cores/mapleMX/WString.cpp **** int String::indexOf( char ch, unsigned int fromIndex ) const
+ 563:../../cores/mapleMX/WString.cpp **** {
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 44
+
+
+ 1831              		.loc 1 563 0
+ 1832              		.cfi_startproc
+ 1833              		@ args = 0, pretend = 0, frame = 0
+ 1834              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1835              	.LVL169:
+ 1836              	.LBB112:
+ 564:../../cores/mapleMX/WString.cpp **** 	if (fromIndex >= len) return -1;
+ 1837              		.loc 1 564 0
+ 1838 0000 8368     		ldr	r3, [r0, #8]
+ 1839 0002 9A42     		cmp	r2, r3
+ 1840              	.LBE112:
+ 563:../../cores/mapleMX/WString.cpp **** {
+ 1841              		.loc 1 563 0
+ 1842 0004 10B5     		push	{r4, lr}
+ 1843              		.cfi_def_cfa_offset 8
+ 1844              		.cfi_offset 4, -8
+ 1845              		.cfi_offset 14, -4
+ 1846              	.LBB113:
+ 1847              		.loc 1 564 0
+ 1848 0006 06D2     		bcs	.L129
+ 565:../../cores/mapleMX/WString.cpp **** 	const char* temp = strchr(buffer + fromIndex, ch);
+ 1849              		.loc 1 565 0
+ 1850 0008 0468     		ldr	r4, [r0]
+ 1851 000a A018     		adds	r0, r4, r2
+ 1852              	.LVL170:
+ 1853 000c FFF7FEFF 		bl	strchr
+ 1854              	.LVL171:
+ 566:../../cores/mapleMX/WString.cpp **** 	if (temp == NULL) return -1;
+ 1855              		.loc 1 566 0
+ 1856 0010 08B1     		cbz	r0, .L129
+ 567:../../cores/mapleMX/WString.cpp **** 	return temp - buffer;
+ 1857              		.loc 1 567 0
+ 1858 0012 001B     		subs	r0, r0, r4
+ 1859              	.LVL172:
+ 1860 0014 10BD     		pop	{r4, pc}
+ 1861              	.L129:
+ 564:../../cores/mapleMX/WString.cpp **** 	if (fromIndex >= len) return -1;
+ 1862              		.loc 1 564 0
+ 1863 0016 4FF0FF30 		mov	r0, #-1
+ 1864              	.LBE113:
+ 568:../../cores/mapleMX/WString.cpp **** }
+ 1865              		.loc 1 568 0
+ 1866 001a 10BD     		pop	{r4, pc}
+ 1867              		.cfi_endproc
+ 1868              	.LFE114:
+ 1870              		.section	.text._ZNK6String7indexOfEc,"ax",%progbits
+ 1871              		.align	1
+ 1872              		.global	_ZNK6String7indexOfEc
+ 1873              		.thumb
+ 1874              		.thumb_func
+ 1876              	_ZNK6String7indexOfEc:
+ 1877              	.LFB113:
+ 558:../../cores/mapleMX/WString.cpp **** {
+ 1878              		.loc 1 558 0
+ 1879              		.cfi_startproc
+ 1880              		@ args = 0, pretend = 0, frame = 0
+ 1881              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 45
+
+
+ 1882              		@ link register save eliminated.
+ 1883              	.LVL173:
+ 559:../../cores/mapleMX/WString.cpp **** 	return indexOf(c, 0);
+ 1884              		.loc 1 559 0
+ 1885 0000 0022     		movs	r2, #0
+ 1886 0002 FFF7FEBF 		b	_ZNK6String7indexOfEcj
+ 1887              	.LVL174:
+ 1888              		.cfi_endproc
+ 1889              	.LFE113:
+ 1891              		.section	.text._ZNK6String7indexOfERKS_j,"ax",%progbits
+ 1892              		.align	1
+ 1893              		.global	_ZNK6String7indexOfERKS_j
+ 1894              		.thumb
+ 1895              		.thumb_func
+ 1897              	_ZNK6String7indexOfERKS_j:
+ 1898              	.LFB116:
+ 569:../../cores/mapleMX/WString.cpp **** 
+ 570:../../cores/mapleMX/WString.cpp **** int String::indexOf(const String &s2) const
+ 571:../../cores/mapleMX/WString.cpp **** {
+ 572:../../cores/mapleMX/WString.cpp **** 	return indexOf(s2, 0);
+ 573:../../cores/mapleMX/WString.cpp **** }
+ 574:../../cores/mapleMX/WString.cpp **** 
+ 575:../../cores/mapleMX/WString.cpp **** int String::indexOf(const String &s2, unsigned int fromIndex) const
+ 576:../../cores/mapleMX/WString.cpp **** {
+ 1899              		.loc 1 576 0
+ 1900              		.cfi_startproc
+ 1901              		@ args = 0, pretend = 0, frame = 0
+ 1902              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1903              	.LVL175:
+ 1904              	.LBB114:
+ 577:../../cores/mapleMX/WString.cpp **** 	if (fromIndex >= len) return -1;
+ 1905              		.loc 1 577 0
+ 1906 0000 8368     		ldr	r3, [r0, #8]
+ 1907 0002 9A42     		cmp	r2, r3
+ 1908              	.LBE114:
+ 576:../../cores/mapleMX/WString.cpp **** {
+ 1909              		.loc 1 576 0
+ 1910 0004 10B5     		push	{r4, lr}
+ 1911              		.cfi_def_cfa_offset 8
+ 1912              		.cfi_offset 4, -8
+ 1913              		.cfi_offset 14, -4
+ 1914              	.LBB115:
+ 1915              		.loc 1 577 0
+ 1916 0006 07D2     		bcs	.L134
+ 578:../../cores/mapleMX/WString.cpp **** 	const char *found = strstr(buffer + fromIndex, s2.buffer);
+ 1917              		.loc 1 578 0
+ 1918 0008 0468     		ldr	r4, [r0]
+ 1919 000a 0968     		ldr	r1, [r1]
+ 1920              	.LVL176:
+ 1921 000c A018     		adds	r0, r4, r2
+ 1922              	.LVL177:
+ 1923 000e FFF7FEFF 		bl	strstr
+ 1924              	.LVL178:
+ 579:../../cores/mapleMX/WString.cpp **** 	if (found == NULL) return -1;
+ 1925              		.loc 1 579 0
+ 1926 0012 08B1     		cbz	r0, .L134
+ 580:../../cores/mapleMX/WString.cpp **** 	return found - buffer;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 46
+
+
+ 1927              		.loc 1 580 0
+ 1928 0014 001B     		subs	r0, r0, r4
+ 1929              	.LVL179:
+ 1930 0016 10BD     		pop	{r4, pc}
+ 1931              	.L134:
+ 577:../../cores/mapleMX/WString.cpp **** 	if (fromIndex >= len) return -1;
+ 1932              		.loc 1 577 0
+ 1933 0018 4FF0FF30 		mov	r0, #-1
+ 1934              	.LBE115:
+ 581:../../cores/mapleMX/WString.cpp **** }
+ 1935              		.loc 1 581 0
+ 1936 001c 10BD     		pop	{r4, pc}
+ 1937              		.cfi_endproc
+ 1938              	.LFE116:
+ 1940              		.section	.text._ZNK6String7indexOfERKS_,"ax",%progbits
+ 1941              		.align	1
+ 1942              		.global	_ZNK6String7indexOfERKS_
+ 1943              		.thumb
+ 1944              		.thumb_func
+ 1946              	_ZNK6String7indexOfERKS_:
+ 1947              	.LFB115:
+ 571:../../cores/mapleMX/WString.cpp **** {
+ 1948              		.loc 1 571 0
+ 1949              		.cfi_startproc
+ 1950              		@ args = 0, pretend = 0, frame = 0
+ 1951              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1952              		@ link register save eliminated.
+ 1953              	.LVL180:
+ 572:../../cores/mapleMX/WString.cpp **** 	return indexOf(s2, 0);
+ 1954              		.loc 1 572 0
+ 1955 0000 0022     		movs	r2, #0
+ 1956 0002 FFF7FEBF 		b	_ZNK6String7indexOfERKS_j
+ 1957              	.LVL181:
+ 1958              		.cfi_endproc
+ 1959              	.LFE115:
+ 1961              		.section	.text._ZNK6String11lastIndexOfEcj,"ax",%progbits
+ 1962              		.align	1
+ 1963              		.global	_ZNK6String11lastIndexOfEcj
+ 1964              		.thumb
+ 1965              		.thumb_func
+ 1967              	_ZNK6String11lastIndexOfEcj:
+ 1968              	.LFB118:
+ 582:../../cores/mapleMX/WString.cpp **** 
+ 583:../../cores/mapleMX/WString.cpp **** int String::lastIndexOf( char theChar ) const
+ 584:../../cores/mapleMX/WString.cpp **** {
+ 585:../../cores/mapleMX/WString.cpp **** 	return lastIndexOf(theChar, len - 1);
+ 586:../../cores/mapleMX/WString.cpp **** }
+ 587:../../cores/mapleMX/WString.cpp **** 
+ 588:../../cores/mapleMX/WString.cpp **** int String::lastIndexOf(char ch, unsigned int fromIndex) const
+ 589:../../cores/mapleMX/WString.cpp **** {
+ 1969              		.loc 1 589 0
+ 1970              		.cfi_startproc
+ 1971              		@ args = 0, pretend = 0, frame = 0
+ 1972              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1973              	.LVL182:
+ 1974 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 1975              		.cfi_def_cfa_offset 24
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 47
+
+
+ 1976              		.cfi_offset 3, -24
+ 1977              		.cfi_offset 4, -20
+ 1978              		.cfi_offset 5, -16
+ 1979              		.cfi_offset 6, -12
+ 1980              		.cfi_offset 7, -8
+ 1981              		.cfi_offset 14, -4
+ 1982              	.LBB116:
+ 590:../../cores/mapleMX/WString.cpp **** 	if (fromIndex >= len) return -1;
+ 1983              		.loc 1 590 0
+ 1984 0002 8368     		ldr	r3, [r0, #8]
+ 1985 0004 9A42     		cmp	r2, r3
+ 1986              	.LBE116:
+ 589:../../cores/mapleMX/WString.cpp **** {
+ 1987              		.loc 1 589 0
+ 1988 0006 0446     		mov	r4, r0
+ 1989              	.LBB117:
+ 1990              		.loc 1 590 0
+ 1991 0008 02D3     		bcc	.L137
+ 1992              	.LVL183:
+ 1993              	.L139:
+ 1994 000a 4FF0FF30 		mov	r0, #-1
+ 1995 000e F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 1996              	.LVL184:
+ 1997              	.L137:
+ 591:../../cores/mapleMX/WString.cpp **** 	char tempchar = buffer[fromIndex + 1];
+ 1998              		.loc 1 591 0
+ 1999 0010 0368     		ldr	r3, [r0]
+ 2000 0012 551C     		adds	r5, r2, #1
+ 592:../../cores/mapleMX/WString.cpp **** 	buffer[fromIndex + 1] = '\0';
+ 2001              		.loc 1 592 0
+ 2002 0014 0022     		movs	r2, #0
+ 2003              	.LVL185:
+ 591:../../cores/mapleMX/WString.cpp **** 	char tempchar = buffer[fromIndex + 1];
+ 2004              		.loc 1 591 0
+ 2005 0016 5F5D     		ldrb	r7, [r3, r5]	@ zero_extendqisi2
+ 2006              	.LVL186:
+ 2007              		.loc 1 592 0
+ 2008 0018 5A55     		strb	r2, [r3, r5]
+ 2009              	.LVL187:
+ 593:../../cores/mapleMX/WString.cpp **** 	char* temp = strrchr( buffer, ch );
+ 2010              		.loc 1 593 0
+ 2011 001a 0668     		ldr	r6, [r0]
+ 2012 001c 3046     		mov	r0, r6
+ 2013              	.LVL188:
+ 2014 001e FFF7FEFF 		bl	strrchr
+ 2015              	.LVL189:
+ 594:../../cores/mapleMX/WString.cpp **** 	buffer[fromIndex + 1] = tempchar;
+ 2016              		.loc 1 594 0
+ 2017 0022 7755     		strb	r7, [r6, r5]
+ 595:../../cores/mapleMX/WString.cpp **** 	if (temp == NULL) return -1;
+ 2018              		.loc 1 595 0
+ 2019 0024 0028     		cmp	r0, #0
+ 2020 0026 F0D0     		beq	.L139
+ 596:../../cores/mapleMX/WString.cpp **** 	return temp - buffer;
+ 2021              		.loc 1 596 0
+ 2022 0028 2368     		ldr	r3, [r4]
+ 2023 002a C01A     		subs	r0, r0, r3
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 48
+
+
+ 2024              	.LVL190:
+ 2025              	.LBE117:
+ 597:../../cores/mapleMX/WString.cpp **** }
+ 2026              		.loc 1 597 0
+ 2027 002c F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2028              		.cfi_endproc
+ 2029              	.LFE118:
+ 2031              		.section	.text._ZNK6String11lastIndexOfEc,"ax",%progbits
+ 2032              		.align	1
+ 2033              		.global	_ZNK6String11lastIndexOfEc
+ 2034              		.thumb
+ 2035              		.thumb_func
+ 2037              	_ZNK6String11lastIndexOfEc:
+ 2038              	.LFB117:
+ 584:../../cores/mapleMX/WString.cpp **** {
+ 2039              		.loc 1 584 0
+ 2040              		.cfi_startproc
+ 2041              		@ args = 0, pretend = 0, frame = 0
+ 2042              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2043              		@ link register save eliminated.
+ 2044              	.LVL191:
+ 585:../../cores/mapleMX/WString.cpp **** 	return lastIndexOf(theChar, len - 1);
+ 2045              		.loc 1 585 0
+ 2046 0000 8268     		ldr	r2, [r0, #8]
+ 2047 0002 013A     		subs	r2, r2, #1
+ 2048 0004 FFF7FEBF 		b	_ZNK6String11lastIndexOfEcj
+ 2049              	.LVL192:
+ 2050              		.cfi_endproc
+ 2051              	.LFE117:
+ 2053              		.section	.text._ZNK6String11lastIndexOfERKS_j,"ax",%progbits
+ 2054              		.align	1
+ 2055              		.global	_ZNK6String11lastIndexOfERKS_j
+ 2056              		.thumb
+ 2057              		.thumb_func
+ 2059              	_ZNK6String11lastIndexOfERKS_j:
+ 2060              	.LFB120:
+ 598:../../cores/mapleMX/WString.cpp **** 
+ 599:../../cores/mapleMX/WString.cpp **** int String::lastIndexOf(const String &s2) const
+ 600:../../cores/mapleMX/WString.cpp **** {
+ 601:../../cores/mapleMX/WString.cpp **** 	return lastIndexOf(s2, len - s2.len);
+ 602:../../cores/mapleMX/WString.cpp **** }
+ 603:../../cores/mapleMX/WString.cpp **** 
+ 604:../../cores/mapleMX/WString.cpp **** int String::lastIndexOf(const String &s2, unsigned int fromIndex) const
+ 605:../../cores/mapleMX/WString.cpp **** {
+ 2061              		.loc 1 605 0
+ 2062              		.cfi_startproc
+ 2063              		@ args = 0, pretend = 0, frame = 0
+ 2064              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2065              	.LVL193:
+ 2066 0000 F8B5     		push	{r3, r4, r5, r6, r7, lr}
+ 2067              		.cfi_def_cfa_offset 24
+ 2068              		.cfi_offset 3, -24
+ 2069              		.cfi_offset 4, -20
+ 2070              		.cfi_offset 5, -16
+ 2071              		.cfi_offset 6, -12
+ 2072              		.cfi_offset 7, -8
+ 2073              		.cfi_offset 14, -4
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 49
+
+
+ 2074              		.loc 1 605 0
+ 2075 0002 1546     		mov	r5, r2
+ 2076              	.LBB118:
+ 606:../../cores/mapleMX/WString.cpp ****   	if (s2.len == 0 || len == 0 || s2.len > len) return -1;
+ 2077              		.loc 1 606 0
+ 2078 0004 8A68     		ldr	r2, [r1, #8]
+ 2079              	.LVL194:
+ 2080              	.LBE118:
+ 605:../../cores/mapleMX/WString.cpp **** {
+ 2081              		.loc 1 605 0
+ 2082 0006 0F46     		mov	r7, r1
+ 2083              	.LBB123:
+ 2084              		.loc 1 606 0
+ 2085 0008 C2B1     		cbz	r2, .L152
+ 2086              		.loc 1 606 0 is_stmt 0 discriminator 2
+ 2087 000a 8368     		ldr	r3, [r0, #8]
+ 2088 000c B3B1     		cbz	r3, .L152
+ 2089              		.loc 1 606 0 discriminator 1
+ 2090 000e 9A42     		cmp	r2, r3
+ 2091 0010 14D8     		bhi	.L152
+ 2092              	.LBB119:
+ 607:../../cores/mapleMX/WString.cpp **** 	if (fromIndex >= len) fromIndex = len - 1;
+ 608:../../cores/mapleMX/WString.cpp **** 	int found = -1;
+ 609:../../cores/mapleMX/WString.cpp **** 	for (char *p = buffer; p <= buffer + fromIndex; p++) {
+ 2093              		.loc 1 609 0 is_stmt 1
+ 2094 0012 0668     		ldr	r6, [r0]
+ 2095              	.LBE119:
+ 607:../../cores/mapleMX/WString.cpp **** 	if (fromIndex >= len) fromIndex = len - 1;
+ 2096              		.loc 1 607 0
+ 2097 0014 9D42     		cmp	r5, r3
+ 2098 0016 28BF     		it	cs
+ 2099 0018 03F1FF35 		addcs	r5, r3, #-1
+ 2100              	.LVL195:
+ 2101              	.LBB120:
+ 2102              		.loc 1 609 0
+ 2103 001c 3046     		mov	r0, r6
+ 2104              	.LVL196:
+ 2105              	.LBE120:
+ 608:../../cores/mapleMX/WString.cpp **** 	int found = -1;
+ 2106              		.loc 1 608 0
+ 2107 001e 4FF0FF34 		mov	r4, #-1
+ 2108              	.LVL197:
+ 2109              	.L147:
+ 2110              	.LBB121:
+ 2111              		.loc 1 609 0 discriminator 1
+ 2112 0022 7319     		adds	r3, r6, r5
+ 2113 0024 9842     		cmp	r0, r3
+ 2114 0026 0CD8     		bhi	.L153
+ 610:../../cores/mapleMX/WString.cpp **** 		p = strstr(p, s2.buffer);
+ 2115              		.loc 1 610 0
+ 2116 0028 3968     		ldr	r1, [r7]
+ 2117 002a FFF7FEFF 		bl	strstr
+ 2118              	.LVL198:
+ 611:../../cores/mapleMX/WString.cpp **** 		if (!p) break;
+ 2119              		.loc 1 611 0
+ 2120 002e 40B1     		cbz	r0, .L153
+ 612:../../cores/mapleMX/WString.cpp **** 		if ((unsigned int)(p - buffer) <= fromIndex) found = p - buffer;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 50
+
+
+ 2121              		.loc 1 612 0
+ 2122 0030 831B     		subs	r3, r0, r6
+ 2123              	.LVL199:
+ 609:../../cores/mapleMX/WString.cpp **** 	for (char *p = buffer; p <= buffer + fromIndex; p++) {
+ 2124              		.loc 1 609 0
+ 2125 0032 AB42     		cmp	r3, r5
+ 2126 0034 98BF     		it	ls
+ 2127 0036 1C46     		movls	r4, r3
+ 2128              	.LVL200:
+ 2129 0038 0130     		adds	r0, r0, #1
+ 2130              	.LVL201:
+ 2131 003a F2E7     		b	.L147
+ 2132              	.LVL202:
+ 2133              	.L152:
+ 2134              	.LBE121:
+ 606:../../cores/mapleMX/WString.cpp ****   	if (s2.len == 0 || len == 0 || s2.len > len) return -1;
+ 2135              		.loc 1 606 0
+ 2136 003c 4FF0FF30 		mov	r0, #-1
+ 2137              	.LVL203:
+ 2138 0040 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2139              	.LVL204:
+ 2140              	.L153:
+ 2141              	.LBB122:
+ 2142 0042 2046     		mov	r0, r4
+ 2143              	.LVL205:
+ 2144              	.LBE122:
+ 2145              	.LBE123:
+ 613:../../cores/mapleMX/WString.cpp **** 	}
+ 614:../../cores/mapleMX/WString.cpp **** 	return found;
+ 615:../../cores/mapleMX/WString.cpp **** }
+ 2146              		.loc 1 615 0
+ 2147 0044 F8BD     		pop	{r3, r4, r5, r6, r7, pc}
+ 2148              		.cfi_endproc
+ 2149              	.LFE120:
+ 2151              		.section	.text._ZNK6String11lastIndexOfERKS_,"ax",%progbits
+ 2152              		.align	1
+ 2153              		.global	_ZNK6String11lastIndexOfERKS_
+ 2154              		.thumb
+ 2155              		.thumb_func
+ 2157              	_ZNK6String11lastIndexOfERKS_:
+ 2158              	.LFB119:
+ 600:../../cores/mapleMX/WString.cpp **** {
+ 2159              		.loc 1 600 0
+ 2160              		.cfi_startproc
+ 2161              		@ args = 0, pretend = 0, frame = 0
+ 2162              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2163              		@ link register save eliminated.
+ 2164              	.LVL206:
+ 601:../../cores/mapleMX/WString.cpp **** 	return lastIndexOf(s2, len - s2.len);
+ 2165              		.loc 1 601 0
+ 2166 0000 8268     		ldr	r2, [r0, #8]
+ 2167 0002 8B68     		ldr	r3, [r1, #8]
+ 2168 0004 D21A     		subs	r2, r2, r3
+ 2169 0006 FFF7FEBF 		b	_ZNK6String11lastIndexOfERKS_j
+ 2170              	.LVL207:
+ 2171              		.cfi_endproc
+ 2172              	.LFE119:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 51
+
+
+ 2174              		.section	.text._ZNK6String9substringEjj,"ax",%progbits
+ 2175              		.align	1
+ 2176              		.global	_ZNK6String9substringEjj
+ 2177              		.thumb
+ 2178              		.thumb_func
+ 2180              	_ZNK6String9substringEjj:
+ 2181              	.LFB121:
+ 616:../../cores/mapleMX/WString.cpp **** 
+ 617:../../cores/mapleMX/WString.cpp **** String String::substring(unsigned int left, unsigned int right) const
+ 618:../../cores/mapleMX/WString.cpp **** {
+ 2182              		.loc 1 618 0
+ 2183              		.cfi_startproc
+ 2184              		@ args = 0, pretend = 0, frame = 0
+ 2185              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2186              	.LVL208:
+ 2187              	.LBB124:
+ 2188              	.LBB125:
+ 619:../../cores/mapleMX/WString.cpp **** 	if (left > right) {
+ 2189              		.loc 1 619 0
+ 2190 0000 9A42     		cmp	r2, r3
+ 2191              	.LBE125:
+ 2192              	.LBE124:
+ 618:../../cores/mapleMX/WString.cpp **** {
+ 2193              		.loc 1 618 0
+ 2194 0002 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2195              		.cfi_def_cfa_offset 24
+ 2196              		.cfi_offset 4, -24
+ 2197              		.cfi_offset 5, -20
+ 2198              		.cfi_offset 6, -16
+ 2199              		.cfi_offset 7, -12
+ 2200              		.cfi_offset 8, -8
+ 2201              		.cfi_offset 14, -4
+ 618:../../cores/mapleMX/WString.cpp **** {
+ 2202              		.loc 1 618 0
+ 2203 0006 0746     		mov	r7, r0
+ 2204 0008 0D46     		mov	r5, r1
+ 2205 000a 1446     		mov	r4, r2
+ 2206 000c 1E46     		mov	r6, r3
+ 2207              	.LBB127:
+ 2208              	.LBB126:
+ 2209              		.loc 1 619 0
+ 2210 000e 01D9     		bls	.L156
+ 2211 0010 3446     		mov	r4, r6
+ 2212 0012 1646     		mov	r6, r2
+ 2213              	.L156:
+ 2214              	.LVL209:
+ 2215              	.LBE126:
+ 620:../../cores/mapleMX/WString.cpp **** 		unsigned int temp = right;
+ 621:../../cores/mapleMX/WString.cpp **** 		right = left;
+ 622:../../cores/mapleMX/WString.cpp **** 		left = temp;
+ 623:../../cores/mapleMX/WString.cpp **** 	}
+ 624:../../cores/mapleMX/WString.cpp **** 	String out;
+ 2216              		.loc 1 624 0
+ 2217 0014 3846     		mov	r0, r7
+ 2218              	.LVL210:
+ 2219 0016 0C49     		ldr	r1, .L159
+ 2220              	.LVL211:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 52
+
+
+ 2221 0018 FFF7FEFF 		bl	_ZN6StringC1EPKc
+ 2222              	.LVL212:
+ 625:../../cores/mapleMX/WString.cpp **** 	if (left >= len) return out;
+ 2223              		.loc 1 625 0
+ 2224 001c AB68     		ldr	r3, [r5, #8]
+ 2225 001e 9C42     		cmp	r4, r3
+ 2226 0020 0FD2     		bcs	.L155
+ 2227 0022 9E42     		cmp	r6, r3
+ 2228 0024 28BF     		it	cs
+ 2229 0026 1E46     		movcs	r6, r3
+ 2230              	.LVL213:
+ 626:../../cores/mapleMX/WString.cpp **** 	if (right > len) right = len;
+ 627:../../cores/mapleMX/WString.cpp **** 	char temp = buffer[right];  // save the replaced character
+ 2231              		.loc 1 627 0
+ 2232 0028 2B68     		ldr	r3, [r5]
+ 628:../../cores/mapleMX/WString.cpp **** 	buffer[right] = '\0';	
+ 2233              		.loc 1 628 0
+ 2234 002a 0022     		movs	r2, #0
+ 627:../../cores/mapleMX/WString.cpp **** 	char temp = buffer[right];  // save the replaced character
+ 2235              		.loc 1 627 0
+ 2236 002c 13F80680 		ldrb	r8, [r3, r6]	@ zero_extendqisi2
+ 2237              	.LVL214:
+ 2238              		.loc 1 628 0
+ 2239 0030 9A55     		strb	r2, [r3, r6]
+ 2240              	.LVL215:
+ 629:../../cores/mapleMX/WString.cpp **** 	out = buffer + left;  // pointer arithmetic
+ 2241              		.loc 1 629 0
+ 2242 0032 2968     		ldr	r1, [r5]
+ 2243 0034 3846     		mov	r0, r7
+ 2244 0036 2144     		add	r1, r1, r4
+ 2245 0038 FFF7FEFF 		bl	_ZN6StringaSEPKc
+ 2246              	.LVL216:
+ 630:../../cores/mapleMX/WString.cpp **** 	buffer[right] = temp;  //restore character
+ 2247              		.loc 1 630 0
+ 2248 003c 2B68     		ldr	r3, [r5]
+ 2249 003e 03F80680 		strb	r8, [r3, r6]
+ 2250              	.LVL217:
+ 2251              	.L155:
+ 2252              	.LBE127:
+ 631:../../cores/mapleMX/WString.cpp **** 	return out;
+ 632:../../cores/mapleMX/WString.cpp **** }
+ 2253              		.loc 1 632 0
+ 2254 0042 3846     		mov	r0, r7
+ 2255 0044 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2256              	.LVL218:
+ 2257              	.L160:
+ 2258              		.align	2
+ 2259              	.L159:
+ 2260 0048 00000000 		.word	.LC0
+ 2261              		.cfi_endproc
+ 2262              	.LFE121:
+ 2264              		.section	.text._ZN6String7replaceEcc,"ax",%progbits
+ 2265              		.align	1
+ 2266              		.global	_ZN6String7replaceEcc
+ 2267              		.thumb
+ 2268              		.thumb_func
+ 2270              	_ZN6String7replaceEcc:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 53
+
+
+ 2271              	.LFB122:
+ 633:../../cores/mapleMX/WString.cpp **** 
+ 634:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 635:../../cores/mapleMX/WString.cpp **** /*  Modification                             */
+ 636:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 637:../../cores/mapleMX/WString.cpp **** 
+ 638:../../cores/mapleMX/WString.cpp **** void String::replace(char find, char replace)
+ 639:../../cores/mapleMX/WString.cpp **** {
+ 2272              		.loc 1 639 0
+ 2273              		.cfi_startproc
+ 2274              		@ args = 0, pretend = 0, frame = 0
+ 2275              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2276              		@ link register save eliminated.
+ 2277              	.LVL219:
+ 2278              	.LBB128:
+ 640:../../cores/mapleMX/WString.cpp **** 	if (!buffer) return;
+ 2279              		.loc 1 640 0
+ 2280 0000 0368     		ldr	r3, [r0]
+ 2281 0002 3BB1     		cbz	r3, .L161
+ 2282              	.LVL220:
+ 2283              	.L163:
+ 2284              	.LBB129:
+ 641:../../cores/mapleMX/WString.cpp **** 	for (char *p = buffer; *p; p++) {
+ 2285              		.loc 1 641 0 discriminator 1
+ 2286 0004 13F8010B 		ldrb	r0, [r3], #1	@ zero_extendqisi2
+ 2287              	.LVL221:
+ 2288 0008 20B1     		cbz	r0, .L161
+ 642:../../cores/mapleMX/WString.cpp **** 		if (*p == find) *p = replace;
+ 2289              		.loc 1 642 0
+ 2290 000a 8842     		cmp	r0, r1
+ 2291 000c 08BF     		it	eq
+ 2292 000e 03F8012C 		strbeq	r2, [r3, #-1]
+ 2293              	.LVL222:
+ 2294 0012 F7E7     		b	.L163
+ 2295              	.LVL223:
+ 2296              	.L161:
+ 2297 0014 7047     		bx	lr
+ 2298              	.LBE129:
+ 2299              	.LBE128:
+ 2300              		.cfi_endproc
+ 2301              	.LFE122:
+ 2303              		.section	.text._ZN6String7replaceERKS_S1_,"ax",%progbits
+ 2304              		.align	1
+ 2305              		.global	_ZN6String7replaceERKS_S1_
+ 2306              		.thumb
+ 2307              		.thumb_func
+ 2309              	_ZN6String7replaceERKS_S1_:
+ 2310              	.LFB123:
+ 643:../../cores/mapleMX/WString.cpp **** 	}
+ 644:../../cores/mapleMX/WString.cpp **** }
+ 645:../../cores/mapleMX/WString.cpp **** 
+ 646:../../cores/mapleMX/WString.cpp **** void String::replace(const String& find, const String& replace)
+ 647:../../cores/mapleMX/WString.cpp **** {
+ 2311              		.loc 1 647 0
+ 2312              		.cfi_startproc
+ 2313              		@ args = 0, pretend = 0, frame = 8
+ 2314              		@ frame_needed = 0, uses_anonymous_args = 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 54
+
+
+ 2315              	.LVL224:
+ 2316 0000 2DE9F74F 		push	{r0, r1, r2, r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 2317              		.cfi_def_cfa_offset 48
+ 2318              		.cfi_offset 0, -48
+ 2319              		.cfi_offset 1, -44
+ 2320              		.cfi_offset 2, -40
+ 2321              		.cfi_offset 4, -36
+ 2322              		.cfi_offset 5, -32
+ 2323              		.cfi_offset 6, -28
+ 2324              		.cfi_offset 7, -24
+ 2325              		.cfi_offset 8, -20
+ 2326              		.cfi_offset 9, -16
+ 2327              		.cfi_offset 10, -12
+ 2328              		.cfi_offset 11, -8
+ 2329              		.cfi_offset 14, -4
+ 2330              	.LBB130:
+ 648:../../cores/mapleMX/WString.cpp **** 	if (len == 0 || find.len == 0) return;
+ 2331              		.loc 1 648 0
+ 2332 0004 D0F808A0 		ldr	r10, [r0, #8]
+ 2333              	.LBE130:
+ 647:../../cores/mapleMX/WString.cpp **** {
+ 2334              		.loc 1 647 0
+ 2335 0008 0446     		mov	r4, r0
+ 2336 000a 0F46     		mov	r7, r1
+ 2337 000c 1646     		mov	r6, r2
+ 2338              	.LBB140:
+ 2339              		.loc 1 648 0
+ 2340 000e BAF1000F 		cmp	r10, #0
+ 2341 0012 77D0     		beq	.L169
+ 2342              		.loc 1 648 0 is_stmt 0 discriminator 2
+ 2343 0014 D1F808B0 		ldr	fp, [r1, #8]
+ 2344 0018 BBF1000F 		cmp	fp, #0
+ 2345 001c 72D0     		beq	.L169
+ 649:../../cores/mapleMX/WString.cpp **** 	int diff = replace.len - find.len;
+ 2346              		.loc 1 649 0 is_stmt 1
+ 2347 001e 9368     		ldr	r3, [r2, #8]
+ 650:../../cores/mapleMX/WString.cpp **** 	char *readFrom = buffer;
+ 2348              		.loc 1 650 0
+ 2349 0020 0568     		ldr	r5, [r0]
+ 649:../../cores/mapleMX/WString.cpp **** 	int diff = replace.len - find.len;
+ 2350              		.loc 1 649 0
+ 2351 0022 CBEB0308 		rsb	r8, fp, r3
+ 2352              	.LVL225:
+ 2353              	.LBB131:
+ 651:../../cores/mapleMX/WString.cpp **** 	char *foundAt;
+ 652:../../cores/mapleMX/WString.cpp **** 	if (diff == 0) {
+ 2354              		.loc 1 652 0
+ 2355 0026 B8F1000F 		cmp	r8, #0
+ 2356 002a 0DD1     		bne	.L173
+ 2357              	.LVL226:
+ 2358              	.L174:
+ 653:../../cores/mapleMX/WString.cpp **** 		while ((foundAt = strstr(readFrom, find.buffer)) != NULL) {
+ 2359              		.loc 1 653 0 discriminator 1
+ 2360 002c 2846     		mov	r0, r5
+ 2361 002e 3968     		ldr	r1, [r7]
+ 2362 0030 FFF7FEFF 		bl	strstr
+ 2363              	.LVL227:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 55
+
+
+ 2364 0034 0546     		mov	r5, r0
+ 2365              	.LVL228:
+ 2366 0036 0028     		cmp	r0, #0
+ 2367 0038 64D0     		beq	.L169
+ 654:../../cores/mapleMX/WString.cpp **** 			memcpy(foundAt, replace.buffer, replace.len);
+ 2368              		.loc 1 654 0
+ 2369 003a 3168     		ldr	r1, [r6]
+ 2370 003c B268     		ldr	r2, [r6, #8]
+ 2371 003e FFF7FEFF 		bl	memcpy
+ 2372              	.LVL229:
+ 655:../../cores/mapleMX/WString.cpp **** 			readFrom = foundAt + replace.len;
+ 2373              		.loc 1 655 0
+ 2374 0042 B368     		ldr	r3, [r6, #8]
+ 2375 0044 1D44     		add	r5, r5, r3
+ 2376              	.LVL230:
+ 2377 0046 F1E7     		b	.L174
+ 2378              	.LVL231:
+ 2379              	.L173:
+ 2380              	.LBB132:
+ 656:../../cores/mapleMX/WString.cpp **** 		}
+ 657:../../cores/mapleMX/WString.cpp **** 	} else if (diff < 0) {
+ 2381              		.loc 1 657 0
+ 2382 0048 02DB     		blt	.L176
+ 2383              	.LBB133:
+ 658:../../cores/mapleMX/WString.cpp **** 		char *writeTo = buffer;
+ 659:../../cores/mapleMX/WString.cpp **** 		while ((foundAt = strstr(readFrom, find.buffer)) != NULL) {
+ 660:../../cores/mapleMX/WString.cpp **** 			unsigned int n = foundAt - readFrom;
+ 661:../../cores/mapleMX/WString.cpp **** 			memcpy(writeTo, readFrom, n);
+ 662:../../cores/mapleMX/WString.cpp **** 			writeTo += n;
+ 663:../../cores/mapleMX/WString.cpp **** 			memcpy(writeTo, replace.buffer, replace.len);
+ 664:../../cores/mapleMX/WString.cpp **** 			writeTo += replace.len;
+ 665:../../cores/mapleMX/WString.cpp **** 			readFrom = foundAt + find.len;
+ 666:../../cores/mapleMX/WString.cpp **** 			len += diff;
+ 667:../../cores/mapleMX/WString.cpp **** 		}
+ 668:../../cores/mapleMX/WString.cpp **** 		strcpy(writeTo, readFrom);
+ 669:../../cores/mapleMX/WString.cpp **** 	} else {
+ 670:../../cores/mapleMX/WString.cpp **** 		unsigned int size = len; // compute size needed for result
+ 671:../../cores/mapleMX/WString.cpp **** 		while ((foundAt = strstr(readFrom, find.buffer)) != NULL) {
+ 2384              		.loc 1 671 0
+ 2385 004a 0B68     		ldr	r3, [r1]
+ 2386 004c D146     		mov	r9, r10
+ 2387 004e 22E0     		b	.L177
+ 2388              	.L176:
+ 2389              	.LBE133:
+ 657:../../cores/mapleMX/WString.cpp **** 	} else if (diff < 0) {
+ 2390              		.loc 1 657 0
+ 2391 0050 A946     		mov	r9, r5
+ 2392              	.LVL232:
+ 2393              	.L178:
+ 2394              	.LBB134:
+ 659:../../cores/mapleMX/WString.cpp **** 		while ((foundAt = strstr(readFrom, find.buffer)) != NULL) {
+ 2395              		.loc 1 659 0 discriminator 1
+ 2396 0052 2846     		mov	r0, r5
+ 2397 0054 3968     		ldr	r1, [r7]
+ 2398 0056 FFF7FEFF 		bl	strstr
+ 2399              	.LVL233:
+ 2400 005a 8246     		mov	r10, r0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 56
+
+
+ 2401 005c A0B1     		cbz	r0, .L190
+ 2402              	.LBB135:
+ 660:../../cores/mapleMX/WString.cpp **** 			unsigned int n = foundAt - readFrom;
+ 2403              		.loc 1 660 0
+ 2404 005e C5EB0A0B 		rsb	fp, r5, r10
+ 2405              	.LVL234:
+ 661:../../cores/mapleMX/WString.cpp **** 			memcpy(writeTo, readFrom, n);
+ 2406              		.loc 1 661 0
+ 2407 0062 2946     		mov	r1, r5
+ 2408 0064 4846     		mov	r0, r9
+ 2409              	.LVL235:
+ 2410 0066 5A46     		mov	r2, fp
+ 662:../../cores/mapleMX/WString.cpp **** 			writeTo += n;
+ 2411              		.loc 1 662 0
+ 2412 0068 D944     		add	r9, r9, fp
+ 2413              	.LVL236:
+ 661:../../cores/mapleMX/WString.cpp **** 			memcpy(writeTo, readFrom, n);
+ 2414              		.loc 1 661 0
+ 2415 006a FFF7FEFF 		bl	memcpy
+ 2416              	.LVL237:
+ 663:../../cores/mapleMX/WString.cpp **** 			memcpy(writeTo, replace.buffer, replace.len);
+ 2417              		.loc 1 663 0
+ 2418 006e 4846     		mov	r0, r9
+ 2419 0070 3168     		ldr	r1, [r6]
+ 2420 0072 B268     		ldr	r2, [r6, #8]
+ 2421 0074 FFF7FEFF 		bl	memcpy
+ 2422              	.LVL238:
+ 664:../../cores/mapleMX/WString.cpp **** 			writeTo += replace.len;
+ 2423              		.loc 1 664 0
+ 2424 0078 B368     		ldr	r3, [r6, #8]
+ 665:../../cores/mapleMX/WString.cpp **** 			readFrom = foundAt + find.len;
+ 2425              		.loc 1 665 0
+ 2426 007a BD68     		ldr	r5, [r7, #8]
+ 2427              	.LVL239:
+ 664:../../cores/mapleMX/WString.cpp **** 			writeTo += replace.len;
+ 2428              		.loc 1 664 0
+ 2429 007c 9944     		add	r9, r9, r3
+ 2430              	.LVL240:
+ 666:../../cores/mapleMX/WString.cpp **** 			len += diff;
+ 2431              		.loc 1 666 0
+ 2432 007e A368     		ldr	r3, [r4, #8]
+ 2433 0080 4344     		add	r3, r3, r8
+ 665:../../cores/mapleMX/WString.cpp **** 			readFrom = foundAt + find.len;
+ 2434              		.loc 1 665 0
+ 2435 0082 5544     		add	r5, r5, r10
+ 2436              	.LVL241:
+ 666:../../cores/mapleMX/WString.cpp **** 			len += diff;
+ 2437              		.loc 1 666 0
+ 2438 0084 A360     		str	r3, [r4, #8]
+ 2439 0086 E4E7     		b	.L178
+ 2440              	.LVL242:
+ 2441              	.L190:
+ 2442              	.LBE135:
+ 668:../../cores/mapleMX/WString.cpp **** 		strcpy(writeTo, readFrom);
+ 2443              		.loc 1 668 0
+ 2444 0088 4846     		mov	r0, r9
+ 2445              	.LVL243:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 57
+
+
+ 2446 008a 2946     		mov	r1, r5
+ 2447              	.LBE134:
+ 2448              	.LBE132:
+ 2449              	.LBE131:
+ 2450              	.LBE140:
+ 672:../../cores/mapleMX/WString.cpp **** 			readFrom = foundAt + find.len;
+ 673:../../cores/mapleMX/WString.cpp **** 			size += diff;
+ 674:../../cores/mapleMX/WString.cpp **** 		}
+ 675:../../cores/mapleMX/WString.cpp **** 		if (size == len) return;
+ 676:../../cores/mapleMX/WString.cpp **** 		if (size > capacity && !changeBuffer(size)) return; // XXX: tell user!
+ 677:../../cores/mapleMX/WString.cpp **** 		int index = len - 1;
+ 678:../../cores/mapleMX/WString.cpp **** 		while (index >= 0 && (index = lastIndexOf(find, index)) >= 0) {
+ 679:../../cores/mapleMX/WString.cpp **** 			readFrom = buffer + index + find.len;
+ 680:../../cores/mapleMX/WString.cpp **** 			memmove(readFrom + diff, readFrom, len - (readFrom - buffer));
+ 681:../../cores/mapleMX/WString.cpp **** 			len += diff;
+ 682:../../cores/mapleMX/WString.cpp **** 			buffer[len] = 0;
+ 683:../../cores/mapleMX/WString.cpp **** 			memcpy(buffer + index, replace.buffer, replace.len);
+ 684:../../cores/mapleMX/WString.cpp **** 			index--;
+ 685:../../cores/mapleMX/WString.cpp **** 		}
+ 686:../../cores/mapleMX/WString.cpp **** 	}
+ 687:../../cores/mapleMX/WString.cpp **** }
+ 2451              		.loc 1 687 0
+ 2452 008c 03B0     		add	sp, sp, #12
+ 2453              		@ sp needed
+ 2454 008e BDE8F04F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, lr}
+ 2455              	.LVL244:
+ 2456              	.LBB141:
+ 2457              	.LBB139:
+ 2458              	.LBB138:
+ 2459              	.LBB136:
+ 668:../../cores/mapleMX/WString.cpp **** 		strcpy(writeTo, readFrom);
+ 2460              		.loc 1 668 0
+ 2461 0092 FFF7FEBF 		b	strcpy
+ 2462              	.LVL245:
+ 2463              	.L177:
+ 2464              	.LBE136:
+ 2465              	.LBB137:
+ 671:../../cores/mapleMX/WString.cpp **** 		while ((foundAt = strstr(readFrom, find.buffer)) != NULL) {
+ 2466              		.loc 1 671 0 discriminator 1
+ 2467 0096 1946     		mov	r1, r3
+ 2468 0098 2846     		mov	r0, r5
+ 2469 009a 0193     		str	r3, [sp, #4]
+ 2470 009c FFF7FEFF 		bl	strstr
+ 2471              	.LVL246:
+ 2472 00a0 019B     		ldr	r3, [sp, #4]
+ 2473 00a2 18B1     		cbz	r0, .L191
+ 672:../../cores/mapleMX/WString.cpp **** 			readFrom = foundAt + find.len;
+ 2474              		.loc 1 672 0
+ 2475 00a4 00EB0B05 		add	r5, r0, fp
+ 2476              	.LVL247:
+ 673:../../cores/mapleMX/WString.cpp **** 			size += diff;
+ 2477              		.loc 1 673 0
+ 2478 00a8 C144     		add	r9, r9, r8
+ 2479              	.LVL248:
+ 2480 00aa F4E7     		b	.L177
+ 2481              	.L191:
+ 675:../../cores/mapleMX/WString.cpp **** 		if (size == len) return;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 58
+
+
+ 2482              		.loc 1 675 0
+ 2483 00ac D145     		cmp	r9, r10
+ 2484 00ae 29D0     		beq	.L169
+ 676:../../cores/mapleMX/WString.cpp **** 		if (size > capacity && !changeBuffer(size)) return; // XXX: tell user!
+ 2485              		.loc 1 676 0
+ 2486 00b0 6368     		ldr	r3, [r4, #4]
+ 2487 00b2 9945     		cmp	r9, r3
+ 2488 00b4 04D9     		bls	.L181
+ 676:../../cores/mapleMX/WString.cpp **** 		if (size > capacity && !changeBuffer(size)) return; // XXX: tell user!
+ 2489              		.loc 1 676 0 is_stmt 0 discriminator 1
+ 2490 00b6 2046     		mov	r0, r4
+ 2491              	.LVL249:
+ 2492 00b8 4946     		mov	r1, r9
+ 2493 00ba FFF7FEFF 		bl	_ZN6String12changeBufferEj
+ 2494              	.LVL250:
+ 2495 00be 08B3     		cbz	r0, .L169
+ 2496              	.L181:
+ 677:../../cores/mapleMX/WString.cpp **** 		int index = len - 1;
+ 2497              		.loc 1 677 0 is_stmt 1
+ 2498 00c0 A268     		ldr	r2, [r4, #8]
+ 2499 00c2 013A     		subs	r2, r2, #1
+ 2500              	.LVL251:
+ 2501              	.L183:
+ 678:../../cores/mapleMX/WString.cpp **** 		while (index >= 0 && (index = lastIndexOf(find, index)) >= 0) {
+ 2502              		.loc 1 678 0 discriminator 1
+ 2503 00c4 002A     		cmp	r2, #0
+ 2504 00c6 1DDB     		blt	.L169
+ 2505 00c8 2046     		mov	r0, r4
+ 2506 00ca 3946     		mov	r1, r7
+ 2507 00cc FFF7FEFF 		bl	_ZNK6String11lastIndexOfERKS_j
+ 2508              	.LVL252:
+ 2509 00d0 051E     		subs	r5, r0, #0
+ 2510 00d2 17DB     		blt	.L169
+ 679:../../cores/mapleMX/WString.cpp **** 			readFrom = buffer + index + find.len;
+ 2511              		.loc 1 679 0
+ 2512 00d4 BA68     		ldr	r2, [r7, #8]
+ 2513 00d6 2168     		ldr	r1, [r4]
+ 680:../../cores/mapleMX/WString.cpp **** 			memmove(readFrom + diff, readFrom, len - (readFrom - buffer));
+ 2514              		.loc 1 680 0
+ 2515 00d8 A368     		ldr	r3, [r4, #8]
+ 679:../../cores/mapleMX/WString.cpp **** 			readFrom = buffer + index + find.len;
+ 2516              		.loc 1 679 0
+ 2517 00da 2A44     		add	r2, r2, r5
+ 2518              	.LVL253:
+ 680:../../cores/mapleMX/WString.cpp **** 			memmove(readFrom + diff, readFrom, len - (readFrom - buffer));
+ 2519              		.loc 1 680 0
+ 2520 00dc 1144     		add	r1, r1, r2
+ 2521              	.LVL254:
+ 2522 00de 01EB0800 		add	r0, r1, r8
+ 2523              	.LVL255:
+ 2524 00e2 9A1A     		subs	r2, r3, r2
+ 2525 00e4 FFF7FEFF 		bl	memmove
+ 2526              	.LVL256:
+ 681:../../cores/mapleMX/WString.cpp **** 			len += diff;
+ 2527              		.loc 1 681 0
+ 2528 00e8 A368     		ldr	r3, [r4, #8]
+ 682:../../cores/mapleMX/WString.cpp **** 			buffer[len] = 0;
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 59
+
+
+ 2529              		.loc 1 682 0
+ 2530 00ea 2268     		ldr	r2, [r4]
+ 681:../../cores/mapleMX/WString.cpp **** 			len += diff;
+ 2531              		.loc 1 681 0
+ 2532 00ec 4344     		add	r3, r3, r8
+ 682:../../cores/mapleMX/WString.cpp **** 			buffer[len] = 0;
+ 2533              		.loc 1 682 0
+ 2534 00ee 0021     		movs	r1, #0
+ 681:../../cores/mapleMX/WString.cpp **** 			len += diff;
+ 2535              		.loc 1 681 0
+ 2536 00f0 A360     		str	r3, [r4, #8]
+ 682:../../cores/mapleMX/WString.cpp **** 			buffer[len] = 0;
+ 2537              		.loc 1 682 0
+ 2538 00f2 D154     		strb	r1, [r2, r3]
+ 683:../../cores/mapleMX/WString.cpp **** 			memcpy(buffer + index, replace.buffer, replace.len);
+ 2539              		.loc 1 683 0
+ 2540 00f4 2068     		ldr	r0, [r4]
+ 2541 00f6 B268     		ldr	r2, [r6, #8]
+ 2542 00f8 3168     		ldr	r1, [r6]
+ 2543 00fa 2844     		add	r0, r0, r5
+ 2544 00fc FFF7FEFF 		bl	memcpy
+ 2545              	.LVL257:
+ 684:../../cores/mapleMX/WString.cpp **** 			index--;
+ 2546              		.loc 1 684 0
+ 2547 0100 6A1E     		subs	r2, r5, #1
+ 2548              	.LVL258:
+ 2549 0102 DFE7     		b	.L183
+ 2550              	.LVL259:
+ 2551              	.L169:
+ 2552              	.LBE137:
+ 2553              	.LBE138:
+ 2554              	.LBE139:
+ 2555              	.LBE141:
+ 2556              		.loc 1 687 0
+ 2557 0104 03B0     		add	sp, sp, #12
+ 2558              		@ sp needed
+ 2559 0106 BDE8F08F 		pop	{r4, r5, r6, r7, r8, r9, r10, fp, pc}
+ 2560              		.cfi_endproc
+ 2561              	.LFE123:
+ 2563              		.section	.text._ZN6String6removeEjj,"ax",%progbits
+ 2564              		.align	1
+ 2565              		.global	_ZN6String6removeEjj
+ 2566              		.thumb
+ 2567              		.thumb_func
+ 2569              	_ZN6String6removeEjj:
+ 2570              	.LFB125:
+ 688:../../cores/mapleMX/WString.cpp **** 
+ 689:../../cores/mapleMX/WString.cpp **** void String::remove(unsigned int index){
+ 690:../../cores/mapleMX/WString.cpp **** 	// Pass the biggest integer as the count. The remove method
+ 691:../../cores/mapleMX/WString.cpp **** 	// below will take care of truncating it at the end of the
+ 692:../../cores/mapleMX/WString.cpp **** 	// string.
+ 693:../../cores/mapleMX/WString.cpp **** 	remove(index, (unsigned int)-1);
+ 694:../../cores/mapleMX/WString.cpp **** }
+ 695:../../cores/mapleMX/WString.cpp **** 
+ 696:../../cores/mapleMX/WString.cpp **** void String::remove(unsigned int index, unsigned int count){
+ 2571              		.loc 1 696 0
+ 2572              		.cfi_startproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 60
+
+
+ 2573              		@ args = 0, pretend = 0, frame = 0
+ 2574              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2575              	.LVL260:
+ 2576 0000 38B5     		push	{r3, r4, r5, lr}
+ 2577              		.cfi_def_cfa_offset 16
+ 2578              		.cfi_offset 3, -16
+ 2579              		.cfi_offset 4, -12
+ 2580              		.cfi_offset 5, -8
+ 2581              		.cfi_offset 14, -4
+ 2582              		.loc 1 696 0
+ 2583 0002 0446     		mov	r4, r0
+ 2584              	.LBB142:
+ 697:../../cores/mapleMX/WString.cpp **** 	if (index >= len) { return; }
+ 2585              		.loc 1 697 0
+ 2586 0004 8068     		ldr	r0, [r0, #8]
+ 2587              	.LVL261:
+ 2588 0006 8142     		cmp	r1, r0
+ 2589              	.LBE142:
+ 696:../../cores/mapleMX/WString.cpp **** void String::remove(unsigned int index, unsigned int count){
+ 2590              		.loc 1 696 0
+ 2591 0008 0B46     		mov	r3, r1
+ 2592              	.LBB143:
+ 2593              		.loc 1 697 0
+ 2594 000a 11D2     		bcs	.L192
+ 698:../../cores/mapleMX/WString.cpp **** 	if (count <= 0) { return; }
+ 2595              		.loc 1 698 0
+ 2596 000c 82B1     		cbz	r2, .L192
+ 699:../../cores/mapleMX/WString.cpp **** 	if (count > len - index) { count = len - index; }
+ 2597              		.loc 1 699 0
+ 2598 000e 411A     		subs	r1, r0, r1
+ 2599              	.LVL262:
+ 700:../../cores/mapleMX/WString.cpp **** 	char *writeTo = buffer + index;
+ 2600              		.loc 1 700 0
+ 2601 0010 2568     		ldr	r5, [r4]
+ 2602 0012 9142     		cmp	r1, r2
+ 2603 0014 28BF     		it	cs
+ 2604 0016 1146     		movcs	r1, r2
+ 2605              	.LVL263:
+ 701:../../cores/mapleMX/WString.cpp **** 	len = len - count;
+ 2606              		.loc 1 701 0
+ 2607 0018 421A     		subs	r2, r0, r1
+ 702:../../cores/mapleMX/WString.cpp **** 	strncpy(writeTo, buffer + index + count,len - index);
+ 2608              		.loc 1 702 0
+ 2609 001a 1944     		add	r1, r1, r3
+ 2610              	.LVL264:
+ 701:../../cores/mapleMX/WString.cpp **** 	len = len - count;
+ 2611              		.loc 1 701 0
+ 2612 001c A260     		str	r2, [r4, #8]
+ 2613              		.loc 1 702 0
+ 2614 001e E818     		adds	r0, r5, r3
+ 2615              	.LVL265:
+ 2616 0020 D21A     		subs	r2, r2, r3
+ 2617 0022 2944     		add	r1, r1, r5
+ 2618 0024 FFF7FEFF 		bl	strncpy
+ 2619              	.LVL266:
+ 703:../../cores/mapleMX/WString.cpp **** 	buffer[len] = 0;
+ 2620              		.loc 1 703 0
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 61
+
+
+ 2621 0028 2268     		ldr	r2, [r4]
+ 2622 002a A368     		ldr	r3, [r4, #8]
+ 2623 002c 0021     		movs	r1, #0
+ 2624 002e D154     		strb	r1, [r2, r3]
+ 2625              	.LVL267:
+ 2626              	.L192:
+ 2627 0030 38BD     		pop	{r3, r4, r5, pc}
+ 2628              	.LBE143:
+ 2629              		.cfi_endproc
+ 2630              	.LFE125:
+ 2632              		.section	.text._ZN6String6removeEj,"ax",%progbits
+ 2633              		.align	1
+ 2634              		.global	_ZN6String6removeEj
+ 2635              		.thumb
+ 2636              		.thumb_func
+ 2638              	_ZN6String6removeEj:
+ 2639              	.LFB124:
+ 689:../../cores/mapleMX/WString.cpp **** void String::remove(unsigned int index){
+ 2640              		.loc 1 689 0
+ 2641              		.cfi_startproc
+ 2642              		@ args = 0, pretend = 0, frame = 0
+ 2643              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2644              		@ link register save eliminated.
+ 2645              	.LVL268:
+ 693:../../cores/mapleMX/WString.cpp **** 	remove(index, (unsigned int)-1);
+ 2646              		.loc 1 693 0
+ 2647 0000 4FF0FF32 		mov	r2, #-1
+ 2648 0004 FFF7FEBF 		b	_ZN6String6removeEjj
+ 2649              	.LVL269:
+ 2650              		.cfi_endproc
+ 2651              	.LFE124:
+ 2653              		.section	.text._ZN6String11toLowerCaseEv,"ax",%progbits
+ 2654              		.align	1
+ 2655              		.global	_ZN6String11toLowerCaseEv
+ 2656              		.thumb
+ 2657              		.thumb_func
+ 2659              	_ZN6String11toLowerCaseEv:
+ 2660              	.LFB126:
+ 704:../../cores/mapleMX/WString.cpp **** }
+ 705:../../cores/mapleMX/WString.cpp **** 
+ 706:../../cores/mapleMX/WString.cpp **** void String::toLowerCase(void)
+ 707:../../cores/mapleMX/WString.cpp **** {
+ 2661              		.loc 1 707 0
+ 2662              		.cfi_startproc
+ 2663              		@ args = 0, pretend = 0, frame = 0
+ 2664              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2665              	.LVL270:
+ 2666 0000 10B5     		push	{r4, lr}
+ 2667              		.cfi_def_cfa_offset 8
+ 2668              		.cfi_offset 4, -8
+ 2669              		.cfi_offset 14, -4
+ 2670              	.LBB144:
+ 708:../../cores/mapleMX/WString.cpp **** 	if (!buffer) return;
+ 2671              		.loc 1 708 0
+ 2672 0002 0468     		ldr	r4, [r0]
+ 2673 0004 3CB1     		cbz	r4, .L198
+ 2674              	.LVL271:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 62
+
+
+ 2675              	.L200:
+ 2676              	.LBB145:
+ 709:../../cores/mapleMX/WString.cpp **** 	for (char *p = buffer; *p; p++) {
+ 2677              		.loc 1 709 0 discriminator 1
+ 2678 0006 14F8010B 		ldrb	r0, [r4], #1	@ zero_extendqisi2
+ 2679              	.LVL272:
+ 2680 000a 20B1     		cbz	r0, .L198
+ 710:../../cores/mapleMX/WString.cpp **** 		*p = tolower(*p);
+ 2681              		.loc 1 710 0 discriminator 2
+ 2682 000c FFF7FEFF 		bl	tolower
+ 2683              	.LVL273:
+ 2684 0010 04F8010C 		strb	r0, [r4, #-1]
+ 2685              	.LVL274:
+ 2686 0014 F7E7     		b	.L200
+ 2687              	.LVL275:
+ 2688              	.L198:
+ 2689 0016 10BD     		pop	{r4, pc}
+ 2690              	.LBE145:
+ 2691              	.LBE144:
+ 2692              		.cfi_endproc
+ 2693              	.LFE126:
+ 2695              		.section	.text._ZN6String11toUpperCaseEv,"ax",%progbits
+ 2696              		.align	1
+ 2697              		.global	_ZN6String11toUpperCaseEv
+ 2698              		.thumb
+ 2699              		.thumb_func
+ 2701              	_ZN6String11toUpperCaseEv:
+ 2702              	.LFB127:
+ 711:../../cores/mapleMX/WString.cpp **** 	}
+ 712:../../cores/mapleMX/WString.cpp **** }
+ 713:../../cores/mapleMX/WString.cpp **** 
+ 714:../../cores/mapleMX/WString.cpp **** void String::toUpperCase(void)
+ 715:../../cores/mapleMX/WString.cpp **** {
+ 2703              		.loc 1 715 0
+ 2704              		.cfi_startproc
+ 2705              		@ args = 0, pretend = 0, frame = 0
+ 2706              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2707              	.LVL276:
+ 2708 0000 10B5     		push	{r4, lr}
+ 2709              		.cfi_def_cfa_offset 8
+ 2710              		.cfi_offset 4, -8
+ 2711              		.cfi_offset 14, -4
+ 2712              	.LBB146:
+ 716:../../cores/mapleMX/WString.cpp **** 	if (!buffer) return;
+ 2713              		.loc 1 716 0
+ 2714 0002 0468     		ldr	r4, [r0]
+ 2715 0004 3CB1     		cbz	r4, .L205
+ 2716              	.LVL277:
+ 2717              	.L207:
+ 2718              	.LBB147:
+ 717:../../cores/mapleMX/WString.cpp **** 	for (char *p = buffer; *p; p++) {
+ 2719              		.loc 1 717 0 discriminator 1
+ 2720 0006 14F8010B 		ldrb	r0, [r4], #1	@ zero_extendqisi2
+ 2721              	.LVL278:
+ 2722 000a 20B1     		cbz	r0, .L205
+ 718:../../cores/mapleMX/WString.cpp **** 		*p = toupper(*p);
+ 2723              		.loc 1 718 0 discriminator 2
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 63
+
+
+ 2724 000c FFF7FEFF 		bl	toupper
+ 2725              	.LVL279:
+ 2726 0010 04F8010C 		strb	r0, [r4, #-1]
+ 2727              	.LVL280:
+ 2728 0014 F7E7     		b	.L207
+ 2729              	.LVL281:
+ 2730              	.L205:
+ 2731 0016 10BD     		pop	{r4, pc}
+ 2732              	.LBE147:
+ 2733              	.LBE146:
+ 2734              		.cfi_endproc
+ 2735              	.LFE127:
+ 2737              		.section	.text._ZN6String4trimEv,"ax",%progbits
+ 2738              		.align	1
+ 2739              		.global	_ZN6String4trimEv
+ 2740              		.thumb
+ 2741              		.thumb_func
+ 2743              	_ZN6String4trimEv:
+ 2744              	.LFB128:
+ 719:../../cores/mapleMX/WString.cpp **** 	}
+ 720:../../cores/mapleMX/WString.cpp **** }
+ 721:../../cores/mapleMX/WString.cpp **** 
+ 722:../../cores/mapleMX/WString.cpp **** void String::trim(void)
+ 723:../../cores/mapleMX/WString.cpp **** {
+ 2745              		.loc 1 723 0
+ 2746              		.cfi_startproc
+ 2747              		@ args = 0, pretend = 0, frame = 0
+ 2748              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2749              	.LVL282:
+ 2750 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2751              		.cfi_def_cfa_offset 24
+ 2752              		.cfi_offset 4, -24
+ 2753              		.cfi_offset 5, -20
+ 2754              		.cfi_offset 6, -16
+ 2755              		.cfi_offset 7, -12
+ 2756              		.cfi_offset 8, -8
+ 2757              		.cfi_offset 14, -4
+ 2758              	.LBB148:
+ 724:../../cores/mapleMX/WString.cpp **** 	if (!buffer || len == 0) return;
+ 2759              		.loc 1 724 0
+ 2760 0004 0668     		ldr	r6, [r0]
+ 2761              	.LBE148:
+ 723:../../cores/mapleMX/WString.cpp **** {
+ 2762              		.loc 1 723 0
+ 2763 0006 0546     		mov	r5, r0
+ 2764              	.LBB149:
+ 2765              		.loc 1 724 0
+ 2766 0008 16B3     		cbz	r6, .L212
+ 2767              		.loc 1 724 0 is_stmt 0 discriminator 2
+ 2768 000a 8768     		ldr	r7, [r0, #8]
+ 2769 000c 07B3     		cbz	r7, .L212
+ 2770 000e B046     		mov	r8, r6
+ 2771              	.LVL283:
+ 2772              	.L214:
+ 2773 0010 4446     		mov	r4, r8
+ 2774              	.LVL284:
+ 2775 0012 08F10108 		add	r8, r8, #1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 64
+
+
+ 725:../../cores/mapleMX/WString.cpp **** 	char *begin = buffer;
+ 726:../../cores/mapleMX/WString.cpp **** 	while (isspace(*begin)) begin++;
+ 2776              		.loc 1 726 0 is_stmt 1 discriminator 1
+ 2777 0016 2078     		ldrb	r0, [r4]	@ zero_extendqisi2
+ 2778 0018 FFF7FEFF 		bl	isspace
+ 2779              	.LVL285:
+ 2780 001c 0028     		cmp	r0, #0
+ 2781 001e F7D1     		bne	.L214
+ 727:../../cores/mapleMX/WString.cpp **** 	char *end = buffer + len - 1;
+ 2782              		.loc 1 727 0
+ 2783 0020 013F     		subs	r7, r7, #1
+ 2784 0022 3744     		add	r7, r7, r6
+ 2785              	.LVL286:
+ 2786              	.L216:
+ 728:../../cores/mapleMX/WString.cpp **** 	while (isspace(*end) && end >= begin) end--;
+ 2787              		.loc 1 728 0 discriminator 1
+ 2788 0024 3878     		ldrb	r0, [r7]	@ zero_extendqisi2
+ 2789 0026 FFF7FEFF 		bl	isspace
+ 2790              	.LVL287:
+ 2791 002a 48B9     		cbnz	r0, .L217
+ 2792              	.L221:
+ 729:../../cores/mapleMX/WString.cpp **** 	len = end + 1 - begin;
+ 2793              		.loc 1 729 0
+ 2794 002c 0137     		adds	r7, r7, #1
+ 2795              	.LVL288:
+ 2796 002e 3A1B     		subs	r2, r7, r4
+ 730:../../cores/mapleMX/WString.cpp **** 	if (begin > buffer) memcpy(buffer, begin, len);
+ 2797              		.loc 1 730 0
+ 2798 0030 B442     		cmp	r4, r6
+ 729:../../cores/mapleMX/WString.cpp **** 	len = end + 1 - begin;
+ 2799              		.loc 1 729 0
+ 2800 0032 AA60     		str	r2, [r5, #8]
+ 2801              		.loc 1 730 0
+ 2802 0034 08D9     		bls	.L219
+ 2803              		.loc 1 730 0 is_stmt 0 discriminator 1
+ 2804 0036 3046     		mov	r0, r6
+ 2805 0038 2146     		mov	r1, r4
+ 2806 003a FFF7FEFF 		bl	memcpy
+ 2807              	.LVL289:
+ 2808 003e 03E0     		b	.L219
+ 2809              	.LVL290:
+ 2810              	.L217:
+ 728:../../cores/mapleMX/WString.cpp **** 	while (isspace(*end) && end >= begin) end--;
+ 2811              		.loc 1 728 0 is_stmt 1 discriminator 2
+ 2812 0040 A742     		cmp	r7, r4
+ 2813 0042 F3D3     		bcc	.L221
+ 728:../../cores/mapleMX/WString.cpp **** 	while (isspace(*end) && end >= begin) end--;
+ 2814              		.loc 1 728 0 is_stmt 0 discriminator 1
+ 2815 0044 013F     		subs	r7, r7, #1
+ 2816              	.LVL291:
+ 2817 0046 EDE7     		b	.L216
+ 2818              	.LVL292:
+ 2819              	.L219:
+ 731:../../cores/mapleMX/WString.cpp **** 	buffer[len] = 0;
+ 2820              		.loc 1 731 0 is_stmt 1
+ 2821 0048 2A68     		ldr	r2, [r5]
+ 2822 004a AB68     		ldr	r3, [r5, #8]
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 65
+
+
+ 2823 004c 0021     		movs	r1, #0
+ 2824 004e D154     		strb	r1, [r2, r3]
+ 2825              	.LVL293:
+ 2826              	.L212:
+ 2827 0050 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2828              	.LBE149:
+ 2829              		.cfi_endproc
+ 2830              	.LFE128:
+ 2832              		.section	.text._ZNK6String5toIntEv,"ax",%progbits
+ 2833              		.align	1
+ 2834              		.global	_ZNK6String5toIntEv
+ 2835              		.thumb
+ 2836              		.thumb_func
+ 2838              	_ZNK6String5toIntEv:
+ 2839              	.LFB129:
+ 732:../../cores/mapleMX/WString.cpp **** }
+ 733:../../cores/mapleMX/WString.cpp **** 
+ 734:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 735:../../cores/mapleMX/WString.cpp **** /*  Parsing / Conversion                     */
+ 736:../../cores/mapleMX/WString.cpp **** /*********************************************/
+ 737:../../cores/mapleMX/WString.cpp **** 
+ 738:../../cores/mapleMX/WString.cpp **** long String::toInt(void) const
+ 739:../../cores/mapleMX/WString.cpp **** {
+ 2840              		.loc 1 739 0
+ 2841              		.cfi_startproc
+ 2842              		@ args = 0, pretend = 0, frame = 0
+ 2843              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2844              		@ link register save eliminated.
+ 2845              	.LVL294:
+ 740:../../cores/mapleMX/WString.cpp **** 	if (buffer) return atol(buffer);
+ 2846              		.loc 1 740 0
+ 2847 0000 0068     		ldr	r0, [r0]
+ 2848              	.LVL295:
+ 2849 0002 08B1     		cbz	r0, .L229
+ 2850              		.loc 1 740 0 is_stmt 0 discriminator 1
+ 2851 0004 FFF7FEBF 		b	atol
+ 2852              	.LVL296:
+ 2853              	.L229:
+ 741:../../cores/mapleMX/WString.cpp **** 	return 0;
+ 742:../../cores/mapleMX/WString.cpp **** }
+ 2854              		.loc 1 742 0 is_stmt 1
+ 2855 0008 7047     		bx	lr
+ 2856              		.cfi_endproc
+ 2857              	.LFE129:
+ 2859              		.global	__aeabi_d2f
+ 2860              		.section	.text._ZNK6String7toFloatEv,"ax",%progbits
+ 2861              		.align	1
+ 2862              		.global	_ZNK6String7toFloatEv
+ 2863              		.thumb
+ 2864              		.thumb_func
+ 2866              	_ZNK6String7toFloatEv:
+ 2867              	.LFB130:
+ 743:../../cores/mapleMX/WString.cpp **** 
+ 744:../../cores/mapleMX/WString.cpp **** float String::toFloat(void) const
+ 745:../../cores/mapleMX/WString.cpp **** {
+ 2868              		.loc 1 745 0
+ 2869              		.cfi_startproc
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 66
+
+
+ 2870              		@ args = 0, pretend = 0, frame = 0
+ 2871              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2872              	.LVL297:
+ 746:../../cores/mapleMX/WString.cpp **** 	if (buffer) return float(atof(buffer));
+ 2873              		.loc 1 746 0
+ 2874 0000 0068     		ldr	r0, [r0]
+ 2875              	.LVL298:
+ 745:../../cores/mapleMX/WString.cpp **** {
+ 2876              		.loc 1 745 0
+ 2877 0002 08B5     		push	{r3, lr}
+ 2878              		.cfi_def_cfa_offset 8
+ 2879              		.cfi_offset 3, -8
+ 2880              		.cfi_offset 14, -4
+ 2881              		.loc 1 746 0
+ 2882 0004 20B1     		cbz	r0, .L232
+ 2883              		.loc 1 746 0 is_stmt 0 discriminator 1
+ 2884 0006 FFF7FEFF 		bl	atof
+ 2885              	.LVL299:
+ 2886 000a FFF7FEFF 		bl	__aeabi_d2f
+ 2887              	.LVL300:
+ 2888 000e 08BD     		pop	{r3, pc}
+ 2889              	.L232:
+ 747:../../cores/mapleMX/WString.cpp **** 	return 0;
+ 2890              		.loc 1 747 0 is_stmt 1
+ 2891 0010 0020     		movs	r0, #0
+ 748:../../cores/mapleMX/WString.cpp **** }
+ 2892              		.loc 1 748 0
+ 2893 0012 08BD     		pop	{r3, pc}
+ 2894              		.cfi_endproc
+ 2895              	.LFE130:
+ 2897              		.section	.rodata.str1.1,"aMS",%progbits,1
+ 2898              	.LC0:
+ 2899 0000 00       		.ascii	"\000"
+ 2900              		.section	.bss._ZZN6StringixEjE19dummy_writable_char,"aw",%nobits
+ 2901              		.set	.LANCHOR0,. + 0
+ 2904              	_ZZN6StringixEjE19dummy_writable_char:
+ 2905 0000 00       		.space	1
+ 2906              		.text
+ 2907              	.Letext0:
+ 2908              		.file 2 "../../cores/mapleMX/WString.h"
+ 2909              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/l
+ 2910              		.file 4 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 2911              		.file 5 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 2912              		.file 6 "../../cores/mapleMX/itoa.h"
+ 2913              		.file 7 "../../cores/mapleMX/avr/dtostrf.h"
+ 2914              		.file 8 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
+ 2915              		.file 9 "<built-in>"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 67
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 WString.cpp
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:19     .text._ZN6StringD2Ev:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:24     .text._ZN6StringD2Ev:0000000000000000 _ZN6StringD2Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:24     .text._ZN6StringD2Ev:0000000000000000 _ZN6StringD1Ev
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:54     .text._ZN6String10invalidateEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:59     .text._ZN6String10invalidateEv:0000000000000000 _ZN6String10invalidateEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:91     .text._ZN6String12changeBufferEj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:96     .text._ZN6String12changeBufferEj:0000000000000000 _ZN6String12changeBufferEj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:135    .text._ZN6String7reserveEj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:140    .text._ZN6String7reserveEj:0000000000000000 _ZN6String7reserveEj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:189    .text._ZN6String4copyEPKcj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:194    .text._ZN6String4copyEPKcj:0000000000000000 _ZN6String4copyEPKcj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:241    .text._ZN6StringC2EPKc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:246    .text._ZN6StringC2EPKc:0000000000000000 _ZN6StringC2EPKc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:246    .text._ZN6StringC2EPKc:0000000000000000 _ZN6StringC1EPKc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:304    .text._ZN6String4copyEPK19__FlashStringHelperj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:309    .text._ZN6String4copyEPK19__FlashStringHelperj:0000000000000000 _ZN6String4copyEPK19__FlashStringHelperj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:356    .text._ZN6StringaSERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:361    .text._ZN6StringaSERKS_:0000000000000000 _ZN6StringaSERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:402    .text._ZN6StringC2ERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:407    .text._ZN6StringC2ERKS_:0000000000000000 _ZN6StringC2ERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:407    .text._ZN6StringC2ERKS_:0000000000000000 _ZN6StringC1ERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:452    .text._ZN6StringaSEPKc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:457    .text._ZN6StringaSEPKc:0000000000000000 _ZN6StringaSEPKc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:499    .text._ZN6StringC2Ec:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:504    .text._ZN6StringC2Ec:0000000000000000 _ZN6StringC2Ec
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:504    .text._ZN6StringC2Ec:0000000000000000 _ZN6StringC1Ec
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:560    .text._ZN6StringC2Ehh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:565    .text._ZN6StringC2Ehh:0000000000000000 _ZN6StringC2Ehh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:565    .text._ZN6StringC2Ehh:0000000000000000 _ZN6StringC1Ehh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:625    .text._ZN6StringC2Eih:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:630    .text._ZN6StringC2Eih:0000000000000000 _ZN6StringC2Eih
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:630    .text._ZN6StringC2Eih:0000000000000000 _ZN6StringC1Eih
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:689    .text._ZN6StringC2Ejh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:694    .text._ZN6StringC2Ejh:0000000000000000 _ZN6StringC2Ejh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:694    .text._ZN6StringC2Ejh:0000000000000000 _ZN6StringC1Ejh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:753    .text._ZN6StringC2Elh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:758    .text._ZN6StringC2Elh:0000000000000000 _ZN6StringC2Elh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:758    .text._ZN6StringC2Elh:0000000000000000 _ZN6StringC1Elh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:817    .text._ZN6StringC2Emh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:822    .text._ZN6StringC2Emh:0000000000000000 _ZN6StringC2Emh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:822    .text._ZN6StringC2Emh:0000000000000000 _ZN6StringC1Emh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:882    .text._ZN6StringC2Efh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:887    .text._ZN6StringC2Efh:0000000000000000 _ZN6StringC2Efh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:887    .text._ZN6StringC2Efh:0000000000000000 _ZN6StringC1Efh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:953    .text._ZN6StringC2Edh:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:958    .text._ZN6StringC2Edh:0000000000000000 _ZN6StringC2Edh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:958    .text._ZN6StringC2Edh:0000000000000000 _ZN6StringC1Edh
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1027   .text._ZN6StringaSEPK19__FlashStringHelper:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1032   .text._ZN6StringaSEPK19__FlashStringHelper:0000000000000000 _ZN6StringaSEPK19__FlashStringHelper
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1074   .text._ZN6StringC2EPK19__FlashStringHelper:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1079   .text._ZN6StringC2EPK19__FlashStringHelper:0000000000000000 _ZN6StringC2EPK19__FlashStringHelper
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1079   .text._ZN6StringC2EPK19__FlashStringHelper:0000000000000000 _ZN6StringC1EPK19__FlashStringHelper
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1124   .text._ZN6String6concatERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1129   .text._ZN6String6concatERKS_:0000000000000000 _ZN6String6concatERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1149   .text._ZNK6String9compareToERKS_:0000000000000000 $t
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 68
+
+
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1154   .text._ZNK6String9compareToERKS_:0000000000000000 _ZNK6String9compareToERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1210   .text._ZNK6String6equalsERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1215   .text._ZNK6String6equalsERKS_:0000000000000000 _ZNK6String6equalsERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1249   .text._ZNK6String6equalsEPKc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1254   .text._ZNK6String6equalsEPKc:0000000000000000 _ZNK6String6equalsEPKc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1305   .text._ZNK6StringltERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1310   .text._ZNK6StringltERKS_:0000000000000000 _ZNK6StringltERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1331   .text._ZNK6StringgtERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1336   .text._ZNK6StringgtERKS_:0000000000000000 _ZNK6StringgtERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1360   .text._ZNK6StringleERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1365   .text._ZNK6StringleERKS_:0000000000000000 _ZNK6StringleERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1389   .text._ZNK6StringgeERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1394   .text._ZNK6StringgeERKS_:0000000000000000 _ZNK6StringgeERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1416   .text._ZNK6String16equalsIgnoreCaseERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1421   .text._ZNK6String16equalsIgnoreCaseERKS_:0000000000000000 _ZNK6String16equalsIgnoreCaseERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1493   .text._ZNK6String10startsWithERKS_j:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1498   .text._ZNK6String10startsWithERKS_j:0000000000000000 _ZNK6String10startsWithERKS_j
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1549   .text._ZNK6String10startsWithERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1554   .text._ZNK6String10startsWithERKS_:0000000000000000 _ZNK6String10startsWithERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1580   .text._ZNK6String8endsWithERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1585   .text._ZNK6String8endsWithERKS_:0000000000000000 _ZNK6String8endsWithERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1634   .text._ZN6String9setCharAtEjc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1639   .text._ZN6String9setCharAtEjc:0000000000000000 _ZN6String9setCharAtEjc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1658   .text._ZN6StringixEj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1663   .text._ZN6StringixEj:0000000000000000 _ZN6StringixEj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1696   .text._ZN6StringixEj:0000000000000018 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1701   .text._ZNK6StringixEj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1706   .text._ZNK6StringixEj:0000000000000000 _ZNK6StringixEj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1737   .text._ZNK6String6charAtEj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1742   .text._ZNK6String6charAtEj:0000000000000000 _ZNK6String6charAtEj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1757   .text._ZNK6String8getBytesEPhjj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1762   .text._ZNK6String8getBytesEPhjj:0000000000000000 _ZNK6String8getBytesEPhjj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1824   .text._ZNK6String7indexOfEcj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1829   .text._ZNK6String7indexOfEcj:0000000000000000 _ZNK6String7indexOfEcj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1871   .text._ZNK6String7indexOfEc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1876   .text._ZNK6String7indexOfEc:0000000000000000 _ZNK6String7indexOfEc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1892   .text._ZNK6String7indexOfERKS_j:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1897   .text._ZNK6String7indexOfERKS_j:0000000000000000 _ZNK6String7indexOfERKS_j
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1941   .text._ZNK6String7indexOfERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1946   .text._ZNK6String7indexOfERKS_:0000000000000000 _ZNK6String7indexOfERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1962   .text._ZNK6String11lastIndexOfEcj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:1967   .text._ZNK6String11lastIndexOfEcj:0000000000000000 _ZNK6String11lastIndexOfEcj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2032   .text._ZNK6String11lastIndexOfEc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2037   .text._ZNK6String11lastIndexOfEc:0000000000000000 _ZNK6String11lastIndexOfEc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2054   .text._ZNK6String11lastIndexOfERKS_j:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2059   .text._ZNK6String11lastIndexOfERKS_j:0000000000000000 _ZNK6String11lastIndexOfERKS_j
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2152   .text._ZNK6String11lastIndexOfERKS_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2157   .text._ZNK6String11lastIndexOfERKS_:0000000000000000 _ZNK6String11lastIndexOfERKS_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2175   .text._ZNK6String9substringEjj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2180   .text._ZNK6String9substringEjj:0000000000000000 _ZNK6String9substringEjj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2260   .text._ZNK6String9substringEjj:0000000000000048 $d
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2265   .text._ZN6String7replaceEcc:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2270   .text._ZN6String7replaceEcc:0000000000000000 _ZN6String7replaceEcc
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2304   .text._ZN6String7replaceERKS_S1_:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2309   .text._ZN6String7replaceERKS_S1_:0000000000000000 _ZN6String7replaceERKS_S1_
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2564   .text._ZN6String6removeEjj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2569   .text._ZN6String6removeEjj:0000000000000000 _ZN6String6removeEjj
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s 			page 69
+
+
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2633   .text._ZN6String6removeEj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2638   .text._ZN6String6removeEj:0000000000000000 _ZN6String6removeEj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2654   .text._ZN6String11toLowerCaseEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2659   .text._ZN6String11toLowerCaseEv:0000000000000000 _ZN6String11toLowerCaseEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2696   .text._ZN6String11toUpperCaseEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2701   .text._ZN6String11toUpperCaseEv:0000000000000000 _ZN6String11toUpperCaseEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2738   .text._ZN6String4trimEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2743   .text._ZN6String4trimEv:0000000000000000 _ZN6String4trimEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2833   .text._ZNK6String5toIntEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2838   .text._ZNK6String5toIntEv:0000000000000000 _ZNK6String5toIntEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2861   .text._ZNK6String7toFloatEv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2866   .text._ZNK6String7toFloatEv:0000000000000000 _ZNK6String7toFloatEv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2904   .bss._ZZN6StringixEjE19dummy_writable_char:0000000000000000 _ZZN6StringixEjE19dummy_writable_char
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cclbwONm.s:2905   .bss._ZZN6StringixEjE19dummy_writable_char:0000000000000000 $d
+                     .debug_frame:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+free
+realloc
+strcpy
+strlen
+utoa
+itoa
+ltoa
+ultoa
+__aeabi_f2d
+dtostrf
+_ZN6String6concatEPKcj
+strcmp
+tolower
+strncmp
+strncpy
+strchr
+strstr
+strrchr
+memcpy
+memmove
+toupper
+isspace
+atol
+__aeabi_d2f
+atof

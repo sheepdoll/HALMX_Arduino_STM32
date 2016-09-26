@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,33 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"new.cpp"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text._Znwj,"ax",%progbits
-  19              		.align	1
-  20              		.global	_Znwj
-  21              		.thumb
-  22              		.thumb_func
-  24              	_Znwj:
-  25              	.LFB0:
-  26              		.file 1 "../../cores/mapleMX/new.cpp"
+  14              		.syntax unified
+  15              		.file	"new.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text._Znwj,"ax",%progbits
+  20              		.align	1
+  21              		.global	_Znwj
+  22              		.thumb
+  23              		.thumb_func
+  25              	_Znwj:
+  26              	.LFB7:
+  27              		.cfi_startproc
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 0, uses_anonymous_args = 0
+  30              		@ link register save eliminated.
+  31 0000 FFF7FEBF 		b	malloc
+  32              		.cfi_endproc
+  33              	.LFE7:
+  35              		.section	.text._Znaj,"ax",%progbits
+  36              		.align	1
+  37              		.global	_Znaj
+  38              		.thumb
+  39              		.thumb_func
+  41              	_Znaj:
+  42              	.LFB1:
+  43              		.file 1 "../../cores/mapleMX/new.cpp"
    1:../../cores/mapleMX/new.cpp **** /*
    2:../../cores/mapleMX/new.cpp ****   Copyright (c) 2014 Arduino.  All right reserved.
    3:../../cores/mapleMX/new.cpp **** 
@@ -43,111 +58,89 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s 			page 1
   15:../../cores/mapleMX/new.cpp ****   License along with this library; if not, write to the Free Software
   16:../../cores/mapleMX/new.cpp ****   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
   17:../../cores/mapleMX/new.cpp **** */
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s 			page 2
+
+
   18:../../cores/mapleMX/new.cpp **** 
   19:../../cores/mapleMX/new.cpp **** #include <stdlib.h>
   20:../../cores/mapleMX/new.cpp **** 
   21:../../cores/mapleMX/new.cpp **** void *operator new(size_t size) {
-  27              		.loc 1 21 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 0
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              		@ link register save eliminated.
-  32              	.LVL0:
   22:../../cores/mapleMX/new.cpp ****   return malloc(size);
-  33              		.loc 1 22 0
-  34 0000 FFF7FEBF 		b	malloc
-  35              	.LVL1:
-  36              		.cfi_endproc
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s 			page 2
-
-
-  37              	.LFE0:
-  39              		.section	.text._Znaj,"ax",%progbits
-  40              		.align	1
-  41              		.global	_Znaj
-  42              		.thumb
-  43              		.thumb_func
-  45              	_Znaj:
-  46              	.LFB1:
   23:../../cores/mapleMX/new.cpp **** }
   24:../../cores/mapleMX/new.cpp **** 
   25:../../cores/mapleMX/new.cpp **** void *operator new[](size_t size) {
-  47              		.loc 1 25 0
-  48              		.cfi_startproc
-  49              		@ args = 0, pretend = 0, frame = 0
-  50              		@ frame_needed = 0, uses_anonymous_args = 0
-  51              		@ link register save eliminated.
-  52              	.LVL2:
+  44              		.loc 1 25 0
+  45              		.cfi_startproc
+  46              		@ args = 0, pretend = 0, frame = 0
+  47              		@ frame_needed = 0, uses_anonymous_args = 0
+  48              		@ link register save eliminated.
+  49              	.LVL0:
   26:../../cores/mapleMX/new.cpp ****   return malloc(size);
-  53              		.loc 1 26 0
-  54 0000 FFF7FEBF 		b	malloc
-  55              	.LVL3:
-  56              		.cfi_endproc
-  57              	.LFE1:
-  59              		.section	.text._ZdlPv,"ax",%progbits
-  60              		.align	1
-  61              		.global	_ZdlPv
-  62              		.thumb
-  63              		.thumb_func
-  65              	_ZdlPv:
-  66              	.LFB2:
+  50              		.loc 1 26 0
+  51 0000 FFF7FEBF 		b	malloc
+  52              	.LVL1:
+  53              		.cfi_endproc
+  54              	.LFE1:
+  56              		.section	.text._ZdlPv,"ax",%progbits
+  57              		.align	1
+  58              		.global	_ZdlPv
+  59              		.thumb
+  60              		.thumb_func
+  62              	_ZdlPv:
+  63              	.LFB5:
+  64              		.cfi_startproc
+  65              		@ args = 0, pretend = 0, frame = 0
+  66              		@ frame_needed = 0, uses_anonymous_args = 0
+  67              		@ link register save eliminated.
+  68 0000 FFF7FEBF 		b	free
+  69              		.cfi_endproc
+  70              	.LFE5:
+  72              		.section	.text._ZdaPv,"ax",%progbits
+  73              		.align	1
+  74              		.global	_ZdaPv
+  75              		.thumb
+  76              		.thumb_func
+  78              	_ZdaPv:
+  79              	.LFB3:
   27:../../cores/mapleMX/new.cpp **** }
   28:../../cores/mapleMX/new.cpp **** 
   29:../../cores/mapleMX/new.cpp **** void operator delete(void * ptr) {
-  67              		.loc 1 29 0
-  68              		.cfi_startproc
-  69              		@ args = 0, pretend = 0, frame = 0
-  70              		@ frame_needed = 0, uses_anonymous_args = 0
-  71              		@ link register save eliminated.
-  72              	.LVL4:
   30:../../cores/mapleMX/new.cpp ****   free(ptr);
-  73              		.loc 1 30 0
-  74 0000 FFF7FEBF 		b	free
-  75              	.LVL5:
-  76              		.cfi_endproc
-  77              	.LFE2:
-  79              		.section	.text._ZdaPv,"ax",%progbits
-  80              		.align	1
-  81              		.global	_ZdaPv
-  82              		.thumb
-  83              		.thumb_func
-  85              	_ZdaPv:
-  86              	.LFB3:
   31:../../cores/mapleMX/new.cpp **** }
   32:../../cores/mapleMX/new.cpp **** 
   33:../../cores/mapleMX/new.cpp **** void operator delete[](void * ptr) {
-  87              		.loc 1 33 0
-  88              		.cfi_startproc
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s 			page 3
-
-
-  89              		@ args = 0, pretend = 0, frame = 0
-  90              		@ frame_needed = 0, uses_anonymous_args = 0
-  91              		@ link register save eliminated.
-  92              	.LVL6:
+  80              		.loc 1 33 0
+  81              		.cfi_startproc
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 0, uses_anonymous_args = 0
+  84              		@ link register save eliminated.
+  85              	.LVL2:
   34:../../cores/mapleMX/new.cpp ****   free(ptr);
-  93              		.loc 1 34 0
-  94 0000 FFF7FEBF 		b	free
-  95              	.LVL7:
-  96              		.cfi_endproc
-  97              	.LFE3:
-  99              		.text
- 100              	.Letext0:
- 101              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/l
- 102              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s 			page 4
+  86              		.loc 1 34 0
+  87 0000 FFF7FEBF 		b	free
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s 			page 3
+
+
+  88              	.LVL3:
+  89              		.cfi_endproc
+  90              	.LFE3:
+  92              		.text
+  93              	.Letext0:
+  94              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+  95              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s 			page 4
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 new.cpp
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:19     .text._Znwj:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:24     .text._Znwj:0000000000000000 _Znwj
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:40     .text._Znaj:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:45     .text._Znaj:0000000000000000 _Znaj
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:60     .text._ZdlPv:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:65     .text._ZdlPv:0000000000000000 _ZdlPv
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:80     .text._ZdaPv:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc33NFFY.s:85     .text._ZdaPv:0000000000000000 _ZdaPv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:20     .text._Znwj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:25     .text._Znwj:0000000000000000 _Znwj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:36     .text._Znaj:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:41     .text._Znaj:0000000000000000 _Znaj
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:57     .text._ZdlPv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:62     .text._ZdlPv:0000000000000000 _ZdlPv
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:73     .text._ZdaPv:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//cc6hwaGh.s:78     .text._ZdaPv:0000000000000000 _ZdaPv
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

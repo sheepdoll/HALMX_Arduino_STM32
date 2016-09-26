@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 1
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccAJ23cK.s 			page 1
 
 
    1              		.syntax unified
@@ -14,18 +14,19 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 1
   11              		.eabi_attribute 34, 1
   12              		.eabi_attribute 18, 4
   13              		.thumb
-  14              		.file	"sketch.cpp"
-  15              		.text
-  16              	.Ltext0:
-  17              		.cfi_sections	.debug_frame
-  18              		.section	.text.setup,"ax",%progbits
-  19              		.align	1
-  20              		.global	setup
-  21              		.thumb
-  22              		.thumb_func
-  24              	setup:
-  25              	.LFB211:
-  26              		.file 1 "sketch.cpp"
+  14              		.syntax unified
+  15              		.file	"sketch.cpp"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.setup,"ax",%progbits
+  20              		.align	1
+  21              		.global	setup
+  22              		.thumb
+  23              		.thumb_func
+  25              	setup:
+  26              	.LFB211:
+  27              		.file 1 "sketch.cpp"
    1:sketch.cpp    **** #include "Arduino.h"
    2:sketch.cpp    **** 
    3:sketch.cpp    **** /*
@@ -37,87 +38,90 @@ ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 1
    9:sketch.cpp    **** */
   10:sketch.cpp    **** 
   11:sketch.cpp    **** void setup() {
-  27              		.loc 1 11 0
-  28              		.cfi_startproc
-  29              		@ args = 0, pretend = 0, frame = 0
-  30              		@ frame_needed = 0, uses_anonymous_args = 0
-  31              		@ link register save eliminated.
+  28              		.loc 1 11 0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
   12:sketch.cpp    ****     // Set up the built-in LED pin as an output:
   13:sketch.cpp    ****     pinMode(PA5, OUTPUT);
-  32              		.loc 1 13 0
-  33 0000 0D20     		movs	r0, #13
-  34 0002 0121     		movs	r1, #1
-  35 0004 FFF7FEBF 		b	pinMode
-  36              	.LVL0:
-  37              		.cfi_endproc
-  38              	.LFE211:
-  40              		.section	.text.loop,"ax",%progbits
-  41              		.align	1
-  42              		.global	loop
-  43              		.thumb
-  44              		.thumb_func
-  46              	loop:
-  47              	.LFB212:
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 2
+  33              		.loc 1 13 0
+  34 0000 0121     		movs	r1, #1
+  35 0002 0D20     		movs	r0, #13
+  36 0004 FFF7FEBF 		b	pinMode
+  37              	.LVL0:
+  38              		.cfi_endproc
+  39              	.LFE211:
+  41              		.section	.text.loop,"ax",%progbits
+  42              		.align	1
+  43              		.global	loop
+  44              		.thumb
+  45              		.thumb_func
+  47              	loop:
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccAJ23cK.s 			page 2
 
 
+  48              	.LFB212:
   14:sketch.cpp    **** }
   15:sketch.cpp    **** 
   16:sketch.cpp    **** void loop() {
-  48              		.loc 1 16 0
-  49              		.cfi_startproc
-  50              		@ args = 0, pretend = 0, frame = 0
-  51              		@ frame_needed = 0, uses_anonymous_args = 0
-  52 0000 08B5     		push	{r3, lr}
-  53              		.cfi_def_cfa_offset 8
-  54              		.cfi_offset 3, -8
-  55              		.cfi_offset 14, -4
+  49              		.loc 1 16 0
+  50              		.cfi_startproc
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53 0000 08B5     		push	{r3, lr}
+  54              		.cfi_def_cfa_offset 8
+  55              		.cfi_offset 3, -8
+  56              		.cfi_offset 14, -4
   17:sketch.cpp    ****  digitalWrite(PA5, HIGH);   // turn the LED on (HIGH is the voltage level)
-  56              		.loc 1 17 0
-  57 0002 0121     		movs	r1, #1
-  58 0004 0D20     		movs	r0, #13
-  59 0006 FFF7FEFF 		bl	digitalWrite
-  60              	.LVL1:
+  57              		.loc 1 17 0
+  58 0002 0121     		movs	r1, #1
+  59 0004 0D20     		movs	r0, #13
+  60 0006 FFF7FEFF 		bl	digitalWrite
+  61              	.LVL1:
   18:sketch.cpp    ****   delay(380);              // wait for a second
-  61              		.loc 1 18 0
-  62 000a 4FF4BE70 		mov	r0, #380
-  63 000e FFF7FEFF 		bl	HAL_Delay
-  64              	.LVL2:
+  62              		.loc 1 18 0
+  63 000a 4FF4BE70 		mov	r0, #380
+  64 000e FFF7FEFF 		bl	HAL_Delay
+  65              	.LVL2:
   19:sketch.cpp    ****   digitalWrite(PA5, LOW);    // turn the LED off by making the voltage LOW
-  65              		.loc 1 19 0
-  66 0012 0D20     		movs	r0, #13
-  67 0014 0021     		movs	r1, #0
-  68 0016 FFF7FEFF 		bl	digitalWrite
-  69              	.LVL3:
+  66              		.loc 1 19 0
+  67 0012 0D20     		movs	r0, #13
+  68 0014 0021     		movs	r1, #0
+  69 0016 FFF7FEFF 		bl	digitalWrite
+  70              	.LVL3:
   20:sketch.cpp    ****   delay(768);              // wait for a second
-  70              		.loc 1 20 0
-  71 001a 4FF44070 		mov	r0, #768
+  71              		.loc 1 20 0
+  72 001a 4FF44070 		mov	r0, #768
   21:sketch.cpp    **** }
-  72              		.loc 1 21 0
-  73 001e BDE80840 		pop	{r3, lr}
+  73              		.loc 1 21 0
+  74 001e BDE80840 		pop	{r3, lr}
+  75              		.cfi_restore 14
+  76              		.cfi_restore 3
+  77              		.cfi_def_cfa_offset 0
   20:sketch.cpp    ****   delay(768);              // wait for a second
-  74              		.loc 1 20 0
-  75 0022 FFF7FEBF 		b	HAL_Delay
-  76              	.LVL4:
-  77              		.cfi_endproc
-  78              	.LFE212:
-  80              		.text
-  81              	.Letext0:
-  82              		.file 2 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
-  83              		.file 3 "/Users/Arethusa/Library/Arduino15/packages/arduino/tools/arm-none-eabi-gcc/4.8.3-2014q1/a
-  84              		.file 4 "../../cores/mapleMX/wiring_digital.h"
-  85              		.file 5 "./variant.h"
-  86              		.file 6 "Drivers/CMSIS/Include/core_cm4.h"
-  87              		.file 7 "../../cores/mapleMX/wiring.h"
-ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s 			page 3
+  78              		.loc 1 20 0
+  79 0022 FFF7FEBF 		b	HAL_Delay
+  80              	.LVL4:
+  81              		.cfi_endproc
+  82              	.LFE212:
+  84              		.text
+  85              	.Letext0:
+  86              		.file 2 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+  87              		.file 3 "/Applications/Ac6/SystemWorkbench.app/Contents/Eclipse/plugins/fr.ac6.mcu.externaltools.a
+  88              		.file 4 "../../cores/mapleMX/wiring_digital.h"
+  89              		.file 5 "../../cores/mapleMX/wiring.h"
+  90              		.file 6 "./variant.h"
+  91              		.file 7 "Drivers/CMSIS/Include/core_cm4.h"
+ARM GAS  /var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccAJ23cK.s 			page 3
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 sketch.cpp
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:19     .text.setup:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:24     .text.setup:0000000000000000 setup
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:41     .text.loop:0000000000000000 $t
-/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccdDBXVi.s:46     .text.loop:0000000000000000 loop
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccAJ23cK.s:20     .text.setup:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccAJ23cK.s:25     .text.setup:0000000000000000 setup
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccAJ23cK.s:42     .text.loop:0000000000000000 $t
+/var/folders/19/rz7506jh8xn7x1006s6s574h0000gn/T//ccAJ23cK.s:47     .text.loop:0000000000000000 loop
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

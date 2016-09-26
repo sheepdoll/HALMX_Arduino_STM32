@@ -37,40 +37,17 @@ C_SOURCES = \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ex.c \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_flash_ramfunc.c \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.c \
-  Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd.c \
-  Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pcd_ex.c \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr.c \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_pwr_ex.c \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.c \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc_ex.c \
-  Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_sd.c \
-  Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c \
   Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c \
-  Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_sdmmc.c \
-  Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_ll_usb.c \
-  Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c \
-  Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_core.c \
-  Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c \
-  Middlewares/ST/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c \
-  Middlewares/Third_Party/FatFs/src/diskio.c \
-  Middlewares/Third_Party/FatFs/src/drivers/sd_diskio.c \
-  Middlewares/Third_Party/FatFs/src/ff.c \
-  Middlewares/Third_Party/FatFs/src/ff_gen_drv.c \
-  Middlewares/Third_Party/FatFs/src/option/syscall.c \
   Src/adc.c \
-  Src/bsp_driver_sd.c \
-  Src/fatfs.c \
   Src/gpio.c \
   Src/main.c \
-  Src/sdio.c \
-  Src/spi.c \
   Src/stm32f4xx_hal_msp.c \
   Src/stm32f4xx_it.c \
   Src/usart.c \
-  Src/usb_device.c \
-  Src/usbd_cdc_if.c \
-  Src/usbd_conf.c \
-  Src/usbd_desc.c \
   ../../cores/mapleMX/itoa.c \
   ../../cores/mapleMX/syscalls.c \
   ../../cores/mapleMX/wiring_digital.c \
@@ -119,10 +96,8 @@ C_INCLUDES += -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy
 C_INCLUDES += -IDrivers/CMSIS/Include
 C_INCLUDES += -IInc
 C_INCLUDES += -IDrivers/CMSIS/Device/ST/STM32F4xx/Include
-C_INCLUDES += -IMiddlewares/Third_Party/FatFs/src/drivers
 C_INCLUDES += -IMiddlewares/ST/STM32_USB_Device_Library/Core/Inc
 C_INCLUDES += -IMiddlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
-C_INCLUDES += -IMiddlewares/Third_Party/FatFs/src
 C_INCLUDES += -IInc
 C_INCLUDES += -IInc
 C_INCLUDES += -IDrivers/STM32F4xx_HAL_Driver/Inc
@@ -130,10 +105,8 @@ C_INCLUDES += -IDrivers/STM32F4xx_HAL_Driver/Inc/Legacy
 C_INCLUDES += -IDrivers/CMSIS/Include
 C_INCLUDES += -IInc
 C_INCLUDES += -IDrivers/CMSIS/Device/ST/STM32F4xx/Include
-C_INCLUDES += -IMiddlewares/Third_Party/FatFs/src/drivers
 C_INCLUDES += -IMiddlewares/ST/STM32_USB_Device_Library/Core/Inc
 C_INCLUDES += -IMiddlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
-C_INCLUDES += -IMiddlewares/Third_Party/FatFs/src
 C_INCLUDES += -I./
 C_INCLUDES += -I../../cores/mapleMX
 C_INCLUDES += -I../../cores/mapleMX/avr
@@ -165,7 +138,9 @@ LDSCRIPT = STM32F401RETx_FLASH.ld
 # libraries
 LIBS = -lc -lm -lnosys
 LIBDIR =
-LDFLAGS = -Os -Wl,--gc-sections -mcpu=cortex-m4 -T$(LDSCRIPT) -lm -lgcc -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align -Wl,--warn-unresolved-symbols
+LDFLAGS = -Os -Wl,--gc-sections -mcpu=cortex-m4 -T$(LDSCRIPT) -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,-L/Users/Arethusa/Documents/Arduino/hardware/HALMX_Arduino_STM32/HALMX/variants/MXNucleoF401/ld 
+LDFLAGS += -lm -lgcc -mthumb -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align -Wl,--warn-unresolved-symbols 
+
 #-mthumb -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=softfp -specs=nano.specs -T$(LDSCRIPT) $(LIBDIR) $(LIBS) -Wl,\
 #-Map=$(BUILD_DIR)/$(TARGET).map,--cref -Wl,--gc-sections
 
